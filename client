@@ -1,0 +1,19 @@
+#!/bin/bash
+
+while [ 1 ];
+do
+	read -e -p '> ' raw_input;
+	if [[ ${#raw_input} -gt 0 ]];
+	then
+		echo $raw_input >> $INPUT_FILE;
+		history -s $raw_input;
+	fi
+	if [[ $raw_input =~ (\|*exit|\|*quit)$ ]];
+	then
+		break;
+	fi
+done
+
+rm -f $INPUT_FILE;
+
+screen -X quit > /dev/null 2>&1;

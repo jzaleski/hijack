@@ -1,0 +1,29 @@
+# kill start-up messasge
+startup_message off
+
+# automatically detach if diconnected
+autodetach on
+
+# set the scrollback buffer-size
+defscrollback 100000
+
+# split horizontal
+split
+
+# focus the second pane
+focus down
+
+# resize the second pane (we only want 1 line for input)
+resize -1000
+
+# focus the first pane
+focus up
+
+# run the server script
+screen -t server 0 ./server
+
+# focus the second pane
+focus down
+
+# run the client script
+screen -t client 1 ./client

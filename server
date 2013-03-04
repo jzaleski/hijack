@@ -1,0 +1,3 @@
+#!/bin/bash
+
+touch $INPUT_FILE && tail -f $INPUT_FILE | ./hijack.rb $ARGS;
