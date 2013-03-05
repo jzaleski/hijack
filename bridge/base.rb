@@ -1,6 +1,6 @@
 class BaseBridge
-	def initialize(argv)
-		@argv = argv
+	def initialize(config)
+		@config = config
 	end
 	def required_arguments
 		[]
