@@ -13,16 +13,31 @@ split
 # focus the second pane
 focus down
 
-# resize the second pane (we only want 1 line for input)
+# resize the second horizontal pane (we only want 1 line for input)
 resize -1000
 
-# focus the first pane
-focus up
+# split bottom pane vertically
+split -v
+
+# resize the second veritical pane (first, leave only 1 column for input)
+resize +1000
+
+# now, back it out so that there are 10 columns available
+resize -9
+
+# focus on the status pane
+focus down
+
+# run the status script
+screen -t status 2 ./status
+
+# focus the server pane
+focus down
 
 # run the server script
 screen -t server 0 ./server
 
-# focus the second pane
+# focus the client pane
 focus down
 
 # run the client script
