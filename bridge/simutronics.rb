@@ -22,27 +22,12 @@ class SimutronicsBridge < BaseBridge
 		@previous_line_was_empty = parsed_output.strip.empty?
 		parsed_output.insert(parsed_output.index('>') + 1, "\n") if parsed_output =~ /[a-zA-Z]*>.*/
 		parsed_output.slice!(0..parsed_output.index('>')) if parsed_output.include?('>')
-		if parsed_output.gsub(/\e\[(1|0)m/, '').length <= num_cols
-			return "#{parsed_output.rstrip}\n"
-		end
-		buffer = ''
-		temp = ''
-		parsed_output = raw_output.chomp
-		for word in parsed_output.split
-			word.chomp!
-			if word =~ /[a-zA-Z]*>/
-				word.insert(word.index('>') + 1, "\n")
-				word.sub!(/[a-zA-Z]*>/, '')
-			end
-			if word.gsub(/\e\[(1|0)m/, '').length + temp.gsub(/\e\[(1|0)m/, '').length > num_cols
-				buffer << "#{temp.rstrip}\n"
-				temp = ''
-			end
-			temp << "#{word} "
-		end
-		return "#{buffer}#{temp}\n"
+		can_fit_on_line?(parsed_output) ? "#{parsed_output.rstrip}\n" : multi_line_output(raw_output.chomp)
 	end
 	private
+	def can_fit_on_line?(*values)
+		values.join.gsub(/\e\[(1|0)m/, '').length <= num_cols
+	end
 	def login!
 		login_socket = TCPSocket.new(@config[:login_host], @config[:login_port])
 		login_socket.puts 'K'
@@ -70,5 +55,22 @@ class SimutronicsBridge < BaseBridge
 		login_socket.close unless login_socket.closed?
 		abort('Could not connect to server') unless character_key_response =~ /KEY=\w+/
 		@config[:character_key] = /KEY=(\w+)$/.match(character_key_response).captures.first
+	end
+	def multi_line_output(value)
+		buffer = ''
+		temp = ''
+		for word in value.split
+			word.chomp!
+			if word =~ /[a-zA-Z]*>/
+				word.insert(word.index('>') + 1, "\n")
+				word.sub!(/[a-zA-Z]*>/, '')
+			end
+			unless can_fit_on_line?(word, temp)
+				buffer << "#{temp.rstrip}\n"
+				temp = ''
+			end
+			temp << "#{word} "
+		end
+		"#{buffer}#{temp}\n"
 	end
 end
