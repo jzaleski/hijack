@@ -19,12 +19,12 @@ abort("Bridge: \"#{bridge_name}\" is missing one or more required arguments: #{b
 bridge.connect!
 abort("A connection through Bridge: \"#{bridge_name}\" could not be established") unless bridge.connected?
 
-# Set to "false" to exit
-running = true
+# In order to more easily facilitate scripting input & output are buffered in FIFO queues
+bridge.start_buffering!
 
-# Read loop: move all of the output code below into the bridge. It should simple read and print output directly from the bridge
+# Read loop
 Thread.new {
-	while running && output = bridge.gets
+	while bridge.connected? && output = bridge.gets
 		unless output.nil? || output.empty?
 			STDOUT.puts output
 		end
@@ -33,13 +33,13 @@ Thread.new {
 
 # Write loop
 Thread.new {
-	while running && input = STDIN.gets.chomp
+	while bridge.connected? && input = STDIN.gets.chomp
 		unless input.nil? || input.empty?
 			bridge.puts input
-			running = false if input =~ /\A(exit|quit)\Z/
+			bridge.close! if input =~ /\A(exit|quit)\Z/
 		end
 	end
 }
 
 # Spin until we're ready to exit
-sleep(0.25) while running
+sleep(0.25) while bridge.connected?

@@ -1,6 +1,8 @@
 class BaseBridge
 	def initialize(config)
 		@config = config
+		@input_buffer = Queue.new
+		@output_buffer = Queue.new
 	end
 	def required_arguments
 		[]
@@ -12,13 +14,27 @@ class BaseBridge
 		@socket && !@socket.closed?
 	end
 	def gets
-		@socket.gets
+		@output_buffer.deq
 	end
 	def puts(command)
-		@socket.puts command
+		@input_buffer.enq command
 	end
-	def close
+	def close!
 		@socket.close
+	end
+	def start_buffering!
+		# ensure that this is only run once
+		return if @buffering & @buffering = true
+		Thread.new {
+			while @buffering && connected?
+				@output_buffer.enq @socket.gets
+			end
+		}
+		Thread.new {
+			while @buffering && connected?
+				@socket.puts @input_buffer.deq
+			end
+		}
 	end
 	# XXX: num_{cols,rowa} should be in a utils class and should be evaluated more frequently to catch dimension changes
 	protected
