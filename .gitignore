@@ -3,6 +3,7 @@
 .bundle
 .config
 coverage
+hijack.old
 InstalledFiles
 log
 lib/bundler/man
