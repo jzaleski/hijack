@@ -18,11 +18,9 @@ class SimutronicsBridge < BaseBridge
 	def gets
 		raw_output = super
 		parsed_output = raw_output.chomp
-		return if @previous_line_was_empty and parsed_output.strip.empty?
-		@previous_line_was_empty = parsed_output.strip.empty?
 		parsed_output.insert(parsed_output.index('>') + 1, "\n") if parsed_output =~ /[a-zA-Z]*>.*/
 		parsed_output.slice!(0..parsed_output.index('>')) if parsed_output.include?('>')
-		can_fit_on_line?(parsed_output) ? "#{parsed_output.rstrip}\n" : multi_line_output(raw_output.chomp)
+		"#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
 	end
 	private
 	def can_fit_on_line?(*values)
@@ -57,8 +55,7 @@ class SimutronicsBridge < BaseBridge
 		@config[:character_key] = /KEY=(\w+)$/.match(character_key_response).captures.first
 	end
 	def multi_line_output(value)
-		buffer = ''
-		temp = ''
+		buffer, temp = ['', '']
 		for word in value.split
 			word.chomp!
 			if word =~ /[a-zA-Z]*>/
@@ -71,6 +68,6 @@ class SimutronicsBridge < BaseBridge
 			end
 			temp << "#{word} "
 		end
-		"#{buffer}#{temp}\n"
+		"#{buffer}#{temp}"
 	end
 end
