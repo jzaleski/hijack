@@ -1,3 +1,6 @@
+# preserve the layout after detach/re-attch
+layout new
+
 # kill start-up messasge
 startup_message off
 
