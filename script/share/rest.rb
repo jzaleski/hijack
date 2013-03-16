@@ -1,4 +1,10 @@
 require_relative '../base'
 class RestScript < BaseScript
-	# TODO: Implement me!
+	def run(args)
+		while true
+			sleep 30
+			puts 'exp'
+		end
+	
+	end
 end

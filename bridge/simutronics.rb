@@ -23,9 +23,6 @@ class SimutronicsBridge < BaseBridge
 		"#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
 	end
 	private
-	def can_fit_on_line?(*values)
-		values.join.gsub(/\e\[(1|0)m/, '').length <= num_cols
-	end
 	def login!
 		login_socket = TCPSocket.new(@config[:login_host], @config[:login_port])
 		login_socket.puts 'K'
