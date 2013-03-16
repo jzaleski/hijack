@@ -3,11 +3,11 @@ class BaseScript
 		@stdin, @stdout, @on_exec, @on_exit, @on_kill = stdin, stdout, on_exec, on_exit, on_kill
 	end
 	def start_run(args)
-		@thread = Thread.new {
+		@thread ||= Thread.new {
 			@on_exec.call rescue nil
 			run(args)
 			@on_exit.call rescue nil
-		} unless @thread
+		}
 	end
 	def kill!
 		if running?
@@ -17,6 +17,9 @@ class BaseScript
 	end
 	def run(args)
 		raise 'All Scripts(s) must override the "run" method'
+	end
+	def validate_args(args)
+		true
 	end
 	def running?
 		@thread && @thread.alive?

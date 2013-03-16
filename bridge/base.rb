@@ -23,17 +23,17 @@ class BaseBridge
 		# repeat last command
 		if command == '!!' && @last_command
 			@input_buffer.puts @last_command
-		# script handling
+		# script handling (this should probably be moved to script-manager)
 		elsif command.start_with?(';')
 			command.slice!(0)
-			args = command.split
-			if args[0] == 'k' && script_name = args[1]
+			command_parts = command.split
+			if command_parts[0] == 'k' && script_name = command_parts[1]
 				unless @script_manager.running?(script_name)
 					@output_buffer.puts "\nScript: '#{script_name}' is not running.."
 					return
 				end
 				@script_manager.kill(script_name)
-			elsif script_name = args[0]
+			elsif script_name = command_parts[0]
 				if @script_manager.running?(script_name)
 					@output_buffer.puts "\nScript: '#{script_name}' is already running.."
 					return
@@ -56,7 +56,13 @@ class BaseBridge
 					lambda {@output_buffer.puts "\nScript: '#{script_name}' killed.."}
 				)
 				unless script_object.nil?
-					script_object.start_run(args[1..(args.length - 1)])
+					args = command_parts[1..-1]
+					if errors = script_object.validate_args(args) != true
+						errors = [errors] unless errors.is_a?(Array)
+						@output_buffer.puts "\nScript: '#{script_name}' could not run because: #{errors.join(', ')}"
+						return
+					end
+					script_object.start_run(args)
 					@script_manager.store(
 						script_name,
 						script_object
@@ -73,16 +79,16 @@ class BaseBridge
 		@socket.close
 	end
 	def start_buffering!
-		# ensure that this is only run once
-		return if @buffering & @buffering = true
-		Thread.new {
-			while @buffering && connected?
+		@read_thread ||= Thread.new {
+			while connected?
 				@output_buffer.puts @socket.gets
 			end
 		}
-		Thread.new {
-			while @buffering && connected?
+		@write_thread ||= Thread.new {
+			while connected?
+				next if @last_write_time && (Time.now - @last_write_time).to_f * 1000 < (@config[:allowed_command_frequency_ms] || 100)
 				@socket.puts @input_buffer.gets
+				@last_write_time = Time.now
 			end
 		}
 	end
