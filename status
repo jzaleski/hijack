@@ -1,6 +1,3 @@
 #!/bin/bash
 
-while [ 1 ];
-do
-	sleep 1;
-done
+touch $STATUS_FILE && tail -f $STATUS_FILE;

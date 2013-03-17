@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Ensure the temporary directory exists
 TEMP_DIR='./tmp';
 [[ ! -d $TEMP_DIR ]] && mkdir -p $TEMP_DIR;
-ARGS="$@" INPUT_FILE="$TEMP_DIR/`uuidgen`.in" TEMP_DIR="$TEMP_DIR" screen -c .screenrc-hijack;
+
+# Capture the UUID (it is used multiple times)
+UUID=`uuidgen`;
+
+# Launch the application
+ARGS="$@" CLIENT_FILE="$TEMP_DIR/$UUID.client" SERVER_FILE="$TEMP_DIR/$UUID.server" STATUS_FILE="$TEMP_DIR/$UUID.status" screen -c .screenrc-hijack;
