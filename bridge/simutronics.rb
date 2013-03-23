@@ -14,7 +14,7 @@ class SimutronicsBridge < BaseBridge
 	def connect!
 		login!
 		@socket = TCPSocket.new(@config[:game_host], @config[:game_port])
-		puts "#{@config[:character_key]}\n\n"
+		@socket.puts "#{@config[:character_key]}\n\n"
 	end
 	def gets
 		raw_output = super
