@@ -68,9 +68,19 @@ class BaseBridge
 					)
 				end
 			end
-		# regular command(s) -- pipe delimited
+		# regular command(s)
 		else
-			command.split('|').each {|c| @input_buffer.puts c}
+			# multiple commands [on a single line] are pipe-delimited
+			command.split('|').each do |sub_command|
+				# repeated commands are formatted like: "<command> * <num_repeats>"
+				command_parts = sub_command.split('*')
+				# guard against non-numeric or less than "1"
+				num_repeats = [1, command_parts[1].lstrip.to_i].max rescue 1
+				1.upto(num_repeats) do |counter|
+					@input_buffer.puts command_parts[0].rstrip
+				end
+			end
+			# store the last command (we want to preserve multi-commands and repeats)
 			@last_command = command
 		end
 	end
