@@ -20,11 +20,10 @@ class BaseBridge
 		@output_buffer.gets
 	end
 	def puts(command)
-		# repeat last command
-		if command == '!!' && @last_command
-			@input_buffer.puts @last_command
+		# repeat[ing] last command
+		command = @last_command if command == '!!' && @last_command
 		# script handling (this should probably be moved to script-manager)
-		elsif command.start_with?(';')
+		if command.start_with?(';')
 			command.slice!(0)
 			command_parts = command.split
 			if command_parts[0] == 'k' && script_name = command_parts[1]
@@ -69,9 +68,9 @@ class BaseBridge
 					)
 				end
 			end
-		# regular command
+		# regular command(s) -- pipe delimited
 		else
-			@input_buffer.puts command
+			command.split('|').each {|c| @input_buffer.puts c}
 			@last_command = command
 		end
 	end
