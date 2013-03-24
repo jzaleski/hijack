@@ -3,19 +3,43 @@
 require 'socket'
 require 'thread'
 
-# Create a hash out of the args specified on the command-line
+# Instantiate a hash to store all of the parsed config keys/values
 config = {}
-ARGV.each {|arg| config[/--(\w+)=/.match(arg).captures.first.to_sym] = /--\w+=(\w+)/.match(arg).captures.first if arg =~ /--\w+=\w+/}
 
-# Find and instantiate bridge then, attempt to connect to the game server
-abort('You must specify a "bridge"') unless config.has_key?(:bridge)
-bridge_name = config[:bridge]
+# Process all of the args specified on the command-line (replace all '-' with '_')
+ARGV.each do |arg|
+	if match_data = /\A--(\S+)=(\S+)\Z/.match(arg)
+		config[match_data[1].sub('-', '_').to_sym] = match_data[2]
+	end
+end
+
+# If the "config-file" argument was specified, and it exists, load and process the file (again, replace all '-' with '_')
+config_file = config.delete(:config_file)
+if config_file && File.exist?(config_file)
+	File.new(config_file).each_line do |line|
+		if match_data = /\A(\S+)\s?=\s?(\S+)\Z/.match(line)
+			config[match_data[1].rstrip.sub('-', '_').to_sym] = match_data[2].lstrip
+		end
+	end
+end
+
+# Ensure that the "bridge" argument is present
+bridge_name = config.delete(:bridge)
+abort('You must specify a "bridge"') unless bridge_name
+
+# Construct the bridge file-path and verify its existence
 bridge_file_path = "./bridge/#{bridge_name}.rb"
 abort("Bridge: \"#{bridge_name}\" does not exist..") unless File.exist?(bridge_file_path)
+
+# Load the bridge-file and attempt to instantiate it
 load bridge_file_path
 bridge_class_name = bridge_name.split('_').each {|w| w.capitalize!}.join + 'Bridge'
 bridge = Object::const_get(bridge_class_name).new(config)
+
+# Validate all of the necessary arguments, for the bridge, are present
 abort("Bridge: \"#{bridge_name}\" is missing one or more required arguments: #{bridge.required_arguments.join(', ')}") if bridge.required_arguments.any? {|a| config[a].nil?}
+
+# Try to connect to the game-host
 bridge.connect!
 abort("A connection through Bridge: \"#{bridge_name}\" could not be established") unless bridge.connected?
 
