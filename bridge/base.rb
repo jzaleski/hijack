@@ -57,9 +57,8 @@ class BaseBridge
 				)
 				unless script_object.nil?
 					args = command_parts[1..-1]
-					if errors = script_object.validate_args(args) != true
-						errors = [errors] unless errors.is_a?(Array)
-						@output_buffer.puts "\nScript: '#{script_name}' could not run because: #{errors.join(', ')}"
+					unless script_object.validate_args(args)
+						@output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
 						return
 					end
 					script_object.start_run(args)
