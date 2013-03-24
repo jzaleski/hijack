@@ -1,4 +1,5 @@
 require_relative './base'
+require_relative '../util/layout_manager'
 class SimutronicsBridge < BaseBridge
 	def initialize(config)
 		super
@@ -24,6 +25,9 @@ class SimutronicsBridge < BaseBridge
 		"#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
 	end
 	private
+	def can_fit_on_line?(*values)
+		values.join.gsub(/\e\[(1|0)m/, '').length <= LayoutManager.num_cols
+	end
 	def login!
 		login_socket = TCPSocket.new(@config[:login_host], @config[:login_port])
 		login_socket.puts 'K'

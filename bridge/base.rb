@@ -40,7 +40,7 @@ class BaseBridge
 				script_path = [
 					"./scripts/#{@config[:script_dir]}/#{script_name}.rb",
 					"./script/share/#{script_name}.rb",
-				].find {|x| File.exist?(x)}
+				].find {|script_file| File.exist?(script_file)}
 				unless script_path
 					@output_buffer.puts "\nScript: '#{script_name}' does not exist.."
 					return
@@ -72,6 +72,8 @@ class BaseBridge
 		else
 			# multiple commands [on a single line] are pipe-delimited
 			command.split('|').each do |sub_command|
+				# [always] remove leading/trailing whitespace
+				sub_command.strip!
 				# repeated commands are formatted like: "<command> * <num_repeats>"
 				command_parts = sub_command.split('*')
 				# guard against non-numeric or less than "1"
@@ -100,16 +102,5 @@ class BaseBridge
 				@last_write_time = Time.now
 			end
 		}
-	end
-	# TODO: relocate.. all of the following methods should probably in a util class
-	protected
-	def can_fit_on_line?(*values)
-		values.join.gsub(/\e\[(1|0)m/, '').length <= num_cols
-	end
-	def num_cols
-		@num_cols ||= (STDIN.tty? ? `stty size`.split.last : `tput cols`).to_i
-	end
-	def num_rows
-		@num_rows ||= (STDIN.tty? ? `stty size`.split.first : `tput rows`).to_i
 	end
 end
