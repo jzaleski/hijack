@@ -48,6 +48,7 @@ class BaseBridge
 				load script_path
 				script_class_name = script_name.split('_').each {|w| w.capitalize!}.join + 'Script'
 				script_object = Object::const_get(script_class_name).new(
+					@config,
 					@input_buffer,
 					@output_buffer,
 					lambda {@output_buffer.puts "\nScript: '#{script_name}' executing.."},

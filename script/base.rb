@@ -1,6 +1,6 @@
 class BaseScript
-	def initialize(stdin, stdout, on_exec=nil, on_exit=nil, on_kill=nil)
-		@stdin, @stdout, @on_exec, @on_exit, @on_kill = stdin, stdout, on_exec, on_exit, on_kill
+	def initialize(config, stdin, stdout, on_exec=nil, on_exit=nil, on_kill=nil)
+		@config, @stdin, @stdout, @on_exec, @on_exit, @on_kill = config, stdin, stdout, on_exec, on_exit, on_kill
 	end
 	def start_run(args)
 		@thread ||= Thread.new {
