@@ -23,10 +23,10 @@ resize -1000
 focus up
 
 # run the server script
-screen -t server 0 ./server
+screen -t server 0 script/server
 
 # [re-]focus the client pane
 focus down
 
 # run the client script
-screen -t client 1 ./client
+screen -t client 1 script/client
