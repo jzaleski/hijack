@@ -1,9 +1,9 @@
-Hijack
+hijack
 ======
 
-Pluggable MUD client written in Ruby
+Pluggable MUD client written in ruby
 
-Currently Supported Games
-=========================
+Currently Supported Games:
+--------------------------
 
 - Gemstone IV (Prime)
