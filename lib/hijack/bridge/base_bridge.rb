@@ -1,5 +1,5 @@
-require_relative '../util/buffer'
-require_relative '../util/script_manager'
+require 'hijack/util/buffer'
+require 'hijack/util/script_manager'
 class BaseBridge
   def initialize(config)
     @config = config
@@ -38,8 +38,8 @@ class BaseBridge
           return
         end
         script_path = [
-          "#{@config[:root_dir]}/script/#{@config[:script_dir]}/#{script_name}.rb",
-          "#{@config[:root_dir]}/script/share/#{script_name}.rb",
+          "#{@config[:root_dir]}/script/#{@config[:script_dir]}/#{script_name}_script.rb",
+          "#{@config[:root_dir]}/script/share/#{script_name}_script.rb",
         ].find {|script_file| File.exist?(script_file)}
         unless script_path
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."

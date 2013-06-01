@@ -3,6 +3,9 @@
 require 'socket'
 require 'thread'
 
+# Ensure that the "lib" directory is in the load-path
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__)))
+
 # Instantiate a hash to store all of the parsed config keys/values
 config = {}
 
@@ -31,7 +34,7 @@ bridge_name = config.delete(:bridge)
 abort('You must specify a "bridge"') unless bridge_name
 
 # Construct the bridge file-path and verify its existence
-bridge_file_path = "#{config[:root_dir]}/bridge/#{bridge_name}.rb"
+bridge_file_path = "#{config[:root_dir]}/bridge/#{bridge_name}_bridge.rb"
 abort("Bridge: \"#{bridge_name}\" does not exist..") unless File.exist?(bridge_file_path)
 
 # Load the bridge-file and attempt to instantiate it

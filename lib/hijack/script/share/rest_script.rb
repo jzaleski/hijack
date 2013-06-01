@@ -1,4 +1,4 @@
-require_relative '../base'
+require 'hijack/script/base_script'
 class RestScript < BaseScript
   def run(args)
     while true

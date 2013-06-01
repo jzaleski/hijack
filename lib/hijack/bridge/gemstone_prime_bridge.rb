@@ -1,4 +1,4 @@
-require_relative './simutronics'
+require 'hijack/bridge/simutronics_bridge'
 class GemstonePrimeBridge < SimutronicsBridge
   def initialize(config)
     super
