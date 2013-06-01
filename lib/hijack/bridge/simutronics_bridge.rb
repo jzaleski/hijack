@@ -1,5 +1,5 @@
-require_relative './base'
-require_relative '../util/layout_manager'
+require 'hijack/bridge/base_bridge'
+require 'hijack/util/layout_manager'
 class SimutronicsBridge < BaseBridge
   def initialize(config)
     super
