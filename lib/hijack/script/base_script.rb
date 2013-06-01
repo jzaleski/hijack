@@ -28,7 +28,7 @@ class BaseScript
   end
 
   def running?
-    @thread && @thread.alive?
+    !@thread.nil? && @thread.alive?
   end
 
   protected

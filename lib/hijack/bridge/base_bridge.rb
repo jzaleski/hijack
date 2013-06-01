@@ -19,7 +19,7 @@ class BaseBridge
   end
 
   def connected?
-    @socket && !@socket.closed?
+    !@socket.nil? && !@socket.closed?
   end
 
   def gets
@@ -95,7 +95,7 @@ class BaseBridge
   end
 
   def close!
-    @socket.close
+    @socket.close rescue nil
   end
 
   def start_buffering!
