@@ -1,24 +1,31 @@
 require 'hijack/util/buffer'
 require 'hijack/util/script_manager'
+
 class BaseBridge
+
   def initialize(config)
     @config = config
     @input_buffer = Buffer.new
     @output_buffer = Buffer.new
     @script_manager = ScriptManager.new
   end
+
   def required_arguments
     []
   end
+
   def connect!
     raise 'All Bridge(s) must override the "connect!" method and set "@socket" therein'
   end
+
   def connected?
     @socket && !@socket.closed?
   end
+
   def gets
     @output_buffer.gets
   end
+
   def puts(command)
     # repeat[ing] last command
     command = @last_command if command == '!!' && @last_command
@@ -86,9 +93,11 @@ class BaseBridge
       @last_command = command
     end
   end
+
   def close!
     @socket.close
   end
+
   def start_buffering!
     @read_thread ||= Thread.new do
       while connected?
@@ -103,4 +112,5 @@ class BaseBridge
       end
     end
   end
+
 end

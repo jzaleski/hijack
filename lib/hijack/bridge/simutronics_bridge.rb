@@ -1,6 +1,8 @@
 require 'hijack/bridge/base_bridge'
 require 'hijack/util/layout_manager'
+
 class SimutronicsBridge < BaseBridge
+
   def initialize(config)
     super
     @config.merge!({
@@ -9,14 +11,17 @@ class SimutronicsBridge < BaseBridge
       :login_port => 7900,
     })
   end
+
   def required_arguments
     [:account, :password, :character]
   end
+
   def connect!
     login!
     @socket = TCPSocket.new(@config[:game_host], @config[:game_port])
     @socket.puts "#{@config[:character_key]}\n\n"
   end
+
   def gets
     raw_output = super
     parsed_output = raw_output.chomp
@@ -24,10 +29,13 @@ class SimutronicsBridge < BaseBridge
     parsed_output.slice!(0..parsed_output.index('>')) if parsed_output.include?('>')
     "#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
   end
+
   private
+
   def can_fit_on_line?(*values)
     values.join.gsub(/\e\[(1|0)m/, '').length <= LayoutManager.num_cols
   end
+
   def login!
     login_socket = TCPSocket.new(@config[:login_host], @config[:login_port])
     login_socket.puts 'K'
@@ -56,6 +64,7 @@ class SimutronicsBridge < BaseBridge
     abort('Could not connect to server') unless character_key_response =~ /KEY=\w+/
     @config[:character_key] = /KEY=(\w+)$/.match(character_key_response).captures.first
   end
+
   def multi_line_output(value)
     buffer, temp = ['', '']
     for word in value.split
@@ -72,4 +81,5 @@ class SimutronicsBridge < BaseBridge
     end
     "#{buffer}#{temp}"
   end
+
 end

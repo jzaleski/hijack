@@ -1,5 +1,7 @@
 require 'hijack/bridge/simutronics_bridge'
+
 class GemstonePrimeBridge < SimutronicsBridge
+
   def initialize(config)
     super
     @config.merge!({
@@ -8,4 +10,5 @@ class GemstonePrimeBridge < SimutronicsBridge
       :game_code => 'GS3',
     })
   end
+
 end
