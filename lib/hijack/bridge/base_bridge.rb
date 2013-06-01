@@ -45,8 +45,8 @@ class BaseBridge
           return
         end
         script_path = [
-          "#{@config[:root_dir]}/script/#{@config[:script_dir]}/#{script_name}_script.rb",
-          "#{@config[:root_dir]}/script/share/#{script_name}_script.rb",
+          "#{SCRIPT_DIR}/#{@config[:script_dir]}/#{script_name}_script.rb",
+          "#{SCRIPT_DIR}/share/#{script_name}_script.rb",
         ].find {|script_file| File.exist?(script_file)}
         unless script_path
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."

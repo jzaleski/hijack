@@ -3,8 +3,8 @@
 require 'socket'
 require 'thread'
 
-# Ensure that the "lib" directory is in the load-path
-$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__)))
+# Load the environment file
+require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
 
 # Instantiate a hash to store all of the parsed config keys/values
 config = {}
@@ -26,15 +26,12 @@ if config_file && File.exist?(config_file)
   end
 end
 
-# Store the "root_dir" in the configuration Hash
-config[:root_dir] = "#{File.dirname(__FILE__)}/hijack"
-
 # Ensure that the "bridge" argument is present
 bridge_name = config.delete(:bridge)
 abort('You must specify a "bridge"') unless bridge_name
 
 # Construct the bridge file-path and verify its existence
-bridge_file_path = "#{config[:root_dir]}/bridge/#{bridge_name}_bridge.rb"
+bridge_file_path = "#{BRIDGE_DIR}/#{bridge_name}_bridge.rb"
 abort("Bridge: \"#{bridge_name}\" does not exist..") unless File.exist?(bridge_file_path)
 
 # Load the bridge-file and attempt to instantiate it
