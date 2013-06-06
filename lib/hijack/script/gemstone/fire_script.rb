@@ -6,6 +6,9 @@ class FireScript < BaseScript
     puts 'kneel'
     puts 'stance off'
     puts 'fire'
+    sleep 2.5
+    puts 'stance def'
+    puts 'stand'
   end
 
 end

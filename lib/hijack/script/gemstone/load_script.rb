@@ -17,11 +17,11 @@ class LoadScript < BaseScript
   protected
 
   def config_weapon
-    @config[:load_weapon]
+    @config[:weapon]
   end
 
   def config_ammo
-    @config[:load_ammo]
+    @config[:ammo]
   end
 
 end
