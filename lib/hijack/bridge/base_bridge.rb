@@ -29,6 +29,8 @@ class BaseBridge
   def puts(command)
     # repeat[ing] last command
     command = @last_command if command == '!!' && @last_command
+    # store the command (we need to copy the string since the reference is mutated below)
+    @last_command = "#{command}"
     # script handling (this should probably be moved to script-manager)
     if command.start_with?(';')
       command.slice!(0)
@@ -89,8 +91,6 @@ class BaseBridge
           @input_buffer.puts command_parts[0].rstrip
         end
       end
-      # store the last command (we want to preserve multi-commands and repeats)
-      @last_command = command
     end
   end
 
