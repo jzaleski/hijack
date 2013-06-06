@@ -3,7 +3,7 @@ require 'hijack/script/base_script'
 class GetScript < BaseScript
 
   def validate_args(args)
-    config_container ? [1, 2].include?(args.length) : args.length == 2
+    args.length == 2 || (config_container && args.length == 1)
   end
 
   def run(args)
