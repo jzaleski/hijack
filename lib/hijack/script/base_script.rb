@@ -1,7 +1,12 @@
 class BaseScript
 
-  def initialize(config, stdin, stdout, on_exec=nil, on_exit=nil, on_kill=nil)
-    @config, @stdin, @stdout, @on_exec, @on_exit, @on_kill = config, stdin, stdout, on_exec, on_exit, on_kill
+  def initialize(config, input_buffer, output_buffer, on_exec=nil, on_exit=nil, on_kill=nil)
+    @config = config
+    @input_buffer = input_buffer
+    @output_buffer = output_buffer
+    @on_exec = on_exec
+    @on_exit = on_exit
+    @on_kill = on_kill
   end
 
   def start_run(args)
@@ -34,11 +39,11 @@ class BaseScript
   protected
 
   def gets
-    @stdout.gets
+    @output_buffer.gets
   end
 
   def puts(command)
-    @stdin.puts(command)
+    @input_buffer.puts(command)
   end
 
 end
