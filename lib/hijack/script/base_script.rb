@@ -17,7 +17,7 @@ class BaseScript
     }
   end
 
-  def kill!
+  def kill
     if running?
       @thread.kill
       @on_kill.call rescue nil

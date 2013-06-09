@@ -6,7 +6,7 @@ class ScriptManager
 
   def kill(script_name)
     script_object = @scripts.delete(script_name)
-    script_object.kill! unless script_object.nil?
+    script_object.kill unless script_object.nil?
   end
 
   def store(script_name, script_object)
