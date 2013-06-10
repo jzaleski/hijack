@@ -7,7 +7,11 @@ class BaseBridge
     @config = config
     @input_buffer = Buffer.new
     @output_buffer = Buffer.new
-    @script_manager = ScriptManager.new
+    @script_manager = ScriptManager.new(
+      @config,
+      @input_buffer,
+      @output_buffer
+    )
   end
 
   def required_arguments
@@ -33,50 +37,7 @@ class BaseBridge
     @last_command = "#{command}"
     # script handling (this should probably be moved to script-manager)
     if command.start_with?(';')
-      command.slice!(0)
-      command_parts = command.split
-      if command_parts[0] == 'k' && script_name = command_parts[1]
-        unless @script_manager.running?(script_name)
-          @output_buffer.puts "\nScript: '#{script_name}' is not running.."
-          return
-        end
-        @script_manager.kill(script_name)
-      elsif script_name = command_parts[0]
-        if @script_manager.running?(script_name)
-          @output_buffer.puts "\nScript: '#{script_name}' is already running.."
-          return
-        end
-        script_path = [
-          "#{SCRIPT_DIR}/#{@config[:script_dir]}/#{script_name}_script.rb",
-          "#{SCRIPT_DIR}/share/#{script_name}_script.rb",
-        ].find {|script_file| File.exist?(script_file)}
-        unless script_path
-          @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
-          return
-        end
-        load script_path
-        script_class_name = script_name.split('_').each {|w| w.capitalize!}.join + 'Script'
-        script_object = Object::const_get(script_class_name).new(
-          @config,
-          @input_buffer,
-          @output_buffer,
-          lambda {@output_buffer.puts "\nScript: '#{script_name}' executing.."},
-          lambda {@output_buffer.puts "\nScript: '#{script_name}' exited.."},
-          lambda {@output_buffer.puts "\nScript: '#{script_name}' killed.."}
-        )
-        unless script_object.nil?
-          args = command_parts[1..-1]
-          unless script_object.validate_args(args)
-            @output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
-            return
-          end
-          script_object.start_run(args)
-          @script_manager.store(
-            script_name,
-            script_object
-          )
-        end
-      end
+      @script_manager.execute(command[1..-1])
     # regular command(s)
     else
       # multiple commands [on a single line] are pipe-delimited
