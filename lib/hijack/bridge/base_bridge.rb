@@ -19,7 +19,7 @@ class BaseBridge
   end
 
   def connect!
-    raise 'All Bridge(s) must override the "connect!" method and set "@socket" therein'
+    raise 'All Bridge(s) must override the "connect!" method and set "@socket"'
   end
 
   def connected?
@@ -33,7 +33,8 @@ class BaseBridge
   def puts(command, on_exec=nil)
     # repeat[ing] last command
     command = @last_command if command == '!!' && @last_command
-    # store the command (we need to copy the string since the reference is mutated below)
+    # store the command (we need to copy the string since the reference is
+    # mutated below)
     @last_command = "#{command}"
     # script handling (this should probably be moved to script-manager)
     if command.start_with?(';')
@@ -69,11 +70,18 @@ class BaseBridge
     end
     @write_thread ||= Thread.new do
       while connected?
-        next if @last_write_time && (Time.now - @last_write_time).to_f * 1000 < (@config[:allowed_command_frequency_ms] || 100)
+        next unless can_write?
         @socket.puts @input_buffer.gets
         @last_write_time = Time.now
       end
     end
+  end
+
+  private
+
+  def can_write?
+    !(@last_write_time && (Time.now - @last_write_time).to_f * 1000 < \
+    (@config[:allowed_command_frequency_ms] || 100))
   end
 
 end

@@ -9,8 +9,8 @@ class CockScript < BaseScript
   def run(args)
     weapon = args[0] || config_weapon
     puts "cock my #{weapon}"
-    # TODO: should sleep here and go to stance defensive (for now the
-    # "load" script takes care of this)
+    # TODO: should sleep here and go to stance defensive (for now the "load"
+    # script takes care of this)
   end
 
   protected

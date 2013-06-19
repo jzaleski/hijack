@@ -1,6 +1,7 @@
 class BaseScript
 
-  def initialize(config, input_buffer, output_buffer, on_exec=nil, on_exit=nil, on_kill=nil)
+  def initialize(config, input_buffer, output_buffer, on_exec=nil, on_exit=nil,
+                 on_kill=nil)
     @config = config
     @input_buffer = input_buffer
     @output_buffer = output_buffer
