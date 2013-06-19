@@ -30,7 +30,7 @@ class BaseBridge
     @output_buffer.gets
   end
 
-  def puts(command)
+  def puts(command, on_exec=nil)
     # repeat[ing] last command
     command = @last_command if command == '!!' && @last_command
     # store the command (we need to copy the string since the reference is mutated below)
@@ -53,6 +53,8 @@ class BaseBridge
         end
       end
     end
+    # invoke the "on_exec" callback
+    on_exec.call rescue nil
   end
 
   def close!
