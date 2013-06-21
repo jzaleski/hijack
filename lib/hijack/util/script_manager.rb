@@ -1,9 +1,10 @@
 class ScriptManager
 
-  def initialize(config, input_buffer, output_buffer)
+  def initialize(config, input_buffer, output_buffer, callback_manager)
     @config = config
     @input_buffer = input_buffer
     @output_buffer = output_buffer
+    @callback_manager = callback_manager
     @scripts = {}
   end
 
@@ -36,6 +37,7 @@ class ScriptManager
           @config,
           @input_buffer,
           @output_buffer,
+          @callback_manager,
           lambda {@output_buffer.puts "\nScript: '#{script_name}' executing.."},
           lambda {@output_buffer.puts "\nScript: '#{script_name}' exited.."},
           lambda {@output_buffer.puts "\nScript: '#{script_name}' killed.."}

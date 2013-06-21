@@ -1,4 +1,5 @@
 require 'hijack/util/buffer'
+require 'hijack/util/callback_manager'
 require 'hijack/util/script_manager'
 
 class BaseBridge
@@ -7,10 +8,12 @@ class BaseBridge
     @config = config
     @input_buffer = Buffer.new
     @output_buffer = Buffer.new
+    @callback_manager = CallbackManager.new
     @script_manager = ScriptManager.new(
       @config,
       @input_buffer,
-      @output_buffer
+      @output_buffer,
+      @callback_manager
     )
   end
 
@@ -27,7 +30,9 @@ class BaseBridge
   end
 
   def gets
-    @output_buffer.gets
+    line = @output_buffer.gets
+    @callback_manager.process("#{line}".chomp)
+    line
   end
 
   def puts(command, on_exec=nil)

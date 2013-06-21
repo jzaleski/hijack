@@ -1,10 +1,11 @@
 class BaseScript
 
-  def initialize(config, input_buffer, output_buffer, on_exec=nil, on_exit=nil,
-                 on_kill=nil)
+  def initialize(config, input_buffer, output_buffer, callback_manager,
+                 on_exec=nil, on_exit=nil, on_kill=nil)
     @config = config
     @input_buffer = input_buffer
     @output_buffer = output_buffer
+    @callback_manager = callback_manager
     @on_exec = on_exec
     @on_exit = on_exit
     @on_kill = on_kill
