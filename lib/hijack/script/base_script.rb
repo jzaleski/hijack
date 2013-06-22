@@ -1,5 +1,9 @@
 class BaseScript
 
+  # TODO: consider passing in a reference to the bridge itself as opposed to or
+  # in addition to the input/output buffers. There are some circumstances where
+  # it could be nice to leverage all of the command parsing logic associated
+  # with a bridge
   def initialize(config, input_buffer, output_buffer, callback_manager,
                  on_exec=nil, on_exit=nil, on_kill=nil)
     @config = config
