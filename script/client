@@ -8,7 +8,7 @@ do
 		echo "$raw_input" >> $CLIENT_FILE;
 		history -s $raw_input;
 	fi
-	if [[ $raw_input =~ (\|*exit|\|*quit)$ ]];
+	if [[ $raw_input =~ ^(\|*exit|\|*quit)$ ]];
 	then
 		break;
 	fi
