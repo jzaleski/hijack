@@ -71,7 +71,6 @@ Thread.new do
   while bridge.connected? && input = STDIN.gets.chomp
     unless input.nil? || input.empty?
       bridge.puts input
-      bridge.close! if input =~ /\A(exit|quit)\Z/
     end
   end
 end

@@ -37,6 +37,17 @@ class BaseBridge
   end
 
   def puts(command, on_exec=nil)
+    # exit[ing]
+    if command =~ /\A(exit|quit)\Z/
+      # send the command immediately
+      @socket.puts command
+      # close the socket
+      close!
+      # quit the screen-session (if applicable)
+      %x{screen -X quit > /dev/null 2>&1} if ENV['STY']
+      # short-circuit (no reason to proceed any further, since we are exiting)
+      return
+    end
     # repeat[ing] last command
     command = @last_command if command == '!!' && @last_command
     # store the command (we need to copy the string since the reference is
