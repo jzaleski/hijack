@@ -36,7 +36,7 @@ class BaseBridge
     line
   end
 
-  def puts(command, on_exec=nil)
+  def puts(command)
     # exit[ing]
     if command =~ /\A(exit|quit)\Z/
       # send the command immediately
@@ -71,8 +71,6 @@ class BaseBridge
         end
       end
     end
-    # invoke the "on_exec" callback
-    on_exec.call rescue nil
   end
 
   def close!
