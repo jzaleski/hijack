@@ -1,15 +1,8 @@
 class BaseScript
 
-  # TODO: consider passing in a reference to the bridge itself as opposed to or
-  # in addition to the input/output buffers. There are some circumstances where
-  # it could be nice to leverage all of the command parsing logic associated
-  # with a bridge
-  def initialize(config, input_buffer, output_buffer, callback_manager,
-                 on_exec=nil, on_exit=nil, on_kill=nil)
+  def initialize(config, bridge, on_exec=nil, on_exit=nil, on_kill=nil)
     @config = config
-    @input_buffer = input_buffer
-    @output_buffer = output_buffer
-    @callback_manager = callback_manager
+    @bridge = bridge
     @on_exec = on_exec
     @on_exit = on_exit
     @on_kill = on_kill
@@ -34,22 +27,18 @@ class BaseScript
     raise 'All Scripts(s) must override the "run" method'
   end
 
-  def validate_args(args)
-    true
-  end
-
   def running?
     !@thread.nil? && @thread.alive?
   end
 
-  protected
-
-  def gets
-    @output_buffer.gets
+  def validate_args(args)
+    true
   end
 
+  protected
+
   def puts(command)
-    @input_buffer.puts(command)
+    @bridge.puts(command)
   end
 
 end

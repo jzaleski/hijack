@@ -1,10 +1,8 @@
 class ScriptManager
 
-  def initialize(config, input_buffer, output_buffer, callback_manager)
+  def initialize(config, bridge, callback_manager)
     @config = config
-    @input_buffer = input_buffer
-    @output_buffer = output_buffer
-    @callback_manager = callback_manager
+    @bridge = bridge
     @scripts = {}
   end
 
@@ -14,13 +12,13 @@ class ScriptManager
       command_parts = command.split
       if command_parts[0] == 'k' && script_name = command_parts[1]
         unless running?(script_name)
-          @output_buffer.puts "\nScript: '#{script_name}' is not running.."
+          @bridge.output_buffer.puts "\nScript: '#{script_name}' is not running.."
           return
         end
         kill(script_name)
       elsif script_name = command_parts[0]
         if running?(script_name)
-          @output_buffer.puts "\nScript: '#{script_name}' is already running.."
+          @bridge.output_buffer.puts "\nScript: '#{script_name}' is already running.."
           return
         end
         script_path = [
@@ -28,24 +26,22 @@ class ScriptManager
           "#{SCRIPT_DIR}/share/#{script_name}_script.rb",
         ].find {|script_file| File.exist?(script_file)}
         unless script_path
-          @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
+          @bridge.output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
         end
         load script_path
         script_class_name = script_name.split('_').each {|w| w.capitalize!}.join + 'Script'
         script_object = Object::const_get(script_class_name).new(
           @config,
-          @input_buffer,
-          @output_buffer,
-          @callback_manager,
-          lambda {@output_buffer.puts "\nScript: '#{script_name}' executing.."},
-          lambda {@output_buffer.puts "\nScript: '#{script_name}' exited.."},
-          lambda {@output_buffer.puts "\nScript: '#{script_name}' killed.."}
+          @bridge,
+          lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' executing.."},
+          lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' exited.."},
+          lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' killed.."}
         )
         unless script_object.nil?
           args = command_parts[1..-1]
           unless script_object.validate_args(args)
-            @output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
+            @bridge.output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
             return
           end
           script_object.start_run(args)

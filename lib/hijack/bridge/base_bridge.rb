@@ -4,6 +4,8 @@ require 'hijack/util/script_manager'
 
 class BaseBridge
 
+  attr_reader :callback_manager, :input_buffer, :output_buffer
+
   def initialize(config)
     @config = config
     @input_buffer = Buffer.new
@@ -11,8 +13,7 @@ class BaseBridge
     @callback_manager = CallbackManager.new
     @script_manager = ScriptManager.new(
       @config,
-      @input_buffer,
-      @output_buffer,
+      self,
       @callback_manager
     )
   end
