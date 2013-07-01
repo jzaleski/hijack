@@ -11,6 +11,8 @@ class SliceScript < BaseScript
       sleep 3.5
       puts 'draw'
       sleep 3.5
+      puts 'chop'
+      sleep 4.5
     end
     num_reinvocations = args[1].to_i
     if num_reinvocations > 0
