@@ -2,10 +2,6 @@ require 'hijack/script/base_script'
 
 class SliceScript < BaseScript
 
-  def validate_args(args)
-    args.length >= 1
-  end
-
   def run(args)
     num_iterations = (args[0] || 1).to_i
     num_iterations.times do |i|
