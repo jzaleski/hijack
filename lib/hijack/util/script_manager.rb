@@ -30,7 +30,7 @@ class ScriptManager
           return
         end
         load script_path
-        script_class_name = script_name.split('_').each {|w| w.capitalize!}.join + 'Script'
+        script_class_name = "#{script_name.split('_').map(&:capitalize).join}Script"
         script_object = Object::const_get(script_class_name).new(
           @config,
           @bridge,
