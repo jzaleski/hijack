@@ -22,8 +22,8 @@ class BaseBridge
     []
   end
 
-  def connect!
-    raise 'All Bridge(s) must override the "connect!" method and set "@socket"'
+  def connect
+    raise 'All Bridge(s) must override the "connect" method and set "@socket"'
   end
 
   def connected?
@@ -44,7 +44,7 @@ class BaseBridge
       # send the command immediately
       @socket.puts command
       # close the socket
-      close!
+      close
       # quit the screen-session (if applicable)
       %x{screen -X quit > /dev/null 2>&1} if ENV['STY']
       # short-circuit (no reason to proceed any further, since we are exiting)
@@ -78,11 +78,11 @@ class BaseBridge
     end
   end
 
-  def close!
+  def close
     @socket.close rescue nil
   end
 
-  def start_buffering!
+  def start_buffering
     @read_thread ||= Thread.new do
       while connected?
         @output_buffer.puts(@socket.gets)

@@ -16,8 +16,8 @@ class SimutronicsBridge < BaseBridge
     [:account, :password, :character]
   end
 
-  def connect!
-    login!
+  def connect
+    login
     @socket = TCPSocket.new(@config[:game_host], @config[:game_port])
     @socket.puts "#{@config[:character_key]}\n\n"
   end
@@ -36,7 +36,7 @@ class SimutronicsBridge < BaseBridge
     values.join.gsub(/\e\[(1|0)m/, '').length <= LayoutManager.num_cols
   end
 
-  def login!
+  def login
     login_socket = TCPSocket.new(@config[:login_host], @config[:login_port])
     login_socket.puts 'K'
     hash_key_character_codes = login_socket.gets.bytes.to_a

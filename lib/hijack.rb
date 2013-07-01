@@ -48,14 +48,14 @@ if bridge.required_arguments.any? {|a| config[a].nil?}
 end
 
 # Try to connect to the game-host
-bridge.connect!
+bridge.connect
 unless bridge.connected?
   abort("Bridge: \"#{bridge_name}\" could not connect")
 end
 
 # In order to more easily facilitate scripting input & output are buffered in
 # FIFO queues
-bridge.start_buffering!
+bridge.start_buffering
 
 # Read loop
 Thread.new do
