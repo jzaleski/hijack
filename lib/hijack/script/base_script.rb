@@ -38,7 +38,7 @@ class BaseScript
   protected
 
   def puts(command)
-    @bridge.puts(command)
+    @bridge.puts(command, false)
   end
 
 end

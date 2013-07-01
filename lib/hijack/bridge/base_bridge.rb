@@ -36,7 +36,7 @@ class BaseBridge
     line
   end
 
-  def puts(command)
+  def puts(command, store_command=true)
     # exit[ing]
     if command =~ /\A(exit|quit)\Z/
       # send the command immediately
@@ -52,7 +52,7 @@ class BaseBridge
     command = @last_command if command == '!!' && @last_command
     # store the command (we need to copy the string since the reference is
     # mutated below)
-    @last_command = "#{command}"
+    @last_command = "#{command}" if store_command
     # script handling (this should probably be moved to script-manager)
     if command.start_with?(';')
       @script_manager.execute(command[1..-1])
