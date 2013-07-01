@@ -12,7 +12,8 @@ class HideScript < BaseScript
     end
     num_reinvocations = args[1].to_i
     if num_reinvocations > 0
-      puts ";wait 15 ;hide #{num_iterations} #{num_reinvocations - 1}"
+      wait_time = (args[2] || 15).to_i
+      puts ";wait #{wait_time} ;hide #{num_iterations} #{num_reinvocations - 1}"
     end
   end
 
