@@ -36,7 +36,9 @@ class BaseBridge
     line
   end
 
-  def puts(command, store_command=true)
+  def puts(command, opts={})
+    # merge default options
+    opts = {:store_command => true}.merge(opts)
     # exit[ing]
     if command =~ /\A(exit|quit)\Z/
       # send the command immediately
@@ -52,7 +54,7 @@ class BaseBridge
     command = @last_command if command == '!!' && @last_command
     # store the command (we need to copy the string since the reference is
     # mutated below)
-    @last_command = "#{command}" if store_command
+    @last_command = "#{command}" if opts[:store_command] == true
     # script handling (this should probably be moved to script-manager)
     if command.start_with?(';')
       @script_manager.execute(command[1..-1])
@@ -67,7 +69,10 @@ class BaseBridge
         # guard against non-numeric or less than "1"
         num_repeats = [1, command_parts[1].lstrip.to_i].max rescue 1
         1.upto(num_repeats) do |counter|
-          @input_buffer.puts command_parts[0].rstrip
+          # enqueue the command (and pass "opts" along)
+          @input_buffer.puts([command_parts[0].rstrip, opts])
+          # call the "on_enqueue" hook (if it was specified)
+          opts[:on_enqueue].call if opts[:on_enqueue] rescue nil
         end
       end
     end
@@ -80,14 +85,23 @@ class BaseBridge
   def start_buffering!
     @read_thread ||= Thread.new do
       while connected?
-        @output_buffer.puts @socket.gets
+        @output_buffer.puts(@socket.gets)
       end
     end
     @write_thread ||= Thread.new do
       while connected?
+        # skip this iteration if we're not able to write
         next unless can_write?
-        @socket.puts @input_buffer.gets
+        # extract the command and opts (opts *should* never be nil, but we are
+        # safe either way)
+        command, opts = @input_buffer.gets
+        # send the command
+        @socket.puts(command)
+        # update the last write time (we want this to occur as soon as possible
+        # after the command is dispatched)
         @last_write_time = Time.now
+        # call the "on_exec" hook (if it was specified)
+        opts[:on_exec].call if opts[:on_exec] rescue nil
       end
     end
   end

@@ -37,8 +37,11 @@ class BaseScript
 
   protected
 
-  def puts(command)
-    @bridge.puts(command, false)
+  def puts(command, opts={})
+    # merge default options
+    opts = {:store_command => false}.merge(opts)
+    # send the command (and opts) to the bridge
+    @bridge.puts(command, opts)
   end
 
 end
