@@ -3,17 +3,13 @@ require 'hijack/script/base_script'
 class ChangeStancesScript < BaseScript
 
   def run(args)
-    num_iterations = (args[0] || 1).to_i
-    sleep_time = (args[1] || 30).to_i
-    num_iterations.times do |i|
-      puts 'stance evasion'
-      puts 'dodge'
+    sleep_time = (args[0] || 30).to_i
+    loop do
+      puts 'stance evasion|dodge'
       sleep sleep_time
-      puts 'stance parry'
-      puts 'parry'
+      puts 'stance parry|parry'
       sleep sleep_time
-      puts 'stance shield'
-      puts 'block'
+      puts 'stance shield|block'
       sleep sleep_time
     end
   end
