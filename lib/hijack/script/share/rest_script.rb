@@ -3,7 +3,7 @@ require 'hijack/script/base_script'
 class RestScript < BaseScript
 
   def run(args)
-    while true
+    loop do
       sleep 30
       puts 'exp'
     end
