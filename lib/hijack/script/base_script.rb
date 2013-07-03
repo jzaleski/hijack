@@ -44,4 +44,14 @@ class BaseScript
     @bridge.puts(command, opts)
   end
 
+  def wait_for_match(pattern)
+    waiting = true
+    @bridge.callback_manager.add_match(
+      pattern,
+      lambda {waiting = false}
+    )
+    # sleep on this thread while waiting for the callback to be fired
+    sleep 0.1 while waiting
+  end
+
 end

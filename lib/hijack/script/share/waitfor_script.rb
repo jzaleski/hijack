@@ -7,10 +7,8 @@ class WaitforScript < BaseScript
   end
 
   def run(args)
-    @bridge.callback_manager.add_match(
-      args[0],
-      lambda {puts args[1..-1].join(' ')}
-    )
+    wait_for_match args[0]
+    puts args[1..-1].join(' ')
   end
 
 end
