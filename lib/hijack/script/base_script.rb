@@ -45,13 +45,16 @@ class BaseScript
   end
 
   def wait_for_match(pattern)
-    waiting = true
+    match = nil
+    # set the hook
     @bridge.callback_manager.add_match(
       pattern,
-      lambda {waiting = false}
+      lambda {|m| match = m}
     )
-    # sleep on this thread while waiting for the callback to be fired
-    sleep 0.1 while waiting
+    # sleep on this thread while waiting for the hook to be invoked
+    sleep 0.1 until match
+    # return the result
+    match
   end
 
 end

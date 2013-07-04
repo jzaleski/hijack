@@ -8,9 +8,11 @@ class CallbackManager
 
   def process(line)
     @callbacks.keys.each do |pattern|
-      if line.match(pattern)
+      if match_data = line.match(pattern)
+        # currently only a single-match is supported
+        match = match_data[0]
         @callbacks.delete(pattern).each do |callback|
-          callback.call rescue nil
+          callback.call(match) rescue nil
         end
       end
     end
