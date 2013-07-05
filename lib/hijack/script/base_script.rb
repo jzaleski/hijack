@@ -44,13 +44,17 @@ class BaseScript
     @bridge.puts(command, opts)
   end
 
-  def wait_for_match(pattern)
+  def wait_for_match(pattern, command=nil)
+    # for scoping reasons this must be defined outside of the lambda (below)
     match = nil
     # set the hook
     @bridge.callback_manager.add_match(
       pattern,
       lambda {|m| match = m}
     )
+    # now, execute the command, if specified, this must be done after the hook
+    # is set
+    puts(command) if command
     # sleep on this thread while waiting for the hook to be invoked
     sleep 0.1 until match
     # return the result
