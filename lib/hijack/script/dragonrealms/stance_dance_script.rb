@@ -1,6 +1,6 @@
 require 'hijack/script/base_script'
 
-class ChangeStancesScript < BaseScript
+class StanceDanceScript < BaseScript
 
   def run(args)
     sleep_time = (args[0] || 30).to_i
