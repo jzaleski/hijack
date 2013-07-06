@@ -42,7 +42,7 @@ class SimutronicsBridge < BaseBridge
     hash_key_character_codes = login_socket.gets.bytes.to_a
     password_character_codes = @config[:password].bytes.to_a
     password_character_codes.each_index {|i| password_character_codes[i] = ((password_character_codes[i] - 32) ^ hash_key_character_codes[i]) + 32}
-    hashed_password = password_character_codes.map {|c| c.chr}.join
+    hashed_password = password_character_codes.map(&:chr).join
     login_socket.puts "A\t#{@config[:account]}\t#{hashed_password}\n"
     login_response = login_socket.gets
     abort('Cancelled account and/or invalid account/password specified') if !login_response || login_response =~ /REJECT/
@@ -56,9 +56,9 @@ class SimutronicsBridge < BaseBridge
     login_socket.puts "P\t#{@config[:game_code]}"
     login_socket.gets
     login_socket.puts 'C'
-    character_login_response = login_socket.gets
+    character_login_response = login_socket.gets.split
     abort('Invalid character name specified') unless character_login_response && character_login_response.include?(@config[:character])
-    login_socket.puts "L\t#{character_login_response.split(/\t/)[5]}\tSTORM"
+    login_socket.puts "L\t#{character_login_response[character_login_response.index(@config[:character]) - 1]}\tSTORM"
     character_key_response = login_socket.gets
     login_socket.close unless login_socket.closed?
     abort('Could not connect to server') unless character_key_response =~ /KEY=\w+/
