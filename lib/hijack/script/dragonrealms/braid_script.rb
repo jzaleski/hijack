@@ -2,9 +2,9 @@ require 'hijack/script/base_script'
 
 class BraidScript < BaseScript
 
-  BRAIDING_MATERIAL_FOUND = 'You manage to find'
   FORAGE_FAILURE_1 = 'unable to find anything.'
   FORAGE_FAILURE_2 = 'what you might find.'
+  FORAGE_SUCCESS = 'You manage to find'
   HANDS_FULL = 'at least one hand free'
   IN_ROUNDTIME = '...wait'
   MORE_MATERIAL = 'to have more material'
@@ -19,13 +19,12 @@ class BraidScript < BaseScript
   FORAGE_FAILURES = [
     FORAGE_FAILURE_1,
     FORAGE_FAILURE_2,
-    IN_ROUNDTIME,
   ]
 
   FORAGE_PATTERN = [
-    BRAIDING_MATERIAL_FOUND,
     FORAGE_FAILURE_1,
     FORAGE_FAILURE_2,
+    FORAGE_SUCCESS,
     HANDS_FULL,
     IN_ROUNDTIME,
   ].join('|')
@@ -44,11 +43,19 @@ class BraidScript < BaseScript
         FORAGE_PATTERN,
         "forage #{material}"
       )
-      # exit, probably hit and edge case or started w/ full hands
-      return if match == HANDS_FULL
-      # retry
+      case match
+        # return[ing] here will cause the script to exit
+        when HANDS_FULL
+          return
+        when IN_ROUNDTIME
+          sleep 1
+          next
+        # at this point successful or not we are in roundtime, so sleep
+        else
+          sleep 4.5
+      end
+      # retry if we've hit one of the failure cases
       next if FORAGE_FAILURES.include?(match)
-      sleep 4.5
       # braiding
       loop do
         match = wait_for_match(
@@ -59,11 +66,14 @@ class BraidScript < BaseScript
         # an example of the messaging to create the pattern
         case match
           when IN_ROUNDTIME
+            sleep 1
             next
           when MORE_MATERIAL
             break
+          # the success case, at minimum, will impose 5s roundtime, rely on the
+          # "IN_ROUNDTIME" case to handle any additional roundtime
           else
-            sleep 10.5
+            sleep 5.5
         end
       end
     end
