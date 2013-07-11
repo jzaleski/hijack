@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class ThrustScript < BaseScript
+class ThrustScript < BaseDragonrealmsScript
 
   IN_ROUNDTIME = '...wait'
   ROUNDTIME = 'Roundtime'

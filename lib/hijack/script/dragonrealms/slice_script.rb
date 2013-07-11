@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class SliceScript < BaseScript
+class SliceScript < BaseDragonrealmsScript
 
   IN_ROUNDTIME = '...wait'
   ROUNDTIME = 'Roundtime'

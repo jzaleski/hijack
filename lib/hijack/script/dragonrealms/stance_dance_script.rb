@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class StanceDanceScript < BaseScript
+class StanceDanceScript < BaseDragonrealmsScript
 
   ALREADY_PERFORMING_MANEUVER = 'you are already'
   IN_ROUNDTIME = '...wait'

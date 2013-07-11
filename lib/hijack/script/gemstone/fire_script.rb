@@ -1,4 +1,4 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_script'
 
 class FireScript < BaseScript
 

@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class BraidScript < BaseScript
+class BraidScript < BaseDragonrealmsScript
 
   FORAGE_FAILURE_1 = 'unable to find anything.'
   FORAGE_FAILURE_2 = 'what you might find.'

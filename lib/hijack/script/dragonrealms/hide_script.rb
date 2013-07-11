@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class HideScript < BaseScript
+class HideScript < BaseDragonrealmsScript
 
   IN_ROUNDTIME = '...wait'
   NOT_HIDDEN = 'you are not hidden'

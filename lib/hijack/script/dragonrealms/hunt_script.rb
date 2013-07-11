@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class HuntScript < BaseScript
+class HuntScript < BaseDragonrealmsScript
 
   HUNT_SUCCESS = 'You take note of all the tracks'
   IN_ROUNDTIME = '...wait'

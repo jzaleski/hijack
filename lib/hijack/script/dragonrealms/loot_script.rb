@@ -1,6 +1,6 @@
-require 'hijack/script/base_script'
+require 'hijack/script/base/base_dragonrealms_script'
 
-class LootScript < BaseScript
+class LootScript < BaseDragonrealmsScript
 
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
