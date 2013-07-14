@@ -4,18 +4,18 @@ class StanceDanceScript < BaseDragonrealmsScript
 
   ALREADY_PERFORMING_MANEUVER = 'you are already'
   IN_ROUNDTIME = '...wait'
-  ROUNDTIME = 'Roundtime'
+  MANEUVER_CHANGED = 'You move into a position to'
   STANCE_CHANGED = 'You are now set to use'
 
   CHANGE_MANEUVER_PATTERN = [
     ALREADY_PERFORMING_MANEUVER,
+    MANEUVER_CHANGED,
     IN_ROUNDTIME,
-    ROUNDTIME,
   ].join('|')
 
   CHANGE_MANEUVER_SUCCESSES = [
     ALREADY_PERFORMING_MANEUVER,
-    ROUNDTIME,
+    MANEUVER_CHANGED,
   ]
 
   CHANGE_STANCE_PATTERN = [
