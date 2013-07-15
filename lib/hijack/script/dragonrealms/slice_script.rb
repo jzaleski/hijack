@@ -3,23 +3,24 @@ require 'hijack/script/base/base_dragonrealms_script'
 class SliceScript < BaseDragonrealmsScript
 
   IN_ROUNDTIME = '...wait'
+  NO_TARGETS = 'There is nothing else'
   ROUNDTIME = 'Roundtime'
 
   ATTACK_PATTERN = [
     IN_ROUNDTIME,
+    NO_TARGETS,
     ROUNDTIME,
   ].join('|')
 
   def run(args)
-    num_iterations = (args[0] || 1).to_i
+    intersequence_sleep_time = \
+      (args[0] || config_intersequence_sleep_time || 15).to_i
     loop do
-      num_iterations.times do |i|
-        attack('feint', 2.5)
-        attack('slice', 3.5)
-        attack('draw', 3.5)
-        attack('chop', 4.5)
-      end
-      wait_for_match 'You feel fully rested.'
+      attack('feint', 2.5)
+      attack('slice', 3.5)
+      attack('draw', 3.5)
+      attack('chop', 4.5)
+      sleep intersequence_sleep_time
     end
   end
 
@@ -31,12 +32,21 @@ class SliceScript < BaseDragonrealmsScript
         ATTACK_PATTERN,
         attack_type
       )
-      if match == ROUNDTIME
-        sleep success_sleep_time
-        break
+      case match
+        when NO_TARGETS
+          sleep 15
+          next
+        when ROUNDTIME
+          sleep success_sleep_time
+          break
+        else
+          sleep 1
       end
-      sleep 1
     end
+  end
+
+  def config_intersequence_sleep_time
+    @config[:slice_intersequence_sleep_time]
   end
 
 end
