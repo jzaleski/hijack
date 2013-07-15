@@ -3,14 +3,12 @@ require 'hijack/script/base/base_dragonrealms_script'
 class StanceDanceScript < BaseDragonrealmsScript
 
   ALREADY_PERFORMING_MANEUVER = 'you are already'
-  IN_ROUNDTIME = '...wait'
   MANEUVER_CHANGED = 'You move into a position to'
   STANCE_CHANGED = 'You are now set to use'
 
   CHANGE_MANEUVER_PATTERN = [
     ALREADY_PERFORMING_MANEUVER,
     MANEUVER_CHANGED,
-    IN_ROUNDTIME,
   ].join('|')
 
   CHANGE_MANEUVER_SUCCESSES = [
@@ -18,54 +16,36 @@ class StanceDanceScript < BaseDragonrealmsScript
     MANEUVER_CHANGED,
   ]
 
-  CHANGE_STANCE_PATTERN = [
-    IN_ROUNDTIME,
-    STANCE_CHANGED,
-  ].join('|')
+  CHANGE_STANCE_PATTERN = STANCE_CHANGED
+
+  STANCES_AND_MANEUVERS = [
+    ['evasion', 'dodge'],
+    ['parry', 'parry'],
+    ['shield', 'block'],
+  ]
 
   def run(args)
-    sleep_time = (args[0] || 30).to_i
+    intersequence_sleep_time = \
+      (args[0] || config_intersequence_sleep_time || 30).to_i
     loop do
-      change_stance_and_maneuver(
-        'evasion',
-        'dodge',
-        sleep_time
-      )
-      change_stance_and_maneuver(
-        'parry',
-        'parry',
-        sleep_time
-      )
-      change_stance_and_maneuver(
-        'shield',
-        'block',
-        sleep_time
-      )
+      STANCES_AND_MANEUVERS.each do |stance, maneuver|
+       wait_for_match(
+          CHANGE_STANCE_PATTERN,
+          "stance #{stance}"
+        )
+        wait_for_match(
+          CHANGE_MANEUVER_PATTERN,
+          maneuver
+        )
+        sleep intersequence_sleep_time
+      end
     end
   end
 
   private
 
-  def change_stance_and_maneuver(stance, maneuver, success_sleep_time)
-    loop do
-      match = wait_for_match(
-        CHANGE_STANCE_PATTERN,
-        "stance #{stance}"
-      )
-      break if match == STANCE_CHANGED
-      sleep 1
-    end
-    loop do
-      match = wait_for_match(
-        CHANGE_MANEUVER_PATTERN,
-        maneuver
-      )
-      if CHANGE_MANEUVER_SUCCESSES.include?(match)
-        sleep success_sleep_time
-        break
-      end
-      sleep 1
-    end
+  def config_intersequence_sleep_time
+    @config[:stance_dance_intersequence_sleep_time]
   end
 
 end

@@ -3,23 +3,15 @@ require 'hijack/script/base/base_dragonrealms_script'
 class HuntScript < BaseDragonrealmsScript
 
   HUNT_SUCCESS = 'You take note of all the tracks'
-  IN_ROUNDTIME = '...wait'
 
-  HUNT_PATTERN = [
-    HUNT_SUCCESS,
-    IN_ROUNDTIME,
-  ].join('|')
+  HUNT_PATTERN = HUNT_SUCCESS
 
   def run(args)
     loop do
-      loop do
-        match = wait_for_match(
-          HUNT_PATTERN,
-          'hunt'
-        )
-        break if match == HUNT_SUCCESS
-        sleep 1
-      end
+      wait_for_match(
+        HUNT_PATTERN,
+        'hunt'
+      )
       # the learning timeout is 75s, wait a few extra seconds for good measure
       sleep 80
     end

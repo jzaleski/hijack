@@ -2,18 +2,13 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class HideScript < BaseDragonrealmsScript
 
-  IN_ROUNDTIME = '...wait'
+  HIDE_SUCCESS = 'You melt into'
   NOT_HIDDEN = 'you are not hidden'
-  ROUNDTIME = 'Roundtime'
   UNHIDE = 'You come out'
 
-  HIDE_PATTERN = [
-    IN_ROUNDTIME,
-    ROUNDTIME,
-  ].join('|')
+  HIDE_PATTERN = HIDE_SUCCESS
 
   UNHIDE_PATTERN = [
-    IN_ROUNDTIME,
     NOT_HIDDEN,
     UNHIDE,
   ].join('|')
@@ -24,32 +19,26 @@ class HideScript < BaseDragonrealmsScript
   ]
 
   def run(args)
-    num_iterations = (args[0] || 1).to_i
-    sleep_time = (args[1] || 15).to_i
+    intersequence_sleep_time = \
+      (args[0] || config_intersequence_sleep_time || 15).to_i
     loop do
-      num_iterations.times do |i|
-        loop do
-          match = wait_for_match(
-            HIDE_PATTERN,
-            'hide'
-          )
-          if match == ROUNDTIME
-            sleep 6.5
-            break
-          end
-          sleep 1
-        end
-        loop do
-          match = wait_for_match(
-            UNHIDE_PATTERN,
-            'unhide'
-          )
-          break if UNHIDE_SUCCESSES.include?(match)
-          sleep 1
-        end
-      end
-      sleep sleep_time
+      wait_for_match(
+        HIDE_PATTERN,
+        'hide'
+      )
+      sleep 6.5
+      wait_for_match(
+        UNHIDE_PATTERN,
+        'unhide'
+      )
+      sleep intersequence_sleep_time
     end
+  end
+
+  private
+
+  def config_intersequence_sleep_time
+    @config[:hide_intersequence_sleep_time]
   end
 
 end

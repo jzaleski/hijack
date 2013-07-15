@@ -4,7 +4,6 @@ class LootScript < BaseDragonrealmsScript
 
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
-  IN_ROUNDTIME = '...wait'
   LOOT_SUCCESS = 'You search'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
@@ -21,11 +20,7 @@ class LootScript < BaseDragonrealmsScript
     OBVIOUS_PATHS,
   ].join('|')
 
-
-  LOOT_PATTERN = [
-    IN_ROUNDTIME,
-    LOOT_SUCCESS,
-  ].join('|')
+  LOOT_PATTERN = LOOT_SUCCESS
 
   def run(args)
     loot_type = args[0] || config_loot_type || 'goods'
@@ -39,20 +34,13 @@ class LootScript < BaseDragonrealmsScript
         sleep 15
         next
       end
-      loop do
-        match = wait_for_match(
-          LOOT_PATTERN,
-          "loot #{loot_type}"
-        )
-        # wait a few additional seconds on loot-success before returning to the
-        # main loop (give the creature some time to decay)
-        if match == LOOT_SUCCESS
-          sleep 3
-          break
-        end
-        # in round-time, wait one second between attempts
-        sleep 1
-      end
+      wait_for_match(
+        LOOT_PATTERN,
+        "loot #{loot_type}"
+      )
+      # wait a few additional seconds on loot-success before returning to the
+      # main loop (give the creature some time to decay)
+      sleep 3
     end
   end
 
