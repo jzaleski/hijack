@@ -19,7 +19,7 @@ class SliceScript < BaseDragonrealmsScript
 
   def run(args)
     intersequence_sleep_time = \
-      (args[0] || config_intersequence_sleep_time || 15).to_i
+      (args[0] || config_intersequence_sleep_time || 30).to_i
     loop do
       ATTACKS_AND_SLEEP_TIMES.each do |attack, sleep_time|
         loop do
