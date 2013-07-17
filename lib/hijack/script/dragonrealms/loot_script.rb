@@ -5,6 +5,7 @@ class LootScript < BaseDragonrealmsScript
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
   LOOT_SUCCESS = 'You search'
+  NO_CORPSE = 'I could not find'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
 
@@ -20,7 +21,10 @@ class LootScript < BaseDragonrealmsScript
     OBVIOUS_PATHS,
   ].join('|')
 
-  LOOT_PATTERN = LOOT_SUCCESS
+  LOOT_PATTERN = [
+    LOOT_SUCCESS,
+    NO_CORPSE,
+  ].join('|')
 
   def run(args)
     loot_type = args[0] || config_loot_type || 'goods'
