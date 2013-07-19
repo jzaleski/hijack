@@ -65,7 +65,7 @@ bridge.start_buffering
 # Read loop
 Thread.new do
   while bridge.connected? && output = bridge.gets
-    unless output.nil? || output.empty?
+    unless output.empty?
       STDOUT.puts output
     end
   end

@@ -1,6 +1,6 @@
-require 'hijack/bridge/simutronics_bridge'
+require 'hijack/bridge/base_dragonrealms_bridge'
 
-class DragonrealmsPrimeBridge < SimutronicsBridge
+class DragonrealmsPrimeBridge < BaseDragonrealmsBridge
 
   def initialize(config)
     super
