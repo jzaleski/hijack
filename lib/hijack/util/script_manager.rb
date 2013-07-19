@@ -10,12 +10,27 @@ class ScriptManager
   def execute(command)
     unless command.empty?
       command_parts = command.split
-      if command_parts[0] == 'k' && script_name = command_parts[1]
+      if ['k', 'p', 'r'].include?(command_parts[0]) && script_name = command_parts[1]
         unless running?(script_name)
           @bridge.output_buffer.puts "\nScript: '#{script_name}' is not running.."
           return
         end
-        kill(script_name)
+        case command_parts[0]
+          when 'k'
+            kill(script_name)
+          when 'p'
+            if paused?(script_name)
+              @bridge.output_buffer.puts "\nScript: '#{script_name}' is already paused.."
+              return
+            end
+            pause(script_name)
+          when 'r'
+            unless paused?(script_name)
+              @bridge.output_buffer.puts "\nScript: '#{script_name}' is already running.."
+              return
+            end
+            resume(script_name)
+        end
       elsif script_name = command_parts[0]
         if running?(script_name)
           @bridge.output_buffer.puts "\nScript: '#{script_name}' is already running.."
@@ -34,9 +49,11 @@ class ScriptManager
         script_object = Object::const_get(script_class_name).new(
           @config,
           @bridge,
-          lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' executing.."},
-          lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' exited.."},
-          lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' killed.."}
+          :on_exec => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' executing.."},
+          :on_exit => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' exited.."},
+          :on_kill => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' killed.."},
+          :on_pause => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' paused.."},
+          :on_resume => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' resumed.."}
         )
         unless script_object.nil?
           args = command_parts[1..-1]
@@ -66,17 +83,21 @@ class ScriptManager
     script_object.pause unless script_object.nil?
   end
 
+  def paused?(script_name)
+    @scripts[script_name] && @scripts[script_name].paused?
+  end
+
   def resume(script_name)
     script_object = @scripts[script_name]
     script_object.resume unless script_object.nil?
   end
 
-  def store(script_name, script_object)
-    @scripts[script_name] = script_object
-  end
-
   def running?(script_name)
     @scripts[script_name] && @scripts[script_name].running?
+  end
+
+  def store(script_name, script_object)
+    @scripts[script_name] = script_object
   end
 
 end

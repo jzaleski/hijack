@@ -1,11 +1,13 @@
 class BaseScript
 
-  def initialize(config, bridge, on_exec=nil, on_exit=nil, on_kill=nil)
+  def initialize(config, bridge, opts={})
     @config = config
     @bridge = bridge
-    @on_exec = on_exec
-    @on_exit = on_exit
-    @on_kill = on_kill
+    @on_exec = opts[:on_exec]
+    @on_exit = opts[:on_exit]
+    @on_kill = opts[:on_kill]
+    @on_pause = opts[:on_pause]
+    @on_resume = opts[:on_resume]
   end
 
   def start_run(args)
@@ -24,15 +26,25 @@ class BaseScript
   end
 
   def pause
-    @paused = true
+    if !paused?
+      @paused = true
+      @on_pause.call rescue nil
+    end
   end
 
   def resume
-    @paused = false
+    if paused?
+      @paused = false
+      @on_resume.call rescue nil
+    end
   end
 
   def run(args)
     raise 'All Scripts(s) must override the "run" method'
+  end
+
+  def paused?
+    @paused == true
   end
 
   def running?
