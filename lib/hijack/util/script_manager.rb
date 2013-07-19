@@ -61,6 +61,16 @@ class ScriptManager
     script_object.kill unless script_object.nil?
   end
 
+  def pause(script_name)
+    script_object = @scripts[script_name]
+    script_object.pause unless script_object.nil?
+  end
+
+  def resume(script_name)
+    script_object = @scripts[script_name]
+    script_object.resume unless script_object.nil?
+  end
+
   def store(script_name, script_object)
     @scripts[script_name] = script_object
   end

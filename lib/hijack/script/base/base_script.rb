@@ -23,6 +23,14 @@ class BaseScript
     end
   end
 
+  def pause
+    @paused = true
+  end
+
+  def resume
+    @paused = false
+  end
+
   def run(args)
     raise 'All Scripts(s) must override the "run" method'
   end
