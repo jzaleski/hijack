@@ -44,7 +44,7 @@ class LootScript < BaseDragonrealmsScript
       )
       # wait a few additional seconds on loot-success before returning to the
       # main loop (give the creature some time to decay)
-      sleep 3
+      sleep 5
     end
   end
 
