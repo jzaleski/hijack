@@ -1,7 +1,7 @@
-require 'hijack/bridge/base_bridge'
+require 'hijack/bridge/base/base_bridge'
 require 'hijack/util/layout_manager'
 
-class SimutronicsBridge < BaseBridge
+class BaseSimutronicsBridge < BaseBridge
 
   def initialize(config)
     super

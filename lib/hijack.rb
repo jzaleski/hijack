@@ -32,12 +32,16 @@ if config_file && File.exist?(config_file)
   end
 end
 
+# Ensure that the "game" argument is present
+game_name = config.delete(:game)
+abort('You must specify a "game"') unless game_name
+
 # Ensure that the "bridge" argument is present
 bridge_name = config.delete(:bridge)
 abort('You must specify a "bridge"') unless bridge_name
 
 # Construct the bridge file-path and verify its existence
-bridge_file_path = "#{BRIDGE_DIR}/#{bridge_name}_bridge.rb"
+bridge_file_path = "#{BRIDGE_DIR}/#{game_name}/#{bridge_name}_bridge.rb"
 unless File.exist?(bridge_file_path)
   abort("Bridge: \"#{bridge_name}\" does not exist..")
 end

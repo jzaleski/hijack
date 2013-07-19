@@ -1,6 +1,6 @@
-require 'hijack/bridge/simutronics_bridge'
+require 'hijack/bridge/base/base_simutronics_bridge'
 
-class GemstonePrimeBridge < SimutronicsBridge
+class GemstonePrimeBridge < BaseSimutronicsBridge
 
   def initialize(config)
     super

@@ -1,4 +1,4 @@
-require 'hijack/bridge/base_dragonrealms_bridge'
+require 'hijack/bridge/base/base_dragonrealms_bridge'
 
 class DragonrealmsPrimeBridge < BaseDragonrealmsBridge
 
