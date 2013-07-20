@@ -10,7 +10,11 @@ class ScriptManager
   def execute(command)
     unless command.empty?
       command_parts = command.split
-      if ['k', 'p', 'r'].include?(command_parts[0]) && script_name = command_parts[1]
+      if command_parts[0] == 'l'
+        scripts = @scripts.keys
+        running_scripts = scripts.empty? ? '(none)' : "- #{scripts.sort.join("\n- ")}"
+        @bridge.output_buffer.puts "\nRunning scripts:\n================\n\n#{running_scripts}"
+      elsif ['k', 'p', 'r'].include?(command_parts[0]) && script_name = command_parts[1]
         unless running?(script_name)
           @bridge.output_buffer.puts "\nScript: '#{script_name}' is not running.."
           return
