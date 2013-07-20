@@ -8,6 +8,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   NO_CORPSE = 'I could not find'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
+  SKIN_WHAT = 'Skin what\?'
 
   LOOK_FAILURES = [
     OBVIOUS_EXITS,
@@ -46,7 +47,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
       end
       # skin
       wait_for_match(
-        "#{skin_type} from|#{NO_CORPSE}",
+        "#{skin_type} from|#{NO_CORPSE}|#{SKIN_WHAT}",
         'skin'
       )
       # wait a few seconds before attempting to drop the skin
