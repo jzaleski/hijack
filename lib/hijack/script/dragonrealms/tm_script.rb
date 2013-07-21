@@ -5,7 +5,8 @@ class TmScript < BaseDragonrealmsScript
   ALREADY_PREPARED = 'You have already fully'
   ALREADY_TARGETTED = 'Your target pattern is'
   CASTED = 'You gesture'
-  NO_SPELL = "You aren't preparing a spell"
+  NO_SPELL_1 = "You aren't preparing a spell"
+  NO_SPELL_2 = "You don't have a spell prepared"
   NO_TARGETS = 'There is nothing else'
   PREPARING_SPELL = 'You raise an'
   RELEASE = 'You let your concentration lapse'
@@ -23,17 +24,19 @@ class TmScript < BaseDragonrealmsScript
   ].join('|')
 
   RELEASE_PATTERN = [
-    NO_SPELL,
+    NO_SPELL_1,
     RELEASE,
   ].join('|')
 
   TARGET_FAILURES = [
     NO_TARGETS,
+    NO_SPELL_2,
     TARGET_DEAD,
   ]
 
   TARGET_PATTERN = [
     ALREADY_TARGETTED,
+    NO_SPELL_2,
     NO_TARGETS,
     TARGETTING,
     TARGET_DEAD,
