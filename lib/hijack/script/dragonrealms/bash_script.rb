@@ -6,11 +6,12 @@ class BashScript < BaseDragonrealmsAttackScript
 
   def combat_sequence
     [
-      ['feint', 2.5],
-      ['bash', 4.5],
-      ['sweep', 4.5],
-      ['draw', 3.5],
+      ['feint', 1.5],
+      ['bash', 3.5],
+      ['sweep', 3.5],
+      ['draw', 2.5],
       ['swing', 3.5],
+      ['bob', 3.5],
     ]
   end
 
