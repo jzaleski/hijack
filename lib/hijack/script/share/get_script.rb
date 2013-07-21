@@ -11,6 +11,7 @@ class GetScript < BaseScript
     container = args[1] || config_container
     puts "get #{item}"
     puts "open #{container}"
+    sleep 1
     puts "put my #{item} in #{container}"
     puts "close #{container}"
   end
