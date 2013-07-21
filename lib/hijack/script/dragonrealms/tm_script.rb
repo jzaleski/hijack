@@ -9,6 +9,8 @@ class TmScript < BaseDragonrealmsScript
   PREPARING_SPELL = 'You raise an'
   RELEASE = 'You let your concentration lapse'
   TARGETTING = 'You begin to weave'
+  TARGETTING_COMPLETE = 'Your formation of a targeting pattern'
+  TARGET_DEAD = 'Your target pattern dissipates'
 
   CAST_PATTERN = CASTED
 
@@ -23,6 +25,11 @@ class TmScript < BaseDragonrealmsScript
     ALREADY_TARGETTED,
     NO_TARGETS,
     TARGETTING,
+  ].join('|')
+
+  TARGETTING_COMPLETE_PATTERN = [
+    TARGETTING_COMPLETE,
+    TARGET_DEAD,
   ].join('|')
 
   def validate_args(args)
@@ -50,7 +57,17 @@ class TmScript < BaseDragonrealmsScript
         sleep 15
         next
       end
-      sleep 7.5
+      wait_for_match(
+        TARGETTING_COMPLETE_PATTERN
+      )
+      if match == TARGET_DEAD
+        wait_for_match(
+          RELEASE_PATTERN,
+          'release'
+        )
+        sleep 15
+        next
+      end
       wait_for_match(
         CAST_PATTERN,
         'cast'
