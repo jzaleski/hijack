@@ -12,7 +12,10 @@ class TmScript < BaseDragonrealmsScript
   TARGETTING_COMPLETE = 'Your formation of a targeting pattern'
   TARGET_DEAD = 'Your target pattern dissipates'
 
-  CAST_PATTERN = CASTED
+  CAST_PATTERN = [
+    CASTED,
+    TARGET_DEAD,
+  ].join('|')
 
   PREP_PATTERN = [
     ALREADY_PREPARED,
@@ -21,10 +24,16 @@ class TmScript < BaseDragonrealmsScript
 
   RELEASE_PATTERN = RELEASE
 
+  TARGET_FAILURES = [
+    NO_TARGETS,
+    TARGET_DEAD,
+  ]
+
   TARGET_PATTERN = [
     ALREADY_TARGETTED,
     NO_TARGETS,
     TARGETTING,
+    TARGET_DEAD,
   ].join('|')
 
   TARGETTING_COMPLETE_PATTERN = [
@@ -49,7 +58,7 @@ class TmScript < BaseDragonrealmsScript
         TARGET_PATTERN,
         'target'
       )
-      if match == NO_TARGETS
+      if TARGET_FAILURES.include?(match)
         wait_for_match(
           RELEASE_PATTERN,
           'release'
