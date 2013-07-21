@@ -53,11 +53,23 @@ class ScriptManager
         script_object = Object::const_get(script_class_name).new(
           @config,
           @bridge,
-          :on_exec => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' executing.."},
-          :on_exit => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' exited.."},
-          :on_kill => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' killed.."},
-          :on_pause => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' paused.."},
-          :on_resume => lambda {@bridge.output_buffer.puts "\nScript: '#{script_name}' resumed.."}
+          :on_exec => lambda do
+            @bridge.output_buffer.puts "\nScript: '#{script_name}' executing.."
+          end,
+          :on_exit => lambda do
+            delete(script_name)
+            @bridge.output_buffer.puts "\nScript: '#{script_name}' exited.."
+          end,
+          :on_kill => lambda do
+            delete(script_name)
+            @bridge.output_buffer.puts "\nScript: '#{script_name}' killed.."
+          end,
+          :on_pause => lambda do
+            @bridge.output_buffer.puts "\nScript: '#{script_name}' paused.."
+          end,
+          :on_resume => lambda do
+            @bridge.output_buffer.puts "\nScript: '#{script_name}' resumed.."
+          end
         )
         unless script_object.nil?
           args = command_parts[1..-1]
@@ -77,8 +89,12 @@ class ScriptManager
 
   private
 
+  def delete(script_name)
+    @scripts.delete(script_name)
+  end
+
   def kill(script_name)
-    script_object = @scripts.delete(script_name)
+    script_object = @scripts[script_name]
     script_object.kill unless script_object.nil?
   end
 
@@ -88,7 +104,8 @@ class ScriptManager
   end
 
   def paused?(script_name)
-    @scripts[script_name] && @scripts[script_name].paused?
+    script_object = @scripts[script_name]
+    script_object && script_object.paused?
   end
 
   def resume(script_name)
@@ -97,7 +114,8 @@ class ScriptManager
   end
 
   def running?(script_name)
-    @scripts[script_name] && @scripts[script_name].running?
+    script_object = @scripts[script_name]
+    script_object && script_object.running?
   end
 
   def store(script_name, script_object)
