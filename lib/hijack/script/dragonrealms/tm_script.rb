@@ -71,6 +71,7 @@ class TmScript < BaseDragonrealmsScript
         CAST_PATTERN,
         'cast'
       )
+      sleep 1.5
     end
   end
 
