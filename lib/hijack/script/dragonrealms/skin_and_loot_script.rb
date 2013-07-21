@@ -28,7 +28,8 @@ class SkinAndLootScript < BaseDragonrealmsScript
   ].join('|')
 
   def validate_args(args)
-    args.length >= 1 || config_skin_type
+    args.length >= 1 ||
+    config_skin_type
   end
 
   def run(args)

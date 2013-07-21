@@ -5,7 +5,8 @@ class HumScript < BaseDragonrealmsScript
   HUM_FINISH = 'You finish humming'
 
   def validate_args(args)
-    args.length == 1 || config_hum_song
+    args.length == 1 ||
+    config_hum_song
   end
 
   def run(args)

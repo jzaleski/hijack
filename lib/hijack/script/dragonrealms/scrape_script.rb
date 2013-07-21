@@ -39,6 +39,7 @@ class ScrapeScript < BaseDragonrealmsScript
 
   def validate_args(args)
     args.length == 2 ||
+    (args.length == 1 && config_scraper_container) ||
     (config_skin_type && config_scraper_container)
   end
 
