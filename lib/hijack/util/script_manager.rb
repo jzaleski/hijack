@@ -12,7 +12,13 @@ class ScriptManager
       command_parts = command.split
       if command_parts[0] == 'l'
         scripts = @scripts.keys
-        running_scripts = scripts.empty? ? '(none)' : "- #{scripts.sort.join("\n- ")}"
+        if scripts.empty?
+          running_scripts = '(none)'
+        else
+          running_scripts = scripts.sort.map do |script_name|
+            "- #{script_name} (#{@scripts[script_name].status})"
+          end.join("\n")
+        end
         @bridge.output_buffer.puts "\nRunning scripts:\n================\n\n#{running_scripts}"
       elsif ['k', 'p', 'r'].include?(command_parts[0]) && script_name = command_parts[1]
         unless running?(script_name)
