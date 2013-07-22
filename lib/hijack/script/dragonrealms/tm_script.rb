@@ -15,6 +15,7 @@ class TmScript < BaseDragonrealmsScript
 
   CAST_PATTERN = [
     CASTED,
+    NO_SPELL_2,
     TARGET_DEAD,
   ].join('|')
 
