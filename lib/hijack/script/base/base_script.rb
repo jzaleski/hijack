@@ -58,10 +58,10 @@ class BaseScript
   def status
     if paused?
       'paused'
-    elsif sleeping?
-      'sleeping'
     elsif waiting_for_match?
       'waiting for match'
+    elsif sleeping?
+      'sleeping'
     else
       'running'
     end
