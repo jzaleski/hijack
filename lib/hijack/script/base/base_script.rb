@@ -51,8 +51,34 @@ class BaseScript
     !@thread.nil? && @thread.alive?
   end
 
+  def sleeping?
+    @sleeping == true
+  end
+
+  def status
+    if paused?
+      'paused'
+    elsif sleeping?
+      'sleeping'
+    elsif waiting_for_match?
+      'waiting for match'
+    else
+      'running'
+    end
+  end
+
+  def sleep(duration)
+    @sleeping = true
+    Kernel::sleep(duration)
+    @sleeping = false
+  end
+
   def validate_args(args)
     true
+  end
+
+  def waiting_for_match?
+    @waiting_for_match == true
   end
 
   protected
@@ -72,11 +98,15 @@ class BaseScript
       pattern,
       lambda {|m| match = m}
     )
+    # set "waiting_for_match"
+    @waiting_for_match = true
     # now, execute the command, if specified, this must be done after the hook
     # is set
     puts(command) if command
     # sleep on this thread while waiting for the hook to be invoked
     sleep 0.1 until match
+    # reset "waiting_for_match"
+    @waiting_for_match = false
     # return the result
     match
   end
