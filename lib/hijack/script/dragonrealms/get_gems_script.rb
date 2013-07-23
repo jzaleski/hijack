@@ -20,8 +20,13 @@ class GetGemsScript < BaseDragonrealmsScript
   GEMS = %w[
     agate
     amber
+    andalusite
+    bar
     bloodstone
     chrysoberyl
+    chrysoprase
+    citrine
+    crystal
     diopside
     iolite
     jade
