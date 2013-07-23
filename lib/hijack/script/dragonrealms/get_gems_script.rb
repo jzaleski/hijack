@@ -37,6 +37,7 @@ class GetGemsScript < BaseDragonrealmsScript
     onyx
     peridot
     quartz
+    sunstone
     tanzanite
   ]
 
