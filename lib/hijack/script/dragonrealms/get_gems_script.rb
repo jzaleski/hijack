@@ -29,6 +29,7 @@ class GetGemsScript < BaseDragonrealmsScript
     crystal
     diopside
     iolite
+    ivory
     jade
     kunzite
     lazuli
@@ -39,6 +40,7 @@ class GetGemsScript < BaseDragonrealmsScript
     quartz
     sunstone
     tanzanite
+    tsavorite
   ]
 
   GET_PATTERN = [
