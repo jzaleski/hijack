@@ -22,17 +22,20 @@ class GetGemsScript < BaseDragonrealmsScript
     amber
     andalusite
     bar
+    beryl
     bloodstone
     chrysoberyl
     chrysoprase
     citrine
     crystal
     diopside
+    hematite
     iolite
     ivory
     jade
     kunzite
     lazuli
+    moonstone
     morganite
     nugget
     onyx
