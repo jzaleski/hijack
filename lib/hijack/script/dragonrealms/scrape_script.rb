@@ -9,8 +9,11 @@ class ScrapeScript < BaseDragonrealmsScript
   SCRAPE_SUCCESS = 'You scrape'
   SELL_SUCCESS = 'then hands you'
   WHAT_WERE_YOU = 'What were you'
+  YOU_DROP = 'You drop'
   YOU_GET = 'You get'
   YOU_PUT = 'You put'
+
+  DROP_PATTERN = YOU_DROP
 
   GET_SCRAPER_PATTERN = [
     ALREADY_HOLDING,
@@ -64,8 +67,8 @@ class ScrapeScript < BaseDragonrealmsScript
           )
           if match == NO_MERCHANT
             wait_for_match(
-              'You drop',
-              "drop my #{skin_type}"
+              DROP_PATTERN,
+              'empty left'
             )
           end
           unless get_skin(skin_type)
