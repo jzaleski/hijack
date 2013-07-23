@@ -11,15 +11,27 @@ class ScrapeScript < BaseDragonrealmsScript
   WHAT_WERE_YOU = 'What were you'
   YOU_DROP = 'You drop'
   YOU_GET = 'You get'
+  YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_PUT = 'You put'
 
   DROP_PATTERN = YOU_DROP
 
+  GET_SCRAPER_FAILURES = [
+    WHAT_WERE_YOU,
+    YOU_NEED_A_FREE_HAND,
+  ]
+
   GET_SCRAPER_PATTERN = [
     ALREADY_HOLDING,
     YOU_GET,
+    YOU_NEED_A_FREE_HAND,
     WHAT_WERE_YOU,
   ].join('|')
+
+  GET_SKIN_FAILURES = [
+    NEED_MORE_MATERIAL,
+    WHAT_WERE_YOU,
+  ]
 
   GET_SKIN_PATTERN = [
     ALREADY_HOLDING,
@@ -96,7 +108,7 @@ class ScrapeScript < BaseDragonrealmsScript
       GET_SCRAPER_PATTERN,
       'get my scraper'
     )
-    match != WHAT_WERE_YOU
+    !GET_SCRAPER_FAILURES.include?(match)
   end
 
   def get_skin(skin_type)
@@ -104,7 +116,7 @@ class ScrapeScript < BaseDragonrealmsScript
       GET_SKIN_PATTERN,
       "get my #{skin_type}"
     )
-    match != WHAT_WERE_YOU
+    !GET_SKIN_FAILURES.include?(match)
   end
 
   def store_scraper(scraper_container)
