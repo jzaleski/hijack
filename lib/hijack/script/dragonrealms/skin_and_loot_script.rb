@@ -3,21 +3,32 @@ require 'hijack/script/base/base_dragonrealms_script'
 class SkinAndLootScript < BaseDragonrealmsScript
 
   A_SMALL_SLIP = 'A small slip'
+  ARRANGE_WHAT = 'Arrange what\?'
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
   ITS_NOW_A_LOST_CAUSE = "it's now a lost cause"
   LOOT_SUCCESS = 'You search'
+  NEARLY_RUINING_IT = 'nearly ruining it'
   NO_CORPSE = 'I could not find'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
   SKIN_WHAT = 'Skin what\?'
   WHAT_WERE_YOU = 'What were you'
+  YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
+  YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_DROP = 'You drop'
   YOU_PEEL = 'You peel'
+  YOU_SKILLFULLY_PEEL = 'You skillfully peel'
   YOU_SKILLFULLY_REMOVE = 'you skillfully remove'
+  YOU_SKIN = 'You skin'
   YOU_SLICE_AWAY = 'You slice away'
-  YOU_WORK_HARD = 'You work hard'
-  YOU_WORK_LOOSE = 'you work loose'
+  YOU_WORK = '[Yy]ou work'
+
+  ARRANGE_PATTERN = [
+    ARRANGE_WHAT,
+    YOU_BEGIN_TO_ARRANGE,
+    YOU_CONTINUE_ARRANGING,
+  ].join('|')
 
   DROP_PATTERN = [
     WHAT_WERE_YOU,
@@ -44,20 +55,17 @@ class SkinAndLootScript < BaseDragonrealmsScript
   SKIN_PATTERN = [
     A_SMALL_SLIP,
     ITS_NOW_A_LOST_CAUSE,
+    NEARLY_RUINING_IT,
     YOU_PEEL,
+    YOU_SKILLFULLY_PEEL,
     YOU_SKILLFULLY_REMOVE,
+    YOU_SKIN,
     YOU_SLICE_AWAY,
-    YOU_WORK_HARD,
-    YOU_WORK_LOOSE,
+    YOU_WORK,
   ].join('|')
 
-  def validate_args(args)
-    args.length >= 1 ||
-    config_skin_type
-  end
-
   def run(args)
-    skin_type = args[0] || config_skin_type
+    num_arranges = [0, (args[0] || config_num_arranges).to_i].max
     loot_type = args[1] || config_loot_type || 'goods'
     loop do
       # anything to skin & loot?
@@ -69,6 +77,15 @@ class SkinAndLootScript < BaseDragonrealmsScript
       if LOOK_FAILURES.include?(match)
         sleep 15
         next
+      end
+      # arrange
+      num_arranges.times do |i|
+        match = wait_for_match(
+          ARRANGE_PATTERN,
+          'arrange'
+        )
+        break if match == ARRANGE_WHAT
+        sleep 2
       end
       # skin
       wait_for_match(
@@ -95,12 +112,12 @@ class SkinAndLootScript < BaseDragonrealmsScript
 
   private
 
-  def config_skin_type
-    @config[:skin_type]
-  end
-
   def config_loot_type
     @config[:loot_type]
+  end
+
+  def config_num_arranges
+    @config[:skin_num_arranges]
   end
 
 end
