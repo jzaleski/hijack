@@ -29,6 +29,7 @@ class GetGemsScript < BaseDragonrealmsScript
     citrine
     crystal
     diopside
+    garnet
     hematite
     iolite
     ivory
