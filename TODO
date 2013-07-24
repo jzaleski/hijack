@@ -1,0 +1,13 @@
+General:
+========
+
+- figure out the best way to fully integrate the pause/resume functionality. How
+  should scripts detect and handle the state-change?
+- handle unexpected crash (error) during script execution
+- clean up "execute" method in "lib/hijack/util/script_manager.rb"
+
+Dragonrealms:
+=============
+
+- create "juggle" script
+- create "sell_all" script
