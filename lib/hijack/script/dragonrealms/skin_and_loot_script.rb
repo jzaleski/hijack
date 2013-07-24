@@ -4,6 +4,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
 
   A_SMALL_SLIP = 'A small slip'
   ARRANGE_WHAT = 'Arrange what\?'
+  CANNOT_BE_SKINNED = 'cannot be skinned'
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
   ITS_NOW_A_LOST_CAUSE = "it's now a lost cause"
@@ -26,8 +27,14 @@ class SkinAndLootScript < BaseDragonrealmsScript
   YOU_SLICE_AWAY = 'You slice away'
   YOU_WORK = '[Yy]ou work'
 
+  ARRANGE_FAILURES = [
+    ARRANGE_WHAT,
+    CANNOT_BE_SKINNED,
+  ]
+
   ARRANGE_PATTERN = [
     ARRANGE_WHAT,
+    CANNOT_BE_SKINNED,
     YOU_BEGIN_TO_ARRANGE,
     YOU_CONTINUE_ARRANGING,
   ].join('|')
@@ -57,6 +64,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
 
   SKIN_PATTERN = [
     A_SMALL_SLIP,
+    CANNOT_BE_SKINNED,
     ITS_NOW_A_LOST_CAUSE,
     NEARLY_RUINING_IT,
     YOU_MAKE_A_SERIES_OF_CUTS,
@@ -88,7 +96,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
           ARRANGE_PATTERN,
           'arrange'
         )
-        break if match == ARRANGE_WHAT
+        break if ARRANGE_FAILURES.include?(match)
         sleep 2
       end
       # skin
