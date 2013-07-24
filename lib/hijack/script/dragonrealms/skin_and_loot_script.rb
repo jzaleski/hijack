@@ -14,6 +14,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   OBVIOUS_PATHS = 'Obvious paths:'
   SKIN_WHAT = 'Skin what\?'
   WHAT_WERE_YOU = 'What were you'
+  YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_DROP = 'You drop'
@@ -33,6 +34,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   DROP_PATTERN = [
     WHAT_WERE_YOU,
     YOU_DROP,
+    YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
   ].join('|')
 
   LOOK_FAILURES = [
