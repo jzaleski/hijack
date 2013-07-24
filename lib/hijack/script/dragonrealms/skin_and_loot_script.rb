@@ -18,6 +18,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_DROP = 'You drop'
+  YOU_MAKE_A_SERIES_OF_CUTS = 'You make a series of cuts'
   YOU_PEEL = 'You peel'
   YOU_SKILLFULLY_PEEL = 'You skillfully peel'
   YOU_SKILLFULLY_REMOVE = 'you skillfully remove'
@@ -58,6 +59,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
     A_SMALL_SLIP,
     ITS_NOW_A_LOST_CAUSE,
     NEARLY_RUINING_IT,
+    YOU_MAKE_A_SERIES_OF_CUTS,
     YOU_PEEL,
     YOU_SKILLFULLY_PEEL,
     YOU_SKILLFULLY_REMOVE,
