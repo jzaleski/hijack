@@ -10,6 +10,8 @@ class SliceScript < BaseDragonrealmsAttackScript
       ['slice', 3.5],
       ['draw', 3.5],
       ['chop', 4.5],
+      ['bob', 4.5],
+      ['weave', 4.5],
     ]
   end
 
