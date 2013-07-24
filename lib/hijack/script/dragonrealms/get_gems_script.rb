@@ -44,6 +44,8 @@ class GetGemsScript < BaseDragonrealmsScript
     sunstone
     tanzanite
     tsavorite
+    turquoise
+    zircon
   ]
 
   GET_PATTERN = [
