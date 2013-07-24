@@ -45,7 +45,7 @@ class TmScript < BaseDragonrealmsScript
 
   def validate_args(args)
     args.length >= 1 ||
-    (config_spell && config_mana)
+    config_spell
   end
 
   def run(args)
