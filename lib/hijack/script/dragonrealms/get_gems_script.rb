@@ -24,6 +24,7 @@ class GetGemsScript < BaseDragonrealmsScript
     bar
     beryl
     bloodstone
+    chalcedony
     chrysoberyl
     chrysoprase
     citrine
