@@ -45,6 +45,7 @@ class GetGemsScript < BaseDragonrealmsScript
     quartz
     sunstone
     tanzanite
+    topaz
     tsavorite
     turquoise
     zircon
