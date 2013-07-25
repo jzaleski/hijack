@@ -7,7 +7,7 @@ class GetGemsScript < BaseDragonrealmsScript
   WHAT_WERE_YOU = 'What were you'
   YOU_ARE_ALREADY = 'You are already'
   YOU_CLOSE_YOUR = 'You close your'
-  YOU_GET_A = 'You get a'
+  YOU_GET = 'You get'
   YOU_OPEN_YOUR = 'You open your'
   YOU_PICK_UP = 'You pick up'
   YOU_PUT_YOUR = 'You put your'
@@ -54,7 +54,7 @@ class GetGemsScript < BaseDragonrealmsScript
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,
-    YOU_GET_A,
+    YOU_GET,
     YOU_PICK_UP,
   ].join('|')
 
@@ -88,7 +88,7 @@ class GetGemsScript < BaseDragonrealmsScript
           when YOU_ARE_ALREADY
             store(gem, container)
             next
-          when YOU_GET_A
+          when YOU_GET
             store(gem, container)
             break
           when YOU_PICK_UP
