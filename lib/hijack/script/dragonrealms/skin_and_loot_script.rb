@@ -4,6 +4,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
 
   A_SMALL_SLIP = 'A small slip'
   ARRANGE_WHAT = 'Arrange what\?'
+  BUNGLE_THE_ATTEMPT = 'bungle the attempt'
   CANNOT_BE_SKINNED = 'cannot be skinned'
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
@@ -16,6 +17,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   SKIN_WHAT = 'Skin what\?'
   WHAT_WERE_YOU = 'What were you'
   YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
+  YOU_CLAW_WILDLY = 'You claw wildly'
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_DROP = 'You drop'
@@ -64,9 +66,11 @@ class SkinAndLootScript < BaseDragonrealmsScript
 
   SKIN_PATTERN = [
     A_SMALL_SLIP,
+    BUNGLE_THE_ATTEMPT,
     CANNOT_BE_SKINNED,
     ITS_NOW_A_LOST_CAUSE,
     NEARLY_RUINING_IT,
+    YOU_CLAW_WILDLY,
     YOU_MAKE_A_SERIES_OF_CUTS,
     YOU_PEEL,
     YOU_SKILLFULLY_PEEL,
