@@ -108,8 +108,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
         SKIN_PATTERN,
         'skin'
       )
-      # wait a few seconds before attempting to drop the skin
-      sleep 3
+      sleep 2
       # drop the skin
       wait_for_match(
         DROP_PATTERN,
