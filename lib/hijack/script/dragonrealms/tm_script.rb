@@ -57,7 +57,7 @@ class TmScript < BaseDragonrealmsScript
         PREP_PATTERN,
         prep_command
       )
-      sleep 1.5
+      sleep 3
       match = wait_for_match(
         TARGET_PATTERN,
         'target'
@@ -70,12 +70,12 @@ class TmScript < BaseDragonrealmsScript
         sleep 15
         next
       end
-      sleep 7.5
+      sleep 7
       wait_for_match(
         CAST_PATTERN,
         'cast'
       )
-      sleep 1.5
+      sleep 5
     end
   end
 
