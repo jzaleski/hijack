@@ -51,7 +51,7 @@ class CollectScript < BaseDragonrealmsScript
         KICK_PATTERN,
         'kick pile'
       )
-      sleep 15
+      sleep 30
     end
   end
 
