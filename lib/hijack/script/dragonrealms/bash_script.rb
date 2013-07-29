@@ -11,7 +11,9 @@ class BashScript < BaseDragonrealmsAttackScript
       ['sweep', 3.5],
       ['draw', 2.5],
       ['swing', 3.5],
-      ['bob', 3.5],
+      ['circle', 3.5, 'circle back|first moving one way and then another'],
+      ['bob', 4.5],
+      ['weave', 4.5],
     ]
   end
 

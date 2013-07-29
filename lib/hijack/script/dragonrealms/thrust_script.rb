@@ -10,6 +10,9 @@ class ThrustScript < BaseDragonrealmsAttackScript
       ['jab', 1.5],
       ['thrust', 3.5],
       ['lunge', 3.5],
+      ['circle', 3.5, 'circle back|first moving one way and then another'],
+      ['bob', 4.5],
+      ['weave', 4.5],
     ]
   end
 
