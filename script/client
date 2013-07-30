@@ -13,3 +13,8 @@ do
 		break;
 	fi
 done
+
+if [ -n "$STY" ];
+then
+  screen -X quit > /dev/null 2>&1;
+fi
