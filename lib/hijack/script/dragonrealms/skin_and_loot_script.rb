@@ -9,6 +9,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   DEAD_LONG = 'which appears dead'
   DEAD_SHORT = '\(dead\)'
   ITS_NOW_A_LOST_CAUSE = "it's now a lost cause"
+  JUST_BARELY_PRY = 'just barely pry'
   LOOT_SUCCESS = 'You search'
   NEARLY_RUINING_IT = 'nearly ruining it'
   NO_CORPSE = 'I could not find'
@@ -69,6 +70,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
     BUNGLE_THE_ATTEMPT,
     CANNOT_BE_SKINNED,
     ITS_NOW_A_LOST_CAUSE,
+    JUST_BARELY_PRY,
     NEARLY_RUINING_IT,
     YOU_CLAW_WILDLY,
     YOU_MAKE_A_SERIES_OF_CUTS,
