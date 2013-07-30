@@ -41,6 +41,7 @@ class GetGemsScript < BaseDragonrealmsScript
     morganite
     nugget
     onyx
+    pearl
     peridot
     quartz
     sunstone
