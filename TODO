@@ -11,3 +11,5 @@ Dragonrealms:
 
 - create "juggle" script
 - ensure that underlined text terminates at the end of the line (ex: healing)
+- create "predict" script
+- incorporate the use of a skinning knife in  "skin_and_loot_script.rb"
