@@ -1,8 +1,11 @@
 class ScriptManager
 
-  def initialize(config, bridge, callback_manager)
+  def initialize(config, bridge, input_buffer, output_buffer, callback_manager)
     @config = config
     @bridge = bridge
+    @input_buffer = input_buffer
+    @output_buffer = output_buffer
+    @callback_manager = callback_manager
     @scripts = {}
   end
 
@@ -11,18 +14,18 @@ class ScriptManager
     unless command.empty?
       command_parts = command.split
       if command_parts[0] == 'l'
-        scripts = @scripts.keys
-        if scripts.empty?
+        script_names = @scripts.keys
+        if script_names.empty?
           running_scripts = '(none)'
         else
-          running_scripts = scripts.sort.map do |script_name|
+          running_scripts = script_names.sort.map do |script_name|
             "- #{script_name} (#{@scripts[script_name].status})"
           end.join("\n")
         end
-        @bridge.output_buffer.puts "\nRunning scripts:\n================\n\n#{running_scripts}"
+        @output_buffer.puts "\nRunning scripts:\n================\n\n#{running_scripts}"
       elsif ['k', 'p', 'r'].include?(command_parts[0]) && script_name = command_parts[1]
         unless running?(script_name)
-          @bridge.output_buffer.puts "\nScript: '#{script_name}' is not running.."
+          @output_buffer.puts "\nScript: '#{script_name}' is not running.."
           return
         end
         case command_parts[0]
@@ -30,20 +33,20 @@ class ScriptManager
             kill(script_name)
           when 'p'
             if paused?(script_name)
-              @bridge.output_buffer.puts "\nScript: '#{script_name}' is already paused.."
+              @output_buffer.puts "\nScript: '#{script_name}' is already paused.."
               return
             end
             pause(script_name)
           when 'r'
             unless paused?(script_name)
-              @bridge.output_buffer.puts "\nScript: '#{script_name}' is already running.."
+              @output_buffer.puts "\nScript: '#{script_name}' is already running.."
               return
             end
             resume(script_name)
         end
       elsif script_name = command_parts[0]
         if running?(script_name)
-          @bridge.output_buffer.puts "\nScript: '#{script_name}' is already running.."
+          @output_buffer.puts "\nScript: '#{script_name}' is already running.."
           return
         end
         script_path = [
@@ -51,7 +54,7 @@ class ScriptManager
           "#{SCRIPT_DIR}/share/#{script_name}_script.rb",
         ].find {|script_file| File.exist?(script_file)}
         unless script_path
-          @bridge.output_buffer.puts "\nScript: '#{script_name}' does not exist.."
+          @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
         end
         load script_path
@@ -59,22 +62,23 @@ class ScriptManager
         script_object = Object::const_get(script_class_name).new(
           @config,
           @bridge,
+          @callback_manager,
           :on_exec => lambda do
-            @bridge.output_buffer.puts "\nScript: '#{script_name}' executing.."
+            @output_buffer.puts "\nScript: '#{script_name}' executing.."
           end,
           :on_exit => lambda do
             delete(script_name)
-            @bridge.output_buffer.puts "\nScript: '#{script_name}' exited.."
+            @output_buffer.puts "\nScript: '#{script_name}' exited.."
           end,
           :on_kill => lambda do
             delete(script_name)
-            @bridge.output_buffer.puts "\nScript: '#{script_name}' killed.."
+            @output_buffer.puts "\nScript: '#{script_name}' killed.."
           end,
           :on_pause => lambda do
-            @bridge.output_buffer.puts "\nScript: '#{script_name}' paused.."
+            @output_buffer.puts "\nScript: '#{script_name}' paused.."
           end,
           :on_resume => lambda do
-            @bridge.output_buffer.puts "\nScript: '#{script_name}' resumed.."
+            @output_buffer.puts "\nScript: '#{script_name}' resumed.."
           end
         )
         unless script_object.nil?
@@ -82,7 +86,7 @@ class ScriptManager
           # the string
           args = parse_args(command.sub(script_name, '').lstrip)
           unless script_object.validate_args(args)
-            @bridge.output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
+            @output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
             return
           end
           script_object.start_run(args)
