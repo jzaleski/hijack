@@ -47,7 +47,7 @@ class BraidScript < BaseDragonrealmsScript
           return
         # at this point successful or not we are in roundtime, so sleep
         else
-          sleep 4.5
+          sleep 5
       end
       # retry if we've hit one of the failure cases
       next if FORAGE_FAILURES.include?(match)
@@ -61,10 +61,11 @@ class BraidScript < BaseDragonrealmsScript
         # an example of the messaging to create the pattern
         case match
           when MORE_MATERIAL
+            sleep 15
             break
           # the success case, at minimum, will impose 5s roundtime
           else
-            sleep 5.5
+            sleep 5
         end
       end
     end
