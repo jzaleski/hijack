@@ -10,7 +10,7 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
   ]
 
   def gets
-    # strip leading/trailing carriage return characters
+    # strip trailing carriage return characters
     line = super.chomp
     # ensure that lines matching any of the problem patterns a switch back to
     # normal (non-bold) text
