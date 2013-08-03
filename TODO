@@ -3,7 +3,6 @@ General:
 
 - figure out the best way to fully integrate the pause/resume functionality. How
   should scripts detect and handle the state-change?
-- handle unexpected crash (error) during script execution
 - clean up "execute" method in "lib/hijack/util/script_manager.rb"
 
 Dragonrealms:
@@ -11,5 +10,4 @@ Dragonrealms:
 
 - create "juggle" script
 - ensure that underlined text terminates at the end of the line (ex: healing)
-- create "predict" script
-- incorporate the use of a skinning knife in  "skin_and_loot_script.rb"
+- incorporate the use of a skinning knife in "skin_and_loot_script.rb"

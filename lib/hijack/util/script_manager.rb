@@ -57,7 +57,13 @@ class ScriptManager
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
         end
-        load script_path
+        begin
+          load script_path
+        rescue Exception => e
+          backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+          STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+          return
+        end
         script_class_name = "#{script_name.split('_').map(&:capitalize).join}Script"
         script_object = Object::const_get(script_class_name).new(
           @config,

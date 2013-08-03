@@ -14,7 +14,12 @@ class BaseScript
   def start_run(args)
     @thread ||= Thread.new {
       @on_exec.call rescue nil
-      run(args)
+      begin
+        run(args)
+      rescue Exception => e
+        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+      end
       @on_exit.call rescue nil
     }
   end
