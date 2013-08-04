@@ -2,8 +2,11 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class PredictScript < BaseDragonrealmsScript
 
+  ALREADY_PREPARED = 'You have already fully'
+  ALREADY_PREPARING = 'You are already preparing'
   FOILED_BY_THE = 'foiled by the'
   MENTALLY_SEEKING_THE_THREADS = 'mentally seeking the threads'
+  NO_SPELL = "You don't have a spell prepared"
   PREPARING_SPELL = 'You raise an'
   RECEIVES_A_MIND_NUMBING_JOLT = 'receives a numbing jolt'
   REMAINS_A_DARK_MYSTERY = 'remains a dark mystery'
@@ -27,7 +30,10 @@ class PredictScript < BaseDragonrealmsScript
     survival
   ]
 
-  CAST_PATTERN = YOU_GESTURE
+  CAST_PATTERN = [
+    NO_SPELL,
+    YOU_GESTURE,
+  ].join('|')
 
   OBJECTS = %W[
     cat
@@ -70,7 +76,11 @@ class PredictScript < BaseDragonrealmsScript
     SUDDEN_FEELING_OF_WARMTH,
   ].join('|')
 
-  PREP_PATTERN = PREPARING_SPELL
+  PREP_PATTERN = [
+    ALREADY_PREPARED,
+    ALREADY_PREPARING,
+    PREPARING_SPELL,
+  ].join('|')
 
   SPELLS = %w[
     aus
