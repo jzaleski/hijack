@@ -57,16 +57,11 @@ class BraidScript < BaseDragonrealmsScript
           BRAID_PATTERN,
           "braid my #{material}"
         )
-        # TODO: add a case to trigger the PULLing portion of this script, need
-        # an example of the messaging to create the pattern
-        case match
-          when MORE_MATERIAL
-            sleep 15
-            break
-          # the success case, at minimum, will impose 5s roundtime
-          else
-            sleep 5
-        end
+        # this is the mean roundtime value (sometimes more, sometimes less) by
+        # staying conservative here we give other scripts a chance to execute
+        sleep 10
+        # need more material
+        break if match == MORE_MATERIAL
       end
     end
   end
