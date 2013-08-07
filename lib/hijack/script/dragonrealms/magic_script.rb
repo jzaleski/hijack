@@ -2,38 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class MagicScript < BaseDragonrealmsScript
 
-  ALREADY_PREPARED = 'You have already fully'
-  ATTEMPT_TO_CHANNEL = 'attempt to channel'
-  FORGE_A_MAGICAL_LINK = 'forge a magical link'
-  IS_INTACT = 'is intact\.'
-  NO_CHARGE_ITEM = 'I could not find'
-  NO_IDEA_HOW = 'no idea how'
-  NO_SPELL = "You don't have a spell prepared"
-  PREPARING_SPELL = 'You raise an'
-  YOU_FEEL_FULLY = 'You feel fully'
-  YOU_GESTURE = 'You gesture'
-
-  CAST_PATTERN = [
-    NO_SPELL,
-    YOU_GESTURE,
-  ].join('|')
-
-  CHARGE_PATTERN = [
-    ATTEMPT_TO_CHANNEL,
-    NO_CHARGE_ITEM,
-  ].join('|')
-
-  PREP_PATTERN = [
-    ALREADY_PREPARED,
-    NO_IDEA_HOW,
-    PREPARING_SPELL,
-  ].join('|')
-
-  INVOKE_PATTERN = [
-    FORGE_A_MAGICAL_LINK,
-    IS_INTACT,
-  ].join('|')
-
   def validate_args(args)
     # prep a spell at min-prep
     (args.length == 1 || config_spell) ||
@@ -47,7 +15,6 @@ class MagicScript < BaseDragonrealmsScript
     # process spell configuration
     spell = args[0] || config_spell
     mana = args[1] || config_mana
-    prep_command = "prep #{spell} #{mana}".rstrip
     # process charge-items
     charge_amount = nil
     charge_items = []
@@ -57,25 +24,13 @@ class MagicScript < BaseDragonrealmsScript
     end
     loop do
       # prep
-      match = wait_for_match(
-        PREP_PATTERN,
-        prep_command
-      )
-      # short-circuit if the spell is invalid
-      return if match == NO_IDEA_HOW
+      return unless prep(spell, mana)
       # charge charge-item(s)
       charge_items_charged = 0
       charge_items.each do |charge_item|
-        match = wait_for_match(
-          CHARGE_PATTERN,
-          "charge my #{charge_item} #{charge_amount}"
-        )
-        next if match == NO_CHARGE_ITEM
+        next unless charge_my(charge_item, charge_amount)
         sleep 3.5
-        wait_for_match(
-          INVOKE_PATTERN,
-          "invoke my #{charge_item}"
-        )
+        invoke_my(charge_item)
         sleep 1.5
         charge_items_charged += 1
       end
@@ -86,10 +41,7 @@ class MagicScript < BaseDragonrealmsScript
         sleep sleep_time
       end
       # cast
-      wait_for_match(
-        CAST_PATTERN,
-        'cast'
-      )
+      cast
       # intersequence sleep-time
       sleep 30
     end
