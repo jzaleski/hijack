@@ -2,7 +2,6 @@ require 'hijack/script/base/base_script'
 
 class BaseDragonrealmsScript < BaseScript
 
-  ALREADY_PREPARED = 'You have already fully'
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
   INVOKE_WHAT = 'Invoke what\?'
@@ -10,21 +9,26 @@ class BaseDragonrealmsScript < BaseScript
   IS_INTACT = 'is intact\.'
   I_COULD_NOT_FIND = 'I could not find'
   NO_IDEA_HOW = 'no idea how'
-  NO_SPELL = "You don't have a spell prepared"
-  PREPARING_SPELL = 'You raise an'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
   WHAT_WERE_YOU = 'What were you'
+  YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
+  YOU_ARENT_PREPARING = "You aren't preparing"
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_OPEN = "You can't open"
   YOU_CLOSE_YOUR = 'You close your'
+  YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
   YOU_GESTURE = 'You gesture'
+  YOU_HAVE_ALREADY_FULLY = 'You have already fully'
+  YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
   YOU_OPEN_YOUR = 'You open your'
   YOU_PUT_YOUR = 'You put your'
+  YOU_RAISE_AN = 'You raise an'
 
   CAST_PATTERN = [
-    NO_SPELL,
+    YOU_DONT_HAVE_A_SPELL,
     YOU_GESTURE,
+    YOUR_TARGET_PATTERN_DISSIPATES,
   ].join('|')
 
   CAST_SUCCESSES = [
@@ -76,14 +80,24 @@ class BaseDragonrealmsScript < BaseScript
   ]
 
   PREP_PATTERN = [
-    ALREADY_PREPARED,
     NO_IDEA_HOW,
-    PREPARING_SPELL,
+    YOU_HAVE_ALREADY_FULLY,
+    YOU_RAISE_AN,
   ].join('|')
 
   PREP_SUCCESSES = [
-    ALREADY_PREPARED,
-    PREPARING_SPELL,
+    YOU_HAVE_ALREADY_FULLY,
+    YOU_RAISE_AN,
+  ]
+
+  RELEASE_PATTERN = [
+    YOU_ARENT_PREPARING,
+    YOU_LET_YOUR_CONCENTRATION_LAPSE,
+  ].join('|')
+
+  RELEASE_SUCCESSES = [
+    YOU_ARENT_PREPARING,
+    YOU_LET_YOUR_CONCENTRATION_LAPSE,
   ]
 
   STORE_PATTERN = [
@@ -147,6 +161,15 @@ class BaseDragonrealmsScript < BaseScript
       wait_for_match(
         PREP_PATTERN,
         "prep #{spell} #{mana}".rstrip
+      )
+    )
+  end
+
+  def release
+    RELEASE_SUCCESSES.include?(
+      wait_for_match(
+        RELEASE_PATTERN,
+        'release'
       )
     )
   end
