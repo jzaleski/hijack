@@ -2,20 +2,10 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class GetGemsScript < BaseDragonrealmsScript
 
-  THAT_IS_ALREADY_CLOSED = 'That is already closed'
-  THAT_IS_ALREADY_OPEN = 'That is already open'
   WHAT_WERE_YOU = 'What were you'
   YOU_ARE_ALREADY = 'You are already'
-  YOU_CLOSE_YOUR = 'You close your'
   YOU_GET = 'You get'
-  YOU_OPEN_YOUR = 'You open your'
   YOU_PICK_UP = 'You pick up'
-  YOU_PUT_YOUR = 'You put your'
-
-  CLOSE_PATTERN = [
-    THAT_IS_ALREADY_CLOSED,
-    YOU_CLOSE_YOUR,
-  ].join('|')
 
   GEMS = %w[
     agate
@@ -59,13 +49,6 @@ class GetGemsScript < BaseDragonrealmsScript
     YOU_PICK_UP,
   ].join('|')
 
-  OPEN_PATTERN = [
-    THAT_IS_ALREADY_OPEN,
-    YOU_OPEN_YOUR,
-  ].join('|')
-
-  PUT_PATTERN = YOU_PUT_YOUR
-
   def validate_args(args)
     args.length == 1 ||
     config_container
@@ -73,10 +56,7 @@ class GetGemsScript < BaseDragonrealmsScript
 
   def run(args)
     container = args[0] || config_container
-    wait_for_match(
-      OPEN_PATTERN,
-      "open my #{container}"
-    )
+    return unless open_my(container)
     GEMS.each do |gem|
       loop do
         match = wait_for_match(
@@ -87,34 +67,24 @@ class GetGemsScript < BaseDragonrealmsScript
           when WHAT_WERE_YOU
             break
           when YOU_ARE_ALREADY
-            store(gem, container)
+            store_my(gem, container)
             next
           when YOU_GET
-            store(gem, container)
+            store_my(gem, container)
             break
           when YOU_PICK_UP
-            store(gem, container)
+            store_my(gem, container)
             next
         end
       end
     end
-    wait_for_match(
-      CLOSE_PATTERN,
-      "close my #{container}"
-    )
+    close_my(container)
   end
 
   private
 
   def config_container
     @config[:gem_container]
-  end
-
-  def store(gem, container)
-    wait_for_match(
-      PUT_PATTERN,
-      "put my #{gem} in my #{container}"
-    )
   end
 
 end

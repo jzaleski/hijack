@@ -5,30 +5,14 @@ class ReadScrollsScript < BaseDragonrealmsScript
   ALREADY_ROLLED_UP = 'already rolled up'
   GUIDING_YOUR_FINGERS = 'Guiding your fingers'
   ISNT_ROLLED_UP = "isn't rolled up"
-  THAT_IS_ALREADY_CLOSED = 'That is already closed'
-  THAT_IS_ALREADY_OPEN = 'That is already open'
   WHAT_WERE_YOU = 'What were you'
-  YOU_CLOSE_YOUR = 'You close your'
   YOU_GET = 'You get'
-  YOU_OPEN_YOUR = 'You open your'
-  YOU_PUT = 'You put'
   YOU_ROLL_UP = 'You roll up'
   YOU_UNROLL = 'You unroll'
-
-  CLOSE_PATTERN = [
-    THAT_IS_ALREADY_CLOSED,
-    YOU_CLOSE_YOUR,
-  ].join('|')
 
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_GET,
-  ].join('|')
-
-  OPEN_PATTERN = [
-    THAT_IS_ALREADY_OPEN,
-    WHAT_WERE_YOU,
-    YOU_OPEN_YOUR,
   ].join('|')
 
   READ_PATTERN = GUIDING_YOUR_FINGERS
@@ -37,8 +21,6 @@ class ReadScrollsScript < BaseDragonrealmsScript
     ALREADY_ROLLED_UP,
     YOU_ROLL_UP,
   ].join('|')
-
-  STORE_PATTERN = YOU_PUT
 
   UNROLL_PATTERN = [
     ISNT_ROLLED_UP,
@@ -53,16 +35,8 @@ class ReadScrollsScript < BaseDragonrealmsScript
   def run(args)
     container_1 = args[0] || config_container_1
     container_2 = args[1] || config_container_2
-    match = wait_for_match(
-      OPEN_PATTERN,
-      "open my #{container_1}"
-    )
-    return if match == WHAT_WERE_YOU
-    match = wait_for_match(
-      OPEN_PATTERN,
-      "open my #{container_2}"
-    )
-    return if match == WHAT_WERE_YOU
+    return unless open_my(container_1)
+    return unless open_my(container_2)
     # now that we're past the initial validations, set {current,other}_container
     @current_container = container_1
     @other_container = container_2
@@ -102,19 +76,10 @@ class ReadScrollsScript < BaseDragonrealmsScript
         'roll my scroll'
       )
       # store
-      wait_for_match(
-        STORE_PATTERN,
-        "put my scroll in my #{@other_container}"
-      )
+      store_my('scroll', @other_container)
     end
-    wait_for_match(
-      CLOSE_PATTERN,
-      "close my #{container_2}"
-    )
-    wait_for_match(
-      CLOSE_PATTERN,
-      "close my #{container_1}"
-    )
+    close_my(container_2)
+    close_my(container_1)
   end
 
   private

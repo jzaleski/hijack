@@ -3,29 +3,15 @@ require 'hijack/script/base/base_dragonrealms_script'
 class SellAllScript < BaseDragonrealmsScript
 
   NO_MERCHANT = 'There is no merchant'
-  THAT_IS_ALREADY_CLOSED = 'That is already closed'
-  THAT_IS_ALREADY_OPEN = 'That is already open'
   THEN_HANDS_YOU = 'then hands you'
   WHAT_WERE_YOU = 'What were you'
   YOU_ARE_ALREADY = 'You are already'
-  YOU_CLOSE_YOUR = 'You close your'
   YOU_GET = 'You get'
-  YOU_OPEN_YOUR = 'You open your'
-
-  CLOSE_PATTERN = [
-    THAT_IS_ALREADY_CLOSED,
-    YOU_CLOSE_YOUR,
-  ].join('|')
 
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,
     YOU_GET,
-  ].join('|')
-
-  OPEN_PATTERN = [
-    THAT_IS_ALREADY_OPEN,
-    YOU_OPEN_YOUR,
   ].join('|')
 
   SELL_PATTERN = [
@@ -41,10 +27,7 @@ class SellAllScript < BaseDragonrealmsScript
   def run(args)
     item = args[0]
     container = args[1] || config_container
-    wait_for_match(
-      OPEN_PATTERN,
-      "open my #{container}"
-    )
+    return unless open_my(container)
     loop do
       match = wait_for_match(
         GET_PATTERN,
@@ -59,10 +42,7 @@ class SellAllScript < BaseDragonrealmsScript
           break unless sell(item)
       end
     end
-    wait_for_match(
-      CLOSE_PATTERN,
-      "close my #{container}"
-    )
+    close_my(container)
   end
 
   private
