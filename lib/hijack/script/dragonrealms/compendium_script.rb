@@ -42,7 +42,7 @@ class CompendiumScript < BaseDragonrealmsScript
           )
         end
         # sleep between iterations
-        sleep 120
+        sleep 300
       end
     end
     # because this script loops indefinitely, it is quite likely that this code
