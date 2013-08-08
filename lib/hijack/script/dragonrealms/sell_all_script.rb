@@ -6,13 +6,6 @@ class SellAllScript < BaseDragonrealmsScript
   THEN_HANDS_YOU = 'then hands you'
   WHAT_WERE_YOU = 'What were you'
   YOU_ARE_ALREADY = 'You are already'
-  YOU_GET = 'You get'
-
-  GET_PATTERN = [
-    WHAT_WERE_YOU,
-    YOU_ARE_ALREADY,
-    YOU_GET,
-  ].join('|')
 
   SELL_PATTERN = [
     NO_MERCHANT,
@@ -29,18 +22,7 @@ class SellAllScript < BaseDragonrealmsScript
     container = args[1] || config_container
     return unless open_my(container)
     loop do
-      match = wait_for_match(
-        GET_PATTERN,
-        "get #{item}"
-      )
-      case match
-        when WHAT_WERE_YOU
-          break
-        when YOU_ARE_ALREADY
-          break unless sell(item)
-        when YOU_GET
-          break unless sell(item)
-      end
+      break unless get_my(item, container) && sell_my(item)
     end
     close_my(container)
   end
@@ -51,7 +33,7 @@ class SellAllScript < BaseDragonrealmsScript
     @config[:get_container]
   end
 
-  def sell(item)
+  def sell_my(item)
     match = wait_for_match(
       SELL_PATTERN,
       "sell my #{item}"

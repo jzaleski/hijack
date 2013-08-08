@@ -6,14 +6,8 @@ class ReadScrollsScript < BaseDragonrealmsScript
   GUIDING_YOUR_FINGERS = 'Guiding your fingers'
   ISNT_ROLLED_UP = "isn't rolled up"
   WHAT_WERE_YOU = 'What were you'
-  YOU_GET = 'You get'
   YOU_ROLL_UP = 'You roll up'
   YOU_UNROLL = 'You unroll'
-
-  GET_PATTERN = [
-    WHAT_WERE_YOU,
-    YOU_GET,
-  ].join('|')
 
   READ_PATTERN = GUIDING_YOUR_FINGERS
 
@@ -42,10 +36,7 @@ class ReadScrollsScript < BaseDragonrealmsScript
     @other_container = container_2
     loop do
       # get
-      match = wait_for_match(
-        GET_PATTERN,
-        "get scroll from my #{@current_container}"
-      )
+      get_my('scroll', @current_container)
       # this will handle EXITing the script when there are no scrolls in either
       # container and toggle between the containers at the appropriate time
       if match == WHAT_WERE_YOU

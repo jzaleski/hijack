@@ -151,11 +151,11 @@ class BaseDragonrealmsScript < BaseScript
     )
   end
 
-  def get_my(item)
+  def get_my(item, container)
     GET_MY_SUCCESSES.include?(
       wait_for_match(
         GET_MY_PATTERN,
-        "get my #{item}"
+        "get my #{item} from my #{container}"
       )
     )
   end
