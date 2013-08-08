@@ -23,6 +23,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_GET = 'You get'
   YOU_HAVE_ALREADY_FULLY = 'You have already fully'
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
+  YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN_YOUR = 'You open your'
   YOU_PUT_YOUR = 'You put your'
   YOU_RAISE_AN = 'You raise an'
@@ -61,6 +62,7 @@ class BaseDragonrealmsScript < BaseScript
   GET_MY_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,
+    YOU_NEED_A_FREE_HAND,
     YOU_GET,
   ].join('|')
 

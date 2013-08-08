@@ -2,96 +2,69 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class ScrapeScript < BaseDragonrealmsScript
 
-  ALREADY_HOLDING = 'You are already holding'
-  DONE_SCRAPING = 'clean as you can make it'
-  NEED_MORE_MATERIAL = 'You need to be holding the material'
-  NO_MERCHANT = 'There is no merchant'
+  CLEAN_AS_YOU_CAN_MAKE_IT = 'clean as you can make it'
   RUINED_BEYOND_REPAIR = 'ruined beyond repair'
-  SCRAPE_SUCCESS = 'You scrape'
-  SELL_SUCCESS = 'then hands you'
-  WHAT_WERE_YOU = 'What were you'
+  THEN_HANDS_YOU = 'then hands you'
+  THERE_IS_NO_MERCHANT = 'There is no merchant'
   YOU_DROP = 'You drop'
-  YOU_GET = 'You get'
-  YOU_NEED_A_FREE_HAND = 'You need a free hand'
-  YOU_PUT = 'You put'
+  YOU_SCRAPE = 'You scrape'
 
   DROP_PATTERN = YOU_DROP
 
-  GET_SCRAPER_FAILURES = [
-    WHAT_WERE_YOU,
-    YOU_NEED_A_FREE_HAND,
-  ]
-
-  GET_SCRAPER_PATTERN = [
-    ALREADY_HOLDING,
-    YOU_GET,
-    YOU_NEED_A_FREE_HAND,
-    WHAT_WERE_YOU,
-  ].join('|')
-
-  GET_SKIN_FAILURES = [
-    NEED_MORE_MATERIAL,
-    WHAT_WERE_YOU,
-  ]
-
-  GET_SKIN_PATTERN = [
-    ALREADY_HOLDING,
-    NEED_MORE_MATERIAL,
-    WHAT_WERE_YOU,
-    YOU_GET,
-  ].join('|')
-
   SCRAPE_PATTERN = [
-    DONE_SCRAPING,
+    CLEAN_AS_YOU_CAN_MAKE_IT,
     RUINED_BEYOND_REPAIR,
-    SCRAPE_SUCCESS,
+    YOU_SCRAPE,
   ].join('|')
 
   SELL_PATTERN = [
-    NO_MERCHANT,
-    SELL_SUCCESS,
+    THEN_HANDS_YOU,
+    THERE_IS_NO_MERCHANT,
   ].join('|')
 
-  STORE_SCRAPER_PATTERN = YOU_PUT
-
   def validate_args(args)
-    args.length == 2 ||
-    (args.length == 1 && config_scraper_container) ||
-    (config_skin_type && config_scraper_container)
+    args.length == 3 ||
+    (args.length == 2 && config_scraper_container) ||
+    (config_skin && config_skin_container && config_scraper_container)
   end
 
   def run(args)
-    skin_type = args[0] || config_skin_type
-    scraper_container = args[1] || config_scraper_container
-    return unless get_scraper
-    unless get_skin(skin_type)
-      store_scraper(scraper_container)
-      return
-    end
-    loop do
-      match = wait_for_match(
-        SCRAPE_PATTERN,
-        "scrape my #{skin_type}"
-      )
-      case match
-        when DONE_SCRAPING
-          unless sell_skin(skin_type)
-            drop_skin(skin_type)
-          end
-          unless get_skin(skin_type)
-            store_scraper(scraper_container)
-            return
-          end
-        when RUINED_BEYOND_REPAIR
-          drop_skin(skin_type)
-          unless get_skin(skin_type)
-            store_scraper(scraper_container)
-            return
-          end
-        else
-          sleep 10
+    skin = args[0] || config_skin
+    skin_container = args[1] || config_skin_container
+    scraper = 'scraper'
+    scraper_container = args[2] || config_scraper_container
+    if \
+      open_my(skin_container) &&
+      open_my(scraper_container) &&
+      get_my(scraper, scraper_container) &&
+      get_my(skin, skin_container)
+      loop do
+        match = wait_for_match(
+          SCRAPE_PATTERN,
+          "scrape my #{skin}"
+        )
+        case match
+          when CLEAN_AS_YOU_CAN_MAKE_IT
+            unless sell_skin(skin)
+              drop_skin(skin)
+            end
+            unless get_my(skin, skin_container)
+              store_my(scraper, scraper_container)
+              return
+            end
+          when RUINED_BEYOND_REPAIR
+            drop_skin(skin)
+            unless get_my(skin, skin_container)
+              store_my(scraper, scraper_container)
+              return
+            end
+          else
+            sleep 10
+        end
       end
     end
+    close_my(scraper_container)
+    close_my(skin_container)
   end
 
   private
@@ -100,47 +73,28 @@ class ScrapeScript < BaseDragonrealmsScript
     @config[:scrape_scraper_container]
   end
 
-  def config_skin_type
-    @config[:scrape_skin_type]
+  def config_skin
+    @config[:scrape_skin]
   end
 
-  def drop_skin(skin_type)
+  def config_skin_container
+    @config[:scrape_skin_container]
+  end
+
+  def drop_skin(skin)
     match = wait_for_match(
       DROP_PATTERN,
-      "drop my #{skin_type}"
+      "drop my #{skin}"
     )
     match == YOU_DROP
   end
 
-  def get_scraper
-    match = wait_for_match(
-      GET_SCRAPER_PATTERN,
-      'get my scraper'
-    )
-    !GET_SCRAPER_FAILURES.include?(match)
-  end
-
-  def get_skin(skin_type)
-    match = wait_for_match(
-      GET_SKIN_PATTERN,
-      "get my #{skin_type}"
-    )
-    !GET_SKIN_FAILURES.include?(match)
-  end
-
-  def sell_skin(skin_type)
+  def sell_skin(skin)
     match = wait_for_match(
       SELL_PATTERN,
-      "sell my #{skin_type}"
+      "sell my #{skin}"
     )
-    match != NO_MERCHANT
-  end
-
-  def store_scraper(scraper_container)
-    wait_for_match(
-      STORE_SCRAPER_PATTERN,
-      "put my scraper in my #{scraper_container}"
-    )
+    match != THERE_IS_NO_MERCHANT
   end
 
 end
