@@ -14,11 +14,13 @@ class BaseDragonrealmsScript < BaseScript
   WHAT_WERE_YOU = 'What were you'
   YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
   YOU_ARENT_PREPARING = "You aren't preparing"
+  YOU_ARE_ALREADY = 'You are already'
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_OPEN = "You can't open"
   YOU_CLOSE_YOUR = 'You close your'
   YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
   YOU_GESTURE = 'You gesture'
+  YOU_GET = 'You get'
   YOU_HAVE_ALREADY_FULLY = 'You have already fully'
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
   YOU_OPEN_YOUR = 'You open your'
@@ -35,46 +37,57 @@ class BaseDragonrealmsScript < BaseScript
     YOU_GESTURE,
   ]
 
-  CHARGE_PATTERN = [
+  CHARGE_MY_PATTERN = [
     ATTEMPT_TO_CHANNEL,
     I_COULD_NOT_FIND,
   ].join('|')
 
-  CHARGE_SUCCESSES = [
+  CHARGE_MY_SUCCESSES = [
     ATTEMPT_TO_CHANNEL,
   ]
 
-  CLOSE_PATTERN = [
+  CLOSE_MY_PATTERN = [
     THAT_IS_ALREADY_CLOSED,
     WHAT_WERE_YOU,
     YOU_CANT_CLOSE,
     YOU_CLOSE_YOUR,
   ].join('|')
 
-  CLOSE_SUCCESSES = [
+  CLOSE_MY_SUCCESSES = [
     THAT_IS_ALREADY_CLOSED,
     YOU_CLOSE_YOUR,
   ]
 
-  INVOKE_PATTERN = [
+  GET_MY_PATTERN = [
+    WHAT_WERE_YOU,
+    YOU_ARE_ALREADY,
+    YOU_GET,
+  ].join('|')
+
+  GET_MY_SUCCESSES = [
+    YOU_ARE_ALREADY,
+    YOU_GET,
+  ]
+
+  INVOKE_MY_PATTERN = [
     FORGE_A_MAGICAL_LINK,
     INVOKE_WHAT,
     IS_INTACT,
   ].join('|')
 
-  INVOKE_SUCCESSES = [
+  INVOKE_MY_SUCCESSES = [
     FORGE_A_MAGICAL_LINK,
     IS_INTACT,
   ]
 
-  OPEN_PATTERN = [
+  OPEN_MY_PATTERN = [
     THAT_IS_ALREADY_OPEN,
     WHAT_WERE_YOU,
     YOU_CANT_OPEN,
     YOU_OPEN_YOUR,
   ].join('|')
 
-  OPEN_SUCCESSES = [
+  OPEN_MY_SUCCESSES = [
     THAT_IS_ALREADY_OPEN,
     YOU_OPEN_YOUR,
   ]
@@ -100,12 +113,12 @@ class BaseDragonrealmsScript < BaseScript
     YOU_LET_YOUR_CONCENTRATION_LAPSE,
   ]
 
-  STORE_PATTERN = [
+  STORE_MY_PATTERN = [
     WHAT_WERE_YOU,
     YOU_PUT_YOUR,
   ].join('|')
 
-  STORE_SUCESSES = [
+  STORE_MY_SUCESSES = [
     YOU_PUT_YOUR,
   ]
 
@@ -121,36 +134,45 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def close_my(item)
-    CLOSE_SUCCESSES.include?(
+    CLOSE_MY_SUCCESSES.include?(
       wait_for_match(
-        CLOSE_PATTERN,
+        CLOSE_MY_PATTERN,
         "close my #{item}"
       )
     )
   end
 
   def charge_my(item, mana)
-    CHARGE_SUCCESSES.include?(
+    CHARGE_MY_SUCCESSES.include?(
       wait_for_match(
-        CHARGE_PATTERN,
+        CHARGE_MY_PATTERN,
         "charge my #{item} #{mana}"
       )
     )
   end
 
-  def invoke_my(item)
-    INVOKE_SUCCESSES.include?(
+  def get_my(item)
+    GET_MY_SUCCESSES.include?(
       wait_for_match(
-        INVOKE_PATTERN,
+        GET_MY_PATTERN,
+        "get my #{item}"
+      )
+    )
+  end
+
+  def invoke_my(item)
+    INVOKE_MY_SUCCESSES.include?(
+      wait_for_match(
+        INVOKE_MY_PATTERN,
         "invoke my #{item}"
       )
     )
   end
 
   def open_my(item)
-    OPEN_SUCCESSES.include?(
+    OPEN_MY_SUCCESSES.include?(
       wait_for_match(
-        OPEN_PATTERN,
+        OPEN_MY_PATTERN,
         "open my #{item}"
       )
     )
@@ -175,9 +197,9 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def store_my(item, container)
-    STORE_SUCESSES.include?(
+    STORE_MY_SUCESSES.include?(
       wait_for_match(
-        STORE_PATTERN,
+        STORE_MY_PATTERN,
         "put my #{item} in my #{container}"
       )
     )
