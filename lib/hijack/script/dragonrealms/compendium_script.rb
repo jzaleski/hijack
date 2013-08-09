@@ -2,11 +2,13 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class CompendiumScript < BaseDragonrealmsScript
 
+  WHY_DO_YOU_NEED_TO_STUDY = 'Why do you need to study'
   WITH_A_SUDDEN_MOMENT_OF_CLARITY = 'With a sudden moment of clarity'
   YOU_BEGIN_STUDYING = 'You begin studying'
   YOU_TURN_TO = 'You turn to'
 
   STUDY_PATTERN = [
+    WHY_DO_YOU_NEED_TO_STUDY,
     WITH_A_SUDDEN_MOMENT_OF_CLARITY,
     YOU_BEGIN_STUDYING,
   ]
