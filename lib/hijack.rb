@@ -17,7 +17,7 @@ config = {}
 # Process all of the args specified on the command-line (replace '-' with '_')
 ARGV.each do |arg|
   if match_data = /\A--(\S+)=(\S+)\Z/.match(arg)
-    config[match_data[1].sub('-', '_').to_sym] = match_data[2]
+    config[match_data[1].gsub(/-/, '_').to_sym] = match_data[2]
   end
 end
 
@@ -27,7 +27,7 @@ config_file = config.delete(:config_file)
 if config_file && File.exist?(config_file)
   File.new(config_file).each_line do |line|
     if match_data = /\A(\S+)\s?=\s?(\S+)\Z/.match(line)
-      config[match_data[1].rstrip.sub('-', '_').to_sym] = match_data[2].lstrip
+      config[match_data[1].rstrip.gsub(/-/, '_').to_sym] = match_data[2].lstrip
     end
   end
 end
