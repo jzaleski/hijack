@@ -1,6 +1,6 @@
-require 'hijack/script/share/get_script'
+require 'hijack/script/base/base_get_script'
 
-class GemScript < GetScript
+class GemScript < BaseGetScript
 
   protected
 
