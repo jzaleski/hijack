@@ -2,32 +2,32 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class CollectScript < BaseDragonrealmsScript
 
-  COLLECT_FAILURE_1 = 'You are sure you knew'
-  COLLECT_FAILURE_2 = 'You wander around and'
-  COLLECT_FAILURE_3 = 'You forage around but'
-  COLLECT_FAILURE_4 = 'You are certain you could'
-  COLLECT_SUCCESS = 'You manage to collect'
-  KICK_FAILURE = 'I could not find'
-  KICK_SUCCESS = 'You take a step back'
+  I_COULD_NOT_FIND = 'I could not find'
+  YOU_ARE_CERTAIN_YOU_COULD = 'You are certain you could'
+  YOU_ARE_SURE_YOU_KNEW = 'You are sure you knew'
+  YOU_FORAGE_AROUND_BUT = 'You forage around but'
+  YOU_MANAGE_TO_COLLECT = 'You manage to collect'
+  YOU_TAKE_A_STEP_BACK = 'You take a step back'
+  YOU_WANDER_AROUND_AND = 'You wander around and'
 
   COLLECT_FAILURES = [
-    COLLECT_FAILURE_1,
-    COLLECT_FAILURE_2,
-    COLLECT_FAILURE_3,
-    COLLECT_FAILURE_4,
+    YOU_ARE_CERTAIN_YOU_COULD,
+    YOU_ARE_SURE_YOU_KNEW,
+    YOU_FORAGE_AROUND_BUT,
+    YOU_WANDER_AROUND_AND,
   ]
 
   COLLECT_PATTERN = [
-    COLLECT_FAILURE_1,
-    COLLECT_FAILURE_2,
-    COLLECT_FAILURE_3,
-    COLLECT_FAILURE_4,
-    COLLECT_SUCCESS,
+    YOU_ARE_CERTAIN_YOU_COULD,
+    YOU_ARE_SURE_YOU_KNEW,
+    YOU_FORAGE_AROUND_BUT,
+    YOU_MANAGE_TO_COLLECT,
+    YOU_WANDER_AROUND_AND,
   ].join('|')
 
   KICK_PATTERN = [
-    KICK_FAILURE,
-    KICK_SUCCESS,
+    I_COULD_NOT_FIND,
+    YOU_TAKE_A_STEP_BACK,
   ].join('|')
 
   def validate_args(args)

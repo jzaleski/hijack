@@ -3,30 +3,30 @@ require 'hijack/script/base/base_dragonrealms_script'
 class HideScript < BaseDragonrealmsScript
 
   ALREADY_HIDDEN = 'already hidden'
-  HIDE_SUCCESS_1 = 'You melt into'
-  HIDE_SUCCESS_2 = 'You blend in'
-  NOT_HIDDEN = 'you are not hidden'
-  UNHIDE = 'You come out'
+  YOU_ARE_NOT_HIDDEN = 'you are not hidden'
+  YOU_BLEND_IN = 'You blend in'
+  YOU_COME_OUT = 'You come out'
+  YOU_MELT_INTO = 'You melt into'
 
   HIDE_PATTERN = [
     ALREADY_HIDDEN,
-    HIDE_SUCCESS_1,
-    HIDE_SUCCESS_2,
+    YOU_MELT_INTO,
+    YOU_BLEND_IN,
   ].join('|')
 
   HIDE_SUCCESSES = [
-    HIDE_SUCCESS_1,
-    HIDE_SUCCESS_2,
+    YOU_MELT_INTO,
+    YOU_BLEND_IN,
   ]
 
   UNHIDE_PATTERN = [
-    NOT_HIDDEN,
-    UNHIDE,
+    YOU_ARE_NOT_HIDDEN,
+    YOU_COME_OUT,
   ].join('|')
 
   UNHIDE_SUCCESSES = [
-    NOT_HIDDEN,
-    UNHIDE,
+    YOU_ARE_NOT_HIDDEN,
+    YOU_COME_OUT,
   ]
 
   def run(args)

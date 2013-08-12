@@ -2,28 +2,28 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class BraidScript < BaseDragonrealmsScript
 
-  FORAGE_FAILURE_1 = 'unable to find anything.'
-  FORAGE_FAILURE_2 = 'what you might find.'
-  FORAGE_SUCCESS = 'You manage to find'
-  HANDS_FULL = 'at least one hand free'
+  AT_LEAST_ONE_HAND_FREE = 'at least one hand free'
+  BRAID_YOUR = 'braid your'
   MORE_MATERIAL = 'to have more material'
-  ROUNDTIME = 'Roundtime:'
+  UNABLE_TO_FIND_ANYTHING = 'unable to find anything'
+  WHAT_YOU_MIGHT_FIND = 'what you might find'
+  YOU_MANAGE_TO_FIND = 'You manage to find'
 
   BRAID_PATTERN = [
+    BRAID_YOUR,
     MORE_MATERIAL,
-    ROUNDTIME,
   ].join('|')
 
   FORAGE_FAILURES = [
-    FORAGE_FAILURE_1,
-    FORAGE_FAILURE_2,
+    UNABLE_TO_FIND_ANYTHING,
+    WHAT_YOU_MIGHT_FIND,
   ]
 
   FORAGE_PATTERN = [
-    FORAGE_FAILURE_1,
-    FORAGE_FAILURE_2,
-    FORAGE_SUCCESS,
-    HANDS_FULL,
+    AT_LEAST_ONE_HAND_FREE,
+    UNABLE_TO_FIND_ANYTHING,
+    WHAT_YOU_MIGHT_FIND,
+    YOU_MANAGE_TO_FIND,
   ].join('|')
 
   def validate_args(args)
@@ -43,7 +43,7 @@ class BraidScript < BaseDragonrealmsScript
       )
       case match
         # return[ing] here will cause the script to exit
-        when HANDS_FULL
+        when AT_LEAST_ONE_HAND_FREE
           return
         # at this point successful or not we are in roundtime, so sleep
         else

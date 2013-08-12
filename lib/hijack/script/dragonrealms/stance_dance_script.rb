@@ -2,21 +2,21 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class StanceDanceScript < BaseDragonrealmsScript
 
-  ALREADY_PERFORMING_MANEUVER = 'you are already'
-  MANEUVER_CHANGED = 'You move into a position to'
-  STANCE_CHANGED = 'You are now set to use'
+  YOU_ARE_ALREADY = 'you are already'
+  YOU_ARE_NOW_SET_TO_USE = 'You are now set to use'
+  YOU_MOVE_INTO_A_POSITION = 'You move into a position'
 
   CHANGE_MANEUVER_PATTERN = [
-    ALREADY_PERFORMING_MANEUVER,
-    MANEUVER_CHANGED,
+    YOU_ARE_ALREADY,
+    YOU_MOVE_INTO_A_POSITION,
   ].join('|')
 
   CHANGE_MANEUVER_SUCCESSES = [
-    ALREADY_PERFORMING_MANEUVER,
-    MANEUVER_CHANGED,
+    YOU_ARE_ALREADY,
+    YOU_MOVE_INTO_A_POSITION,
   ]
 
-  CHANGE_STANCE_PATTERN = STANCE_CHANGED
+  CHANGE_STANCE_PATTERN = YOU_ARE_NOW_SET_TO_USE
 
   STANCES_AND_MANEUVERS = [
     ['evasion', 'dodge'],

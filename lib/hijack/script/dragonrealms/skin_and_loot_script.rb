@@ -2,28 +2,28 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class SkinAndLootScript < BaseDragonrealmsScript
 
-  A_SMALL_SLIP = 'A small slip'
   ARRANGE_WHAT = 'Arrange what\?'
+  A_SMALL_SLIP = 'A small slip'
   BUNGLE_THE_ATTEMPT = 'bungle the attempt'
   CANNOT_BE_SKINNED = 'cannot be skinned'
-  DEAD_LONG = 'which appears dead'
-  DEAD_SHORT = '\(dead\)'
+  DEAD = '\(dead\)'
   ITS_NOW_A_LOST_CAUSE = "it's now a lost cause"
+  I_COULD_NOT_FIND = 'I could not find'
   JUST_BARELY_PRY = 'just barely pry'
-  LOOT_SUCCESS = 'You search'
   NEARLY_RUINING_IT = 'nearly ruining it'
-  NO_CORPSE = 'I could not find'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
   SKIN_WHAT = 'Skin what\?'
   WHAT_WERE_YOU = 'What were you'
+  WHICH_APPEARS_DEAD = 'which appears dead'
   YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
-  YOU_CLAW_WILDLY = 'You claw wildly'
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
+  YOU_CLAW_WILDLY = 'You claw wildly'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_DROP = 'You drop'
   YOU_MAKE_A_SERIES_OF_CUTS = 'You make a series of cuts'
   YOU_PEEL = 'You peel'
+  YOU_SEARCH = 'You search'
   YOU_SKILLFULLY_PEEL = 'You skillfully peel'
   YOU_SKILLFULLY_REMOVE = 'you skillfully remove'
   YOU_SKIN = 'You skin'
@@ -44,8 +44,8 @@ class SkinAndLootScript < BaseDragonrealmsScript
 
   DROP_PATTERN = [
     WHAT_WERE_YOU,
-    YOU_DROP,
     YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
+    YOU_DROP,
   ].join('|')
 
   LOOK_FAILURES = [
@@ -54,15 +54,15 @@ class SkinAndLootScript < BaseDragonrealmsScript
   ]
 
   LOOK_PATTERN = [
-    DEAD_LONG,
-    DEAD_SHORT,
+    DEAD,
     OBVIOUS_EXITS,
     OBVIOUS_PATHS,
+    WHICH_APPEARS_DEAD,
   ].join('|')
 
   LOOT_PATTERN = [
-    LOOT_SUCCESS,
-    NO_CORPSE,
+    I_COULD_NOT_FIND,
+    YOU_SEARCH,
   ].join('|')
 
   SKIN_PATTERN = [

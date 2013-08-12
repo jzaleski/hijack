@@ -2,9 +2,9 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class HuntScript < BaseDragonrealmsScript
 
-  HUNT_SUCCESS = 'You take note of all the tracks'
+  YOU_TAKE_NOTE_OF_ALL_THE_TRACKS = 'You take note of all the tracks'
 
-  HUNT_PATTERN = HUNT_SUCCESS
+  HUNT_PATTERN = YOU_TAKE_NOTE_OF_ALL_THE_TRACKS
 
   def run(args)
     loop do
