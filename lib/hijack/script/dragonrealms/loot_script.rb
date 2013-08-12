@@ -2,13 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class LootScript < BaseDragonrealmsScript
 
-  DEAD = '\(dead\)'
-  I_COULD_NOT_FIND = 'I could not find'
-  LOOT_SUCCESS = 'You search'
-  OBVIOUS_EXITS = 'Obvious exits:'
-  OBVIOUS_PATHS = 'Obvious paths:'
-  WHICH_APPEARS_DEAD = 'which appears dead'
-
   LOOK_FAILURES = [
     OBVIOUS_EXITS,
     OBVIOUS_PATHS,
@@ -23,7 +16,7 @@ class LootScript < BaseDragonrealmsScript
 
   LOOT_PATTERN = [
     I_COULD_NOT_FIND,
-    LOOT_SUCCESS,
+    YOU_SEARCH,
   ].join('|')
 
   def run(args)

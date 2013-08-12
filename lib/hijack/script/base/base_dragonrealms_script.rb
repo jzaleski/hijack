@@ -3,15 +3,19 @@ require 'hijack/script/base/base_script'
 class BaseDragonrealmsScript < BaseScript
 
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
+  DEAD = '\(dead\)'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
   INVOKE_WHAT = 'Invoke what\?'
   IN_ROUNDTIME = '...wait'
   IS_INTACT = 'is intact\.'
   I_COULD_NOT_FIND = 'I could not find'
   NO_IDEA_HOW = 'no idea how'
+  OBVIOUS_EXITS = 'Obvious exits:'
+  OBVIOUS_PATHS = 'Obvious paths:'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
   WHAT_WERE_YOU = 'What were you'
+  WHICH_APPEARS_DEAD = 'which appears dead'
   YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
   YOU_ARENT_PREPARING = "You aren't preparing"
   YOU_ARE_ALREADY = 'You are already'
@@ -27,6 +31,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_OPEN_YOUR = 'You open your'
   YOU_PUT_YOUR = 'You put your'
   YOU_RAISE_AN = 'You raise an'
+  YOU_SEARCH = 'You search'
 
   CAST_PATTERN = [
     YOU_DONT_HAVE_A_SPELL,
@@ -226,3 +231,4 @@ class BaseDragonrealmsScript < BaseScript
   end
 
 end
+

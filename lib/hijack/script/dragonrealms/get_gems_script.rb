@@ -2,7 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class GetGemsScript < BaseDragonrealmsScript
 
-  WHAT_WERE_YOU = 'What were you'
   YOU_ARE_ALREADY = 'You are already'
   YOU_GET = 'You get'
   YOU_PICK_UP = 'You pick up'

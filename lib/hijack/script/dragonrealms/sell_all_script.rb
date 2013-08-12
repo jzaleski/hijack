@@ -4,7 +4,6 @@ class SellAllScript < BaseDragonrealmsScript
 
   NO_MERCHANT = 'There is no merchant'
   THEN_HANDS_YOU = 'then hands you'
-  WHAT_WERE_YOU = 'What were you'
   YOU_ARE_ALREADY = 'You are already'
 
   SELL_PATTERN = [

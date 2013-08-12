@@ -5,7 +5,6 @@ class ReadScrollsScript < BaseDragonrealmsScript
   ALREADY_ROLLED_UP = 'already rolled up'
   GUIDING_YOUR_FINGERS = 'Guiding your fingers'
   ISNT_ROLLED_UP = "isn't rolled up"
-  WHAT_WERE_YOU = 'What were you'
   YOU_ROLL_UP = 'You roll up'
   YOU_UNROLL = 'You unroll'
 

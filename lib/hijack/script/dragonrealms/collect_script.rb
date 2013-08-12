@@ -2,7 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class CollectScript < BaseDragonrealmsScript
 
-  I_COULD_NOT_FIND = 'I could not find'
   YOU_ARE_CERTAIN_YOU_COULD = 'You are certain you could'
   YOU_ARE_SURE_YOU_KNEW = 'You are sure you knew'
   YOU_FORAGE_AROUND_BUT = 'You forage around but'

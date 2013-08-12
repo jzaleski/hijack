@@ -5,7 +5,6 @@ class GetCoinsScript < BaseDragonrealmsScript
   DOKORA = 'Dokora[s]?\.'
   KRONAR = 'Kronar[s]?\.'
   LIRUM = 'Lirum[s]?\.'
-  WHAT_WERE_YOU = 'What were you'
 
   GET_COIN_PATTERN = [
     DOKORA,
