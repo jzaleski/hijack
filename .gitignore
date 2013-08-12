@@ -19,6 +19,8 @@ tmp
 _yardoc
 doc/
 
+# rbenv/RVM artifacts
 .rbenv-gemsets
 .rbenv-version
+.ruby-gemset
 .ruby-version
