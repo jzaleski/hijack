@@ -2,10 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class GetAllScript < BaseDragonrealmsScript
 
-  YOU_ARE_ALREADY = 'You are already'
-  YOU_GET = 'You get'
-  YOU_PICK_UP = 'You pick up'
-
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,

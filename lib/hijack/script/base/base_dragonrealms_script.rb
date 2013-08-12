@@ -14,6 +14,8 @@ class BaseDragonrealmsScript < BaseScript
   OBVIOUS_PATHS = 'Obvious paths:'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
+  THEN_HANDS_YOU = 'then hands you'
+  THERE_IS_NO_MERCHANT = 'There is no merchant'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
   YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
@@ -23,12 +25,14 @@ class BaseDragonrealmsScript < BaseScript
   YOU_CANT_OPEN = "You can't open"
   YOU_CLOSE_YOUR = 'You close your'
   YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
+  YOU_DROP = 'You drop'
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
   YOU_HAVE_ALREADY_FULLY = 'You have already fully'
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN_YOUR = 'You open your'
+  YOU_PICK_UP = 'You pick up'
   YOU_PUT_YOUR = 'You put your'
   YOU_RAISE_AN = 'You raise an'
   YOU_SEARCH = 'You search'

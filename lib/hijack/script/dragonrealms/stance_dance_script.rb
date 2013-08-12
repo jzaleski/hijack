@@ -2,7 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class StanceDanceScript < BaseDragonrealmsScript
 
-  YOU_ARE_ALREADY = 'you are already'
   YOU_ARE_NOW_SET_TO_USE = 'You are now set to use'
   YOU_MOVE_INTO_A_POSITION = 'You move into a position'
 

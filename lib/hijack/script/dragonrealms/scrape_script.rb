@@ -4,9 +4,6 @@ class ScrapeScript < BaseDragonrealmsScript
 
   CLEAN_AS_YOU_CAN_MAKE_IT = 'clean as you can make it'
   RUINED_BEYOND_REPAIR = 'ruined beyond repair'
-  THEN_HANDS_YOU = 'then hands you'
-  THERE_IS_NO_MERCHANT = 'There is no merchant'
-  YOU_DROP = 'You drop'
   YOU_SCRAPE = 'You scrape'
 
   DROP_PATTERN = YOU_DROP

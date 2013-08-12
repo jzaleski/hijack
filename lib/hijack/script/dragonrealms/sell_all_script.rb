@@ -2,13 +2,9 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class SellAllScript < BaseDragonrealmsScript
 
-  NO_MERCHANT = 'There is no merchant'
-  THEN_HANDS_YOU = 'then hands you'
-  YOU_ARE_ALREADY = 'You are already'
-
   SELL_PATTERN = [
-    NO_MERCHANT,
     THEN_HANDS_YOU,
+    THERE_IS_NO_MERCHANT,
   ].join('|')
 
   def validate_args(args)
@@ -37,7 +33,7 @@ class SellAllScript < BaseDragonrealmsScript
       SELL_PATTERN,
       "sell my #{item}"
     )
-    match != NO_MERCHANT
+    match != THERE_IS_NO_MERCHANT
   end
 
 end

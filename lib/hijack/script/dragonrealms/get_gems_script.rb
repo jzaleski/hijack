@@ -2,10 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class GetGemsScript < BaseDragonrealmsScript
 
-  YOU_ARE_ALREADY = 'You are already'
-  YOU_GET = 'You get'
-  YOU_PICK_UP = 'You pick up'
-
   GEMS = %w[
     agate
     amber
