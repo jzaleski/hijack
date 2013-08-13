@@ -19,18 +19,22 @@ class BaseDragonrealmsScript < BaseScript
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
   THEN_HANDS_YOU = 'then hands you'
+  THERE_IS_NOTHING_ELSE = 'There is nothing else'
   THERE_IS_NO_MERCHANT = 'There is no merchant'
   TRIES_TO_FIND = 'tries to find'
   WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
   YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
+  YOUR_PATTERN_DISSIPATES = 'Your pattern dissipates'
   YOUR_RIGHT_HAND_IS_ALREADY_EMPTY = 'Your right hand is already empty'
   YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
+  YOUR_TARGET_PATTERN_IS = 'Your target pattern is'
   YOU_ARENT_PREPARING = "You aren't preparing"
   YOU_ARENT_WEARING_THAT = "You aren't wearing that"
   YOU_ARE_ALREADY = 'You are already'
   YOU_ATTACH_A = 'You attach a'
+  YOU_BEGIN_TO_WEAVE = 'You begin to weave'
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_OPEN = "You can't open"
   YOU_CLOSE_YOUR = 'You close your'
@@ -236,6 +240,20 @@ class BaseDragonrealmsScript < BaseScript
     YOU_PUT_YOUR,
   ]
 
+  TARGET_PATTERN = [
+    THERE_IS_NOTHING_ELSE,
+    YOUR_PATTERN_DISSIPATES,
+    YOUR_TARGET_PATTERN_DISSIPATES,
+    YOUR_TARGET_PATTERN_IS,
+    YOU_BEGIN_TO_WEAVE,
+    YOU_DONT_HAVE_A_SPELL,
+  ].join('|')
+
+  TARGET_SUCCESSES = [
+    YOUR_TARGET_PATTERN_IS,
+    YOU_BEGIN_TO_WEAVE,
+  ]
+
   WEAR_MY_PATTERN = [
     ONTO_YOUR_HANDS,
     WEAR_WHAT,
@@ -399,6 +417,15 @@ class BaseDragonrealmsScript < BaseScript
       wait_for_match(
         STORE_MY_PATTERN,
         "put my #{item} in my #{container}"
+      )
+    )
+  end
+
+  def target
+    TARGET_SUCCESSES.include?(
+      wait_for_match(
+        TARGET_PATTERN,
+        'target'
       )
     )
   end

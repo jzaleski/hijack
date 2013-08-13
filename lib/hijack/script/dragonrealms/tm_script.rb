@@ -2,29 +2,6 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class TmScript < BaseDragonrealmsScript
 
-  THERE_IS_NOTHING_ELSE = 'There is nothing else'
-  YOUR_PATTERN_DISSIPATES = 'Your pattern dissipates'
-  YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
-  YOUR_TARGET_PATTERN_IS = 'Your target pattern is'
-  YOU_BEGIN_TO_WEAVE = 'You begin to weave'
-  YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
-
-  TARGET_FAILURES = [
-    THERE_IS_NOTHING_ELSE,
-    YOUR_PATTERN_DISSIPATES,
-    YOUR_TARGET_PATTERN_DISSIPATES,
-    YOU_DONT_HAVE_A_SPELL,
-  ]
-
-  TARGET_PATTERN = [
-    THERE_IS_NOTHING_ELSE,
-    YOUR_PATTERN_DISSIPATES,
-    YOUR_TARGET_PATTERN_DISSIPATES,
-    YOUR_TARGET_PATTERN_IS,
-    YOU_BEGIN_TO_WEAVE,
-    YOU_DONT_HAVE_A_SPELL,
-  ].join('|')
-
   def validate_args(args)
     args.length >= 1 ||
     config_spell
@@ -36,11 +13,7 @@ class TmScript < BaseDragonrealmsScript
     loop do
       prep(spell, mana)
       sleep 3
-      match = wait_for_match(
-        TARGET_PATTERN,
-        'target'
-      )
-      if TARGET_FAILURES.include?(match)
+      unless target
         release
         sleep 15
         next
