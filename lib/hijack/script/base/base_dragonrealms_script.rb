@@ -97,10 +97,12 @@ class BaseDragonrealmsScript < BaseScript
     WHICH_APPEARS_DEAD,
   ].join('|')
 
-  DEAD_CREATURE_SUCCESSES = [
-    DEAD,
-    WHICH_APPEARS_DEAD,
-  ]
+  DEAD_CREATURE_SUCCESS_PATTERN = \
+    Regexp.new([
+      DEAD,
+      WHICH_APPEARS_DEAD,
+    ].join('|')
+  )
 
   DROP_MY_PATTERN = [
     BUT_YOU_ARENT_HOLDING_THAT,
@@ -305,7 +307,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def dead_creature?
-    DEAD_CREATURE_SUCCESSES.include?(
+    DEAD_CREATURE_SUCCESS_PATTERN.match(
       wait_for_match(
         DEAD_CREATURE_PATTERN,
         'look'
