@@ -86,6 +86,18 @@ class BaseDragonrealmsScript < BaseScript
     YOU_CLOSE_YOUR,
   ]
 
+  DEAD_CREATURE_PATTERN = [
+    DEAD,
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+    WHICH_APPEARS_DEAD,
+  ].join('|')
+
+  DEAD_CREATURE_SUCCESSES = [
+    DEAD,
+    WHICH_APPEARS_DEAD,
+  ]
+
   DROP_MY_PATTERN = [
     BUT_YOU_ARENT_HOLDING_THAT,
     WHAT_WERE_YOU,
@@ -270,6 +282,15 @@ class BaseDragonrealmsScript < BaseScript
       wait_for_match(
         CHARGE_MY_PATTERN,
         "charge my #{item} #{mana}"
+      )
+    )
+  end
+
+  def dead_creature?
+    DEAD_CREATURE_SUCCESSES.include?(
+      wait_for_match(
+        DEAD_CREATURE_PATTERN,
+        'look'
       )
     )
   end

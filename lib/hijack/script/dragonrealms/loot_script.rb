@@ -2,27 +2,11 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class LootScript < BaseDragonrealmsScript
 
-  LOOK_FAILURES = [
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
-  ]
-
-  LOOK_PATTERN = [
-    DEAD,
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
-    WHICH_APPEARS_DEAD,
-  ].join('|')
-
   def run(args)
     loot_type = args[0] || config_loot_type || 'goods'
     loop do
-      match = wait_for_match(
-        LOOK_PATTERN,
-        'look'
-      )
-      # if there isn't anything to loot wait a bit and then try again
-      if LOOK_FAILURES.include?(match)
+      # any dead creatures?
+      unless dead_creature?
         sleep 15
         next
       end

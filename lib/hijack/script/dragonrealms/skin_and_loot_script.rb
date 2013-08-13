@@ -21,11 +21,6 @@ class SkinAndLootScript < BaseDragonrealmsScript
   YOU_SLICE_AWAY = 'You slice away'
   YOU_WORK = '[Yy]ou work'
 
-  ARRANGE_FAILURES = [
-    ARRANGE_WHAT,
-    CANNOT_BE_SKINNED,
-  ]
-
   ARRANGE_PATTERN = [
     ARRANGE_WHAT,
     CANNOT_BE_SKINNED,
@@ -33,17 +28,10 @@ class SkinAndLootScript < BaseDragonrealmsScript
     YOU_CONTINUE_ARRANGING,
   ].join('|')
 
-  LOOK_FAILURES = [
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
+  ARRANGE_SUCCESSES = [
+    YOU_BEGIN_TO_ARRANGE,
+    YOU_CONTINUE_ARRANGING,
   ]
-
-  LOOK_PATTERN = [
-    DEAD,
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
-    WHICH_APPEARS_DEAD,
-  ].join('|')
 
   SKIN_PATTERN = [
     A_SMALL_SLIP,
@@ -66,13 +54,8 @@ class SkinAndLootScript < BaseDragonrealmsScript
     num_arranges = [0, (args[0] || config_num_arranges).to_i].max
     loot_type = args[1] || config_loot_type || 'goods'
     loop do
-      # anything to skin & loot?
-      match = wait_for_match(
-        LOOK_PATTERN,
-        'look'
-      )
-      # if there isn't anything to loot wait a bit and then try again
-      if LOOK_FAILURES.include?(match)
+      # any dead creatures?
+      unless dead_creature?
         sleep 15
         next
       end
@@ -82,7 +65,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
           ARRANGE_PATTERN,
           'arrange'
         )
-        break if ARRANGE_FAILURES.include?(match)
+        break unless ARRANGE_SUCCESSES.include?(match)
         sleep 2
       end
       # skin
