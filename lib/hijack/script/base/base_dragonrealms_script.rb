@@ -8,7 +8,6 @@ class BaseDragonrealmsScript < BaseScript
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
   FROM_YOUR_HANDS = 'from your hands'
   INVOKE_WHAT = 'Invoke what\?'
-  IN_ROUNDTIME = '...wait'
   IS_INTACT = 'is intact\.'
   I_COULD_NOT_FIND = 'I could not find'
   NO_IDEA_HOW = 'no idea how'
@@ -22,6 +21,7 @@ class BaseDragonrealmsScript < BaseScript
   THERE_IS_NOTHING_ELSE = 'There is nothing else'
   THERE_IS_NO_MERCHANT = 'There is no merchant'
   TRIES_TO_FIND = 'tries to find'
+  WAIT = '\.\.\.wait'
   WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
@@ -476,16 +476,14 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def wait_for_match(pattern, command=nil)
-    # retry on roundtime if the pattern doesn't already include a match to do so
-    should_handle_roundtime = false
-    unless pattern.include?(IN_ROUNDTIME)
-      pattern = "#{IN_ROUNDTIME}|#{pattern}"
-      should_handle_roundtime = true
-    end
-    # most times, this loop will exit in one or few iterations
+    # handle retries because of roundtime here, most times, this loop will exit
+    # in one or few iterations
     loop do
-      match = super(pattern, command)
-      if match == IN_ROUNDTIME && should_handle_roundtime
+      match = super(
+        "#{WAIT}|#{pattern}",
+        command
+      )
+      if WAIT.match(match)
         sleep 1
         next
       end

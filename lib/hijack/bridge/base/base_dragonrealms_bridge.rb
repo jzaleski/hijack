@@ -2,7 +2,7 @@ require 'hijack/bridge/base/base_simutronics_bridge'
 
 class BaseDragonrealmsBridge < BaseSimutronicsBridge
 
-  IN_ROUNDTIME = '...wait'
+  WAIT = '\.\.\.wait'
 
   PROBLEM_PATTERNS = [
     '***',
@@ -25,7 +25,7 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
 
   def should_output?(line)
     !(
-      line.include?(IN_ROUNDTIME) &&
+      line.match(WAIT) &&
       @config[:silence_roundtime_messages].to_s =~ /\Atrue\Z/
     )
   end
