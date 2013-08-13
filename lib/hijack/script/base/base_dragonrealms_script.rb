@@ -5,6 +5,7 @@ class BaseDragonrealmsScript < BaseScript
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
   DEAD = '\(dead\)'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
+  FROM_YOUR_HANDS = 'from your hands'
   INVOKE_WHAT = 'Invoke what\?'
   IN_ROUNDTIME = '...wait'
   IS_INTACT = 'is intact\.'
@@ -12,30 +13,43 @@ class BaseDragonrealmsScript < BaseScript
   NO_IDEA_HOW = 'no idea how'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
+  ONTO_YOUR_HANDS = 'onto your hands'
+  REMOVE_WHAT = 'Remove what\?'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
   THEN_HANDS_YOU = 'then hands you'
   THERE_IS_NO_MERCHANT = 'There is no merchant'
+  WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
   YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
   YOU_ARENT_PREPARING = "You aren't preparing"
+  YOU_ARENT_WEARING_THAT = "You aren't wearing that"
   YOU_ARE_ALREADY = 'You are already'
+  YOU_ATTACH_A = 'You attach a'
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_OPEN = "You can't open"
   YOU_CLOSE_YOUR = 'You close your'
+  YOU_DETACH_A = 'You detach a'
   YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
   YOU_DROP = 'You drop'
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
   YOU_HAVE_ALREADY_FULLY = 'You have already fully'
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
+  YOU_LOOSEN_THE_STRAPS = 'You loosen the straps'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN_YOUR = 'You open your'
   YOU_PICK_UP = 'You pick up'
+  YOU_PUT_A = 'You put a'
   YOU_PUT_YOUR = 'You put your'
   YOU_RAISE_AN = 'You raise an'
+  YOU_REMOVE_A = 'You remove a'
   YOU_SEARCH = 'You search'
+  YOU_SLIDE_YOUR = 'You slide you'
+  YOU_SLING_A = 'You sling a'
+  YOU_TAKE_A = 'You take a'
+  YOU_WORK_YOUR_WAY = 'You work your way'
 
   CAST_PATTERN = [
     YOU_DONT_HAVE_A_SPELL,
@@ -124,6 +138,29 @@ class BaseDragonrealmsScript < BaseScript
     YOU_LET_YOUR_CONCENTRATION_LAPSE,
   ]
 
+  REMOVE_MY_PATTERN = [
+    FROM_YOUR_HANDS,
+    REMOVE_WHAT,
+    YOU_ARENT_WEARING_THAT,
+    YOU_DETACH_A,
+    YOU_LOOSEN_THE_STRAPS,
+    YOU_REMOVE_A,
+    YOU_SLING_A,
+    YOU_TAKE_A,
+    YOU_WORK_YOUR_WAY,
+  ].join('|')
+
+  REMOVE_MY_SUCCESSES = [
+    FROM_YOUR_HANDS,
+    YOU_ARENT_WEARING_THAT,
+    YOU_DETACH_A,
+    YOU_LOOSEN_THE_STRAPS,
+    YOU_REMOVE_A,
+    YOU_SLING_A,
+    YOU_TAKE_A,
+    YOU_WORK_YOUR_WAY,
+  ]
+
   STORE_MY_PATTERN = [
     WHAT_WERE_YOU,
     YOU_PUT_YOUR,
@@ -131,6 +168,27 @@ class BaseDragonrealmsScript < BaseScript
 
   STORE_MY_SUCESSES = [
     YOU_PUT_YOUR,
+  ]
+
+  WEAR_MY_PATTERN = [
+    ONTO_YOUR_HANDS,
+    WEAR_WHAT,
+    YOU_ARE_ALREADY,
+    YOU_ATTACH_A,
+    YOU_PUT_A,
+    YOU_SLIDE_YOUR,
+    YOU_SLING_A,
+    YOU_WORK_YOUR_WAY,
+  ].join('|')
+
+  WEAR_MY_SUCCESSES = [
+    ONTO_YOUR_HANDS,
+    YOU_ARE_ALREADY,
+    YOU_ATTACH_A,
+    YOU_PUT_A,
+    YOU_SLIDE_YOUR,
+    YOU_SLING_A,
+    YOU_WORK_YOUR_WAY,
   ]
 
   protected
@@ -207,11 +265,29 @@ class BaseDragonrealmsScript < BaseScript
     )
   end
 
+  def remove_my(item)
+    REMOVE_MY_SUCCESSES.include?(
+      wait_for_match(
+        REMOVE_MY_PATTERN,
+        "remove my #{item}"
+      )
+    )
+  end
+
   def store_my(item, container)
     STORE_MY_SUCESSES.include?(
       wait_for_match(
         STORE_MY_PATTERN,
         "put my #{item} in my #{container}"
+      )
+    )
+  end
+
+  def wear_my(item)
+    WEAR_MY_SUCCESSES.include?(
+      wait_for_match(
+        WEAR_MY_PATTERN,
+        "wear my #{item}"
       )
     )
   end
