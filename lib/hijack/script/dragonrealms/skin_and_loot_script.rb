@@ -28,10 +28,12 @@ class SkinAndLootScript < BaseDragonrealmsScript
     YOU_CONTINUE_ARRANGING,
   ].join('|')
 
-  ARRANGE_SUCCESSES = [
-    YOU_BEGIN_TO_ARRANGE,
-    YOU_CONTINUE_ARRANGING,
-  ]
+  ARRANGE_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_BEGIN_TO_ARRANGE,
+      YOU_CONTINUE_ARRANGING,
+    ].join('|')
+  )
 
   SKIN_PATTERN = [
     A_SMALL_SLIP,
@@ -65,7 +67,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
           ARRANGE_PATTERN,
           'arrange'
         )
-        break unless ARRANGE_SUCCESSES.include?(match)
+        break unless ARRANGE_SUCCESS_PATTERN.match(match)
         sleep 2
       end
       # skin

@@ -14,20 +14,17 @@ class HideScript < BaseDragonrealmsScript
     YOU_BLEND_IN,
   ].join('|')
 
-  HIDE_SUCCESSES = [
-    YOU_MELT_INTO,
-    YOU_BLEND_IN,
-  ]
+  HIDE_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_MELT_INTO,
+      YOU_BLEND_IN,
+    ].join('|')
+  )
 
   UNHIDE_PATTERN = [
     YOU_ARE_NOT_HIDDEN,
     YOU_COME_OUT,
   ].join('|')
-
-  UNHIDE_SUCCESSES = [
-    YOU_ARE_NOT_HIDDEN,
-    YOU_COME_OUT,
-  ]
 
   def run(args)
     intersequence_sleep_time = \
@@ -37,7 +34,7 @@ class HideScript < BaseDragonrealmsScript
         HIDE_PATTERN,
         'hide'
       )
-      sleep 6.5 if HIDE_SUCCESSES.include?(match)
+      sleep 6.5 if HIDE_SUCCESS_PATTERN.match(match)
       wait_for_match(
         UNHIDE_PATTERN,
         'unhide'

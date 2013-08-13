@@ -10,11 +10,6 @@ class StanceDanceScript < BaseDragonrealmsScript
     YOU_MOVE_INTO_A_POSITION,
   ].join('|')
 
-  CHANGE_MANEUVER_SUCCESSES = [
-    YOU_ARE_ALREADY,
-    YOU_MOVE_INTO_A_POSITION,
-  ]
-
   CHANGE_STANCE_PATTERN = YOU_ARE_NOW_SET_TO_USE
 
   STANCES_AND_MANEUVERS = [

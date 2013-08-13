@@ -2,16 +2,16 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
 
-  BEGIN_TO_ADVANCE = 'You begin to advance'
-  MUST_BE_CLOSER = 'You must be closer'
-  NO_TARGETS = 'There is nothing else'
-  TURN_TO_FACE = 'You turn to face'
+  THERE_IS_NOTHING_ELSE = 'There is nothing else'
+  YOU_BEGIN_TO_ADVANCE = 'You begin to advance'
+  YOU_MUST_BE_CLOSER = 'You must be closer'
+  YOU_TURN_TO_FACE = 'You turn to face'
 
   ATTACK_FAILURES = [
-    BEGIN_TO_ADVANCE,
-    MUST_BE_CLOSER,
-    NO_TARGETS,
-    TURN_TO_FACE,
+    THERE_IS_NOTHING_ELSE,
+    YOU_BEGIN_TO_ADVANCE,
+    YOU_MUST_BE_CLOSER,
+    YOU_TURN_TO_FACE,
   ]
 
   def run(args)
@@ -19,6 +19,9 @@ class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
     loop do
       combat_sequence.each do |attack, sleep_time, attack_pattern|
         attack_pattern ||= "[Yy]ou #{attack}"
+        # because the "attack_pattern" is interpolated and "wait_for_match" will
+        # automatically convert the string to a Regexp, we need to handle things
+        # a little differently
         match = wait_for_match(
           "#{attack_pattern}|#{ATTACK_FAILURES.join('|')}",
           attack

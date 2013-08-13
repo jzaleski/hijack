@@ -14,10 +14,12 @@ class BraidScript < BaseDragonrealmsScript
     MORE_MATERIAL,
   ].join('|')
 
-  FORAGE_FAILURES = [
-    UNABLE_TO_FIND_ANYTHING,
-    WHAT_YOU_MIGHT_FIND,
-  ]
+  FORAGE_FAILURE_PATTERN = \
+    Regexp.new([
+      UNABLE_TO_FIND_ANYTHING,
+      WHAT_YOU_MIGHT_FIND,
+    ].join('|')
+  )
 
   FORAGE_PATTERN = [
     AT_LEAST_ONE_HAND_FREE,
@@ -50,7 +52,7 @@ class BraidScript < BaseDragonrealmsScript
           sleep 5
       end
       # retry if we've hit one of the failure cases
-      next if FORAGE_FAILURES.include?(match)
+      next if FORAGE_FAILURE_PATTERN.match(match)
       # braiding
       loop do
         match = wait_for_match(

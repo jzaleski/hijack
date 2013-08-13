@@ -65,18 +65,22 @@ class BaseDragonrealmsScript < BaseScript
     YOUR_TARGET_PATTERN_DISSIPATES,
   ].join('|')
 
-  CAST_SUCCESSES = [
-    YOU_GESTURE,
-  ]
+  CAST_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_GESTURE,
+    ].join('|')
+  )
 
   CHARGE_MY_PATTERN = [
     ATTEMPT_TO_CHANNEL,
     I_COULD_NOT_FIND,
   ].join('|')
 
-  CHARGE_MY_SUCCESSES = [
-    ATTEMPT_TO_CHANNEL,
-  ]
+  CHARGE_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      ATTEMPT_TO_CHANNEL,
+    ].join('|')
+  )
 
   CLOSE_MY_PATTERN = [
     THAT_IS_ALREADY_CLOSED,
@@ -85,10 +89,12 @@ class BaseDragonrealmsScript < BaseScript
     YOU_CLOSE_YOUR,
   ].join('|')
 
-  CLOSE_MY_SUCCESSES = [
-    THAT_IS_ALREADY_CLOSED,
-    YOU_CLOSE_YOUR,
-  ]
+  CLOSE_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      THAT_IS_ALREADY_CLOSED,
+      YOU_CLOSE_YOUR,
+    ].join('|')
+  )
 
   DEAD_CREATURE_PATTERN = [
     DEAD,
@@ -110,29 +116,35 @@ class BaseDragonrealmsScript < BaseScript
     YOU_DROP,
   ].join('|')
 
-  DROP_MY_SUCCESSES = [
-    YOU_DROP,
-  ]
+  DROP_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_DROP,
+    ].join('|')
+  )
 
   EMPTY_LEFT_PATTERN = [
     YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
     YOU_DROP,
   ].join('|')
 
-  EMPTY_LEFT_SUCCESSES = [
-    YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
-    YOU_DROP,
-  ]
+  EMPTY_LEFT_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
+      YOU_DROP,
+    ].join('|')
+  )
 
   EMPTY_RIGHT_PATTERN = [
     YOUR_RIGHT_HAND_IS_ALREADY_EMPTY,
     YOU_DROP,
   ].join('|')
 
-  EMPTY_RIGHT_SUCCESSES = [
-    YOUR_RIGHT_HAND_IS_ALREADY_EMPTY,
-    YOU_DROP,
-  ]
+  EMPTY_RIGHT_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOUR_RIGHT_HAND_IS_ALREADY_EMPTY,
+      YOU_DROP,
+    ].join('|')
+  )
 
   GET_MY_PATTERN = [
     WHAT_WERE_YOU,
@@ -141,10 +153,12 @@ class BaseDragonrealmsScript < BaseScript
     YOU_GET,
   ].join('|')
 
-  GET_MY_SUCCESSES = [
-    YOU_ARE_ALREADY,
-    YOU_GET,
-  ]
+  GET_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_ARE_ALREADY,
+      YOU_GET,
+    ].join('|')
+  )
 
   INVOKE_MY_PATTERN = [
     FORGE_A_MAGICAL_LINK,
@@ -152,19 +166,23 @@ class BaseDragonrealmsScript < BaseScript
     IS_INTACT,
   ].join('|')
 
-  INVOKE_MY_SUCCESSES = [
-    FORGE_A_MAGICAL_LINK,
-    IS_INTACT,
-  ]
+  INVOKE_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      FORGE_A_MAGICAL_LINK,
+      IS_INTACT,
+    ].join('|')
+  )
 
   LOOT_PATTERN = [
     I_COULD_NOT_FIND,
     YOU_SEARCH,
   ].join('|')
 
-  LOOT_SUCCESSES = [
-    YOU_SEARCH,
-  ]
+  LOOT_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_SEARCH,
+    ].join('|')
+  )
 
   OPEN_MY_PATTERN = [
     THAT_IS_ALREADY_OPEN,
@@ -173,10 +191,12 @@ class BaseDragonrealmsScript < BaseScript
     YOU_OPEN_YOUR,
   ].join('|')
 
-  OPEN_MY_SUCCESSES = [
-    THAT_IS_ALREADY_OPEN,
-    YOU_OPEN_YOUR,
-  ]
+  OPEN_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      THAT_IS_ALREADY_OPEN,
+      YOU_OPEN_YOUR,
+    ].join('|')
+  )
 
   PREP_PATTERN = [
     NO_IDEA_HOW,
@@ -184,20 +204,24 @@ class BaseDragonrealmsScript < BaseScript
     YOU_RAISE_AN,
   ].join('|')
 
-  PREP_SUCCESSES = [
-    YOU_HAVE_ALREADY_FULLY,
-    YOU_RAISE_AN,
-  ]
+  PREP_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_HAVE_ALREADY_FULLY,
+      YOU_RAISE_AN,
+    ].join('|')
+  )
 
   RELEASE_PATTERN = [
     YOU_ARENT_PREPARING,
     YOU_LET_YOUR_CONCENTRATION_LAPSE,
   ].join('|')
 
-  RELEASE_SUCCESSES = [
-    YOU_ARENT_PREPARING,
-    YOU_LET_YOUR_CONCENTRATION_LAPSE,
-  ]
+  RELEASE_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_ARENT_PREPARING,
+      YOU_LET_YOUR_CONCENTRATION_LAPSE,
+    ].join('|')
+  )
 
   REMOVE_MY_PATTERN = [
     FROM_YOUR_HANDS,
@@ -211,16 +235,18 @@ class BaseDragonrealmsScript < BaseScript
     YOU_WORK_YOUR_WAY,
   ].join('|')
 
-  REMOVE_MY_SUCCESSES = [
-    FROM_YOUR_HANDS,
-    YOU_ARENT_WEARING_THAT,
-    YOU_DETACH_A,
-    YOU_LOOSEN_THE_STRAPS,
-    YOU_REMOVE_A,
-    YOU_SLING_A,
-    YOU_TAKE_A,
-    YOU_WORK_YOUR_WAY,
-  ]
+  REMOVE_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      FROM_YOUR_HANDS,
+      YOU_ARENT_WEARING_THAT,
+      YOU_DETACH_A,
+      YOU_LOOSEN_THE_STRAPS,
+      YOU_REMOVE_A,
+      YOU_SLING_A,
+      YOU_TAKE_A,
+      YOU_WORK_YOUR_WAY,
+    ].join('|')
+  )
 
   SELL_MY_PATTERN = [
     I_COULD_NOT_FIND,
@@ -229,18 +255,22 @@ class BaseDragonrealmsScript < BaseScript
     TRIES_TO_FIND,
   ].join('|')
 
-  SELL_MY_SUCCESSES = [
-    THEN_HANDS_YOU,
-  ]
+  SELL_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      THEN_HANDS_YOU,
+    ].join('|')
+  )
 
   STORE_MY_PATTERN = [
     WHAT_WERE_YOU,
     YOU_PUT_YOUR,
   ].join('|')
 
-  STORE_MY_SUCESSES = [
-    YOU_PUT_YOUR,
-  ]
+  STORE_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOU_PUT_YOUR,
+    ].join('|')
+  )
 
   TARGET_PATTERN = [
     THERE_IS_NOTHING_ELSE,
@@ -251,10 +281,12 @@ class BaseDragonrealmsScript < BaseScript
     YOU_DONT_HAVE_A_SPELL,
   ].join('|')
 
-  TARGET_SUCCESSES = [
-    YOUR_TARGET_PATTERN_IS,
-    YOU_BEGIN_TO_WEAVE,
-  ]
+  TARGET_SUCCESS_PATTERN = \
+    Regexp.new([
+      YOUR_TARGET_PATTERN_IS,
+      YOU_BEGIN_TO_WEAVE,
+    ].join('|')
+  )
 
   WEAR_MY_PATTERN = [
     ONTO_YOUR_HANDS,
@@ -267,20 +299,22 @@ class BaseDragonrealmsScript < BaseScript
     YOU_WORK_YOUR_WAY,
   ].join('|')
 
-  WEAR_MY_SUCCESSES = [
-    ONTO_YOUR_HANDS,
-    YOU_ARE_ALREADY,
-    YOU_ATTACH_A,
-    YOU_PUT_A,
-    YOU_SLIDE_YOUR,
-    YOU_SLING_A,
-    YOU_WORK_YOUR_WAY,
-  ]
+  WEAR_MY_SUCCESS_PATTERN = \
+    Regexp.new([
+      ONTO_YOUR_HANDS,
+      YOU_ARE_ALREADY,
+      YOU_ATTACH_A,
+      YOU_PUT_A,
+      YOU_SLIDE_YOUR,
+      YOU_SLING_A,
+      YOU_WORK_YOUR_WAY,
+    ].join('|')
+  )
 
   protected
 
   def cast
-    CAST_SUCCESSES.include?(
+    CAST_SUCCESS_PATTERN.match(
       wait_for_match(
         CAST_PATTERN,
         'cast'
@@ -289,7 +323,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def close_my(item)
-    CLOSE_MY_SUCCESSES.include?(
+    CLOSE_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         CLOSE_MY_PATTERN,
         "close my #{item}"
@@ -298,7 +332,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def charge_my(item, mana)
-    CHARGE_MY_SUCCESSES.include?(
+    CHARGE_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         CHARGE_MY_PATTERN,
         "charge my #{item} #{mana}"
@@ -316,7 +350,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def drop_my(item)
-    DROP_MY_SUCCESSES.include?(
+    DROP_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         DROP_MY_PATTERN,
         "drop my #{item}"
@@ -325,7 +359,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def empty_left
-    EMPTY_LEFT_SUCCESSES.include?(
+    EMPTY_LEFT_SUCCESS_PATTERN.match(
       wait_for_match(
         EMPTY_LEFT_PATTERN,
         'empty left'
@@ -334,7 +368,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def empty_right
-    EMPTY_RIGHT_SUCCESSES.include?(
+    EMPTY_RIGHT_SUCCESS_PATTERN.match(
       wait_for_match(
         EMPTY_RIGHT_PATTERN,
         'empty right'
@@ -343,7 +377,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def get_my(item, container)
-    GET_MY_SUCCESSES.include?(
+    GET_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         GET_MY_PATTERN,
         "get my #{item} from my #{container}"
@@ -352,7 +386,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def invoke_my(item)
-    INVOKE_MY_SUCCESSES.include?(
+    INVOKE_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         INVOKE_MY_PATTERN,
         "invoke my #{item}"
@@ -361,7 +395,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def loot(loot_type)
-    LOOT_SUCCESSES.include?(
+    LOOT_SUCCESS_PATTERN.match(
       wait_for_match(
         LOOT_PATTERN,
         "loot #{loot_type}".rstrip
@@ -370,7 +404,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def open_my(item)
-    OPEN_MY_SUCCESSES.include?(
+    OPEN_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         OPEN_MY_PATTERN,
         "open my #{item}"
@@ -379,7 +413,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def prep(spell, mana=nil)
-    PREP_SUCCESSES.include?(
+    PREP_SUCCESS_PATTERN.match(
       wait_for_match(
         PREP_PATTERN,
         "prep #{spell} #{mana}".rstrip
@@ -388,7 +422,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def release
-    RELEASE_SUCCESSES.include?(
+    RELEASE_SUCCESS_PATTERN.match(
       wait_for_match(
         RELEASE_PATTERN,
         'release'
@@ -397,7 +431,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def remove_my(item)
-    REMOVE_MY_SUCCESSES.include?(
+    REMOVE_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         REMOVE_MY_PATTERN,
         "remove my #{item}"
@@ -406,7 +440,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def sell_my(item)
-    SELL_MY_SUCCESSES.include?(
+    SELL_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         SELL_MY_PATTERN,
         "sell my #{item}"
@@ -415,7 +449,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def store_my(item, container)
-    STORE_MY_SUCESSES.include?(
+    STORE_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         STORE_MY_PATTERN,
         "put my #{item} in my #{container}"
@@ -424,7 +458,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def target
-    TARGET_SUCCESSES.include?(
+    TARGET_SUCCESS_PATTERN.match(
       wait_for_match(
         TARGET_PATTERN,
         'target'
@@ -433,7 +467,7 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def wear_my(item)
-    WEAR_MY_SUCCESSES.include?(
+    WEAR_MY_SUCCESS_PATTERN.match(
       wait_for_match(
         WEAR_MY_PATTERN,
         "wear my #{item}"
