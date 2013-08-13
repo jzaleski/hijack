@@ -19,6 +19,7 @@ class BaseDragonrealmsScript < BaseScript
   THAT_IS_ALREADY_OPEN = 'That is already'
   THEN_HANDS_YOU = 'then hands you'
   THERE_IS_NO_MERCHANT = 'There is no merchant'
+  TRIES_TO_FIND = 'tries to find'
   WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
@@ -161,6 +162,17 @@ class BaseDragonrealmsScript < BaseScript
     YOU_WORK_YOUR_WAY,
   ]
 
+  SELL_MY_PATTERN = [
+    I_COULD_NOT_FIND,
+    THEN_HANDS_YOU,
+    THERE_IS_NO_MERCHANT,
+    TRIES_TO_FIND,
+  ].join('|')
+
+  SELL_MY_SUCCESSES = [
+    THEN_HANDS_YOU,
+  ]
+
   STORE_MY_PATTERN = [
     WHAT_WERE_YOU,
     YOU_PUT_YOUR,
@@ -270,6 +282,15 @@ class BaseDragonrealmsScript < BaseScript
       wait_for_match(
         REMOVE_MY_PATTERN,
         "remove my #{item}"
+      )
+    )
+  end
+
+  def sell_my(item)
+    SELL_MY_SUCCESSES.include?(
+      wait_for_match(
+        SELL_MY_PATTERN,
+        "sell my #{item}"
       )
     )
   end

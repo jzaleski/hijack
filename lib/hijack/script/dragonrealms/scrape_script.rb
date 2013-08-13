@@ -14,11 +14,6 @@ class ScrapeScript < BaseDragonrealmsScript
     YOU_SCRAPE,
   ].join('|')
 
-  SELL_PATTERN = [
-    THEN_HANDS_YOU,
-    THERE_IS_NO_MERCHANT,
-  ].join('|')
-
   def validate_args(args)
     args.length == 3 ||
     (args.length == 2 && config_scraper_container) ||
@@ -42,7 +37,7 @@ class ScrapeScript < BaseDragonrealmsScript
         )
         case match
           when CLEAN_AS_YOU_CAN_MAKE_IT
-            unless sell_skin(skin)
+            unless sell_my(skin)
               drop_skin(skin)
             end
             unless get_my(skin, skin_container)
@@ -84,14 +79,6 @@ class ScrapeScript < BaseDragonrealmsScript
       "drop my #{skin}"
     )
     match == YOU_DROP
-  end
-
-  def sell_skin(skin)
-    match = wait_for_match(
-      SELL_PATTERN,
-      "sell my #{skin}"
-    )
-    match != THERE_IS_NO_MERCHANT
   end
 
 end
