@@ -139,6 +139,15 @@ class BaseDragonrealmsScript < BaseScript
     IS_INTACT,
   ]
 
+  LOOT_PATTERN = [
+    I_COULD_NOT_FIND,
+    YOU_SEARCH,
+  ].join('|')
+
+  LOOT_SUCCESSES = [
+    YOU_SEARCH,
+  ]
+
   OPEN_MY_PATTERN = [
     THAT_IS_ALREADY_OPEN,
     WHAT_WERE_YOU,
@@ -306,6 +315,15 @@ class BaseDragonrealmsScript < BaseScript
       wait_for_match(
         INVOKE_MY_PATTERN,
         "invoke my #{item}"
+      )
+    )
+  end
+
+  def loot(loot_type)
+    LOOT_SUCCESSES.include?(
+      wait_for_match(
+        LOOT_PATTERN,
+        "loot #{loot_type}".rstrip
       )
     )
   end

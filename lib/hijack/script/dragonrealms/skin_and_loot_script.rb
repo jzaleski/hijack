@@ -45,11 +45,6 @@ class SkinAndLootScript < BaseDragonrealmsScript
     WHICH_APPEARS_DEAD,
   ].join('|')
 
-  LOOT_PATTERN = [
-    I_COULD_NOT_FIND,
-    YOU_SEARCH,
-  ].join('|')
-
   SKIN_PATTERN = [
     A_SMALL_SLIP,
     BUNGLE_THE_ATTEMPT,
@@ -99,10 +94,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
       # drop the skin
       empty_left
       # loot the creature
-      wait_for_match(
-        LOOT_PATTERN,
-        "loot #{loot_type}"
-      )
+      loot(loot_type)
       # wait a few additional seconds on loot-success before returning to the
       # main loop (give the creature some time to decay)
       sleep 5

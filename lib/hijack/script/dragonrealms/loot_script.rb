@@ -14,11 +14,6 @@ class LootScript < BaseDragonrealmsScript
     WHICH_APPEARS_DEAD,
   ].join('|')
 
-  LOOT_PATTERN = [
-    I_COULD_NOT_FIND,
-    YOU_SEARCH,
-  ].join('|')
-
   def run(args)
     loot_type = args[0] || config_loot_type || 'goods'
     loop do
@@ -31,10 +26,8 @@ class LootScript < BaseDragonrealmsScript
         sleep 15
         next
       end
-      wait_for_match(
-        LOOT_PATTERN,
-        "loot #{loot_type}"
-      )
+      # loot the creature
+      loot(loot_type)
       # wait a few additional seconds on loot-success before returning to the
       # main loop (give the creature some time to decay)
       sleep 5
