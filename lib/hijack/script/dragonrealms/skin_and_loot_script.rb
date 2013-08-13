@@ -10,7 +10,6 @@ class SkinAndLootScript < BaseDragonrealmsScript
   JUST_BARELY_PRY = 'just barely pry'
   NEARLY_RUINING_IT = 'nearly ruining it'
   SKIN_WHAT = 'Skin what\?'
-  YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CLAW_WILDLY = 'You claw wildly'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
@@ -32,12 +31,6 @@ class SkinAndLootScript < BaseDragonrealmsScript
     CANNOT_BE_SKINNED,
     YOU_BEGIN_TO_ARRANGE,
     YOU_CONTINUE_ARRANGING,
-  ].join('|')
-
-  DROP_PATTERN = [
-    WHAT_WERE_YOU,
-    YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
-    YOU_DROP,
   ].join('|')
 
   LOOK_FAILURES = [
@@ -104,10 +97,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
       )
       sleep 2
       # drop the skin
-      wait_for_match(
-        DROP_PATTERN,
-        'empty left'
-      )
+      empty_left
       # loot the creature
       wait_for_match(
         LOOT_PATTERN,

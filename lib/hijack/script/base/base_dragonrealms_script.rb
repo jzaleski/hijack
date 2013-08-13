@@ -3,6 +3,7 @@ require 'hijack/script/base/base_script'
 class BaseDragonrealmsScript < BaseScript
 
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
+  BUT_YOU_ARENT_HOLDING_THAT = "But you aren't holding that"
   DEAD = '\(dead\)'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
   FROM_YOUR_HANDS = 'from your hands'
@@ -23,6 +24,8 @@ class BaseDragonrealmsScript < BaseScript
   WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
+  YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
+  YOUR_RIGHT_HAND_IS_ALREADY_EMPTY = 'Your right hand is already empty'
   YOUR_TARGET_PATTERN_DISSIPATES = 'Your target pattern dissipates'
   YOU_ARENT_PREPARING = "You aren't preparing"
   YOU_ARENT_WEARING_THAT = "You aren't wearing that"
@@ -81,6 +84,36 @@ class BaseDragonrealmsScript < BaseScript
   CLOSE_MY_SUCCESSES = [
     THAT_IS_ALREADY_CLOSED,
     YOU_CLOSE_YOUR,
+  ]
+
+  DROP_MY_PATTERN = [
+    BUT_YOU_ARENT_HOLDING_THAT,
+    WHAT_WERE_YOU,
+    YOU_DROP,
+  ].join('|')
+
+  DROP_MY_SUCCESSES = [
+    YOU_DROP,
+  ]
+
+  EMPTY_LEFT_PATTERN = [
+    YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
+    YOU_DROP,
+  ].join('|')
+
+  EMPTY_LEFT_SUCCESSES = [
+    YOUR_LEFT_HAND_IS_ALREADY_EMPTY,
+    YOU_DROP,
+  ]
+
+  EMPTY_RIGHT_PATTERN = [
+    YOUR_RIGHT_HAND_IS_ALREADY_EMPTY,
+    YOU_DROP,
+  ].join('|')
+
+  EMPTY_RIGHT_SUCCESSES = [
+    YOUR_RIGHT_HAND_IS_ALREADY_EMPTY,
+    YOU_DROP,
   ]
 
   GET_MY_PATTERN = [
@@ -228,6 +261,33 @@ class BaseDragonrealmsScript < BaseScript
       wait_for_match(
         CHARGE_MY_PATTERN,
         "charge my #{item} #{mana}"
+      )
+    )
+  end
+
+  def drop_my(item)
+    DROP_MY_SUCCESSES.include?(
+      wait_for_match(
+        DROP_MY_PATTERN,
+        "drop my #{item}"
+      )
+    )
+  end
+
+  def empty_left
+    EMPTY_LEFT_SUCCESSES.include?(
+      wait_for_match(
+        EMPTY_LEFT_PATTERN,
+        'empty left'
+      )
+    )
+  end
+
+  def empty_right
+    EMPTY_RIGHT_SUCCESSES.include?(
+      wait_for_match(
+        EMPTY_RIGHT_PATTERN,
+        'empty right'
       )
     )
   end

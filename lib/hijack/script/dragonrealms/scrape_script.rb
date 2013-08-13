@@ -6,8 +6,6 @@ class ScrapeScript < BaseDragonrealmsScript
   RUINED_BEYOND_REPAIR = 'ruined beyond repair'
   YOU_SCRAPE = 'You scrape'
 
-  DROP_PATTERN = YOU_DROP
-
   SCRAPE_PATTERN = [
     CLEAN_AS_YOU_CAN_MAKE_IT,
     RUINED_BEYOND_REPAIR,
@@ -38,14 +36,14 @@ class ScrapeScript < BaseDragonrealmsScript
         case match
           when CLEAN_AS_YOU_CAN_MAKE_IT
             unless sell_my(skin)
-              drop_skin(skin)
+              drop_my(skin)
             end
             unless get_my(skin, skin_container)
               store_my(scraper, scraper_container)
               return
             end
           when RUINED_BEYOND_REPAIR
-            drop_skin(skin)
+            drop_my(skin)
             unless get_my(skin, skin_container)
               store_my(scraper, scraper_container)
               return
@@ -71,14 +69,6 @@ class ScrapeScript < BaseDragonrealmsScript
 
   def config_skin_container
     @config[:scrape_skin_container]
-  end
-
-  def drop_skin(skin)
-    match = wait_for_match(
-      DROP_PATTERN,
-      "drop my #{skin}"
-    )
-    match == YOU_DROP
   end
 
 end
