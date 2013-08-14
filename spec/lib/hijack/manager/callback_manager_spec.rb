@@ -1,4 +1,4 @@
 require 'spec_helper'
-require 'hijack/util/callback_manager'
+require 'hijack/manager/callback_manager'
 
 describe CallbackManager do; end

@@ -1,5 +1,3 @@
-require 'set'
-
 class CallbackManager
 
   def initialize

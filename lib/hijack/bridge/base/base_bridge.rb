@@ -1,6 +1,6 @@
-require 'hijack/util/buffer'
-require 'hijack/util/callback_manager'
-require 'hijack/util/script_manager'
+require 'hijack/manager/callback_manager'
+require 'hijack/manager/layout_manager'
+require 'hijack/manager/script_manager'
 
 class BaseBridge
 

@@ -3,7 +3,7 @@ General:
 
 - figure out the best way to fully integrate the pause/resume functionality. How
   should scripts detect and handle the state-change?
-- clean up "execute" method in "lib/hijack/util/script_manager.rb"
+- clean up "execute" method in "lib/hijack/manager/script_manager.rb"
 
 Dragonrealms:
 =============

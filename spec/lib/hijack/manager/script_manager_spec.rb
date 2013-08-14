@@ -1,4 +1,4 @@
 require 'spec_helper'
-require 'hijack/util/script_manager'
+require 'hijack/manager/script_manager'
 
 describe ScriptManager do; end

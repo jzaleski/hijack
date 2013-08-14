@@ -1,4 +1,4 @@
 require 'spec_helper'
-require 'hijack/util/buffer'
+require 'hijack/refinement/buffer'
 
 describe Buffer do; end

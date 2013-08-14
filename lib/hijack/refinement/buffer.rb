@@ -1,5 +1,3 @@
-require 'thread'
-
 class Buffer < Queue
 
   alias_method :gets, :deq

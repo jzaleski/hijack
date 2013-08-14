@@ -1,13 +1,5 @@
 #!/usr/bin/env ruby
 
-# Silence warnings by default, but provide an easy means through an environment
-# variable to re-enable them if so desired
-$VERBOSE = nil unless ENV['VERBOSE']
-
-# Require(s)
-require 'socket'
-require 'thread'
-
 # Load the environment file
 require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
 

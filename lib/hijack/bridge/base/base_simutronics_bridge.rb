@@ -1,5 +1,4 @@
 require 'hijack/bridge/base/base_bridge'
-require 'hijack/util/layout_manager'
 
 class BaseSimutronicsBridge < BaseBridge
 
