@@ -2,24 +2,26 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class CompendiumScript < BaseDragonrealmsScript
 
+  IN_A_SUDDEN_MOMENT_OF_CLARITY = 'In a sudden moment of clarity'
   WHY_DO_YOU_NEED_TO_STUDY = 'Why do you need to study'
   WITH_A_SUDDEN_MOMENT_OF_CLARITY = 'With a sudden moment of clarity'
   YOU_BEGIN_STUDYING = 'You begin studying'
   YOU_TURN_TO = 'You turn to'
 
   STUDY_PATTERN = [
+    IN_A_SUDDEN_MOMENT_OF_CLARITY,
     WHY_DO_YOU_NEED_TO_STUDY,
     WITH_A_SUDDEN_MOMENT_OF_CLARITY,
     YOU_BEGIN_STUDYING,
-  ]
+  ].join('|')
 
   TURN_PATTERN = [
     YOU_TURN_TO,
-  ]
+  ].join('|')
 
   def validate_args(args)
-    (args[0] || config_container) &&
-    (args[1] || config_num_pages).to_i > 0
+    args[0] ||
+    config_container
   end
 
   def run(args)
