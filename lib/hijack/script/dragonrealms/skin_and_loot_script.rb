@@ -10,6 +10,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   JUST_BARELY_PRY = 'just barely pry'
   NEARLY_RUINING_IT = 'nearly ruining it'
   SKIN_WHAT = 'Skin what\?'
+  THAT_HAS_ALREADY_BEEN_ARRANGED = 'That has already been arranged'
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CLAW_WILDLY = 'You claw wildly'
   YOU_COMPLETE_ARRANGING = 'You complete arranging'
@@ -25,6 +26,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   ARRANGE_PATTERN = [
     ARRANGE_WHAT,
     CANNOT_BE_SKINNED,
+    THAT_HAS_ALREADY_BEEN_ARRANGED,
     YOU_BEGIN_TO_ARRANGE,
     YOU_COMPLETE_ARRANGING,
     YOU_CONTINUE_ARRANGING,
