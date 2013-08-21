@@ -12,6 +12,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   SKIN_WHAT = 'Skin what\?'
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CLAW_WILDLY = 'You claw wildly'
+  YOU_COMPLETE_ARRANGING = 'You complete arranging'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_MAKE_A_SERIES_OF_CUTS = 'You make a series of cuts'
   YOU_PEEL = 'You peel'
@@ -25,12 +26,14 @@ class SkinAndLootScript < BaseDragonrealmsScript
     ARRANGE_WHAT,
     CANNOT_BE_SKINNED,
     YOU_BEGIN_TO_ARRANGE,
+    YOU_COMPLETE_ARRANGING,
     YOU_CONTINUE_ARRANGING,
   ].join('|')
 
   ARRANGE_SUCCESS_PATTERN = \
     Regexp.new([
       YOU_BEGIN_TO_ARRANGE,
+      YOU_COMPLETE_ARRANGING,
       YOU_CONTINUE_ARRANGING,
     ].join('|')
   )
