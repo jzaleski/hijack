@@ -26,11 +26,10 @@ class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
           "#{attack_pattern}|#{ATTACK_FAILURES.join('|')}",
           attack
         )
-        case match
-          when Regexp.new(attack_pattern)
-            sleep sleep_time
-          else
-            break
+        if attack_pattern.to_regexp.match(match)
+          sleep sleep_time
+        else
+          break
         end
       end
       sleep intersequence_sleep_time

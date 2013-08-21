@@ -15,6 +15,7 @@ class BaseDragonrealmsScript < BaseScript
   OBVIOUS_PATHS = 'Obvious paths:'
   ONTO_YOUR_HANDS = 'onto your hands'
   REMOVE_WHAT = 'Remove what\?'
+  SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
   THEN_HANDS_YOU = 'then hands you'
@@ -248,6 +249,11 @@ class BaseDragonrealmsScript < BaseScript
     ].join('|')
   )
 
+  RETRY_PATTERN = [
+    SORRY_YOU_MAY_ONLY_TYPE_AHEAD,
+    WAIT,
+  ].join('|')
+
   SELL_MY_PATTERN = [
     I_COULD_NOT_FIND,
     THEN_HANDS_YOU,
@@ -476,20 +482,18 @@ class BaseDragonrealmsScript < BaseScript
   end
 
   def wait_for_match(pattern, command=nil)
-    # handle retries because of roundtime here, most times, this loop will exit
-    # in one or few iterations
+    # handle retries because of roundtime or type-aheads here, most times, this
+    # loop will exit in one or few iterations
     loop do
       match = super(
-        "#{WAIT}|#{pattern}",
+        "#{pattern}|#{RETRY_PATTERN}",
         command
       )
-      if WAIT.match(match)
-        sleep 1
-        next
-      end
-      return match
+      # success
+      return match if pattern.to_regexp.match(match)
+      # sleep before retrying
+      sleep 1
     end
   end
 
 end
-
