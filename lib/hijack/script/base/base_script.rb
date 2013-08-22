@@ -90,6 +90,8 @@ class BaseScript
   protected
 
   def puts(command, opts={})
+    # block here if/while the script is paused
+    sleep 0.1 while paused?
     # merge default options
     opts = {:store_command => false}.merge(opts)
     # send the command (and opts) to the bridge
