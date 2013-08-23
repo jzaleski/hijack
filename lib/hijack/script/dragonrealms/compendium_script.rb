@@ -30,23 +30,19 @@ class CompendiumScript < BaseDragonrealmsScript
     compendium = 'compendium'
     # only proceed if some pre-conditions are satisfied
     if open_my(container) && get_my(compendium, container) && open_my(compendium)
-      loop do
-        num_pages.times do |i|
-          wait_for_match(
-            STUDY_PATTERN,
-            'study my compendium'
-          )
-          # STUDYing will impose between 10 an 60 seconds roundtime (typically
-          # it is on the lower side: 10s) we chose 30s here because we want to
-          # be kind to other scripts and give them a chance to execute
-          sleep 30
-          wait_for_match(
-            TURN_PATTERN,
-            'turn my compendium'
-          )
-        end
-        # sleep between iterations
-        sleep 300
+      num_pages.times do |i|
+        wait_for_match(
+          STUDY_PATTERN,
+          'study my compendium'
+        )
+        # STUDYing will impose between 10 an 60 seconds roundtime (typically
+        # it is on the lower side: 10s) we chose 30s here because we want to
+        # be kind to other scripts and give them a chance to execute
+        sleep 30
+        wait_for_match(
+          TURN_PATTERN,
+          'turn my compendium'
+        )
       end
     end
     # because this script loops indefinitely, it is quite likely that this code
