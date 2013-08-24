@@ -9,6 +9,7 @@ class PredictScript < BaseDragonrealmsScript
   SHIVER_RUNS_THROUGH = 'shiver runs through'
   SUDDEN_FEELING_OF_WARMTH = 'sudden feeling of warmth'
   TURNS_UP_FRUITLESS = 'turns up fruitless'
+  YOU_CONSIDER_YOUR_RECENT = 'You consider your recent'
   YOU_FOCUS_INTERNALLY = 'You focus internally'
   YOU_HAVE_NOT_PONDERED = 'You have not pondered'
   YOU_LEARNED = 'You learned'
@@ -66,6 +67,8 @@ class PredictScript < BaseDragonrealmsScript
     SUDDEN_FEELING_OF_WARMTH,
   ].join('|')
 
+  PREDICT_STATE_ALL_PATTERN = YOU_CONSIDER_YOUR_RECENT
+
   SPELLS = %w[
     aus
     cv
@@ -111,6 +114,13 @@ class PredictScript < BaseDragonrealmsScript
             successful_observes = 0
             # 10 seconds is the minimum roundtime imposed
             sleep 10
+            # check pool state
+            wait_for_match(
+              PREDICT_STATE_ALL_PATTERN,
+              'predict state all'
+            )
+            # always around 20 seconds roundtime
+            sleep 20
             # try every alignment
             ALIGNMENTS.each do |alignment|
               wait_for_match(
