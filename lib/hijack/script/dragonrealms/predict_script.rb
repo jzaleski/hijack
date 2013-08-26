@@ -78,20 +78,21 @@ class PredictScript < BaseDragonrealmsScript
   def run(args)
     num_observes = [1, (args[0] || config_num_observes).to_i].max
     successful_observes = 0
+    objects = OBJECTS.shuffle
     loop do
       # cast helper spells
       SPELLS.each do |spell|
-        # prep
-        prep(spell)
-        # cast
-        cast
+        # prep (retry until successful)
+        sleep 0.1 until prep(spell)
+        # cast (retry until successful)
+        sleep 0.1 until cast
       end
-      # observe, align, predict then analyze bonuses/curses - when observing
-      # multiple times it is unclear whether we want to use the same object so
+      # observe, check state, align, predict then analyze bonuses/curses - when
+      # observing multiple times it is unclear whether to use the same object so
       # that the same pools are built up with each iteration or shuffle the list
       # so that we can potentially have successful predictions across a variety
-      # of pools (for now, the objects are shuffled)
-      OBJECTS.shuffle.each do |object|
+      # of pools (for now, objects are shuffled after each successful iteration)
+      objects.each do |object|
         match = wait_for_match(
           OBSERVE_PATTERN,
           "observe #{object}"
@@ -105,14 +106,7 @@ class PredictScript < BaseDragonrealmsScript
           when Regexp.new("#{YOU_LEARNED}|#{YOU_STILL_LEANRED}")
             # increment the success counter (first)
             successful_observes += 1
-            # short-circuit if there is more observing to do
-            if successful_observes < num_observes
-              sleep 120
-              break
-            end
-            # if we've made it this far it is safe to reset the counter
-            successful_observes = 0
-            # 10 seconds is the minimum roundtime imposed
+            # always around 10 seconds roundtime
             sleep 10
             # check pool state
             wait_for_match(
@@ -121,6 +115,17 @@ class PredictScript < BaseDragonrealmsScript
             )
             # always around 20 seconds roundtime
             sleep 20
+            # re-shuffle object list
+            objects.shuffle!
+            # short-circuit if there is more observing to do
+            if successful_observes < num_observes
+              # the average observe cooldown time is 120 seconds but we already
+              # have accounted for 30 seconds of it at this point
+              sleep 90
+              break
+            end
+            # if we've made it this far it is safe to reset the counter
+            successful_observes = 0
             # try every alignment
             ALIGNMENTS.each do |alignment|
               wait_for_match(
@@ -141,9 +146,12 @@ class PredictScript < BaseDragonrealmsScript
               PREDICT_ANALYZE_PATTERN,
               'predict analyze'
             )
-            # sleep long enough to cover the roundtime and a sizable chunk, if
-            # not the entire cooldown time, before restarting
-            sleep 120
+            # the average observe cooldown is 120 seconds but we have already
+            # accounted for at least 'N * (2 + 7.5)' seconds of it at this point
+            # where 'N' is the number of alignments, '2' is the standard align
+            # roundtime and '7.5' is the average roundtime for the failure and
+            # success cases when predicting the future
+            sleep 120 - (ALIGNMENTS.size * (2 + 7.5))
             break
         end
       end
