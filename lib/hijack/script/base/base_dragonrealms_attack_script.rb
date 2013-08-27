@@ -19,7 +19,7 @@ class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
     loop do
       combat_sequence.each do |attack, sleep_time, attack_pattern|
         attack_pattern ||= "[Yy]ou #{attack}"
-        # because the "attack_pattern" is interpolated and "wait_for_match" will
+        # because "attack_pattern" is interpolated and "wait_for_match" will
         # automatically convert the string to a Regexp, we need to handle things
         # a little differently
         match = wait_for_match(
