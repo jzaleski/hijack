@@ -2,12 +2,18 @@ require 'hijack/bridge/base/base_simutronics_bridge'
 
 class BaseDragonrealmsBridge < BaseSimutronicsBridge
 
+  SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
   WAIT = '\.\.\.wait'
 
   PROBLEM_PATTERNS = [
     '***',
     'Log-on system converted',
   ]
+
+  RETRY_PATTERN = [
+    SORRY_YOU_MAY_ONLY_TYPE_AHEAD,
+    WAIT,
+  ].join('|')
 
   def gets
     # strip trailing carriage return characters
@@ -25,8 +31,8 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
 
   def should_output?(line)
     !(
-      line.match(WAIT) &&
-      @config[:silence_roundtime_messages].to_s =~ /\Atrue\Z/ &&
+      line.match(RETRY_PATTERN) &&
+      @config[:silence_retryable_lines] =~ /\Atrue\Z/ &&
       @script_manager.num_running > 0
     )
   end
