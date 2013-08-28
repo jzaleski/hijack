@@ -14,12 +14,10 @@ class BraidScript < BaseDragonrealmsScript
     MORE_MATERIAL,
   ].join('|')
 
-  FORAGE_FAILURE_PATTERN = \
-    Regexp.new([
-      UNABLE_TO_FIND_ANYTHING,
-      WHAT_YOU_MIGHT_FIND,
-    ].join('|')
-  )
+  FORAGE_FAILURE_PATTERN = [
+    UNABLE_TO_FIND_ANYTHING,
+    WHAT_YOU_MIGHT_FIND,
+  ].join('|')
 
   FORAGE_PATTERN = [
     AT_LEAST_ONE_HAND_FREE,
@@ -39,11 +37,11 @@ class BraidScript < BaseDragonrealmsScript
     wastebasket = args[1] || config_wastebasket
     loop do
       # foraging
-      match = wait_for_match(
+      result = wait_for_match(
         FORAGE_PATTERN,
         "forage #{material}"
       )
-      case match
+      case result
         # return[ing] here will cause the script to exit
         when AT_LEAST_ONE_HAND_FREE
           return
@@ -52,10 +50,10 @@ class BraidScript < BaseDragonrealmsScript
           sleep 5
       end
       # retry if we've hit one of the failure cases
-      next if FORAGE_FAILURE_PATTERN.match(match)
+      next if result.match(FORAGE_FAILURE_PATTERN)
       # braiding
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           BRAID_PATTERN,
           "braid my #{material}"
         )
@@ -63,7 +61,7 @@ class BraidScript < BaseDragonrealmsScript
         # staying conservative here we give other scripts a chance to execute
         sleep 10
         # need more material
-        break if match == MORE_MATERIAL
+        break if result == MORE_MATERIAL
       end
     end
   end

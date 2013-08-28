@@ -19,8 +19,7 @@ class StanceDanceScript < BaseDragonrealmsScript
   ]
 
   def run(args)
-    intersequence_sleep_time = \
-      (args[0] || config_intersequence_sleep_time || 30).to_i
+    interloop_sleep_time = (args[0] || 30).to_i
     loop do
       STANCES_AND_MANEUVERS.each do |stance, maneuver|
        wait_for_match(
@@ -31,15 +30,9 @@ class StanceDanceScript < BaseDragonrealmsScript
           CHANGE_MANEUVER_PATTERN,
           maneuver
         )
-        sleep intersequence_sleep_time
+        sleep interloop_sleep_time
       end
     end
-  end
-
-  private
-
-  def config_intersequence_sleep_time
-    @config[:stance_dance_intersequence_sleep_time]
   end
 
 end

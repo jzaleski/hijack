@@ -22,6 +22,7 @@ class MagicScript < BaseDragonrealmsScript
       charge_amount = args[2].to_i
       charge_items += args[3..-1]
     end
+    interloop_sleep_time = 30
     loop do
       # prep
       return unless prep(spell, mana)
@@ -42,8 +43,7 @@ class MagicScript < BaseDragonrealmsScript
       end
       # cast
       cast
-      # intersequence sleep-time
-      sleep 30
+      sleep interloop_sleep_time
     end
   end
 

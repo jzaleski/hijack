@@ -19,11 +19,11 @@ class GetAllScript < BaseDragonrealmsScript
     container = args[1] || config_container
     return unless open_my(container)
     loop do
-      match = wait_for_match(
+      result = wait_for_match(
         GET_PATTERN,
         "get #{item}"
       )
-      case match
+      case result
         when WHAT_WERE_YOU
           break
         when YOU_ARE_ALREADY

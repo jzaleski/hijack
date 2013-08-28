@@ -34,11 +34,9 @@ class ReadScrollsScript < BaseDragonrealmsScript
     @current_container = container_1
     @other_container = container_2
     loop do
-      # get
-      get_my('scroll', @current_container)
       # this will handle EXITing the script when there are no scrolls in either
       # container and toggle between the containers at the appropriate time
-      if match == WHAT_WERE_YOU
+      unless get_my('scroll', @current_container)
         break if @other_container_was_empty == true
         @other_container_was_empty = true
         @current_container, @other_container = \

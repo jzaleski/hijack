@@ -9,14 +9,12 @@ class CollectScript < BaseDragonrealmsScript
   YOU_TAKE_A_STEP_BACK = 'You take a step back'
   YOU_WANDER_AROUND_AND = 'You wander around and'
 
-  COLLECT_FAILURE_PATTERN = \
-    Regexp.new([
-      YOU_ARE_CERTAIN_YOU_COULD,
-      YOU_ARE_SURE_YOU_KNEW,
-      YOU_FORAGE_AROUND_BUT,
-      YOU_WANDER_AROUND_AND,
-    ].join('|')
-  )
+  COLLECT_FAILURE_PATTERN = [
+    YOU_ARE_CERTAIN_YOU_COULD,
+    YOU_ARE_SURE_YOU_KNEW,
+    YOU_FORAGE_AROUND_BUT,
+    YOU_WANDER_AROUND_AND,
+  ].join('|')
 
   COLLECT_PATTERN = [
     YOU_ARE_CERTAIN_YOU_COULD,
@@ -39,12 +37,12 @@ class CollectScript < BaseDragonrealmsScript
   def run(args)
     item = args[0] || config_item
     loop do
-      match = wait_for_match(
+      result = wait_for_match(
         COLLECT_PATTERN,
         "collect #{item}"
       )
-      if COLLECT_FAILURE_PATTERN.match(match)
-        sleep 3
+      if result.match(COLLECT_FAILURE_PATTERN)
+        sleep 5
         next
       end
       sleep 15

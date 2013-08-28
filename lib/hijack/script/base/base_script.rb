@@ -100,11 +100,11 @@ class BaseScript
 
   def wait_for_match(pattern, command=nil)
     # for scoping reasons this must be defined outside of the lambda (below)
-    match = nil
+    result = nil
     # set the hook
     @callback_manager.add_match(
       pattern,
-      lambda {|m| match = m}
+      lambda {|r| result = r}
     )
     # set "waiting_for_match"
     @waiting_for_match = true
@@ -112,11 +112,11 @@ class BaseScript
     # is set
     puts(command) if command
     # sleep on this thread while waiting for the hook to be invoked
-    sleep 0.1 until match
+    sleep 0.1 until result
     # reset "waiting_for_match"
     @waiting_for_match = false
     # return the result
-    match
+    result
   end
 
 end

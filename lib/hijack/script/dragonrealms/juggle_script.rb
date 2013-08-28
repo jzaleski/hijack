@@ -6,10 +6,10 @@ class JuggleScript < BaseDragonrealmsScript
   YOU_CANNOT_JUGGLE = 'You cannot juggle'
   YOU_TOSS = 'You toss'
 
-  JUGGLE_FAILURES = [
+  JUGGLE_FAILURE_PATTERN = [
     ITS_EASIER_TO_JUGGLE,
     YOU_CANNOT_JUGGLE,
-  ]
+  ].join('|')
 
   JUGGLE_PATTERN = [
     ITS_EASIER_TO_JUGGLE,
@@ -27,11 +27,11 @@ class JuggleScript < BaseDragonrealmsScript
     container = args[1] || config_container
     if open_my(container) && get_my(jugglies, container)
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           JUGGLE_PATTERN,
           "juggle my #{jugglies}"
         )
-        break if JUGGLE_FAILURES.include?(match)
+        break if result.match(JUGGLE_FAILURE_PATTERN)
         sleep 15
       end
     end

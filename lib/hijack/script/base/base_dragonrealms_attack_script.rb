@@ -7,39 +7,36 @@ class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
   YOU_MUST_BE_CLOSER = 'You must be closer'
   YOU_TURN_TO_FACE = 'You turn to face'
 
-  ATTACK_FAILURES = [
+  ATTACK_FAILURE_PATTERN = [
     THERE_IS_NOTHING_ELSE,
     YOU_BEGIN_TO_ADVANCE,
     YOU_MUST_BE_CLOSER,
     YOU_TURN_TO_FACE,
-  ]
+  ].join('|')
 
   def run(args)
-    intersequence_sleep_time = (args[0] || 30).to_i
+    interloop_sleep_time = (args[0] || 30).to_i
     loop do
-      combat_sequence.each do |attack, sleep_time, attack_pattern|
-        attack_pattern ||= "[Yy]ou #{attack}"
-        # because "attack_pattern" is interpolated and "wait_for_match" will
+      combat_sequence.each do |attack, attack_sleep_time, attack_success_pattern|
+        attack_success_pattern ||= "[Yy]ou #{attack}"
+        # because "attack_success_pattern" is interpolated and "wait_for_match" will
         # automatically convert the string to a Regexp, we need to handle things
         # a little differently
-        match = wait_for_match(
-          "#{attack_pattern}|#{ATTACK_FAILURES.join('|')}",
+        result = wait_for_match(
+          "#{attack_success_pattern}|#{ATTACK_FAILURE_PATTERN}",
           attack
         )
-        if attack_pattern.to_regexp.match(match)
-          sleep sleep_time
-        else
-          break
-        end
+        break if result.match(ATTACK_FAILURE_PATTERN)
+        sleep attack_sleep_time
       end
-      sleep intersequence_sleep_time
+      sleep interloop_sleep_time
     end
   end
 
   protected
 
   def combat_sequence
-    raise 'All "BaseDragonrealmsAttackScript(s)" must override the "combat_sequence" method'
+    raise "All \"#{self.class.name}(s)\" must override the \"combat_sequence\" method"
   end
 
 end

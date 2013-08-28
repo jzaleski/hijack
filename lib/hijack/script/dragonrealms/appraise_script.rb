@@ -4,26 +4,33 @@ class AppraiseScript < BaseDragonrealmsScript
 
   APPRAISE_WHAT = 'Appraise what\?'
 
+  APPRAISE_FAILURE_PATTERN = APPRAISE_WHAT
+
   def validate_args(args)
     args.length >= 1
   end
 
   def run(args)
     args.each do |arg|
-      # strip off additional qualifiers and descriptors
+      # strip off additional qualifiers, indices and descriptors
       item = arg.split.last
-      appraise_success_pattern = \
-        "%s appears to be|%s is a|%s is worth|%s look[s]? like" % ([item] * 4)
+      appraise_success_pattern = [
+        "#{item} appears to be",
+        "#{item} is a",
+        "#{item} is worth",
+        "#{item} look[s]? like",
+        'You begin to carefully study',
+      ].join('|')
       # because "appraise_success_pattern" is interpolated and "wait_for_match"
       # will automatically convert the string to a Regexp, we need to handle 
       # things a little differently
-      match = wait_for_match(
-        "#{appraise_success_pattern}|#{APPRAISE_WHAT}",
+      result = wait_for_match(
+        "#{appraise_success_pattern}|#{APPRAISE_FAILURE_PATTERN}",
         "appraise #{arg}"
       )
       # only sleep on a successful appraise, don't worry about missing items or
       # invalid selectors
-      sleep 10 if appraise_success_pattern.to_regexp.match(match)
+      sleep 10 if result.match(appraise_success_pattern)
     end
   end
 

@@ -29,11 +29,11 @@ class ScrapeScript < BaseDragonrealmsScript
       get_my(scraper, scraper_container) &&
       get_my(skin, skin_container)
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           SCRAPE_PATTERN,
           "scrape my #{skin}"
         )
-        case match
+        case result
           when CLEAN_AS_YOU_CAN_MAKE_IT
             unless sell_my(skin)
               drop_my(skin)

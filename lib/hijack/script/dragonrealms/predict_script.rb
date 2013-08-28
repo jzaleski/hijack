@@ -49,6 +49,11 @@ class PredictScript < BaseDragonrealmsScript
     yavash
   ]
 
+  OBSERVE_SUCCESS_PATTERN = [
+    YOU_LEARNED,
+    YOU_STILL_LEANRED,
+  ].join('|')
+
   OBSERVE_PATTERN = [
     FOILED_BY_THE,
     TURNS_UP_FRUITLESS,
@@ -93,17 +98,17 @@ class PredictScript < BaseDragonrealmsScript
       # so that we can potentially have successful predictions across a variety
       # of pools (for now, objects are shuffled after each successful iteration)
       objects.each do |object|
-        match = wait_for_match(
+        result = wait_for_match(
           OBSERVE_PATTERN,
           "observe #{object}"
         )
-        case match
+        case result
           # too soon
           when YOU_HAVE_NOT_PONDERED
             sleep 30
             break
           # success
-          when Regexp.new("#{YOU_LEARNED}|#{YOU_STILL_LEANRED}")
+          when OBSERVE_SUCCESS_PATTERN.to_regexp
             # increment the success counter (first)
             successful_observes += 1
             # always around 10 seconds roundtime
@@ -134,12 +139,12 @@ class PredictScript < BaseDragonrealmsScript
               )
               # always 2 seconds roundtime
               sleep 2
-              match = wait_for_match(
+              result = wait_for_match(
                 PREDICT_FUTURE_PATTERN,
                 'predict future'
               )
               # handle the variable roundtime
-              sleep match == REMAINS_A_DARK_MYSTERY ? 5 : 10
+              sleep result == REMAINS_A_DARK_MYSTERY ? 5 : 10
             end
             # analyze
             wait_for_match(

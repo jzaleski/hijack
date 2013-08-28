@@ -8,9 +8,9 @@ class CallbackManager
     @callbacks.keys.each do |pattern|
       if match_data = line.match(pattern)
         # currently only a single-match is supported
-        match = match_data[0]
+        result = match_data[0]
         @callbacks.delete(pattern).each do |callback|
-          callback.call(match) rescue nil
+          callback.call(result) rescue nil
         end
       end
     end

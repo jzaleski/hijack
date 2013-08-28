@@ -54,11 +54,11 @@ class GetGemsScript < BaseDragonrealmsScript
     return unless open_my(container)
     GEMS.each do |gem|
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           GET_PATTERN,
           "get #{gem}"
         )
-        case match
+        case result
           when WHAT_WERE_YOU
             break
           when YOU_ARE_ALREADY

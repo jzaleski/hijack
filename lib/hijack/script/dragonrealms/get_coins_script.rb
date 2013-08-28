@@ -15,11 +15,11 @@ class GetCoinsScript < BaseDragonrealmsScript
 
   def run(args)
     loop do
-      match = wait_for_match(
+      result = wait_for_match(
         GET_COIN_PATTERN,
         'get coin'
       )
-      break if match == WHAT_WERE_YOU
+      break if result == WHAT_WERE_YOU
     end
   end
 
