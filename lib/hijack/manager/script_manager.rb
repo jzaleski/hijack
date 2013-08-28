@@ -105,6 +105,12 @@ class ScriptManager
     end
   end
 
+  def num_running
+    @scripts.values.count do |script_object|
+      script_object.running? && !script_object.paused?
+    end
+  end
+
   private
 
   def delete(script_name)

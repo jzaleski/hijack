@@ -26,7 +26,8 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
   def should_output?(line)
     !(
       line.match(WAIT) &&
-      @config[:silence_roundtime_messages].to_s =~ /\Atrue\Z/
+      @config[:silence_roundtime_messages].to_s =~ /\Atrue\Z/ &&
+      @script_manager.num_running > 0
     )
   end
 
