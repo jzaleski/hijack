@@ -7,10 +7,12 @@ class AppraiseScript < BaseDragonrealmsScript
   APPRAISE_FAILURE_PATTERN = APPRAISE_WHAT
 
   def validate_args(args)
-    args.length >= 1
+    args.length >= 1 ||
+    (config_args && !config_args.empty?)
   end
 
   def run(args)
+    args = !args.empty? && args || config_args
     args.each do |arg|
       # strip off additional qualifiers, indices and descriptors
       item = arg.split.last
@@ -32,6 +34,12 @@ class AppraiseScript < BaseDragonrealmsScript
       # invalid selectors
       sleep 10 if result.match(appraise_success_pattern)
     end
+  end
+
+  private
+
+  def config_args
+    @config[:appraise_args]
   end
 
 end

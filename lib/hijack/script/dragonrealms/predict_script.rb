@@ -156,7 +156,7 @@ class PredictScript < BaseDragonrealmsScript
             # where 'N' is the number of alignments, '2' is the standard align
             # roundtime and '7.5' is the average roundtime for the failure and
             # success cases when predicting the future
-            sleep 120 - (ALIGNMENTS.size * (2 + 7.5))
+            sleep 120 - (ALIGNMENTS.length * (2 + 7.5))
             break
         end
       end

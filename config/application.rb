@@ -28,6 +28,6 @@ $LOAD_PATH.unshift(LIB_DIR) unless $LOAD_PATH.include?(LIB_DIR)
 
 # Require(s)
 REQUIRED_MODULES = []
-REQUIRED_MODULES += %w[set socket thread]
+REQUIRED_MODULES += %w[json set socket thread]
 REQUIRED_MODULES += Dir["#{REFINEMENT_DIR}/*.rb"]
 REQUIRED_MODULES.each {|required_module| require required_module}
