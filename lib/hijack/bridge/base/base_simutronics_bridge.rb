@@ -23,10 +23,10 @@ class BaseSimutronicsBridge < BaseBridge
 
   def gets
     raw_output = super
+    raw_output.gsub!(/\e\[(1|0)m/, '') if RUBY_PLATFORM =~ /mingw32/
     parsed_output = raw_output.chomp
     parsed_output.insert(parsed_output.index('>') + 1, "\n") if parsed_output =~ /[a-zA-Z]*>.*/
     parsed_output.slice!(0..parsed_output.index('>')) if parsed_output.include?('>')
-    parsed_output.gsub!(/\e\[(1|0)m/, '') if RUBY_PLATFORM =~ /mingw32/
     "#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
   end
 
