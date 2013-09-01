@@ -9,6 +9,7 @@ class GetGemsScript < BaseDragonrealmsScript
     bar
     beryl
     bloodstone
+    carnelian
     chalcedony
     chrysoberyl
     chrysoprase
@@ -29,6 +30,7 @@ class GetGemsScript < BaseDragonrealmsScript
     pearl
     peridot
     quartz
+    spinel
     sunstone
     tanzanite
     topaz
