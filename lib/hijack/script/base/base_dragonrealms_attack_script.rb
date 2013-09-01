@@ -36,7 +36,7 @@ class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
   protected
 
   def combat_sequence
-    raise "All \"#{self.class.name}(s)\" must override the \"combat_sequence\" method"
+    raise %{All "#{self.class.name}(s)" must override the "combat_sequence" method}
   end
 
 end
