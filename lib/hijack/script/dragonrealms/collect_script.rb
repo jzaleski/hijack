@@ -2,6 +2,7 @@ require 'hijack/script/base/base_dragonrealms_script'
 
 class CollectScript < BaseDragonrealmsScript
 
+  THE_ROOM_IS_TOO_CLUTTERED = 'The room is too cluttered'
   YOU_ARE_CERTAIN_YOU_COULD = 'You are certain you could'
   YOU_ARE_SURE_YOU_KNEW = 'You are sure you knew'
   YOU_FORAGE_AROUND_BUT = 'You forage around but'
@@ -16,7 +17,12 @@ class CollectScript < BaseDragonrealmsScript
     YOU_WANDER_AROUND_AND,
   ].join('|')
 
+  COLLECT_FATAL_FAILURE_PATTERN = [
+    THE_ROOM_IS_TOO_CLUTTERED,
+  ].join('|')
+
   COLLECT_PATTERN = [
+    THE_ROOM_IS_TOO_CLUTTERED,
     YOU_ARE_CERTAIN_YOU_COULD,
     YOU_ARE_SURE_YOU_KNEW,
     YOU_FORAGE_AROUND_BUT,
@@ -41,12 +47,13 @@ class CollectScript < BaseDragonrealmsScript
         COLLECT_PATTERN,
         "collect #{item}"
       )
+      return if result.match(COLLECT_FATAL_FAILURE_PATTERN)
       if result.match(COLLECT_FAILURE_PATTERN)
         sleep 5
         next
       end
       sleep 15
-      wait_for_match(
+      result = wait_for_match(
         KICK_PATTERN,
         'kick pile'
       )
