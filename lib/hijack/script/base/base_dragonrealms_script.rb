@@ -36,6 +36,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_ARE_ALREADY = 'You are already'
   YOU_ARE_ALREADY_KNEELING = 'You are already kneeling'
   YOU_ARE_ALREADY_LYING = 'You are already lying'
+  YOU_ARE_ALREADY_PREPARING = 'You are already preparing'
   YOU_ARE_ALREADY_SITTING = 'You are already sitting'
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_ATTACH_A = 'You attach a'
@@ -210,11 +211,13 @@ class BaseDragonrealmsScript < BaseScript
 
   PREP_PATTERN = [
     NO_IDEA_HOW,
+    YOU_ARE_ALREADY_PREPARING,
     YOU_HAVE_ALREADY_FULLY,
     YOU_RAISE_AN,
   ].join('|')
 
   PREP_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_PREPARING,
     YOU_HAVE_ALREADY_FULLY,
     YOU_RAISE_AN,
   ].join('|')
