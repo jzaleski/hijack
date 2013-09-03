@@ -383,10 +383,10 @@ class BaseDragonrealmsScript < BaseScript
     ).match(EMPTY_RIGHT_SUCCESS_PATTERN)
   end
 
-  def get_my(item, container)
+  def get_my(item, container=nil)
     wait_for_match(
       GET_MY_PATTERN,
-      "get my #{item} from my #{container}"
+      container ? "get my #{item} from my #{container}" : "get my #{item}"
     ).match(GET_MY_SUCCESS_PATTERN)
   end
 
@@ -428,7 +428,7 @@ class BaseDragonrealmsScript < BaseScript
   def prep(spell, mana=nil)
     wait_for_match(
       PREP_PATTERN,
-      "prep #{spell} #{mana}".rstrip
+      mana ? "prep #{spell} #{mana}" : "prep #{spell}"
     ).match(PREP_SUCCESS_PATTERN)
   end
 

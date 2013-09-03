@@ -27,8 +27,8 @@ class ScrapeScript < BaseDragonrealmsScript
     if \
       open_my(skin_container) &&
       open_my(scraper_container) &&
-      get_my(scraper, scraper_container) &&
-      get_my(skin, skin_container)
+      get_my(scraper) &&
+      get_my(skin)
       loop do
         result = wait_for_match(
           SCRAPE_PATTERN,
@@ -50,7 +50,7 @@ class ScrapeScript < BaseDragonrealmsScript
               return
             end
           else
-            sleep 10
+            sleep 15
         end
       end
     end
