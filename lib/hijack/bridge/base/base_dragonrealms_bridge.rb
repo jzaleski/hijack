@@ -16,10 +16,13 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
     # ensure that lines containing bold text switch back to normal (non-bold)
     # text at the end of the line
     line << "\e[0m" if line.match(/\e\[\d+m/)
+    # only append a new-line if the string doesn't already end with multiple
+    # new-line characters
+    line << "\n" unless line.end_with?("\n\n")
     # determine whether or not we want to output the line (an empty-string will
     # not be output) and make sure to append a new-line to the end of the output
     # as it was likely stripped off above
-    should_output?(line) ? "#{line}\n" : ''
+    should_output?(line) ? line : ''
   end
 
   private
