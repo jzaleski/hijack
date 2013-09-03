@@ -8,4 +8,3 @@ Dragonrealms:
 
 - ensure that underlined text terminates at the end of the line (ex: healing)
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
-- handle kick failure case in "collect_script.rb" (when sitting or lying down)

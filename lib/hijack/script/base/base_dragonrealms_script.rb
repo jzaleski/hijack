@@ -34,6 +34,10 @@ class BaseDragonrealmsScript < BaseScript
   YOU_ARENT_PREPARING = "You aren't preparing"
   YOU_ARENT_WEARING_THAT = "You aren't wearing that"
   YOU_ARE_ALREADY = 'You are already'
+  YOU_ARE_ALREADY_KNEELING = 'You are already kneeling'
+  YOU_ARE_ALREADY_LYING = 'You are already lying'
+  YOU_ARE_ALREADY_SITTING = 'You are already sitting'
+  YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_ATTACH_A = 'You attach a'
   YOU_BEGIN_TO_WEAVE = 'You begin to weave'
   YOU_CANT_CLOSE = "You can't close"
@@ -45,7 +49,9 @@ class BaseDragonrealmsScript < BaseScript
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
   YOU_HAVE_ALREADY_FULLY = 'You have already fully'
+  YOU_KNEEL = 'You kneel'
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
+  YOU_LIE = 'You lie'
   YOU_LOOSEN_THE_STRAPS = 'You loosen the straps'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN_YOUR = 'You open your'
@@ -54,9 +60,12 @@ class BaseDragonrealmsScript < BaseScript
   YOU_PUT_YOUR = 'You put your'
   YOU_RAISE_AN = 'You raise an'
   YOU_REMOVE_A = 'You remove a'
+  YOU_RISE_TO_A_KNEELING_POSITION = 'You rise to a kneeling position'
   YOU_SEARCH = 'You search'
+  YOU_SIT = 'You sit'
   YOU_SLIDE_YOUR = 'You slide you'
   YOU_SLING_A = 'You sling a'
+  YOU_STAND = 'You stand'
   YOU_TAKE_A = 'You take a'
   YOU_WORK_YOUR_WAY = 'You work your way'
 
@@ -156,6 +165,28 @@ class BaseDragonrealmsScript < BaseScript
     IS_INTACT,
   ].join('|')
 
+  KNEEL_PATTERN = [
+    YOU_ARE_ALREADY_KNEELING,
+    YOU_KNEEL,
+    YOU_RISE_TO_A_KNEELING_POSITION,
+  ].join('|')
+
+  KNEEL_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_KNEELING,
+    YOU_KNEEL,
+    YOU_RISE_TO_A_KNEELING_POSITION,
+  ].join('|')
+
+  LIE_PATTERN = [
+    YOU_ARE_ALREADY_LYING,
+    YOU_LIE,
+  ].join('|')
+
+  LIE_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_LYING,
+    YOU_LIE,
+  ].join('|')
+
   LOOT_PATTERN = [
     I_COULD_NOT_FIND,
     YOU_SEARCH,
@@ -235,6 +266,26 @@ class BaseDragonrealmsScript < BaseScript
 
   SELL_MY_SUCCESS_PATTERN = [
     THEN_HANDS_YOU,
+  ].join('|')
+
+  SIT_PATTERN = [
+    YOU_ARE_ALREADY_SITTING,
+    YOU_SIT,
+  ].join('|')
+
+  SIT_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_SITTING,
+    YOU_SIT,
+  ].join('|')
+
+  STAND_PATTERN = [
+    YOU_ARE_ALREADY_STANDING,
+    YOU_STAND,
+  ].join('|')
+
+  STAND_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_STANDING,
+    YOU_STAND,
   ].join('|')
 
   STORE_MY_PATTERN = [
@@ -346,6 +397,20 @@ class BaseDragonrealmsScript < BaseScript
     ).match(INVOKE_MY_SUCCESS_PATTERN)
   end
 
+  def kneel
+    wait_for_match(
+      KNEEL_PATTERN,
+      'kneel'
+    ).match(KNEEL_SUCCESS_PATTERN)
+  end
+
+  def lie
+    wait_for_match(
+      LIE_PATTERN,
+      'lie'
+    ).match(LIE_SUCCESS_PATTERN)
+  end
+
   def loot(loot_type)
     wait_for_match(
       LOOT_PATTERN,
@@ -386,6 +451,20 @@ class BaseDragonrealmsScript < BaseScript
       SELL_MY_PATTERN,
       "sell my #{item}"
     ).match(SELL_MY_SUCCESS_PATTERN)
+  end
+
+  def sit
+    wait_for_match(
+      SIT_PATTERN,
+      'sit'
+    ).match(SIT_SUCCESS_PATTERN)
+  end
+
+  def stand
+    wait_for_match(
+      STAND_PATTERN,
+      'stand'
+    ).match(STAND_SUCCESS_PATTERN)
   end
 
   def store_my(item, container)

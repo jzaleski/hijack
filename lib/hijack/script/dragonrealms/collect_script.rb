@@ -5,6 +5,7 @@ class CollectScript < BaseDragonrealmsScript
   THE_ROOM_IS_TOO_CLUTTERED = 'The room is too cluttered'
   YOU_ARE_CERTAIN_YOU_COULD = 'You are certain you could'
   YOU_ARE_SURE_YOU_KNEW = 'You are sure you knew'
+  YOU_CANT_DO_THAT_FROM = "You can't do that from"
   YOU_FORAGE_AROUND_BUT = 'You forage around but'
   YOU_MANAGE_TO_COLLECT = 'You manage to collect'
   YOU_TAKE_A_STEP_BACK = 'You take a step back'
@@ -32,6 +33,7 @@ class CollectScript < BaseDragonrealmsScript
 
   KICK_PATTERN = [
     I_COULD_NOT_FIND,
+    YOU_CANT_DO_THAT_FROM,
     YOU_TAKE_A_STEP_BACK,
   ].join('|')
 
@@ -53,10 +55,17 @@ class CollectScript < BaseDragonrealmsScript
         next
       end
       sleep 15
-      result = wait_for_match(
-        KICK_PATTERN,
-        'kick pile'
-      )
+      loop do
+        result = wait_for_match(
+          KICK_PATTERN,
+          'kick pile'
+        )
+        if result == YOU_CANT_DO_THAT_FROM
+          sleep 0.1 until stand
+        else
+          break
+        end
+      end
       sleep 30
     end
   end
