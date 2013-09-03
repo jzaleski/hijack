@@ -11,7 +11,9 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
   ].join('|')
 
   def gets
-    # strip trailing carriage return characters
+    # strip trailing "record separator" (typically carriage returns) - this will
+    # only remove one instance of a given "record separator" and always returns
+    # a new string instance
     line = super.chomp
     # ensure that lines containing bold text switch back to normal (non-bold)
     # text at the end of the line
@@ -31,7 +33,7 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
     !(
       line.match(RETRY_PATTERN) &&
       @config[:silence_retryable_lines] =~ /\Atrue\Z/ &&
-      @script_manager.num_running > 0
+      @script_manager.num_running_non_paused > 0
     )
   end
 

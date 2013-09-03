@@ -1,7 +1,6 @@
 General:
 ========
 
-- clean up "execute" method in "lib/hijack/manager/script_manager.rb"
 - add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
 
 Dragonrealms:

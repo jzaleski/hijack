@@ -9,50 +9,28 @@ class ScriptManager
     @scripts = {}
   end
 
-  # TODO: clean-up this method
   def execute(command)
     unless command.empty?
       command_parts = command.split
       if command_parts[0] == 'l'
-        script_names = @scripts.keys
-        if script_names.empty?
-          running_scripts = '(none)'
-        else
-          running_scripts = script_names.sort.map do |script_name|
-            "- #{script_name} (#{@scripts[script_name].status})"
-          end.join("\n")
-        end
-        @output_buffer.puts "\nRunning scripts:\n================\n\n#{running_scripts}"
-      elsif ['k', 'p', 'r'].include?(command_parts[0]) && script_name = command_parts[1]
-        unless running?(script_name)
-          @output_buffer.puts "\nScript: '#{script_name}' is not running.."
-          return
-        end
-        case command_parts[0]
-          when 'k'
-            kill(script_name)
-          when 'p'
-            if paused?(script_name)
-              @output_buffer.puts "\nScript: '#{script_name}' is already paused.."
-              return
-            end
-            pause(script_name)
-          when 'r'
-            unless paused?(script_name)
-              @output_buffer.puts "\nScript: '#{script_name}' is already running.."
-              return
-            end
-            resume(script_name)
-        end
+        list_running
+      elsif command_parts[0] == 'k' && script_name = command_parts[1]
+        kill(script_name)
+      elsif command_parts[0] == 'p' && script_name = command_parts[1]
+        pause(script_name)
+      elsif command_parts[0] == 'r' && script_name = command_parts[1]
+        resume(script_name)
       elsif script_name = command_parts[0]
         if running?(script_name)
           @output_buffer.puts "\nScript: '#{script_name}' is already running.."
           return
         end
-        script_path = [
+        possible_script_paths = [
           "#{SCRIPT_DIR}/#{@config[:script_dir]}/#{script_name}_script.rb",
           "#{SCRIPT_DIR}/share/#{script_name}_script.rb",
-        ].find {|script_file| File.exist?(script_file)}
+        ]
+        script_path = \
+          possible_script_paths.detect {|script_file| File.exist?(script_file)}
         unless script_path
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
@@ -64,7 +42,8 @@ class ScriptManager
           STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
           return
         end
-        script_class_name = "#{script_name.split('_').map(&:capitalize).join}Script"
+        script_class_name = \
+          "#{script_name.split('_').map(&:capitalize).join}Script"
         script_object = Object::const_get(script_class_name).new(
           @config,
           @bridge,
@@ -88,11 +67,12 @@ class ScriptManager
           end
         )
         unless script_object.nil?
-          # strip out the "script_name" and leading whitespace before processing
-          # the string
-          args = parse_args(command.sub(script_name, '').lstrip)
+          # strip out the "script_name" and leading/trailing whitespace before
+          # attempting to parse the args out of the string
+          args = parse_args(command.sub(script_name, '').strip)
           unless script_object.validate_args(args)
-            @output_buffer.puts "\nScript: '#{script_name}' was invoked with invalid arguments.."
+            @output_buffer.puts \
+              "\nScript: '#{script_name}' was invoked with invalid arguments.."
             return
           end
           script_object.start_run(args)
@@ -105,7 +85,7 @@ class ScriptManager
     end
   end
 
-  def num_running
+  def num_running_non_paused
     @scripts.values.count do |script_object|
       script_object.running? && !script_object.paused?
     end
@@ -114,17 +94,44 @@ class ScriptManager
   private
 
   def delete(script_name)
-    @scripts.delete(script_name)
+    if @scripts.include?(script_name)
+      @scripts.delete(script_name)
+    end
   end
 
   def kill(script_name)
     script_object = @scripts[script_name]
-    script_object.kill unless script_object.nil?
+    if script_object.nil?
+      @output_buffer.puts "\nscript: '#{script_name}' is not running.."
+      return
+    end
+    script_object.kill
+  end
+
+  def list_running
+    script_names = @scripts.keys
+    if script_names.empty?
+      running_scripts = '(none)'
+    else
+      running_scripts = script_names.sort.map do |script_name|
+        "- #{script_name} (#{@scripts[script_name].status})"
+      end.join("\n")
+    end
+    @output_buffer.puts \
+      "\nRunning scripts:\n================\n\n#{running_scripts}"
   end
 
   def pause(script_name)
     script_object = @scripts[script_name]
-    script_object.pause unless script_object.nil?
+    if script_object.nil?
+      @output_buffer.puts "\nscript: '#{script_name}' is not running.."
+      return
+    end
+    if script_object.paused?
+      @output_buffer.puts "\nScript: '#{script_name}' is already paused.."
+      return
+    end
+    script_object.pause
   end
 
   def paused?(script_name)
@@ -172,7 +179,15 @@ class ScriptManager
 
   def resume(script_name)
     script_object = @scripts[script_name]
-    script_object.resume unless script_object.nil?
+    if script_object.nil?
+      @output_buffer.puts "\nscript: '#{script_name}' is not running.."
+      return
+    end
+    unless script_object.paused?
+      @output_buffer.puts "\nScript: '#{script_name}' is already running.."
+      return
+    end
+    script_object.resume
   end
 
   def running?(script_name)
@@ -181,7 +196,9 @@ class ScriptManager
   end
 
   def store(script_name, script_object)
-    @scripts[script_name] = script_object
+    unless script_name.nil? || script_object.nil?
+      @scripts[script_name] = script_object
+    end
   end
 
 end
