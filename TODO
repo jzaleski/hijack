@@ -2,10 +2,11 @@ General:
 ========
 
 - clean up "execute" method in "lib/hijack/manager/script_manager.rb"
-- add "aliases" (allow for scriptlets)
+- add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
 
 Dragonrealms:
 =============
 
 - ensure that underlined text terminates at the end of the line (ex: healing)
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
+- move helper-methods (currently in "base_dragonrealms_script.rb") into a mixin
