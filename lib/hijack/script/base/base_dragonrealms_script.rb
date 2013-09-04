@@ -42,6 +42,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_ATTACH_A = 'You attach a'
   YOU_BEGIN_TO_WEAVE = 'You begin to weave'
   YOU_CANT_CLOSE = "You can't close"
+  YOU_CANT_DO = "You can't do"
   YOU_CANT_OPEN = "You can't open"
   YOU_CLOSE_YOUR = 'You close your'
   YOU_DETACH_A = 'You detach a'

@@ -5,6 +5,7 @@ class GetAllScript < BaseDragonrealmsScript
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,
+    YOU_CANT_DO,
     YOU_GET,
     YOU_PICK_UP,
   ].join('|')
@@ -24,8 +25,6 @@ class GetAllScript < BaseDragonrealmsScript
         "get #{item}"
       )
       case result
-        when WHAT_WERE_YOU
-          break
         when YOU_ARE_ALREADY
           store_my(item, container)
           next
@@ -35,6 +34,8 @@ class GetAllScript < BaseDragonrealmsScript
         when YOU_PICK_UP
           store_my(item, container)
           next
+        else
+          break
       end
     end
     close_my(container)
