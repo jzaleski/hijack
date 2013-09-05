@@ -27,26 +27,50 @@ class PredictScript < BaseDragonrealmsScript
   ]
 
   OBJECTS = %W[
+    albatross
+    boar
+    brigantine
     cat
+    cobra
     cow
+    coyote
+    dolphin
     donkey
+    dove
+    durgaulda
+    estrilda
     giant
+    goshawk
+    hare
     heart
+    jackal
     katamba
-    #{'king snake'}
     lion
     magpie
+    mongoose
+    nightingale
     ox
     panther
+    penhetia
+    racoon
     ram
     raven
     scales
+    shark
+    shrike
     spider
     sun
     toad
+    triquetra
+    unicorn
+    verena
+    weasel
+    welkin
     wolf
+    wolverine
     xibar
     yavash
+    yoakena
   ]
 
   OBSERVE_SUCCESS_PATTERN = [
