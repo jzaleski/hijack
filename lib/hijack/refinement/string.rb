@@ -1,11 +1,14 @@
 class String
 
   def to_regexp(opts={})
-    # clone the string
-    value = "#{self}"
-    # conditionally escape the string
-    value = Regexp.escape(value) if opts[:escape] == true
-    # construct a new Regexp object and return it to the caller
+    # escape the "String" if the "escape" option is specified (this is
+    # non-destructive)
+    value = \
+      if opts[:escape] == true
+        Regexp.escape(self)
+      else
+        self
+      end
     Regexp.new(value)
   end
 
