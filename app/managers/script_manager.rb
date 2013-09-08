@@ -14,6 +14,10 @@ class ScriptManager
       command_parts = command.split
       if command_parts[0] == 'ka'
         kill_all
+      elsif command_parts[0] == 'pa'
+        pause_all
+      elsif command_parts[0] == 'ra'
+        resume_all
       elsif command_parts[0] == 'l'
         list_running
       elsif command_parts[0] == 'k' && script_name = command_parts[1]
@@ -142,6 +146,12 @@ class ScriptManager
     script_object.pause
   end
 
+  def pause_all
+    @scripts.keys.each do |script_name|
+      pause(script_name)
+    end
+  end
+
   def paused?(script_name)
     script_object = @scripts[script_name]
     script_object && script_object.paused?
@@ -196,6 +206,12 @@ class ScriptManager
       return
     end
     script_object.resume
+  end
+
+  def resume_all
+    @scripts.keys.each do |script_name|
+      resume(script_name)
+    end
   end
 
   def running?(script_name)
