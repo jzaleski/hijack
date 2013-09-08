@@ -1,3 +1,3 @@
 #!/bin/bash
 
-touch $CLIENT_FILE && tail -f $CLIENT_FILE | ./lib/hijack.rb $ARGS;
+touch $CLIENT_FILE && tail -f $CLIENT_FILE | ./app/hijack.rb $ARGS;

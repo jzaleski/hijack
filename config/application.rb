@@ -3,31 +3,28 @@
 $VERBOSE = nil unless ENV['VERBOSE']
 
 # Store the path to the app-root as a constant
-APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
+ROOT_DIR = File.expand_path(File.dirname(__FILE__) + '/../')
 
-# Store the path to the lib directory as a constant
-LIB_DIR = "#{APP_ROOT}/lib"
+# Store the path to the app directory as a constant
+APP_DIR = "#{ROOT_DIR}/app"
 
-# Store the path to the hijack directory as a constant
-HIJACK_DIR = "#{LIB_DIR}/hijack"
+# Store the path to the bridges directory as a constant
+BRIDGES_DIR = "#{APP_DIR}/bridges"
 
-# Store the path to the bridge directory as a constant
-BRIDGE_DIR = "#{HIJACK_DIR}/bridge"
+# Store the path to the managers directory as a constant
+MANAGERS_DIR = "#{APP_DIR}/managers"
 
-# Store the path to the manager directory as a constant
-MANAGER_DIR = "#{HIJACK_DIR}/manager"
+# Store the path to the refinements directory as a constant
+REFINEMENTS_DIR = "#{APP_DIR}/refinements"
 
-# Store the path to the refinement directory as a constant
-REFINEMENT_DIR = "#{HIJACK_DIR}/refinement"
+# Store the path to the scripts directory as a constant
+SCRIPTS_DIR = "#{APP_DIR}/scripts"
 
-# Store the path to the script directory as a constant
-SCRIPT_DIR = "#{HIJACK_DIR}/script"
-
-# Ensure that the "lib" directory is in the load-path
-$LOAD_PATH.unshift(LIB_DIR) unless $LOAD_PATH.include?(LIB_DIR)
+# Ensure that the "app" directory is in the load-path
+$LOAD_PATH.unshift(APP_DIR) unless $LOAD_PATH.include?(APP_DIR)
 
 # Require(s)
 REQUIRED_MODULES = []
 REQUIRED_MODULES += %w[json set socket thread]
-REQUIRED_MODULES += Dir["#{REFINEMENT_DIR}/*.rb"]
+REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES.each {|required_module| require required_module}
