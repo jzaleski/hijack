@@ -111,10 +111,8 @@ class PredictScript < BaseDragonrealmsScript
     loop do
       # cast helper spells
       SPELLS.each do |spell|
-        # prep (retry until successful)
-        sleep 0.1 until prep(spell)
-        # cast (retry until successful)
-        sleep 0.1 until cast
+        # prep and cast (retry until successful)
+        sleep 0.1 until prep(spell) && cast
       end
       # observe, check state, align, predict then analyze bonuses/curses - when
       # observing multiple times it is unclear whether to use the same object so
