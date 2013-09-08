@@ -2,6 +2,12 @@ General:
 ========
 
 - add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
+- create web [service] interface (use sinatra?)
+  - simple interface (3 actions)
+    - connect (returns token and maps it to an IP)
+    - gets
+    - puts
+- refactor "hijack.rb" so that it can be testable (add tests)
 
 Dragonrealms:
 =============
