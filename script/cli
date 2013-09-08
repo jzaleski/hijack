@@ -1,3 +1,0 @@
-#!/bin/bash
-
-touch $CLIENT_FILE && tail -f $CLIENT_FILE | ./app/cli.rb $ARGS;

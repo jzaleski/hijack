@@ -22,11 +22,11 @@ resize -1000
 # focus the server pane
 focus up
 
-# run the cli script
-screen -t output 0 script/cli
+# run the output script
+screen -t output 0 script/output
 
 # [re-]focus the client pane
 focus down
 
-# run the client script
-screen -t input 1 script/client
+# run the input script
+screen -t input 1 script/input

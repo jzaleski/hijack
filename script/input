@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while [ 1 ];
+do
+	read -e -p '> ' RAW_INPUT;
+	if [ -n "$RAW_INPUT" ];
+	then
+		echo "$RAW_INPUT" >> $CLIENT_FILE;
+		history -s $RAW_INPUT;
+	fi
+	if [[ $RAW_INPUT =~ ^(\|*exit|\|*quit)$ ]];
+	then
+		break;
+	fi
+done
+
+if [ -n "$STY" ];
+then
+  screen -X quit > /dev/null 2>&1;
+fi

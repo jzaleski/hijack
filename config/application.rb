@@ -11,6 +11,9 @@ APP_DIR = "#{ROOT_DIR}/app"
 # Store the path to the bridges directory as a constant
 BRIDGES_DIR = "#{APP_DIR}/bridges"
 
+# Store the path to the interfaces directory as a constant
+INTERFACES_DIR = "#{APP_DIR}/interfaces"
+
 # Store the path to the managers directory as a constant
 MANAGERS_DIR = "#{APP_DIR}/managers"
 

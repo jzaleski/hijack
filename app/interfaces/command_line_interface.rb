@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
 # load the environment file
-require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
+require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
 # contains all of the logic necessary to validate configuration and connect to
 # an end-point
-class Cli
+class CommandLineInterface
 
   def initialize
     @config = {}
@@ -140,4 +140,4 @@ class Cli
 end
 
 # Application Entry-Point
-Cli.new.start if $0 == __FILE__
+CommandLineInterface.new.start if $0 == __FILE__
