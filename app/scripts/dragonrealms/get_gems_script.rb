@@ -4,6 +4,7 @@ class GetGemsScript < BaseDragonrealmsScript
 
   GEMS = %w[
     agate
+    alexandrite
     amber
     andalusite
     bar
