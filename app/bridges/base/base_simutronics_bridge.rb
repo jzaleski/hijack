@@ -11,7 +11,7 @@ class BaseSimutronicsBridge < BaseBridge
     })
   end
 
-  def required_arguments
+  def required_args
     [:account, :password, :character]
   end
 

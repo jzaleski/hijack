@@ -78,7 +78,7 @@ class BaseBridge
     end
   end
 
-  def required_arguments
+  def required_args
     []
   end
 

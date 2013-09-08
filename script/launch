@@ -8,4 +8,4 @@ TEMP_DIR='./tmp';
 UUID=`uuidgen`;
 
 # Launch the application
-ARGS="$@" CLIENT_FILE="$TEMP_DIR/$UUID.client" SERVER_FILE="$TEMP_DIR/$UUID.server" screen -c .screenrc-hijack;
+ARGS="$@" CLIENT_FILE="$TEMP_DIR/$UUID.client" screen -c .screenrc-hijack;
