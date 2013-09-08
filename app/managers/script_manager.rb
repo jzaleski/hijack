@@ -12,7 +12,9 @@ class ScriptManager
   def execute(command)
     unless command.empty?
       command_parts = command.split
-      if command_parts[0] == 'l'
+      if command_parts[0] == 'ka'
+        kill_all
+      elsif command_parts[0] == 'l'
         list_running
       elsif command_parts[0] == 'k' && script_name = command_parts[1]
         kill(script_name)
@@ -106,6 +108,12 @@ class ScriptManager
       return
     end
     script_object.kill
+  end
+
+  def kill_all
+    @scripts.keys.each do |script_name|
+      kill(script_name)
+    end
   end
 
   def list_running
