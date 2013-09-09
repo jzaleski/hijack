@@ -1,10 +1,8 @@
-# Load the environment file
-require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
-
-# Require(s)
+# require(s)
 require 'rspec'
 
-# Configure RSpec
+# configure RSpec
 RSpec.configure do |config|
   config.color_enabled = true
+  config.requires = ['./config/environment']
 end
