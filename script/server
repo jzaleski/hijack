@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ruby -r ./config/environment ./app/interfaces/web_interface.rb
