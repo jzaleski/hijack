@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # contains all of the logic necessary to validate configuration and connect to
 # an end-point
 class CommandLineInterface
