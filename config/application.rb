@@ -2,28 +2,28 @@
 # variable to re-enable them if so desired
 $VERBOSE = nil unless ENV['VERBOSE']
 
-# Store the path to the app-root as a constant
-ROOT_DIR = File.expand_path(File.dirname(__FILE__) + '/../')
+# Store the path to the "root" as a constant
+ROOT_DIR = File.expand_path(File.dirname(__FILE__) + '/..')
 
-# Store the path to the app directory as a constant
+# Store the path to the "app" directory as a constant
 APP_DIR = "#{ROOT_DIR}/app"
 
-# Store the path to the bridges directory as a constant
+# Store the path to the "bridges" directory as a constant
 BRIDGES_DIR = "#{APP_DIR}/bridges"
 
-# Store the path to the helpers directory as a constant
+# Store the path to the "helpers" directory as a constant
 HELPERS_DIR = "#{APP_DIR}/helpers"
 
-# Store the path to the interfaces directory as a constant
+# Store the path to the "interfaces" directory as a constant
 INTERFACES_DIR = "#{APP_DIR}/interfaces"
 
-# Store the path to the managers directory as a constant
+# Store the path to the "managers" directory as a constant
 MANAGERS_DIR = "#{APP_DIR}/managers"
 
-# Store the path to the refinements directory as a constant
+# Store the path to the "refinements" directory as a constant
 REFINEMENTS_DIR = "#{APP_DIR}/refinements"
 
-# Store the path to the scripts directory as a constant
+# Store the path to the "scripts" directory as a constant
 SCRIPTS_DIR = "#{APP_DIR}/scripts"
 
 # Ensure that the "app" directory is in the load-path
