@@ -10,7 +10,7 @@ class CommandLineInterface
     @config = {}
   end
 
-  def start
+  def run
     # process args first, they will either contain all the necessary arguments
     # or specify a path to a "config-file" value that has all of the necessary
     # values to construct a bridge
@@ -139,4 +139,4 @@ class CommandLineInterface
 end
 
 # Application Entry-Point
-CommandLineInterface.new.start if $0 == __FILE__
+CommandLineInterface.new.run if $0 == __FILE__
