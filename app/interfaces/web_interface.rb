@@ -1,9 +1,24 @@
-require 'sinatra'
+require 'sinatra/base'
 
-set :server => ENV['SERVER'] || 'thin'
+class WebInterface < Sinatra::Base
 
-get '/gets' do; end
+  configure do
+    set :server => ENV['SERVER'] || 'thin'
+  end
 
-post '/connect' do; end
+  get '/gets' do
+    # TODO: Implement me!
+  end
 
-post '/puts' do; end
+  post '/connect' do
+    # TODO: Implement me!
+  end
+
+  post '/puts' do
+    # TODO: Implement me!
+  end
+
+  run! if $0 == __FILE__
+
+end
+
