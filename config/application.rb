@@ -11,6 +11,9 @@ APP_DIR = "#{ROOT_DIR}/app"
 # Store the path to the bridges directory as a constant
 BRIDGES_DIR = "#{APP_DIR}/bridges"
 
+# Store the path to the helpers directory as a constant
+HELPERS_DIR = "#{APP_DIR}/helpers"
+
 # Store the path to the interfaces directory as a constant
 INTERFACES_DIR = "#{APP_DIR}/interfaces"
 
@@ -29,5 +32,6 @@ $LOAD_PATH.unshift(APP_DIR) unless $LOAD_PATH.include?(APP_DIR)
 # Require(s)
 REQUIRED_MODULES = []
 REQUIRED_MODULES += %w[json set socket thread]
+REQUIRED_MODULES += Dir["#{HELPERS_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES.each {|required_module| require required_module}

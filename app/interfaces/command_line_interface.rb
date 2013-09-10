@@ -4,6 +4,8 @@
 # an end-point
 class CommandLineInterface
 
+  include ConfigurationHelpers
+
   def initialize
     @config = {}
   end
