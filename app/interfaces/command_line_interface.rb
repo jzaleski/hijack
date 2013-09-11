@@ -2,7 +2,7 @@
 # an end-point
 class CommandLineInterface
 
-  include ConfigurationHelpers
+  include BridgeHelpers
 
   def initialize
     @config = {}
@@ -15,28 +15,13 @@ class CommandLineInterface
     process_args(ARGV)
 
     # try to process the "config-file" (if specified)
-    config_file = config_value(:config_file)
+    config_file = @config[:config_file]
     process_config_file(config_file) \
       if config_file && File.exists?(config_file)
 
-    # ensure that the "game" argument is present
-    abort('You must specify a "game"') \
-      unless game_name = config_value(:game)
-
-    # ensure that the "bridge" argument is present
-    abort('You must specify a "bridge"') \
-      unless bridge_name = config_value(:bridge)
-
-    # ensure that the bridge-file exists
-    abort(%{Bridge: "#{bridge_name}" does not exist..}) \
-      unless bridge_file_exists?(game_name, bridge_name)
-
-    # construct the bridge instance
-    bridge = construct_bridge(game_name, bridge_name)
-    # now that the bridge has been instantiated we need to ensure that it has
-    # all of the arguments/config-values it requires
-    abort(%{Bridge: "#{bridge_name}" is missing one or more required arguments}) \
-      unless validate_bridge_required_args(bridge)
+    # construct the bridge instance (this can raise an error if there is a load
+    # error or if there are missing required arguments)
+    bridge = construct_bridge(@config)
 
     # try to connect to the game-host
     bridge.connect
@@ -58,27 +43,6 @@ class CommandLineInterface
   end
 
   private
-
-  def bridge_class_name(bridge_name)
-    "#{bridge_name.split('_').map(&:capitalize).join}Bridge"
-  end
-
-  def bridge_file_path(game_name, bridge_name)
-    "#{BRIDGES_DIR}/#{game_name}/#{bridge_name}_bridge.rb"
-  end
-
-  def bridge_file_exists?(game_name, bridge_name)
-    File.exists?(bridge_file_path(game_name, bridge_name))
-  end
-
-  def config_value(key)
-    @config[key]
-  end
-
-  def construct_bridge(game_name, bridge_name)
-    load bridge_file_path(game_name, bridge_name)
-    Object::const_get(bridge_class_name(bridge_name)).new(@config)
-  end
 
   def process_args(args)
     (args || []).each do |arg|
@@ -124,10 +88,6 @@ class CommandLineInterface
         end
       end
     end
-  end
-
-  def validate_bridge_required_args(bridge)
-    bridge.required_args.all? {|key| config_value(key)}
   end
 
   def wait_for_exit(bridge)
