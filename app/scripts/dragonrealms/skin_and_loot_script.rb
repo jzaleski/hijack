@@ -16,6 +16,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   YOU_COMPLETE_ARRANGING = 'You complete arranging'
   YOU_CONTINUE_ARRANGING = 'You continue arranging'
   YOU_MAKE_A_SERIES_OF_CUTS = 'You make a series of cuts'
+  YOU_MUST_HAVE_ONE_HAND_FREE = 'You must have one hand free'
   YOU_PEEL = 'You peel'
   YOU_SKILLFULLY_PEEL = 'You skillfully peel'
   YOU_SKILLFULLY_REMOVE = 'you skillfully remove'
@@ -47,6 +48,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
     NEARLY_RUINING_IT,
     YOU_CLAW_WILDLY,
     YOU_MAKE_A_SERIES_OF_CUTS,
+    YOU_MUST_HAVE_ONE_HAND_FREE,
     YOU_PEEL,
     YOU_SKILLFULLY_PEEL,
     YOU_SKILLFULLY_REMOVE,
