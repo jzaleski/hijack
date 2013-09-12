@@ -52,7 +52,7 @@ class PredictScript < BaseDragonrealmsScript
     ox
     panther
     penhetia
-    racoon
+    raccoon
     ram
     raven
     scales
