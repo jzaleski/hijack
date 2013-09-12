@@ -8,7 +8,9 @@ class MagicScript < BaseDragonrealmsScript
     # prep a spell using a specific amount of mana
     (args.length == 2 || (config_spell && config_mana)) ||
     # prep a spell using a specific amount of mana and charge one or more items
-    (args.length >= 4 && args[2].to_i > 0)
+    (args.length >= 4 && args[2].to_i > 0) ||
+    # prep a spell using a specific amount fo mana and charge one or more preconfigured charge items
+    (config_spell && config_mana && config_charge_mana && config_charge_items && !config_charge_items.empty?)
   end
 
   def run(args)
@@ -16,11 +18,14 @@ class MagicScript < BaseDragonrealmsScript
     spell = args[0] || config_spell
     mana = args[1] || config_mana
     # process charge-items
-    charge_amount = nil
-    charge_items = []
+    charge_mana = nil
+    charge_items = nil
     if args.length >= 4
-      charge_amount = args[2].to_i
-      charge_items += args[3..-1]
+      charge_mana = args[2].to_i
+      charge_items = args[3..-1]
+    elsif config_charge_mana && config_charge_items && !config_charge_items.empty?
+      charge_mana = config_charge_mana.to_i
+      charge_items = config_charge_items
     end
     interloop_sleep_time = 30
     loop do
@@ -28,8 +33,9 @@ class MagicScript < BaseDragonrealmsScript
       return unless prep(spell, mana)
       # charge charge-item(s)
       charge_items_charged = 0
-      charge_items.each do |charge_item|
-        next unless charge_my(charge_item, charge_amount)
+      # [safely] handle the case where "charge_items" isn't set
+      (charge_items || []).each do |charge_item|
+        next unless charge_my(charge_item, charge_mana)
         sleep 3.5
         invoke_my(charge_item)
         sleep 1.5
@@ -48,6 +54,14 @@ class MagicScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_charge_mana
+    @config[:magic_charge_mana]
+  end
+
+  def config_charge_items
+    @config[:magic_charge_items]
+  end
 
   def config_mana
     @config[:magic_mana]
