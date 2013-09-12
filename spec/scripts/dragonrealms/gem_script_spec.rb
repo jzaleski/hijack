@@ -1,4 +1,4 @@
 require 'spec_helper'
-require 'scripts/share/gem_script'
+require 'scripts/dragonrealms/gem_script'
 
 describe GemScript do; end

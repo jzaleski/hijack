@@ -1,4 +1,4 @@
 require 'spec_helper'
-require 'scripts/share/get_script'
+require 'scripts/dragonrealms/get_script'
 
 describe GetScript do; end

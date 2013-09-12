@@ -40,14 +40,6 @@ class GetGemsScript < BaseDragonrealmsScript
     zircon
   ]
 
-  GET_PATTERN = [
-    WHAT_WERE_YOU,
-    YOU_ARE_ALREADY,
-    YOU_CANT_DO,
-    YOU_GET,
-    YOU_PICK_UP,
-  ].join('|')
-
   def validate_args(args)
     args.length == 1 ||
     config_container

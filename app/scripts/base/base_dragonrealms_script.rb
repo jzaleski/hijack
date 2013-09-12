@@ -156,6 +156,20 @@ class BaseDragonrealmsScript < BaseScript
     YOU_GET,
   ].join('|')
 
+  GET_PATTERN = [
+    WHAT_WERE_YOU,
+    YOU_ARE_ALREADY,
+    YOU_CANT_DO,
+    YOU_GET,
+    YOU_PICK_UP,
+  ].join('|')
+
+  GET_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY,
+    YOU_GET,
+    YOU_PICK_UP,
+  ].join('|')
+
   INVOKE_MY_PATTERN = [
     FORGE_A_MAGICAL_LINK,
     INVOKE_WHAT,
@@ -392,6 +406,13 @@ class BaseDragonrealmsScript < BaseScript
       GET_MY_PATTERN,
       container ? "get my #{item} from my #{container}" : "get my #{item}"
     ).match(GET_MY_SUCCESS_PATTERN)
+  end
+
+  def get(item, container=nil)
+    wait_for_match(
+      GET_PATTERN,
+      container ? "get #{item} from #{container}" : "get #{item}"
+    ).match(GET_SUCCESS_PATTERN)
   end
 
   def invoke_my(item)
