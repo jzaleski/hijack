@@ -3,6 +3,7 @@ General:
 
 - add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
 - finish building out "web_interface.rb"
+- add the ability to highlight patterns
 
 Dragonrealms:
 =============
