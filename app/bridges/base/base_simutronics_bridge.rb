@@ -30,6 +30,10 @@ class BaseSimutronicsBridge < BaseBridge
     "#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
   end
 
+  protected
+
+  attr_reader :socket
+
   private
 
   def can_fit_on_line?(*values)

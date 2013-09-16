@@ -19,15 +19,15 @@ class BaseBridge
   end
 
   def close
-    @socket.close rescue nil
+    socket.close rescue nil
   end
 
   def connect
-    raise %{All "#{BaseBridge}(s)" must override the "connect" method and set "@socket"}
+    raise %{All "#{BaseBridge}(s)" must override the "connect" method}
   end
 
   def connected?
-    !@socket.nil? && !@socket.closed?
+    !socket.nil? && !socket.closed?
   end
 
   def gets
@@ -42,7 +42,7 @@ class BaseBridge
     # exit[ing]
     if command =~ /\A(exit|quit)\Z/
       # send the command immediately
-      @socket.puts command
+      socket.puts command
       # close the socket
       close
       # quit the screen-session (if applicable)
@@ -85,7 +85,7 @@ class BaseBridge
   def start_buffering
     @read_thread ||= Thread.new do
       while connected?
-        @output_buffer.puts(@socket.gets)
+        @output_buffer.puts(socket.gets)
       end
     end
     @write_thread ||= Thread.new do
@@ -96,7 +96,7 @@ class BaseBridge
         # safe either way)
         command, opts = @input_buffer.gets
         # send the command
-        @socket.puts(command)
+        socket.puts(command)
         # update the last write time (we want this to occur as soon as possible
         # after the command is dispatched)
         @last_write_time = Time.now
@@ -104,6 +104,12 @@ class BaseBridge
         opts[:on_exec].call if opts[:on_exec] rescue nil
       end
     end
+  end
+
+  protected
+
+  def socket
+    raise %{All "#{BaseBridge}(s)" must override the "socket" method}
   end
 
   private
