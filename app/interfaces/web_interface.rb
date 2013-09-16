@@ -3,6 +3,7 @@ require 'sinatra/base'
 class WebInterface < Sinatra::Base
 
   include BridgeHelpers
+  include ConfigHelpers
 
   configure do
     set :server => ENV['SERVER'] || 'thin'

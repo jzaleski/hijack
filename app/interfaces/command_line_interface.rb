@@ -3,9 +3,10 @@
 class CommandLineInterface
 
   include BridgeHelpers
+  include ConfigHelpers
 
-  def initialize
-    @config = {}
+  def config
+    @config ||= {}
   end
 
   def run
@@ -15,13 +16,13 @@ class CommandLineInterface
     process_args(ARGV)
 
     # try to process the "config-file" (if specified)
-    config_file = @config[:config_file]
+    config_file = config[:config_file]
     process_config_file(config_file) \
       if config_file && File.exists?(config_file)
 
     # construct the bridge instance (this can raise an error if there is a load
     # error or if there are missing required arguments)
-    bridge = construct_bridge(@config)
+    bridge = construct_bridge(config)
 
     # try to connect to the game-host
     bridge.connect
@@ -43,30 +44,6 @@ class CommandLineInterface
   end
 
   private
-
-  def process_args(args)
-    (args || []).each do |arg|
-      if match_data = /\A--(\S+)=(\S+)\Z/.match(arg)
-        @config[match_data[1].gsub(/-/, '_').to_sym] = match_data[2]
-      end
-    end
-  end
-
-  def process_config_file(config_file)
-    if config_file && File.exist?(config_file)
-      File.new(config_file).each_line do |line|
-        # array or hash property (must be valid JSON)
-        if match_data = /\A(\S+)\s?=\s?(\[.+\]|\{.+\})\Z/.match(line)
-          @config[match_data[1].rstrip.gsub(/-/, '_').to_sym] = \
-            JSON::parse(match_data[2].strip, :symbolize_names => true).freeze
-        # basic property
-        elsif match_data = /\A(\S+)\s?=\s?(\S+)\Z/.match(line)
-          @config[match_data[1].rstrip.gsub(/-/, '_').to_sym] = \
-            match_data[2].strip
-        end
-      end
-    end
-  end
 
   def start_read(bridge)
     Thread.new do
