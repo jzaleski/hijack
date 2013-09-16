@@ -5,7 +5,6 @@ gem 'sinatra'
 group :development do
   gem 'pry'
   gem 'rake'
-  gem 'thin'
 end
 
 group :test do

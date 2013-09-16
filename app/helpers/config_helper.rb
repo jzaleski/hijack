@@ -1,18 +1,17 @@
-module ConfigHelpers
-
-  def config
-    raise %{All "#{ConfigHelpers}(s)" must override the "config" method}
-  end
+class ConfigHelper
 
   def process_args(args)
+    config = {}
     (args || []).each do |arg|
       if match_data = /\A--(\S+)=(\S+)\Z/.match(arg)
         config[match_data[1].gsub(/-/, '_').to_sym] = match_data[2]
       end
     end
+    config
   end
 
   def process_config_file(config_file)
+    config = {}
     if config_file && File.exist?(config_file)
       File.new(config_file).each_line do |line|
         # array or hash property (must be valid JSON)
@@ -26,6 +25,7 @@ module ConfigHelpers
         end
       end
     end
+    config
   end
 
 end

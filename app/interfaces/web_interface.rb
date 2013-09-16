@@ -2,11 +2,12 @@ require 'sinatra/base'
 
 class WebInterface < Sinatra::Base
 
-  include BridgeHelpers
-  include ConfigHelpers
-
   configure do
-    set :server => ENV['SERVER'] || 'thin'
+    set :root, ENV['ROOT'] || ROOT_DIR
+  end
+
+  get '/' do
+    send_file File.join(settings.public_folder, 'index.html')
   end
 
   get '/gets' do
@@ -24,4 +25,3 @@ class WebInterface < Sinatra::Base
   run! if $0 == __FILE__
 
 end
-

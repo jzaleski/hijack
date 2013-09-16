@@ -1,4 +1,4 @@
-module BridgeHelpers
+class BridgeHelper
 
   def construct_bridge(config)
     # extract and validate all of the necessary arguments

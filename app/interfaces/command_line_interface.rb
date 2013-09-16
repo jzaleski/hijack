@@ -2,27 +2,28 @@
 # an end-point
 class CommandLineInterface
 
-  include BridgeHelpers
-  include ConfigHelpers
-
-  def config
-    @config ||= {}
-  end
-
   def run
+    # instantiate a "ConfigHelper" instance, this object provides helper methods
+    # for parsing various types of configuration
+    config_helper = ConfigHelper.new
+
     # process args first, they will either contain all the necessary arguments
     # or specify a path to a "config-file" value that has all of the necessary
     # values to construct a bridge
-    process_args(ARGV)
+    config = config_helper.process_args(ARGV)
 
     # try to process the "config-file" (if specified)
     config_file = config[:config_file]
-    process_config_file(config_file) \
+    config.merge!(config_helper.process_config_file(config_file)) \
       if config_file && File.exists?(config_file)
+
+    # instantiate a "BridgeHelper" instance, this object provides helper methods
+    # for parsing/validating arguments and constructing bridge instances
+    bridge_helper = BridgeHelper.new
 
     # construct the bridge instance (this can raise an error if there is a load
     # error or if there are missing required arguments)
-    bridge = construct_bridge(config)
+    bridge = bridge_helper.construct_bridge(config)
 
     # try to connect to the game-host
     bridge.connect
