@@ -20,7 +20,7 @@ class BaseGetScript < BaseScript
   protected
 
   def config_container
-    raise %{All "#{self.class.name}(s)" must override the "config_container" method}
+    raise %{All "#{BaseGetScript}(s)" must override the "config_container" method}
   end
 
 end

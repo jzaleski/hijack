@@ -23,7 +23,7 @@ class BaseBridge
   end
 
   def connect
-    raise 'All Bridge(s) must override the "connect" method and set "@socket"'
+    raise %{All "#{BaseBridge}(s)" must override the "connect" method and set "@socket"}
   end
 
   def connected?

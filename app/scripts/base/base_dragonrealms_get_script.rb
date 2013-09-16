@@ -18,7 +18,7 @@ class BaseDragonrealmsGetScript < BaseDragonrealmsScript
   protected
 
   def config_container
-    raise %{All "#{self.class.name}(s)" must override the "config_container" method}
+    raise %{All "#{BaseDragonrealmsGetScript}(s)" must override the "config_container" method}
   end
 
 end
