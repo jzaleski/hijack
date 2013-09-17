@@ -1,11 +1,11 @@
-class ScriptManager
+class ScriptHelper
 
-  def initialize(config, bridge, input_buffer, output_buffer, callback_manager)
+  def initialize(config, bridge, input_buffer, output_buffer, callback_helper)
     @config = config
     @bridge = bridge
     @input_buffer = input_buffer
     @output_buffer = output_buffer
-    @callback_manager = callback_manager
+    @callback_helper = callback_helper
     @scripts = {}
   end
 
@@ -53,7 +53,7 @@ class ScriptManager
         script_object = Object::const_get(script_class_name).new(
           @config,
           @bridge,
-          @callback_manager,
+          @callback_helper,
           :on_exec => lambda do
             @output_buffer.puts "\nScript: '#{script_name}' executing.."
           end,

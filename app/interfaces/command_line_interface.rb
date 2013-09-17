@@ -51,7 +51,7 @@ class CommandLineInterface
       while bridge.connected?
         output = bridge.gets
         unless output.empty?
-          STDOUT.puts output
+          STDOUT.puts(output)
         end
       end
     end
@@ -62,7 +62,11 @@ class CommandLineInterface
       while bridge.connected?
         input = STDIN.gets.chomp
         unless input.empty?
-          bridge.puts input
+          if input =~ /\A(exit|quit)\Z/
+            bridge.disconnect(input)
+          else
+            bridge.puts(input)
+          end
         end
       end
     end

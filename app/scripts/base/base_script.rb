@@ -1,9 +1,9 @@
 class BaseScript
 
-  def initialize(config, bridge, callback_manager, opts={})
+  def initialize(config, bridge, callback_helper, opts={})
     @config = config
     @bridge = bridge
-    @callback_manager = callback_manager
+    @callback_helper = callback_helper
     @on_exec = opts[:on_exec]
     @on_exit = opts[:on_exit]
     @on_kill = opts[:on_kill]
@@ -102,7 +102,7 @@ class BaseScript
     # for scoping reasons this must be defined outside of the lambda (below)
     result = nil
     # set the hook
-    @callback_manager.add_match(
+    @callback_helper.add_match(
       pattern,
       lambda {|r| result = r}
     )

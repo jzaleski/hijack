@@ -1,0 +1,55 @@
+body {
+  background-color: #DDD;
+  margin: 0;
+  padding: 0;
+}
+
+#connect-container, #game-container {
+  border: dashed 1px #FF0000;
+  padding: 5px;
+  text-align: center;
+}
+
+#connect-container input, #connect-container a, #input, #output {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+}
+
+#connect-container input, #connect-container a {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}
+
+#connect-container input[type="text"], #connect-container input[type="password"] {
+  margin-bottom: 3px;
+}
+
+#connect {
+  background-color: #EEE;
+  border: solid #777 1px;
+  color: #666;
+  font-weight: bold;
+  padding: 3px 0;
+  text-decoration: none;
+}
+
+#connect:hover {
+  background-color: #CCC;
+}
+
+#input, #output {
+  width: 700px;
+}
+
+#input {
+  height: 20px;
+  margin-top: 5px;
+}
+
+#output {
+  display: block;
+  height: 500px;
+  margin: 0 auto;
+  resize: none;
+}

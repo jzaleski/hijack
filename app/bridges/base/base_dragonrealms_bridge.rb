@@ -33,7 +33,7 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
     !(
       line.match(RETRY_PATTERN) &&
       @config[:silence_retryable_lines] =~ /\Atrue\Z/ &&
-      @script_manager.num_running_non_paused > 0
+      @script_helper.num_running_non_paused > 0
     )
   end
 

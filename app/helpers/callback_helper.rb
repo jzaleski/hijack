@@ -1,4 +1,4 @@
-class CallbackManager
+class CallbackHelper
 
   def initialize
     @callbacks = {}

@@ -1,0 +1,30 @@
+<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="hijack.css"/>
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="jquery-ajax-buffer.js"></script>
+    <script type="text/javascript" src="hijack.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        Hijack.init({
+          connectContainerSelector: '#connect-container',
+          gameContainerSelector: '#game-container'
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="connect-container">
+      <input type="text" id="game" placeholder="Game"/>
+      <input type="text" id="bridge" placeholder="Bridge"/>
+      <input type="text" id="account" placeholder="Account"/>
+      <input type="password" id="password" placeholder="Password"/>
+      <input type="text" id="character" placeholder="Character"/>
+      <a id="connect" href="javascript:void(0);">Connect</a>
+    </div>
+    <div id="game-container" style="display: none;">
+      <textarea id="output" cols="85" readonly></textarea>
+      <input type="text" id="input"/>
+    </div>
+  </body>
+</html>

@@ -23,7 +23,7 @@ class BaseSimutronicsBridge < BaseBridge
 
   def gets
     raw_output = super
-    raw_output.gsub!(/\e\[(1|0)m/, '') if RUBY_PLATFORM =~ /mingw32/
+    raw_output.gsub!(/\e\[(1|0)m/, '') if @layout_helper.strip_ansi_escape_sequences?
     parsed_output = raw_output.chomp
     parsed_output.insert(parsed_output.index('>') + 1, "\n") if parsed_output =~ /[a-zA-Z]*>.*/
     parsed_output.slice!(0..parsed_output.index('>')) if parsed_output.include?('>')
@@ -37,7 +37,7 @@ class BaseSimutronicsBridge < BaseBridge
   private
 
   def can_fit_on_line?(*values)
-    values.join.gsub(/\e\[(1|0)m/, '').length <= LayoutManager.num_cols
+    values.join.gsub(/\e\[(1|0)m/, '').length <= @layout_helper.num_cols
   end
 
   def login

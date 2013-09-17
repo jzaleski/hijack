@@ -3,7 +3,21 @@ require 'sinatra/base'
 class WebInterface < Sinatra::Base
 
   configure do
-    set :root, ENV['ROOT'] || ROOT_DIR
+    set :connections, {}
+    set :root, ROOT_DIR
+    enable :sessions
+  end
+
+  helpers do
+
+    def request_data
+      request.body.read.rstrip
+    end
+
+    def session_id
+      session['session_id']
+    end
+
   end
 
   get '/' do
@@ -11,15 +25,42 @@ class WebInterface < Sinatra::Base
   end
 
   get '/gets' do
-    # TODO: Implement me!
+    settings.connections[session_id].gets
   end
 
   post '/connect' do
-    # TODO: Implement me!
+    config_helper = ConfigHelper.new
+    config = config_helper.process_json(request_data)
+    bridge_helper = BridgeHelper.new
+    begin
+      bridge = bridge_helper.construct_bridge(config)
+    rescue Exception => e
+      halt 400, e.message
+    end
+    begin
+      bridge.connect
+    rescue Exception => e
+      halt 500, e.message
+    end
+    begin
+      bridge.start_buffering
+    rescue Exception => e
+      halt 500, e.message
+    end
+    settings.connections[session_id] = bridge
+    nil
+  end
+
+  post '/disconnect' do
+    bridge = settings.connections.delete(session_id)
+    bridge.disconnect(request_data) unless bridge.nil?
+    nil
   end
 
   post '/puts' do
-    # TODO: Implement me!
+    input = request_data
+    settings.connections[session_id].puts(input) unless input.empty?
+    nil
   end
 
   run! if $0 == __FILE__

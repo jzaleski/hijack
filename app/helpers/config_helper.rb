@@ -28,4 +28,12 @@ class ConfigHelper
     config
   end
 
+  def process_json(json)
+    config = {}
+    unless json.empty?
+      config = JSON::parse(json, :symbolize_names => true)
+    end
+    config
+  end
+
 end
