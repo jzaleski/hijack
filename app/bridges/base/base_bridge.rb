@@ -32,8 +32,6 @@ class BaseBridge
     socket.puts(command) if !command.nil? && !command.empty?
     # close the socket
     close
-    # quit the screen-session (if applicable)
-    %x{screen -X quit > /dev/null 2>&1} if ENV['STY']
   end
 
   def gets
