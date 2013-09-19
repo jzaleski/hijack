@@ -25,9 +25,7 @@ body {
 }
 
 #connect-container {
-  margin-top: 50%;
-  position: relative;
-  top: -75px;
+  margin-top: 25px;
 }
 
 #connect {
