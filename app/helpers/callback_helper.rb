@@ -17,9 +17,8 @@ class CallbackHelper
   end
 
   def add_match(pattern, callback)
-    # allow for multiple callbacks to match the same pattern (use a "Set" to
-    # de-dupe)
-    @callbacks[pattern] = (@callbacks[pattern] || Set.new) << callback
+    # allow for multiple callbacks to match the same pattern
+    @callbacks[pattern] = (@callbacks[pattern] || []) << callback
   end
 
 end
