@@ -45,12 +45,17 @@ class BaseSimutronicsBridge < BaseBridge
     login_socket.puts 'K'
     hash_key_character_codes = login_socket.gets.bytes.to_a
     password_character_codes = @config[:password].bytes.to_a
-    password_character_codes.each_index {|i| password_character_codes[i] = ((password_character_codes[i] - 32) ^ hash_key_character_codes[i]) + 32}
+    password_character_codes.each_index \
+      {|i| password_character_codes[i] = ((password_character_codes[i] - 32) ^ hash_key_character_codes[i]) + 32}
     hashed_password = password_character_codes.map(&:chr).join
     login_socket.puts "A\t#{@config[:account]}\t#{hashed_password}\n"
     login_response = login_socket.gets
-    abort('Cancelled account and/or invalid account/password specified') if !login_response || login_response =~ /REJECT/
-    login_key = /KEY\t([^\t]+)\t/.match(login_response).captures.first
+    if \
+      login_response.nil? ||
+      login_response =~ /REJECT/ ||
+      (login_key = /KEY\t([^\t]+)\t/.match(login_response).captures.first rescue nil).nil?
+      abort('Cancelled account and/or invalid account/password specified')
+    end
     login_socket.puts 'M'
     login_socket.gets
     login_socket.puts "F\t#{@config[:game_code]}"
@@ -61,7 +66,8 @@ class BaseSimutronicsBridge < BaseBridge
     login_socket.gets
     login_socket.puts 'C'
     character_login_response = login_socket.gets.split
-    abort('Invalid character name specified') unless character_login_response && character_login_response.include?(@config[:character])
+    abort('Invalid character name specified') \
+      unless character_login_response && character_login_response.include?(@config[:character])
     login_socket.puts "L\t#{character_login_response[character_login_response.index(@config[:character]) - 1]}\tSTORM"
     character_key_response = login_socket.gets
     login_socket.close unless login_socket.closed?

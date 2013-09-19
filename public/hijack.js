@@ -13,7 +13,8 @@ var Hijack = (function() {
       defaultOptions = {
         pollingIntervalMS: 10
       },
-      num_cols;
+      num_cols,
+      num_rows;
 
   var connect = function() {
     $.ajax({
@@ -26,6 +27,7 @@ var Hijack = (function() {
         password: $password.val(),
         character: $character.val(),
         num_cols: num_cols,
+        num_rows: num_rows,
         strip_ansi_escape_sequences: true
       }),
       success: function() {
@@ -133,7 +135,14 @@ var Hijack = (function() {
     // ensure that "cols" is defined on "output"
     num_cols = Number($output.attr('cols'));
     if (isNaN(num_cols)) {
-      throw 'Must set the "cols" attribute on "output"';
+      num_cols = Math.min(125, Math.floor($(document).width() / 8.5));
+      $output.attr('cols', num_cols);
+    }
+    // ensure that "rows" is defined on "output"
+    num_rows = Number($output.attr('rows'));
+    if (isNaN(num_rows)) {
+      num_rows = Math.min(40, Math.floor($(document).height() / 20.0));
+      $output.attr('rows', num_rows);
     }
     // ensure "input" exists within "gameContainer"
     $input = $('#input', $gameContainer);
@@ -150,6 +159,16 @@ var Hijack = (function() {
     // wire up the "connect" handler
     $connect.click(function(event) {
       connect();
+    });
+    // trigger the "connect" handler if enter is pressed in an input field
+    $.each([$game, $bridge, $account, $password, $character], function(index, element) {
+      var $this = $(this);
+      $this.keyup(function(event) {
+        if (event.which == 13) {
+          $this.blur();
+          connect();
+        }
+      });
     });
     // set focus to the game field
     $game.focus();
