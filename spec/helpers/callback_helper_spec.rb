@@ -28,7 +28,7 @@ describe CallbackHelper do
 
     it 'will allow multiple callbacks for the same pattern' do
       match = /hello/
-      callbacks = 1.upto(3).map {|i| lambda {'callback %s' % i}}
+      callbacks = 1.upto(3).map {|n| lambda {'callback %s' % n}}
       callbacks.each {|callback| @subject.add_match(match, callback)}
       @callbacks[match].should == callbacks
     end
