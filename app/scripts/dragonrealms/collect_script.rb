@@ -8,6 +8,7 @@ class CollectScript < BaseDragonrealmsScript
   YOU_CANT_DO_THAT_FROM = "You can't do that from"
   YOU_FORAGE_AROUND_BUT = 'You forage around but'
   YOU_MANAGE_TO_COLLECT = 'You manage to collect'
+  YOU_REALLY_NEED_TO_HAVE_AT_LEAST = 'You really need to have at least'
   YOU_TAKE_A_STEP_BACK = 'You take a step back'
   YOU_WANDER_AROUND_AND = 'You wander around and'
 
@@ -20,6 +21,7 @@ class CollectScript < BaseDragonrealmsScript
 
   COLLECT_FATAL_FAILURE_PATTERN = [
     THE_ROOM_IS_TOO_CLUTTERED,
+    YOU_REALLY_NEED_TO_HAVE_AT_LEAST,
   ].join('|')
 
   COLLECT_PATTERN = [
@@ -28,6 +30,7 @@ class CollectScript < BaseDragonrealmsScript
     YOU_ARE_SURE_YOU_KNEW,
     YOU_FORAGE_AROUND_BUT,
     YOU_MANAGE_TO_COLLECT,
+    YOU_REALLY_NEED_TO_HAVE_AT_LEAST,
     YOU_WANDER_AROUND_AND,
   ].join('|')
 
