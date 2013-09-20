@@ -8,15 +8,20 @@ class PredictScript < BaseDragonrealmsScript
   REMAINS_A_DARK_MYSTERY = 'remains a dark mystery'
   SHIVER_RUNS_THROUGH = 'shiver runs through'
   SUDDEN_FEELING_OF_WARMTH = 'sudden feeling of warmth'
+  THAT_IS_NOT_A_VALID_ENTRY = 'That is not a valid entry'
   TURNS_UP_FRUITLESS = 'turns up fruitless'
   YOU_CONSIDER_YOUR_RECENT = 'You consider your recent'
   YOU_FOCUS_INTERNALLY = 'You focus internally'
   YOU_HAVE_NOT_PONDERED = 'You have not pondered'
   YOU_LEARNED = 'You learned'
+  YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF = 'You realize you have not yet properly aligned yourself'
   YOU_SEE_NOTHING = 'You see nothing'
   YOU_STILL_LEANRED = 'you still learned'
 
-  ALIGN_PATTERN = YOU_FOCUS_INTERNALLY
+  ALIGN_PATTERN = [
+    THAT_IS_NOT_A_VALID_ENTRY,
+    YOU_FOCUS_INTERNALLY,
+  ].join('|')
 
   ALIGNMENTS = %w[
     defense
@@ -94,6 +99,7 @@ class PredictScript < BaseDragonrealmsScript
     REMAINS_A_DARK_MYSTERY,
     SHIVER_RUNS_THROUGH,
     SUDDEN_FEELING_OF_WARMTH,
+    YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF,
   ].join('|')
 
   PREDICT_STATE_ALL_PATTERN = YOU_CONSIDER_YOUR_RECENT
@@ -159,14 +165,20 @@ class PredictScript < BaseDragonrealmsScript
                 ALIGN_PATTERN,
                 "align #{alignment}"
               )
-              # always 2 seconds roundtime
-              sleep 2
+              # always 2 seconds roundtime (on success)
+              sleep 2 if YOU_FOCUS_INTERNALLY
               result = wait_for_match(
                 PREDICT_FUTURE_PATTERN,
                 'predict future'
               )
-              # handle the variable roundtime
-              sleep result == REMAINS_A_DARK_MYSTERY ? 5 : 10
+              case result
+                when REMAINS_A_DARK_MYSTERY
+                  sleep 10
+                when YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF
+                  redo
+                else
+                  sleep 5
+              end
             end
             # analyze
             wait_for_match(
