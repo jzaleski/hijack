@@ -152,7 +152,7 @@ var Hijack = (function() {
     // wire up the "puts" handler
     $input.keyup(function(event) {
       if (event.which == 13) {
-        puts($input.val().trim());
+        puts($.trim($input.val()));
         $input.val('');
       }
     });
