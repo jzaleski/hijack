@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-rackup config.ru
+ruby -r ./config/environment ./app/interfaces/web_interface.rb
