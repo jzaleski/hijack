@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="hijack.css"/>
     <script type="text/javascript" src="jquery-1.10.2.js"></script>
     <script type="text/javascript" src="jquery-ajax-buffer.js"></script>
+    <script type="text/javascript" src="jquery-reduce.js"></script>
     <script type="text/javascript" src="hijack.js"></script>
     <script type="text/javascript">
       $(function() {
@@ -22,19 +23,9 @@
       <input type="text" id="character" placeholder="Character"/>
       <a id="connect" href="javascript:void(0);">Connect</a>
     </div>
-    <table id="game-container" style="display: none;">
-      <tbody>
-        <tr>
-          <td>
-            <textarea id="output" readonly></textarea>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" id="input"/>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="game-container" style="visibility: hidden;">
+      <div id="output"></div>
+      <input type="text" id="input"/>
+    </div>
   </body>
 </html>

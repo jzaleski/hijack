@@ -1,4 +1,5 @@
 var Hijack = (function() {
+
   var $account,
       $bridge,
       $character,
@@ -27,8 +28,7 @@ var Hijack = (function() {
         password: $password.val(),
         character: $character.val(),
         num_cols: num_cols,
-        num_rows: num_rows,
-        strip_ansi_escape_sequences: true
+        num_rows: num_rows
       }),
       success: function() {
         $game.val('');
@@ -36,12 +36,10 @@ var Hijack = (function() {
         $account.val('');
         $password.val('');
         $character.val('');
-        $connectContainer.hide(function() {
-          $gameContainer.show(function() {
-            $input.focus();
-            gets();
-          });
-        });
+        $connectContainer.css('visibility', 'hidden');
+        $gameContainer.css('visibility', 'visible');
+        $input.focus();
+        gets();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         if (jqXHR && jqXHR.responseText !== undefined) {
@@ -58,13 +56,11 @@ var Hijack = (function() {
       data: input,
       success: function() {
         $.ajaxBuffer.abortAll();
-        $gameContainer.hide(function() {
-          $output.val('');
-          $input.val('');
-          $connectContainer.show(function() {
-            $game.focus();
-          });
-        });
+        $gameContainer.css('visibility', 'hidden');
+        $output.val('');
+        $input.val('');
+        $connectContainer.css('visibility', 'visible');
+        $game.focus();
       }
     });
   };
@@ -75,13 +71,27 @@ var Hijack = (function() {
         url: '/gets',
         success: function(output) {
           if (output.length > 0) {
-            $output.val($output.val() + output);
+            $output.html($output.html() + htmlify(output));
             $output.scrollTop($output[0].scrollHeight);
           }
           gets();
         }
       });
     }, config.pollingIntervalMS);
+  };
+
+  var htmlify = function(str) {
+    return $.reduce([
+        [/ /g, '&nbsp;'],
+        [/\[0m/g, '</strong>'],
+        [/\[1m/g, '<strong>'],
+        [/\n/g, '<br/>']
+      ],
+      str,
+      function(workingValue, arrayIndex, arrayValue) {
+        return workingValue.replace(arrayValue[0], arrayValue[1]);
+      }
+    );
   };
 
   var init = function(options) {
@@ -132,23 +142,21 @@ var Hijack = (function() {
     if ($output.length != 1) {
       throw 'Must define an element with id "output" inside "gameContainer"';
     }
-    // ensure that "cols" is defined on "output"
-    num_cols = Number($output.attr('cols'));
-    if (isNaN(num_cols)) {
-      num_cols = Math.min(125, Math.floor($(document).width() / 8.5));
-      $output.attr('cols', num_cols);
-    }
-    // ensure that "rows" is defined on "output"
-    num_rows = Number($output.attr('rows'));
-    if (isNaN(num_rows)) {
-      num_rows = Math.min(40, Math.floor($(document).height() / 20.0));
-      $output.attr('rows', num_rows);
-    }
     // ensure "input" exists within "gameContainer"
     $input = $('#input', $gameContainer);
     if ($input.length != 1) {
       throw 'Must define an element with id "input" inside "gameContainer"';
     }
+    // create an element that will inherit the styles of its container
+    var $text_size_test = $('<span id="text_size_test">A</span>');
+    // temporarily append the test-element to the container
+    $output.append($text_size_test);
+    // calculate "num_cols"
+    num_cols = Math.floor($output.width() / $text_size_test.width());
+    // calculate "num_rows"
+    num_rows = Math.floor($output.height() / $text_size_test.height());
+    // remove the test-element
+    $text_size_test.remove();
     // wire up the "puts" handler
     $input.keyup(function(event) {
       if (event.which == 13) {
@@ -170,7 +178,7 @@ var Hijack = (function() {
         }
       });
     });
-    // set focus to the game field
+    // set focus to the "game" field initially
     $game.focus();
   };
 
@@ -194,4 +202,5 @@ var Hijack = (function() {
   return {
     init: init
   };
+
 })();

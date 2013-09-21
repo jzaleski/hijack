@@ -1,57 +1,83 @@
 body {
-  background-color: #DDD;
+  background-color: #F9F9F9;
+  height: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
-#connect-container, #game-container {
-  padding: 5px;
-  text-align: center;
+#connect-container {
+  height: 150px;
+  margin-top: -75px;
+  position: relative;
+  top: 50%;
 }
 
-#connect-container input, #connect-container a, #input, #output {
+#game, #bridge, #account, #password, #character, #connect, #output, #input {
   font-family: "Courier New", Courier, monospace;
   font-size: 13px;
 }
 
-#connect-container input, #connect-container a {
+#game, #bridge, #account, #password, #character, #output, #input {
+  border: solid #BBB 1px;
+  padding: 0 3px;
+}
+
+#game, #bridge, #account, #password, #character, #connect {
   display: block;
   margin: 0 auto;
+}
+
+#game, #bridge, #account, #password, #character, #input {
+  height: 21px;
+}
+
+#game, #bridge, #account, #password, #character {
+  margin-bottom: 3px;
   width: 250px;
 }
 
-#connect-container input {
-  margin-bottom: 3px;
-}
-
-#connect-container {
-  margin-top: 25px;
-}
-
 #connect {
-  background-color: #EEE;
+  background-color: #FB8A1E;
   border: solid #777 1px;
-  color: #666;
+  color: #FFF;
   font-weight: bold;
   padding: 3px 0;
+  text-align: center;
   text-decoration: none;
+  width: 248px;
 }
 
 #connect:hover {
-  background-color: #CCC;
+  background-color: #F67B1E;
+}
+
+#game-container, #output, #input {
+  position: absolute;
 }
 
 #game-container {
-  margin: 0 auto;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  top: 5px;
 }
 
-#input {
-  height: 20px;
-  width: 100%;
+#output, #input {
+  left: 0;
+  right: 0;
 }
 
 #output {
-  display: block;
-  margin: 0 auto;
-  resize: none;
+  background-color: #FFF;
+  bottom: 25px;
+  overflow: scroll;
+  padding: 5px;
+  text-align: left;
+  top: 0;
+}
+
+#input {
+  bottom: 0;
+  width: 100%;
 }
