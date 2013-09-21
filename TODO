@@ -3,6 +3,22 @@ General:
 
 - add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
 - add the ability to highlight patterns
+- need to trim the HTML content in "output" once it is past a certain length
+- make silencing RT messages when one or more scripts is running the default,
+  but keep it configurable.
+- add the ability to re-{calculate,configure} screen cols/rows
+- switch "game-container" back to a "DIV" and set height/width to 100% of the
+  body (position/size input & output absolutely using top, left, right, bottom)
+- move "htmlify" to the server-side (add it as a string refinement) -- control
+  whether or not it is invoked by a config-flag
+- add "to_snake_case" string refinement (accept opts, e.g. "symbolize" default:
+  false)
+- add "to_camel_case" string refinement (accept opts, e.g. "lower" default:
+  false)
+- add "snake_case_keys" hash refinement (accept opts, e.g. "symbolize" default:
+  false)
+- add "camel_case_keys" hash refinement (accept opts, e.g. "symbolize" default:
+  false, "lower" default: false)
 
 Dragonrealms:
 =============
