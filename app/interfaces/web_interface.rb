@@ -10,12 +10,28 @@ class WebInterface < Sinatra::Base
 
   helpers do
 
+    def current_bridge
+      @current_bridge ||= current_connection[:bridge] rescue nil
+    end
+
+    def current_config
+      @current_config ||= current_connection[:config] rescue nil
+    end
+
+    def current_connection
+      @current_connection ||= settings.connections[session_id]
+    end
+
     def request_data
       request.body.read.rstrip
     end
 
     def session_id
       session['session_id']
+    end
+
+    def set_connection(connection)
+      settings.connections[session_id] = connection
     end
 
   end
@@ -25,7 +41,7 @@ class WebInterface < Sinatra::Base
   end
 
   get '/gets' do
-    settings.connections[session_id].gets
+    current_bridge.gets unless current_bridge.nil?
   end
 
   post '/connect' do
@@ -47,19 +63,21 @@ class WebInterface < Sinatra::Base
     rescue Exception => e
       halt 500, e.message
     end
-    settings.connections[session_id] = bridge
+    set_connection({
+      :bridge => bridge,
+      :config => config,
+    })
     nil
   end
 
   post '/disconnect' do
-    bridge = settings.connections.delete(session_id)
-    bridge.disconnect(request_data) unless bridge.nil?
+    current_bridge.disconnect(request_data) unless current_bridge.nil?
     nil
   end
 
   post '/puts' do
     input = request_data
-    settings.connections[session_id].puts(input) unless input.empty?
+    current_bridge.puts(input) unless current_bridge.nil? || input.empty?
     nil
   end
 
