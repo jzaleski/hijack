@@ -10,14 +10,6 @@ General:
 - move "htmlify" to the server-side (add it as a string refinement) -- control
   whether or not it is invoked by a config-flag (rip out "jquery-reduce.js" upon
   completion)
-- add "to_snake_case" string refinement (accept opts, e.g. "symbolize" default:
-  false)
-- add "to_camel_case" string refinement (accept opts, e.g. "lower" default:
-  false)
-- add "snake_case_keys" hash refinement (accept opts, e.g. "symbolize" default:
-  false)
-- add "camel_case_keys" hash refinement (accept opts, e.g. "symbolize" default:
-  false, "lower" default: false)
 
 Dragonrealms:
 =============
