@@ -31,7 +31,7 @@ class ConfigHelper
   def process_json(json)
     config = {}
     unless json.empty?
-      config = JSON::parse(json, :symbolize_names => true)
+      config = JSON::parse(json).snake_case_keys.symbolize_keys
     end
     config
   end

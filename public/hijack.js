@@ -14,8 +14,8 @@ var Hijack = (function() {
       defaultOptions = {
         pollingIntervalMS: 10
       },
-      num_cols,
-      num_rows;
+      numCols,
+      numRows;
 
   var connect = function() {
     $.ajax({
@@ -27,8 +27,8 @@ var Hijack = (function() {
         account: $account.val(),
         password: $password.val(),
         character: $character.val(),
-        num_cols: num_cols,
-        num_rows: num_rows
+        numCols: numCols,
+        numRows: numRows
       }),
       success: function() {
         $game.val('');
@@ -148,15 +148,15 @@ var Hijack = (function() {
       throw 'Must define an element with id "input" inside "gameContainer"';
     }
     // create an element that will inherit the styles of its container
-    var $text_size_test = $('<span id="text_size_test">A</span>');
+    var $testSizeTest = $('<span id="text-size-test">A</span>');
     // temporarily append the test-element to the container
-    $output.append($text_size_test);
-    // calculate "num_cols"
-    num_cols = Math.floor($output.width() / $text_size_test.width());
-    // calculate "num_rows"
-    num_rows = Math.floor($output.height() / $text_size_test.height());
+    $output.append($testSizeTest);
+    // calculate "numCols"
+    numCols = Math.floor($output.width() / $testSizeTest.width());
+    // calculate "numRows"
+    numRows = Math.floor($output.height() / $testSizeTest.height());
     // remove the test-element
-    $text_size_test.remove();
+    $testSizeTest.remove();
     // wire up the "puts" handler
     $input.keyup(function(event) {
       if (event.which == 13) {
