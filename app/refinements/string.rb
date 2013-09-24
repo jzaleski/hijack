@@ -22,9 +22,11 @@ class String
   end
 
   def to_snake_case
-    # there are more robust solutions out there, but this seems to cover most
-    # cases (revisit if necessary)
-    gsub(/(.)([A-Z])/, '\1_\2').downcase
+    gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2').
+    gsub(/([a-z\d])([A-Z])/, '\1_\2').
+    tr('-', '_').
+    downcase
   end
 
   def uncapitalize
