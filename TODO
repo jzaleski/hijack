@@ -3,13 +3,10 @@ General:
 
 - add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
 - add the ability to highlight patterns
-- need to trim the HTML content in "output" once it is past a certain length
 - make silencing RT messages when one or more scripts is running the default,
   but keep it configurable.
 - add the ability to re-{calculate,configure} screen cols/rows
-- move "htmlify" to the server-side (add it as a string refinement) -- control
-  whether or not it is invoked by a config-flag (rip out "jquery-reduce.js" upon
-  completion)
+- need to trim the HTML content in "output" once it is past a certain length
 
 Dragonrealms:
 =============

@@ -12,10 +12,9 @@ var Hijack = (function() {
       $password,
       config,
       defaultOptions = {
+        outputHTML: true,
         pollingIntervalMS: 10
-      },
-      numCols,
-      numRows;
+      };
 
   var connect = function() {
     $.ajax({
@@ -27,8 +26,9 @@ var Hijack = (function() {
         account: $account.val(),
         password: $password.val(),
         character: $character.val(),
-        numCols: numCols,
-        numRows: numRows
+        numCols: config.numCols,
+        numRows: config.numRows,
+        outputHTML: config.outputHTML
       }),
       success: function() {
         $game.val('');
@@ -49,11 +49,11 @@ var Hijack = (function() {
     });
   };
 
-  var disconnect = function(input) {
+  var disconnect = function(str) {
     $.ajax({
       type: 'POST',
       url: '/disconnect',
-      data: input,
+      data: str,
       success: function() {
         $.ajaxBuffer.abortAll();
         $gameContainer.css('visibility', 'hidden');
@@ -71,27 +71,13 @@ var Hijack = (function() {
         url: '/gets',
         success: function(output) {
           if (output.length > 0) {
-            $output.html($output.html() + htmlify(output));
-            $output.scrollTop($output[0].scrollHeight);
+            updateOutput(output);
+            scrollOutput();
           }
           gets();
         }
       });
     }, config.pollingIntervalMS);
-  };
-
-  var htmlify = function(str) {
-    return $.reduce([
-        [/ /g, '&nbsp;'],
-        [/\[0m/g, '</strong>'],
-        [/\[1m/g, '<strong>'],
-        [/\n/g, '<br/>']
-      ],
-      str,
-      function(workingValue, arrayIndex, arrayValue) {
-        return workingValue.replace(arrayValue[0], arrayValue[1]);
-      }
-    );
   };
 
   var init = function(options) {
@@ -151,10 +137,14 @@ var Hijack = (function() {
     var $testSizeTest = $('<span id="text-size-test">A</span>');
     // temporarily append the test-element to the container
     $output.append($testSizeTest);
-    // calculate "numCols"
-    numCols = Math.floor($output.width() / $testSizeTest.width());
-    // calculate "numRows"
-    numRows = Math.floor($output.height() / $testSizeTest.height());
+    // calculate "numCols" (if it wasn't explicitly specified)
+    if (config.numCols === undefined) {
+      config.numCols = Math.floor($output.width() / $testSizeTest.width());
+    }
+    // calculate "numRows" (if it wasn't explicitly specified)
+    if (config.numRows === undefined) {
+      config.numRows = Math.floor($output.height() / $testSizeTest.height());
+    }
     // remove the test-element
     $testSizeTest.remove();
     // wire up the "puts" handler
@@ -182,20 +172,32 @@ var Hijack = (function() {
     $game.focus();
   };
 
-  var puts = function(input) {
-    if (input.length > 0) {
-      if (input.match(/^(exit|quit)$/)) {
-        disconnect(input);
+  var puts = function(str) {
+    if (str.length > 0) {
+      if (str.match(/^(exit|quit)$/)) {
+        disconnect(str);
       } else {
         $.ajax({
           type: 'POST',
           url: '/puts',
-          data: input,
+          data: str,
           error: function(jqXHR, textStatus, errorThrown) {
             // TODO: possibly retry?
           }
         });
       }
+    }
+  };
+
+  var scrollOutput = function() {
+    $output.scrollTop($output[0].scrollHeight);
+  }
+
+  var updateOutput = function(str) {
+    if (config.outputHTML) {
+      $output.html($output.html() + str);
+    } else {
+      $output.val($output.val() + str);
     }
   };
 

@@ -4,6 +4,7 @@ class WebInterface < Sinatra::Base
 
   configure do
     set :connections, {}
+    set :html_transformations, [[/\[0m/, '</strong>'], [/\[1m/, '<strong>']]
     set :root, ROOT_DIR
     enable :sessions
   end
@@ -20,6 +21,22 @@ class WebInterface < Sinatra::Base
 
     def current_connection
       @current_connection ||= settings.connections[session_id]
+    end
+
+    def generate_response_data(str)
+      output_html? ? htmlify(str) : str
+    end
+
+    def htmlify(str)
+      return '<br/>' if str == "\n"
+      '<pre>%s</pre>' % \
+        settings.html_transformations.reduce(str) do |memo, html_transformation|
+          memo.gsub(html_transformation[0], html_transformation[1])
+        end
+    end
+
+    def output_html?
+      current_config[:output_html] == true
     end
 
     def request_data
@@ -41,7 +58,7 @@ class WebInterface < Sinatra::Base
   end
 
   get '/gets' do
-    current_bridge.gets unless current_bridge.nil?
+    generate_response_data(current_bridge.gets) unless current_bridge.nil?
   end
 
   post '/connect' do

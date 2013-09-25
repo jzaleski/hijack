@@ -6,6 +6,11 @@ body {
   width: 100%;
 }
 
+pre {
+  margin: 0;
+  padding: 0;
+}
+
 #connect-container {
   height: 150px;
   margin-top: -75px;
