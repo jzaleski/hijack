@@ -39,8 +39,8 @@ class WebInterface < Sinatra::Base
         if num_trailing_new_lines > 0
       # process any other HTML escape sequences
       '<pre>%s</pre>' % \
-        settings.html_transformations.reduce(str) do |memo, html_transformation|
-          memo.gsub(html_transformation[0], html_transformation[1])
+        settings.html_transformations.reduce(str) do |memo, (pattern, replacement)|
+          memo.gsub(pattern, replacement)
         end
     end
 
