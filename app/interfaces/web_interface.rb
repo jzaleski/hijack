@@ -4,7 +4,8 @@ class WebInterface < Sinatra::Base
 
   configure do
     set :connections, {}
-    set :html_transformations, [[/\[0m/, '</strong>'], [/\[1m/, '<strong>']]
+    set :html_transformations, \
+      [[/\[0m/, '</strong>'], [/\[1m/, '<strong>']]
     set :root, ROOT_DIR
     enable :sessions
   end
@@ -28,7 +29,15 @@ class WebInterface < Sinatra::Base
     end
 
     def htmlify(str)
-      return '<br/>' if str == "\n"
+      # replace leading new-line characters
+      num_leading_new_lines = str[/\A\n+/].size rescue 0
+      str[/\A\n+/] = ('<br/>' * num_leading_new_lines) \
+        if num_leading_new_lines > 0
+      # replace trailing new-line characters
+      num_trailing_new_lines = str[/\n+\Z/].size rescue 0
+      str[/\n+\Z/] = '<br/>' * num_trailing_new_lines \
+        if num_trailing_new_lines > 0
+      # process any other HTML escape sequences
       '<pre>%s</pre>' % \
         settings.html_transformations.reduce(str) do |memo, html_transformation|
           memo.gsub(html_transformation[0], html_transformation[1])

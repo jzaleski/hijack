@@ -7,6 +7,8 @@ General:
   but keep it configurable.
 - add the ability to re-{calculate,configure} screen cols/rows
 - need to trim the HTML content in "output" once it is past a certain length
+- add command history to web-interface (up/down arrow to scroll through history
+  is sufficient for now)
 
 Dragonrealms:
 =============
