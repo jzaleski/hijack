@@ -13,7 +13,8 @@ var Hijack = (function() {
       config,
       defaultOptions = {
         outputHTML: true,
-        pollingIntervalMS: 10
+        pollingIntervalMS: 10,
+        silenceRetryableLines: true
       };
 
   var connect = function() {
@@ -28,7 +29,8 @@ var Hijack = (function() {
         character: $character.val(),
         numCols: config.numCols,
         numRows: config.numRows,
-        outputHTML: config.outputHTML
+        outputHTML: config.outputHTML,
+        silenceRetryableLines: config.silenceRetryableLines
       }),
       success: function() {
         $game.val('');
