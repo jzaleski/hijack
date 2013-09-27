@@ -12,10 +12,12 @@ var Hijack = (function() {
       $password,
       config,
       defaultOptions = {
+        maxScrollbackLines: 1000,
         outputHTML: true,
         pollingIntervalMS: 10,
         silenceRetryableLines: true
-      };
+      },
+      scrollbackLines = [];
 
   var connect = function() {
     $.ajax({
@@ -47,6 +49,7 @@ var Hijack = (function() {
         if (jqXHR && jqXHR.responseText !== undefined) {
           alert(jqXHR.responseText);
         }
+        $connect.focus();
       }
     });
   };
@@ -71,10 +74,9 @@ var Hijack = (function() {
     setTimeout(function() {
       $.ajax({
         url: '/gets',
-        success: function(output) {
-          if (output.length > 0) {
-            updateOutput(output);
-            scrollOutput();
+        success: function(str) {
+          if (str.length > 0) {
+            updateOutput(str);
           }
           gets();
         }
@@ -165,7 +167,6 @@ var Hijack = (function() {
       var $this = $(this);
       $this.keyup(function(event) {
         if (event.which == 13) {
-          $this.blur();
           connect();
         }
       });
@@ -191,16 +192,24 @@ var Hijack = (function() {
     }
   };
 
-  var scrollOutput = function() {
-    $output.scrollTop($output[0].scrollHeight);
-  }
-
   var updateOutput = function(str) {
-    if (config.outputHTML) {
-      $output.html($output.html() + str);
-    } else {
-      $output.val($output.val() + str);
+    // first, append the new line
+    scrollbackLines.push(str);
+    // trim the line-buffer (if necessary)
+    if (scrollbackLines.length > config.maxScrollbackLines) {
+      scrollbackLines = scrollbackLines.slice(
+        scrollbackLines.length - config.maxScrollbackLines);
     }
+    // generate the output (at this point the output format does not matter)
+    var output = scrollbackLines.join('');
+    // update the UI
+    if (config.outputHTML) {
+      $output.html(output);
+    } else {
+      $output.val(output);
+    }
+    // scroll the "output" element to the bottom
+    $output.scrollTop($output[0].scrollHeight);
   };
 
   return {
