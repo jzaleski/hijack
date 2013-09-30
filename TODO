@@ -4,8 +4,6 @@ General:
 - add "aliases" (allow for scriptlets) - leverage [DR] helper method rework?
 - add the ability to highlight patterns
 - add the ability to re-{calculate,configure} screen cols/rows
-- add command history to web-interface (up/down arrow to scroll through history
-  is sufficient for now)
 
 Dragonrealms:
 =============

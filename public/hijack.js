@@ -10,6 +10,8 @@ var Hijack = (function() {
       $input,
       $output,
       $password,
+      commandHistory = [],
+      commandHistoryIndex = -1,
       config,
       defaultOptions = {
         maxScrollbackLines: 1000,
@@ -153,9 +155,25 @@ var Hijack = (function() {
     $testSizeTest.remove();
     // wire up the "puts" handler
     $input.keyup(function(event) {
-      if (event.which == 13) {
-        puts($.trim($input.val()));
-        $input.val('');
+      switch (event.which) {
+        // enter/return
+        case 13:
+          puts($.trim($input.val()));
+          $input.val('');
+          break;
+        // up arrow
+        case 38:
+          if (commandHistoryIndex < (commandHistory.length -1)) {
+            setInput(commandHistory[++commandHistoryIndex]);
+          }
+          break;
+        // down arrow
+        case 40:
+          if (commandHistoryIndex != -1) {
+            var command = commandHistory[--commandHistoryIndex];
+            setInput(commandHistoryIndex == -1 ? '' : command);
+          }
+          break;
       }
     });
     // wire up the "connect" handler
@@ -180,6 +198,7 @@ var Hijack = (function() {
       if (str.match(/^(exit|quit)$/)) {
         disconnect(str);
       } else {
+        commandHistory.unshift(str);
         $.ajax({
           type: 'POST',
           url: '/puts',
@@ -189,6 +208,12 @@ var Hijack = (function() {
           }
         });
       }
+    }
+  };
+
+  var setInput = function(str) {
+    if (str !== undefined) {
+      $input.val(str);
     }
   };
 
