@@ -7,6 +7,8 @@ body {
 }
 
 pre {
+  font-family: inherit;
+  font-size: inherit;
   margin: 0;
   padding: 0;
 }
@@ -69,15 +71,16 @@ pre {
 }
 
 #output, #input {
+  background-color: #000;
+  color: #CCC;
   left: 0;
   right: 0;
 }
 
 #output {
-  background-color: #FFF;
   bottom: 25px;
   overflow: scroll;
-  padding: 5px;
+  padding: 10px 5px;
   text-align: left;
   top: 0;
 }

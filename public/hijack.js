@@ -14,7 +14,7 @@ var Hijack = (function() {
       commandHistoryIndex = -1,
       config,
       defaultOptions = {
-        maxScrollbackLines: 1000,
+        maxScrollbackLines: 500,
         outputHTML: true,
         pollingIntervalMS: 10,
         silenceRetryableLines: true
