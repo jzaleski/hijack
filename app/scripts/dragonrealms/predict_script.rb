@@ -14,7 +14,8 @@ class PredictScript < BaseDragonrealmsScript
   YOU_FOCUS_INTERNALLY = 'You focus internally'
   YOU_HAVE_NOT_PONDERED = 'You have not pondered'
   YOU_LEARNED = 'You learned'
-  YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF = 'You realize you have not yet properly aligned yourself'
+  YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF = \
+    'You realize you have not yet properly aligned yourself'
   YOU_SEE_NOTHING = 'You see nothing'
   YOU_STILL_LEANRED = 'you still learned'
 
@@ -112,6 +113,9 @@ class PredictScript < BaseDragonrealmsScript
 
   def run(args)
     num_observes = [1, (args[0] || config_num_observes).to_i].max
+    shuffle_objects_after_successful_observation = \
+      (args[1] || config_shuffle_objects_after_successful_observation) =~ \
+        /\Atrue\Z/
     successful_observes = 0
     objects = OBJECTS.shuffle
     loop do
@@ -120,11 +124,12 @@ class PredictScript < BaseDragonrealmsScript
         # prep and cast (retry until successful)
         sleep 0.1 until prep(spell) && cast
       end
-      # observe, check state, align, predict then analyze bonuses/curses - when
-      # observing multiple times it is unclear whether to use the same object so
-      # that the same pools are built up with each iteration or shuffle the list
-      # so that we can potentially have successful predictions across a variety
-      # of pools (for now, objects are shuffled after each successful iteration)
+      # observe, check state, align, predict then analyze bonuses/curses. When
+      # observing multiple times, it is unclear whether to use the same object,
+      # so that the same pools are built up, or shuffle the list so that we can
+      # potentially have successful predictions across a variety of pools. If
+      # the "config_shuffle_objects_after_successful_observation" flag is set
+      # the objects will be shuffled after each successful observation
       objects.each do |object|
         result = wait_for_match(
           OBSERVE_PATTERN,
@@ -148,8 +153,8 @@ class PredictScript < BaseDragonrealmsScript
             )
             # always around 20 seconds roundtime
             sleep 20
-            # re-shuffle object list
-            objects.shuffle!
+            # re-shuffle object list (if configured to do so)
+            objects.shuffle! if shuffle_objects_after_successful_observation
             # short-circuit if there is more observing to do
             if successful_observes < num_observes
               # the average observe cooldown time is 120 seconds but we already
@@ -201,6 +206,10 @@ class PredictScript < BaseDragonrealmsScript
 
   def config_num_observes
     @config[:predict_num_observes]
+  end
+
+  def config_shuffle_objects_after_successful_observation
+    @config[:predict_shuffle_objects_after_successful_observation]
   end
 
 end
