@@ -1,6 +1,6 @@
-require 'scripts/base/base_dragonrealms_attack_script'
+require 'scripts/base/base_dragonrealms_combat_script'
 
-class BashScript < BaseDragonrealmsAttackScript
+class BashScript < BaseDragonrealmsCombatScript
 
   protected
 

@@ -1,6 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
-class BaseDragonrealmsAttackScript < BaseDragonrealmsScript
+class BaseDragonrealmsCombatScript < BaseDragonrealmsScript
 
   THERE_IS_NOTHING_ELSE = 'There is nothing else'
   YOU_BEGIN_TO_ADVANCE = 'You begin to advance'
