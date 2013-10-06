@@ -11,3 +11,4 @@ Dragonrealms:
 - ensure that underlined text terminates at the end of the line (ex: healing)
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
 - move helper-methods (currently in "base_dragonrealms_script.rb") into a helper
+- create alchemy (mortar & pestle) script
