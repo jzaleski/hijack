@@ -153,7 +153,7 @@ class PredictScript < BaseDragonrealmsScript
             )
             # always around 20 seconds roundtime
             sleep 20
-            # re-shuffle object list (if configured to do so)
+            # re-shuffle objects (if configured to do so)
             objects.shuffle! if shuffle_objects_after_successful_observation
             # short-circuit if there is more observing to do
             if successful_observes < num_observes
@@ -162,6 +162,9 @@ class PredictScript < BaseDragonrealmsScript
               sleep 90
               break
             end
+            # ensure that the objects are shuffled for the next iteration (only
+            # if they weren't re-shuffle before the "successful_observes" check)
+            objects.shuffle! if !shuffle_objects_after_successful_observation
             # if we've made it this far it is safe to reset the counter
             successful_observes = 0
             # try every alignment
