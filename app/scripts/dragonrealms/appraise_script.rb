@@ -2,12 +2,19 @@ require 'scripts/base/base_dragonrealms_script'
 
 class AppraiseScript < BaseDragonrealmsScript
 
+  APPRAISE_WHAT = 'Appraise what\?'
   ITEM_APPEARS_TO_BE = '%{item} appears to be'
   ITEM_IS_A = '%{item} is a'
   ITEM_IS_WORTH = '%{item} is worth'
   ITEM_LOOKS_LIKE = '%{item} look[s]? like'
   TAKING_STOCK_OF_ITS = 'Taking stock of its'
   YOU_BEGIN_TO_CAREFULLY_STUDY = 'You begin to carefully study'
+  YOU_CANNOT_APPRAISE_THAT = 'You cannot appraise that'
+
+  APPRAISE_FAILURE_PATTERN = [
+    APPRAISE_WHAT,
+    YOU_CANNOT_APPRAISE_THAT,
+  ].join('|')
 
   APPRAISE_SUCCESS_PATTERN = [
     ITEM_APPEARS_TO_BE,
@@ -17,10 +24,6 @@ class AppraiseScript < BaseDragonrealmsScript
     TAKING_STOCK_OF_ITS,
     YOU_BEGIN_TO_CAREFULLY_STUDY,
   ].join('|')
-
-  APPRAISE_WHAT = 'Appraise what\?'
-
-  APPRAISE_FAILURE_PATTERN = APPRAISE_WHAT
 
   def validate_args(args)
     args.length >= 1 ||
