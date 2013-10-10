@@ -22,12 +22,12 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def gets
-    raw_output = super
-    raw_output.gsub!(/\e\[(1|0)m/, '') if @layout_helper.strip_ansi_escape_sequences?
-    parsed_output = raw_output.chomp
-    parsed_output.insert(parsed_output.index('>') + 1, "\n") if parsed_output =~ /[a-zA-Z]*>.*/
-    parsed_output.slice!(0..parsed_output.index('>')) if parsed_output.include?('>')
-    "#{(can_fit_on_line?(parsed_output) ? parsed_output : multi_line_output(raw_output)).rstrip}\n"
+    str = super
+    str.gsub!(/\e\[(1|0)m/, '') if @layout_helper.strip_ansi_escape_sequences?
+    parsed_str = str.chomp
+    parsed_str.insert(parsed_str.index('>') + 1, "\n") if parsed_str =~ /[a-zA-Z]*>.*/
+    parsed_str.slice!(0..parsed_str.index('>')) if parsed_str.include?('>')
+    "#{(can_fit_on_line?(parsed_str) ? parsed_str : multi_line_output(str)).rstrip}\n"
   end
 
   protected
@@ -75,9 +75,9 @@ class BaseSimutronicsBridge < BaseBridge
     @config[:character_key] = /KEY=(\w+)$/.match(character_key_response).captures.first
   end
 
-  def multi_line_output(value)
+  def multi_line_output(output)
     buffer, temp = ['', '']
-    for word in value.split
+    for word in output.split
       word.chomp!
       if word =~ /[a-zA-Z]*>/
         word.insert(word.index('>') + 1, "\n")

@@ -4,8 +4,9 @@ class BaseBridge
     @config = config
     @input_buffer = Buffer.new
     @output_buffer = Buffer.new
-    @layout_helper = LayoutHelper.new(@config)
+    @alias_helper = AliasHelper.new(@config)
     @callback_helper = CallbackHelper.new
+    @layout_helper = LayoutHelper.new(@config)
     @script_helper = ScriptHelper.new(
       @config,
       self,
@@ -27,43 +28,44 @@ class BaseBridge
     !socket.nil? && !socket.closed?
   end
 
-  def disconnect(command=nil)
+  def disconnect(str=nil)
     # send the command immediately (if specified)
-    socket.puts(command) if !command.nil? && !command.empty?
+    socket.puts(str) if !str.nil? && !str.empty?
     # close the socket
     close
   end
 
   def gets
-    line = @output_buffer.gets
-    @callback_helper.process("#{line}".chomp)
-    line
+    str = @output_buffer.gets
+    @callback_helper.process("#{str}".chomp)
+    str
   end
 
-  def puts(command, opts={})
+  def puts(str, opts={})
     # merge default options
     opts = {:store_command => true}.merge(opts)
     # repeat[ing] last command
-    command = @last_command if command == '!!' && @last_command
+    str = @last_command if str == '!!' && @last_command
     # store the command (we need to copy the string since the reference is
     # mutated below)
-    @last_command = "#{command}" if opts[:store_command] == true
+    @last_command = "#{str}" if opts[:store_command] == true
     # script handling (this should probably be moved to script-manager)
-    if command.start_with?(';')
-      @script_helper.execute(command[1..-1])
+    if str.start_with?(';')
+      @script_helper.execute(str[1..-1])
     # regular command(s)
     else
       # multiple commands [on a single line] are pipe-delimited
-      command.split('|').each do |sub_command|
-        # [always] remove leading/trailing whitespace
-        sub_command.strip!
+      str.split('|').each do |sub_str|
         # repeated commands are formatted like: "<command> * <num_repeats>"
-        command_parts = sub_command.split('*')
-        # guard against non-numeric or less than "1"
-        num_repeats = [1, command_parts[1].lstrip.to_i].max rescue 1
-        1.upto(num_repeats) do |counter|
+        command, num_repeats = sub_str.strip.split('*').map(&:strip)
+        # if the command is an alias it will be replaced here
+        command = @alias_helper.process("#{command}")
+        # guard against "num_repeats" less than "1"
+        num_repeats = [1, num_repeats.to_i].max
+        # repeat the command (if necessary)
+        num_repeats.times do
           # enqueue the command (and pass "opts" along)
-          @input_buffer.puts([command_parts[0].rstrip, opts])
+          @input_buffer.puts([command, opts])
           # call the "on_enqueue" hook (if it was specified)
           opts[:on_enqueue].call if opts[:on_enqueue] rescue nil
         end
