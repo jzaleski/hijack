@@ -4,7 +4,7 @@ require 'helpers/alias_helper'
 describe AliasHelper do
 
   before do
-    @subject = BridgeHelper.new
+    @subject = AliasHelper.new({})
   end
 
 end

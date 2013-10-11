@@ -1,7 +1,6 @@
 General:
 ========
 
-- add "aliases" (WiP)
 - add the ability to highlight patterns
 - add the ability to re-{calculate,configure} screen cols/rows
 

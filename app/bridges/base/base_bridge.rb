@@ -54,22 +54,13 @@ class BaseBridge
       @script_helper.execute(str[1..-1])
     # regular command(s)
     else
-      # multiple commands [on a single line] are pipe-delimited
-      str.split('|').each do |sub_str|
-        # repeated commands are formatted like: "<command> * <num_repeats>"
-        command, num_repeats = sub_str.strip.split('*').map(&:strip)
-        # if the command is an alias it will be replaced here
-        command = @alias_helper.process("#{command}")
-        # guard against "num_repeats" less than "1"
-        num_repeats = [1, num_repeats.to_i].max
-        # repeat the command (if necessary)
-        num_repeats.times do
-          # enqueue the command (and pass "opts" along)
-          @input_buffer.puts([command, opts])
-          # call the "on_enqueue" hook (if it was specified)
-          opts[:on_enqueue].call if opts[:on_enqueue] rescue nil
-        end
-      end
+      # parse the command, this method will parse sub-commands, repeats and
+      # replace aliases
+      commands = parse_command(str)
+      # enqueue all of the commands for dispatch
+      commands.each {|command| @input_buffer.puts(command)}
+      # call the "on_enqueue" hook (if it was specified)
+      opts[:on_enqueue].call if opts[:on_enqueue] rescue nil
     end
   end
 
@@ -112,6 +103,28 @@ class BaseBridge
   def can_write?
     !(@last_write_time && (Time.now - @last_write_time).to_f * 1000 < \
     (@config[:allowed_command_frequency_ms] || 100))
+  end
+
+  def parse_command(str)
+    # define an array to hold the aggregated result
+    commands = []
+    # sub-commands are pipe-delimited (e.g. command1|command2)
+    str.split('|').each do |sub_str|
+      # repeated commands include a multiplier (e.g. command * 2)
+      command, num_repeats = sub_str.strip.split('*').map(&:strip)
+      # check if the sub-command is an alias and replace it here
+      command = @alias_helper.process(command)
+      # ensure that "num_repeats" is at least 1
+      num_repeats = [1, num_repeats.to_i].max
+      # recurse, there was a scriptlet nested in an alias
+      if num_repeats == 1 && command =~ /\*|\|/
+        commands += parse_command(command)
+      # apply the command multiplier (in most cases, 1)
+      else
+        commands += ([command] * num_repeats)
+      end
+    end
+    commands
   end
 
 end
