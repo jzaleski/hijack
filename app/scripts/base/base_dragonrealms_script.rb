@@ -39,6 +39,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_ARE_ALREADY_PREPARING = 'You are already preparing'
   YOU_ARE_ALREADY_SITTING = 'You are already sitting'
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
+  YOU_ARE_UNABLE_TO_FOCUS_ENOUGH_LIGHT = 'You are unable to focus enough light'
   YOU_ATTACH_A = 'You attach a'
   YOU_BEGIN_TO_WEAVE = 'You begin to weave'
   YOU_CANT_CLOSE = "You can't close"
@@ -55,6 +56,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
   YOU_LIE = 'You lie'
   YOU_LOOSEN_THE_STRAPS = 'You loosen the straps'
+  YOU_MUST_BE_PREPARING_A_SPELL = 'You must be preparing a spell'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN_YOUR = 'You open your'
   YOU_PICK_UP = 'You pick up'
@@ -72,9 +74,10 @@ class BaseDragonrealmsScript < BaseScript
   YOU_WORK_YOUR_WAY = 'You work your way'
 
   CAST_PATTERN = [
+    YOUR_TARGET_PATTERN_DISSIPATES,
+    YOU_ARE_UNABLE_TO_FOCUS_ENOUGH_LIGHT,
     YOU_DONT_HAVE_A_SPELL,
     YOU_GESTURE,
-    YOUR_TARGET_PATTERN_DISSIPATES,
   ].join('|')
 
   CAST_SUCCESS_PATTERN = [
@@ -322,6 +325,7 @@ class BaseDragonrealmsScript < BaseScript
     YOUR_TARGET_PATTERN_IS,
     YOU_BEGIN_TO_WEAVE,
     YOU_DONT_HAVE_A_SPELL,
+    YOU_MUST_BE_PREPARING_A_SPELL,
   ].join('|')
 
   TARGET_SUCCESS_PATTERN = [
