@@ -30,14 +30,17 @@ class BaseBridge
 
   def disconnect(str=nil)
     # send the command immediately (if specified)
-    socket.puts(str) if !str.nil? && !str.empty?
+    socket.puts(str) unless str.nil? || str.empty?
     # close the socket
     close
   end
 
   def gets
-    str = @output_buffer.gets
-    @callback_helper.process("#{str}".chomp)
+    # convert CRLF to LF, then any left-over CR to LF, then remove the last LF
+    str = @output_buffer.gets.gsub(/\r\n/, "\n").gsub(/\r/, "\n").chomp
+    # process any callbacks (returns nil)
+    @callback_helper.process(str)
+    # return the result
     str
   end
 
@@ -48,7 +51,7 @@ class BaseBridge
     str = @last_command if str == '!!' && @last_command
     # store the command (we need to copy the string since the reference is
     # mutated below)
-    @last_command = "#{str}" if opts[:store_command] == true
+    @last_command = str.dup if opts[:store_command] == true
     # script handling (this should probably be moved to script-manager)
     if str.start_with?(';')
       @script_helper.execute(str[1..-1])

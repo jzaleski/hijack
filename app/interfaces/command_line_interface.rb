@@ -47,7 +47,7 @@ class CommandLineInterface
   private
 
   def start_read(bridge)
-    Thread.new do
+    @read_thread ||= Thread.new do
       while bridge.connected?
         output = bridge.gets
         unless output.empty?
@@ -58,7 +58,7 @@ class CommandLineInterface
   end
 
   def start_write(bridge)
-    Thread.new do
+    @write_thread ||= Thread.new do
       while bridge.connected?
         input = STDIN.gets.chomp
         unless input.empty?

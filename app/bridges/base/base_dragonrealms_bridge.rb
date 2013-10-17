@@ -11,30 +11,28 @@ class BaseDragonrealmsBridge < BaseSimutronicsBridge
   ].join('|')
 
   def gets
-    # strip trailing "record separator" (typically carriage returns) - this will
-    # only remove one instance of a given "record separator" and always returns
-    # a new string instance
-    str = super.chomp
-    # ensure that lines containing bold text switch back to normal (non-bold)
-    # text at the end of the line
-    str << "\e[0m" if str.match(/\e\[\d+m/)
-    # only append a new-line if the string doesn't already end with multiple
-    # new-line characters
-    str << "\n" unless str.end_with?("\n\n")
-    # determine whether or not we want to output the line (an empty-string will
-    # not be output) and make sure to append a new-line to the end of the output
-    # as it was likely stripped off above
+    # the parent class does all of the heavy lifting
+    str = super
+    # an empty string will not be output
     should_output?(str) ? str : ''
   end
 
   private
 
-  def should_output?(output)
-    !(
-      output.match(RETRY_PATTERN) &&
-      @config[:silence_retryable_output] =~ /\Atrue\Z/ &&
-      @script_helper.num_running_non_paused > 0
-    )
+  def retryable?(str)
+    str.match(RETRY_PATTERN)
+  end
+
+  def scripts_running?
+    @script_helper.num_running_non_paused > 0
+  end
+
+  def should_output?(str)
+    !(retryable?(str) && scripts_running? && strip_retryable_output?)
+  end
+
+  def strip_retryable_output?
+    @config[:strip_retryable_output].to_s =~ /\Atrue\Z/
   end
 
 end

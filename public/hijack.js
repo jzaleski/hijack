@@ -17,7 +17,8 @@ var Hijack = (function() {
         maxScrollbackLines: 500,
         outputHTML: true,
         pollingIntervalMS: 10,
-        silenceRetryableOutput: true
+        stripPlayerStatusPrompt: true,
+        stripRetryableOutput: true
       },
       scrollbackLines = [];
 
@@ -34,7 +35,8 @@ var Hijack = (function() {
         numCols: config.numCols,
         numRows: config.numRows,
         outputHTML: config.outputHTML,
-        silenceRetryableOutput: config.silenceRetryableOutput
+        stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
+        stripRetryableOutput: config.stripRetryableOutput
       }),
       success: function() {
         $game.val('');

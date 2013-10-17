@@ -22,12 +22,18 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def gets
-    str = super
-    str.gsub!(/\e\[(1|0)m/, '') if @layout_helper.strip_ansi_escape_sequences?
-    parsed_str = str.chomp
-    parsed_str.insert(parsed_str.index('>') + 1, "\n") if parsed_str =~ /[a-zA-Z]*>.*/
-    parsed_str.slice!(0..parsed_str.index('>')) if parsed_str.include?('>')
-    "#{(can_fit_on_line?(parsed_str) ? parsed_str : multi_line_output(str)).rstrip}\n"
+    # perform all operations on a copy of the original string
+    str = super.dup
+    # fix inproperly formatted player-status prompt
+    str.gsub!(/\A(\e\[\d+m|\w)*>/, ">\n") if str =~ /\A(\e\[\d+m|\w)*>[\w\[\]\*<]+/
+    # remove the player-status prompt (if configured to do so)
+    str.gsub!(/\A(\e\[\d+m|\w)*>/, '') if strip_player_status_prompt?
+    # ensure that ANSI escape sequences are terminated
+    str << "\e[0m" if str.match(/\e\[\d+m/) && !str.match(/\e\[\0m/)
+    # remove all ANSI escape sequences (if configured to do so)
+    str.gsub!(/\e\[\d+m/, '') if @layout_helper.strip_ansi_escape_sequences?
+    # wrap the line if need be and append a LF
+    "#{can_fit_on_one_line?(str) ? str : multi_line_output(str)}\n"
   end
 
   protected
@@ -36,13 +42,13 @@ class BaseSimutronicsBridge < BaseBridge
 
   private
 
-  def can_fit_on_line?(*values)
-    values.join.gsub(/\e\[(1|0)m/, '').length <= @layout_helper.num_cols
+  def can_fit_on_one_line?(*strs)
+    strs.join.gsub(/\e\[\d+m/, '').length <= @layout_helper.num_cols
   end
 
   def login
     login_socket = TCPSocket.new(@config[:login_host], @config[:login_port])
-    login_socket.puts 'K'
+    login_socket.puts "K\n"
     hash_key_character_codes = login_socket.gets.bytes.to_a
     password_character_codes = @config[:password].bytes.to_a
     password_character_codes.each_index \
@@ -56,40 +62,40 @@ class BaseSimutronicsBridge < BaseBridge
       (login_key = /KEY\t([^\t]+)\t/.match(login_response).captures.first rescue nil).nil?
       abort('Cancelled account and/or invalid account/password specified')
     end
-    login_socket.puts 'M'
+    login_socket.puts "M\n"
     login_socket.gets
-    login_socket.puts "F\t#{@config[:game_code]}"
+    login_socket.puts "F\t#{@config[:game_code]}\n"
     login_socket.gets
-    login_socket.puts "G\t#{@config[:game_code]}"
+    login_socket.puts "G\t#{@config[:game_code]}\n"
     login_socket.gets
-    login_socket.puts "P\t#{@config[:game_code]}"
+    login_socket.puts "P\t#{@config[:game_code]}\n"
     login_socket.gets
-    login_socket.puts 'C'
+    login_socket.puts "C\n"
     character_login_response = login_socket.gets.split
     abort('Invalid character name specified') \
       unless character_login_response && character_login_response.include?(@config[:character])
-    login_socket.puts "L\t#{character_login_response[character_login_response.index(@config[:character]) - 1]}\tSTORM"
+    login_socket.puts "L\t#{character_login_response[character_login_response.index(@config[:character]) - 1]}\tSTORM\n"
     character_key_response = login_socket.gets
     login_socket.close unless login_socket.closed?
     abort('Could not connect to server') unless character_key_response =~ /KEY=\w+/
     @config[:character_key] = /KEY=(\w+)$/.match(character_key_response).captures.first
   end
 
-  def multi_line_output(output)
+  def multi_line_output(str)
     buffer, temp = ['', '']
-    for word in output.split
+    for word in str.split
       word.chomp!
-      if word =~ /[a-zA-Z]*>/
-        word.insert(word.index('>') + 1, "\n")
-        word.sub!(/[a-zA-Z]*>/, '')
-      end
-      unless can_fit_on_line?(word, temp)
+      unless can_fit_on_one_line?(word, temp)
         buffer << "#{temp.rstrip}\n"
         temp = ''
       end
       temp << "#{word} "
     end
-    "#{buffer}#{temp}"
+    "#{buffer}#{temp}".rstrip
+  end
+
+  def strip_player_status_prompt?
+    @config[:strip_player_status_prompt].to_s =~ /\Atrue\Z/
   end
 
 end

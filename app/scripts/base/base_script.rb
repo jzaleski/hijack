@@ -12,7 +12,7 @@ class BaseScript
   end
 
   def start_run(args)
-    @thread ||= Thread.new {
+    @run_thread ||= Thread.new do
       @on_exec.call rescue nil
       begin
         run(args)
@@ -21,12 +21,12 @@ class BaseScript
         STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
       end
       @on_exit.call rescue nil
-    }
+    end
   end
 
   def kill
     if running?
-      @thread.kill
+      @run_thread.kill
       @on_kill.call rescue nil
     end
   end
@@ -54,7 +54,7 @@ class BaseScript
   end
 
   def running?
-    !@thread.nil? && @thread.alive?
+    !@run_thread.nil? && @run_thread.alive?
   end
 
   def sleeping?
