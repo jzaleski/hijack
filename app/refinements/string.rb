@@ -7,6 +7,14 @@ class String
     self[0].upcase + self[1..-1]
   end
 
+  def gchomp(separator=$/)
+    dup.gchomp!(separator) || self
+  end
+
+  def gchomp!(separator=$/)
+    gsub!(/#{separator}+\Z/, '')
+  end
+
   def to_camel_case(opts={})
     buffer = []
     split('_').each_with_index do |word, index|

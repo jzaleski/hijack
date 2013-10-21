@@ -24,10 +24,8 @@ class BaseSimutronicsBridge < BaseBridge
   def gets
     # perform all operations on a copy of the original string
     str = super.dup
-    # fix inproperly formatted player-status prompt
-    str.gsub!(/\A(\e\[\d+m|\w)*>/, ">\n") if str =~ /\A(\e\[\d+m|\w)*>[\w\[\]\*<]+/
     # remove the player-status prompt (if configured to do so)
-    str.gsub!(/\A(\e\[\d+m|\w)*>/, '') if strip_player_status_prompt?
+    str.gsub!(/\A(\e\[\d+m|\w)*>/, ' ') if strip_player_status_prompt?
     # ensure that ANSI escape sequences are terminated
     str << "\e[0m" if str.match(/\e\[\d+m/) && !str.match(/\e\[\0m/)
     # remove all ANSI escape sequences (if configured to do so)
@@ -43,7 +41,7 @@ class BaseSimutronicsBridge < BaseBridge
   private
 
   def can_fit_on_one_line?(*strs)
-    strs.join.gsub(/\e\[\d+m/, '').length <= @layout_helper.num_cols
+    strs.join(' ').gsub(/\e\[\d+m/, '').length <= @layout_helper.num_cols
   end
 
   def login
@@ -84,14 +82,14 @@ class BaseSimutronicsBridge < BaseBridge
   def multi_line_output(str)
     buffer, temp = ['', '']
     for word in str.split
-      word.chomp!
+      word.gchomp!(' ')
       unless can_fit_on_one_line?(word, temp)
-        buffer << "#{temp.rstrip}\n"
+        buffer << "#{temp.gchomp(' ')}\n"
         temp = ''
       end
       temp << "#{word} "
     end
-    "#{buffer}#{temp}".rstrip
+    "#{buffer}#{temp.gchomp(' ')}"
   end
 
   def strip_player_status_prompt?
