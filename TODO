@@ -6,12 +6,6 @@ General:
 - add the ability to reload the config at runtime
   - revisit caching of configuration values
 
-Simutronics:
-============
-
-- ensure that formatting is consistent in all cases (there seem to still be a
-  few messages that are running together - e.g. defense followed by an attack)
-
 Dragonrealms:
 =============
 

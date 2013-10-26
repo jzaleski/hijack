@@ -82,12 +82,12 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def multi_line_output(str)
-    buffer, temp = ['', '']
-    for word in str.split
+    buffer, temp = ["", ""]
+    for word in str.split(/ /)
       word.gchomp!(' ')
       unless can_fit_on_one_line?(word, temp)
         buffer << "#{temp.gchomp(' ')}\n"
-        temp = ''
+        temp = ""
       end
       temp << "#{word} "
     end
