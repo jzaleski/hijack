@@ -152,7 +152,7 @@ class LocksmithScript < BaseDragonrealmsScript
     if \
       open_my(box_container) &&
       open_my(lockpick_container) &&
-      get_my(box, box_container) &&
+      get_box(box, box_container) &&
       get_my(lockpick, lockpick_container)
       # this won't return until it has identified and disarmed the box
       if identify_and_disarm(box, disarm_option)
@@ -185,6 +185,10 @@ class LocksmithScript < BaseDragonrealmsScript
 
   def config_pick_option
     @config[:locksmith_pick_option]
+  end
+
+  def get_box(box, box_container)
+    get_my(box, box_container) || get(box)
   end
 
   def identify_and_disarm(box, option)
