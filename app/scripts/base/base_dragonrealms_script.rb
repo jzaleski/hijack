@@ -41,6 +41,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_ARE_UNABLE_TO_FOCUS_ENOUGH_LIGHT = 'You are unable to focus enough light'
   YOU_ATTACH_A = 'You attach a'
+  YOU_ATTACH_SOME = 'You attach some'
   YOU_BEGIN_TO_WEAVE = 'You begin to weave'
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_DO = "You can't do"
@@ -64,6 +65,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_PUT_YOUR = 'You put your'
   YOU_RAISE_AN = 'You raise an'
   YOU_REMOVE_A = 'You remove a'
+  YOU_REMOVE_SOME = 'You remove some'
   YOU_RISE_TO_A_KNEELING_POSITION = 'You rise to a kneeling position'
   YOU_SEARCH = 'You search'
   YOU_SIT = 'You sit'
@@ -257,6 +259,7 @@ class BaseDragonrealmsScript < BaseScript
     YOU_DETACH_A,
     YOU_LOOSEN_THE_STRAPS,
     YOU_REMOVE_A,
+    YOU_REMOVE_SOME,
     YOU_SLING_A,
     YOU_TAKE_A,
     YOU_WORK_YOUR_WAY,
@@ -268,6 +271,7 @@ class BaseDragonrealmsScript < BaseScript
     YOU_DETACH_A,
     YOU_LOOSEN_THE_STRAPS,
     YOU_REMOVE_A,
+    YOU_REMOVE_SOME,
     YOU_SLING_A,
     YOU_TAKE_A,
     YOU_WORK_YOUR_WAY,
@@ -338,6 +342,7 @@ class BaseDragonrealmsScript < BaseScript
     WEAR_WHAT,
     YOU_ARE_ALREADY,
     YOU_ATTACH_A,
+    YOU_ATTACH_SOME,
     YOU_PUT_A,
     YOU_SLIDE_YOUR,
     YOU_SLING_A,
@@ -348,6 +353,7 @@ class BaseDragonrealmsScript < BaseScript
     ONTO_YOUR_HANDS,
     YOU_ARE_ALREADY,
     YOU_ATTACH_A,
+    YOU_ATTACH_SOME,
     YOU_PUT_A,
     YOU_SLIDE_YOUR,
     YOU_SLING_A,
