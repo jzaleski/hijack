@@ -20,7 +20,7 @@ class LocksmithScript < BaseDragonrealmsScript
   SEALED_WITH_DIRT_BLOCKING_WHATEVER = 'sealed with dirt, blocking whatever'
   SOMEBODY_HAS_ALREADY_INSPECTED = 'Somebody has already inspected'
   STILL_GRINNING_RIDICULOUSLY = 'Still grinning ridiculously'
-  THE_LOCK_HAS_AN_EDGE_ON_YOU = 'The lock has an edge on you'
+  THE_LOCK_HAS_THE_EDGE_ON_YOU = 'The lock has the edge on you'
   THE_ODDS_ARE_AGAINST_YOU = 'The odds are against you'
   UNABLE_TO_MAKE_ANY_PROGRESS = 'unable to make any progress'
   WHATEVER_IT_WAS_HAS_BEEN_PRIED_OUT = 'whatever it was has been pried out'
@@ -35,6 +35,7 @@ class LocksmithScript < BaseDragonrealmsScript
   YOU_SEE_WHAT_SEEMS_TO_BE_A_PIN = 'you see what seems to be a pin'
   YOU_SHOVE_THE_PIN_AWAY = 'you shove the pin away'
   YOU_THINK_THIS_LOCK_IS_PRECISELY = 'You think this lock is precisely'
+  YOU_WINCE_AS_YOU_FEEL = 'You wince as you feel'
 
   DISARMED_PATTERN = [
     HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER,
@@ -106,7 +107,7 @@ class LocksmithScript < BaseDragonrealmsScript
     FIND_A_MORE_APPROPRIATE_TOOL,
     ITS_NOT_EVEN_LOCKED,
     SOMEBODY_HAS_ALREADY_INSPECTED,
-    THE_LOCK_HAS_AN_EDGE_ON_YOU,
+    THE_LOCK_HAS_THE_EDGE_ON_YOU,
     THE_ODDS_ARE_AGAINST_YOU,
     WOULD_BE_A_LONGSHOT,
     YOU_HAVE_SOME_CHANCE,
@@ -115,7 +116,7 @@ class LocksmithScript < BaseDragonrealmsScript
 
   PICK_IDENTIFY_SUCCESS_PATTERN = [
     SOMEBODY_HAS_ALREADY_INSPECTED,
-    THE_LOCK_HAS_AN_EDGE_ON_YOU,
+    THE_LOCK_HAS_THE_EDGE_ON_YOU,
     THE_ODDS_ARE_AGAINST_YOU,
     WOULD_BE_A_LONGSHOT,
     YOU_HAVE_SOME_CHANCE,
@@ -126,6 +127,7 @@ class LocksmithScript < BaseDragonrealmsScript
     FIND_A_MORE_APPROPRIATE_TOOL,
     UNABLE_TO_MAKE_ANY_PROGRESS,
     WITH_A_SOFT_CLICK,
+    YOU_WINCE_AS_YOU_FEEL,
   ].join('|')
 
   PICK_SUCCESS_PATTERN = [
