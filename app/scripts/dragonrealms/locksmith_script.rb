@@ -29,11 +29,13 @@ class LocksmithScript < BaseDragonrealmsScript
   WHILE_CHECKING_THE_BOX_FOR_TRAPS = 'While checking the box for traps'
   WITH_A_SMIRK_YOU_WEDGE_A_SMALL_STICK = 'With a smirk you wedge a small stick'
   WITH_A_SOFT_CLICK = 'With a soft click'
+  WITH_ONLY_MINOR_TROUBLES = 'with only minor troubles'
   WORKING_SLOWLY_YOU_CAREFULLY = 'Working slowly, you carefully'
   WOULD_BE_A_LONGSHOT = 'would be a longshot'
   YOU_CAUTIOUSLY_PRY_THE_SEAL_AWAY = 'You cautiously pry the seal away'
   YOU_HAVE_SOME_CHANCE = 'You have some chance'
   YOU_MOVE_YOUR_HANDS_IN_A_PRACTICED = 'You move your hands in a practiced'
+  YOU_NOTICE_A_LUMPY_GREEN_RUNE = 'you notice a lumpy green rune'
   YOU_NUDGE_THE_BLACK_CRYSTAL = 'you nudge the black crystal'
   YOU_REACH_DOWN_AND_SCOOP = 'you reach down and scoop'
   YOU_SEE_A_SHATTERED_GLASS_TUBE = 'You see a shattered glass tube'
@@ -70,6 +72,7 @@ class LocksmithScript < BaseDragonrealmsScript
     THE_SEAL_HAS_BEEN_PRIED_AWAY,
     WHATEVER_IT_WAS_HAS_BEEN_PRIED_OUT,
     WHILE_CHECKING_THE_BOX_FOR_TRAPS,
+    YOU_NOTICE_A_LUMPY_GREEN_RUNE,
     YOU_SEE_A_SHATTERED_GLASS_TUBE,
     YOU_SEE_WHAT_SEEMS_TO_BE_A_PIN,
   ].join('|')
@@ -83,6 +86,7 @@ class LocksmithScript < BaseDragonrealmsScript
     INDICATE_THAT_SOMETHING_IS_AWRY,
     LOOK_DANGEROUSLY_OUT_OF_PLACE,
     WHILE_CHECKING_THE_BOX_FOR_TRAPS,
+    YOU_NOTICE_A_LUMPY_GREEN_RUNE,
     YOU_SEE_WHAT_SEEMS_TO_BE_A_PIN,
   ].join('|')
 
@@ -129,6 +133,7 @@ class LocksmithScript < BaseDragonrealmsScript
     SOMEBODY_HAS_ALREADY_INSPECTED,
     THE_LOCK_HAS_THE_EDGE_ON_YOU,
     THE_ODDS_ARE_AGAINST_YOU,
+    WITH_ONLY_MINOR_TROUBLES,
     WOULD_BE_A_LONGSHOT,
     YOU_HAVE_SOME_CHANCE,
     YOU_THINK_THIS_LOCK_IS_PRECISELY,
@@ -138,6 +143,7 @@ class LocksmithScript < BaseDragonrealmsScript
     SOMEBODY_HAS_ALREADY_INSPECTED,
     THE_LOCK_HAS_THE_EDGE_ON_YOU,
     THE_ODDS_ARE_AGAINST_YOU,
+    WITH_ONLY_MINOR_TROUBLES,
     WOULD_BE_A_LONGSHOT,
     YOU_HAVE_SOME_CHANCE,
     YOU_THINK_THIS_LOCK_IS_PRECISELY,
@@ -171,8 +177,10 @@ class LocksmithScript < BaseDragonrealmsScript
     if open_my(box_container) && open_my(lockpick_container)
       # try every box type
       BOXES.each do |box|
-        # get a box and ensure we have a lockpick to work with
-        while get_box(box, box_container) && get_my(lockpick, lockpick_container)
+        # ensure that we have a box to work with
+        while get_box(box, box_container)
+          # ensure we have a lockpick to work with, if not, we're done
+          return unless get_my(lockpick, lockpick_container)
           # this won't return until it has identified and disarmed the box
           disarm(box, disarm_option)
           # this won't return until it has identified and picked the box
