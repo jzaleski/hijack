@@ -2,18 +2,6 @@ require 'scripts/base/base_dragonrealms_script'
 
 class GetBoxesScript < BaseDragonrealmsScript
 
-  BOXES = %w[
-    box
-    caddy
-    casket
-    chest
-    coffer
-    crate
-    skippet
-    strongbox
-    trunk
-  ]
-
   def validate_args(args)
     args.length == 1 ||
     config_container

@@ -59,6 +59,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_LOOSEN_THE_STRAPS = 'You loosen the straps'
   YOU_MUST_BE_PREPARING_A_SPELL = 'You must be preparing a spell'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
+  YOU_OPEN_THE = 'You open the'
   YOU_OPEN_YOUR = 'You open your'
   YOU_PICK_UP = 'You pick up'
   YOU_PUT_A = 'You put a'
@@ -74,6 +75,18 @@ class BaseDragonrealmsScript < BaseScript
   YOU_STAND = 'You stand'
   YOU_TAKE_A = 'You take a'
   YOU_WORK_YOUR_WAY = 'You work your way'
+
+  BOXES = %w[
+    box
+    caddy
+    casket
+    chest
+    coffer
+    crate
+    skippet
+    strongbox
+    trunk
+  ]
 
   CAST_PATTERN = [
     YOUR_TARGET_PATTERN_DISSIPATES,
@@ -221,11 +234,13 @@ class BaseDragonrealmsScript < BaseScript
     THAT_IS_ALREADY_OPEN,
     WHAT_WERE_YOU,
     YOU_CANT_OPEN,
+    YOU_OPEN_THE,
     YOU_OPEN_YOUR,
   ].join('|')
 
   OPEN_MY_SUCCESS_PATTERN = [
     THAT_IS_ALREADY_OPEN,
+    YOU_OPEN_THE,
     YOU_OPEN_YOUR,
   ].join('|')
 
