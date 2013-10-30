@@ -19,7 +19,7 @@ class GetCoinsScript < BaseDragonrealmsScript
         GET_COIN_PATTERN,
         'get coin'
       )
-      break if result == WHAT_WERE_YOU
+      break if result.match(WHAT_WERE_YOU)
     end
   end
 

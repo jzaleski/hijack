@@ -4,7 +4,9 @@ class HuntScript < BaseDragonrealmsScript
 
   YOU_TAKE_NOTE_OF_ALL_THE_TRACKS = 'You take note of all the tracks'
 
-  HUNT_PATTERN = YOU_TAKE_NOTE_OF_ALL_THE_TRACKS
+  HUNT_PATTERN = [
+    YOU_TAKE_NOTE_OF_ALL_THE_TRACKS,
+  ].join('|')
 
   def run(args)
     loop do

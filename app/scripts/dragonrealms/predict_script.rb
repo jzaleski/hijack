@@ -19,11 +19,6 @@ class PredictScript < BaseDragonrealmsScript
   YOU_SEE_NOTHING = 'You see nothing'
   YOU_STILL_LEANRED = 'you still learned'
 
-  ALIGN_PATTERN = [
-    THAT_IS_NOT_A_VALID_ENTRY,
-    YOU_FOCUS_INTERNALLY,
-  ].join('|')
-
   ALIGNMENTS = %w[
     defense
     lore
@@ -31,6 +26,11 @@ class PredictScript < BaseDragonrealmsScript
     offense
     survival
   ]
+
+  ALIGN_PATTERN = [
+    THAT_IS_NOT_A_VALID_ENTRY,
+    YOU_FOCUS_INTERNALLY,
+  ].join('|')
 
   OBJECTS = %W[
     albatross
@@ -79,11 +79,6 @@ class PredictScript < BaseDragonrealmsScript
     yoakena
   ]
 
-  OBSERVE_SUCCESS_PATTERN = [
-    YOU_LEARNED,
-    YOU_STILL_LEANRED,
-  ].join('|')
-
   OBSERVE_PATTERN = [
     FOILED_BY_THE,
     TURNS_UP_FRUITLESS,
@@ -93,7 +88,14 @@ class PredictScript < BaseDragonrealmsScript
     YOU_STILL_LEANRED,
   ].join('|')
 
-  PREDICT_ANALYZE_PATTERN = MENTALLY_SEEKING_THE_THREADS
+  OBSERVE_SUCCESS_PATTERN = [
+    YOU_LEARNED,
+    YOU_STILL_LEANRED,
+  ].join('|')
+
+  PREDICT_ANALYZE_PATTERN = [
+    MENTALLY_SEEKING_THE_THREADS,
+  ].join('|')
 
   PREDICT_FUTURE_PATTERN = [
     RECEIVES_A_MIND_NUMBING_JOLT,
@@ -103,7 +105,9 @@ class PredictScript < BaseDragonrealmsScript
     YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF,
   ].join('|')
 
-  PREDICT_STATE_ALL_PATTERN = YOU_CONSIDER_YOUR_RECENT
+  PREDICT_STATE_ALL_PATTERN = [
+    YOU_CONSIDER_YOUR_RECENT,
+  ].join('|')
 
   SPELLS = %w[
     aus

@@ -174,9 +174,9 @@ class LocksmithScript < BaseDragonrealmsScript
         # get a box and ensure we have a lockpick to work with
         while get_box(box, box_container) && get_my(lockpick, lockpick_container)
           # this won't return until it has identified and disarmed the box
-          identify_and_disarm(box, disarm_option)
+          disarm(box, disarm_option)
           # this won't return until it has identified and picked the box
-          if identify_and_pick(box, pick_option)
+          if pick(box, pick_option)
             # open the box
             open_my(box)
             # need at least one hand free in order to dismantle
@@ -214,30 +214,15 @@ class LocksmithScript < BaseDragonrealmsScript
     @config[:locksmith_pick_option]
   end
 
-  def dismantle(box)
-    loop do
-      match = wait_for_match(
-        DISMANTLE_PATTERN,
-        "dismantle my #{box}"
-      )
-      sleep 5
-      break if DISMANTLE_SUCCESS_PATTERN.match(match)
-    end
-  end
-
-  def get_box(box, box_container)
-    get_my(box, box_container) || get_my(box)
-  end
-
-  def identify_and_disarm(box, option)
+  def disarm(box, option)
     loop do
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           DISARM_IDENTIFY_PATTERN,
           "disarm my #{box} identify"
         )
         sleep 5
-        case match
+        case result
           when DISARMED_PATTERN.to_regexp
             return true
           when DISARM_IDENTIFY_SUCCESS_PATTERN.to_regexp
@@ -245,26 +230,41 @@ class LocksmithScript < BaseDragonrealmsScript
         end
       end
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           DISARM_PATTERN,
           "disarm my #{box} #{option}".rstrip
         )
         sleep 5
-        break if DISARM_SUCCESS_PATTERN.match(match)
+        break if result.match(DISARM_SUCCESS_PATTERN)
       end
     end
   end
 
-  def identify_and_pick(box, option)
+  def dismantle(box)
+    loop do
+      result = wait_for_match(
+        DISMANTLE_PATTERN,
+        "dismantle my #{box}"
+      )
+      sleep 5
+      break if result.match(DISMANTLE_SUCCESS_PATTERN)
+    end
+  end
+
+  def get_box(box, box_container)
+    get_my(box, box_container) || get_my(box)
+  end
+
+  def pick(box, option)
     loop do
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           PICK_IDENTIFY_PATTERN,
           "pick my #{box} identify"
         )
-        return false if FIND_A_MORE_APPROPRIATE_TOOL.match(match)
+        return false if result.match(FIND_A_MORE_APPROPRIATE_TOOL)
         sleep 5.0
-        case match
+        case result
           when PICKED_PATTERN.to_regexp
             return true
           when PICK_IDENTIFY_SUCCESS_PATTERN.to_regexp
@@ -272,13 +272,13 @@ class LocksmithScript < BaseDragonrealmsScript
         end
       end
       loop do
-        match = wait_for_match(
+        result = wait_for_match(
           PICK_PATTERN,
           "pick my #{box} #{option}".rstrip
         )
-        return false if FIND_A_MORE_APPROPRIATE_TOOL.match(match)
+        return false if result.match(FIND_A_MORE_APPROPRIATE_TOOL)
         sleep 5
-        break if PICK_SUCCESS_PATTERN.match(match)
+        break if result.match(PICK_SUCCESS_PATTERN)
       end
     end
   end

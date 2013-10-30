@@ -8,7 +8,9 @@ class ReadScrollsScript < BaseDragonrealmsScript
   YOU_ROLL_UP = 'You roll up'
   YOU_UNROLL = 'You unroll'
 
-  READ_PATTERN = GUIDING_YOUR_FINGERS
+  READ_PATTERN = [
+    GUIDING_YOUR_FINGERS,
+  ].join('|')
 
   ROLL_PATTERN = [
     ALREADY_ROLLED_UP,

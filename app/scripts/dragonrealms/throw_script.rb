@@ -26,11 +26,11 @@ class ThrowScript < BaseDragonrealmsScript
     targets = args.length >= 2 ? args[1..-1] : config_targets
     loop do
       targets.each do |target|
-        match = wait_for_match(
+        result = wait_for_match(
           THROW_PATTERN,
           "throw my #{weapon} at #{target}"
         )
-        case match
+        case result
           when IS_ALREADY_QUITE_DEAD
             # if the current target is dead, wait a bit before trying again or
             # moving on to the next target

@@ -52,10 +52,12 @@ class CollectScript < BaseDragonrealmsScript
         COLLECT_PATTERN,
         "collect #{item}"
       )
-      return if result.match(COLLECT_FATAL_FAILURE_PATTERN)
-      if result.match(COLLECT_FAILURE_PATTERN)
-        sleep 5
-        next
+      case result
+        when COLLECT_FATAL_FAILURE_PATTERN
+          return
+        when COLLECT_FAILURE_PATTERN
+          sleep 5
+          next
       end
       sleep 15
       loop do
