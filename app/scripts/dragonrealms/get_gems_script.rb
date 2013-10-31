@@ -16,6 +16,7 @@ class GetGemsScript < BaseDragonrealmsScript
     chrysoprase
     citrine
     crystal
+    diamond
     diopside
     garnet
     hematite

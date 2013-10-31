@@ -8,6 +8,7 @@ class LocksmithScript < BaseDragonrealmsScript
   A_TINY_BRONZE_FACE_FAE_IN_APPEARANCE = 'A tiny bronze face, Fae in appearance'
   A_TINY_GLASS_TUBE_FILLED_WITH = 'a tiny glass tube filled with'
   CAREFULLY_YOU_PRY_THE_BRONZE_FACE = 'Carefully, you pry the bronze face'
+  FAILS_TO_REVEAL_TO_YOU = 'fails to reveal to you'
   FAILS_TO_TEACH_YOU_ANYTHING = 'fails to teach you anything'
   FIND_A_MORE_APPROPRIATE_TOOL = 'Find a more appropriate tool'
   HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER = 'have been bent away from each other'
@@ -30,6 +31,7 @@ class LocksmithScript < BaseDragonrealmsScript
   WITH_A_SMIRK_YOU_WEDGE_A_SMALL_STICK = 'With a smirk you wedge a small stick'
   WITH_A_SOFT_CLICK = 'With a soft click'
   WITH_ONLY_MINOR_TROUBLES = 'with only minor troubles'
+  WITH_SWEAT_FORMING_ON_YOUR_BROW = 'With sweat forming on your brow'
   WORKING_SLOWLY_YOU_CAREFULLY = 'Working slowly, you carefully'
   WOULD_BE_A_LONGSHOT = 'would be a longshot'
   YOU_CAUTIOUSLY_PRY_THE_SEAL_AWAY = 'You cautiously pry the seal away'
@@ -60,6 +62,7 @@ class LocksmithScript < BaseDragonrealmsScript
     A_SMALL_GLASS_TUBE_OF_MILKY_WHITE,
     A_TINY_BRONZE_FACE_FAE_IN_APPEARANCE,
     A_TINY_GLASS_TUBE_FILLED_WITH,
+    FAILS_TO_REVEAL_TO_YOU,
     FAILS_TO_TEACH_YOU_ANYTHING,
     HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER,
     HIDDEN_NEXT_TO_THE_KEYHOLE,
@@ -95,6 +98,7 @@ class LocksmithScript < BaseDragonrealmsScript
     CAREFULLY_YOU_PRY_THE_BRONZE_FACE,
     UNABLE_TO_MAKE_ANY_PROGRESS,
     WITH_A_SMIRK_YOU_WEDGE_A_SMALL_STICK,
+    WITH_SWEAT_FORMING_ON_YOUR_BROW,
     WORKING_SLOWLY_YOU_CAREFULLY,
     YOU_CAUTIOUSLY_PRY_THE_SEAL_AWAY,
     YOU_NUDGE_THE_BLACK_CRYSTAL,
@@ -105,6 +109,7 @@ class LocksmithScript < BaseDragonrealmsScript
   DISARM_SUCCESS_PATTERN = [
     AFTER_WIGGLING_THE_MILKY_WHITE_TUBE,
     CAREFULLY_YOU_PRY_THE_BRONZE_FACE,
+    WITH_SWEAT_FORMING_ON_YOUR_BROW,
     WITH_A_SMIRK_YOU_WEDGE_A_SMALL_STICK,
     WORKING_SLOWLY_YOU_CAREFULLY,
     YOU_CAUTIOUSLY_PRY_THE_SEAL_AWAY,
@@ -180,7 +185,7 @@ class LocksmithScript < BaseDragonrealmsScript
         # ensure that we have a box to work with
         while get_box(box, box_container)
           # ensure we have a lockpick to work with, if not, we're done
-          return unless get_my(lockpick, lockpick_container)
+          return unless get_lockpick(lockpick, lockpick_container)
           # this won't return until it has identified and disarmed the box
           disarm(box, disarm_option)
           # this won't return until it has identified and picked the box
@@ -261,6 +266,10 @@ class LocksmithScript < BaseDragonrealmsScript
 
   def get_box(box, box_container)
     get_my(box, box_container) || get_my(box)
+  end
+
+  def get_lockpick(lockpick, lockpick_container)
+    get_my(lockpick, lockpick_container) || get_my(lockpick)
   end
 
   def pick(box, option)
