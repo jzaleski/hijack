@@ -37,6 +37,7 @@ class LocksmithScript < BaseDragonrealmsScript
   YOU_CAUTIOUSLY_PRY_THE_SEAL_AWAY = 'You cautiously pry the seal away'
   YOU_HAVE_SOME_CHANCE = 'You have some chance'
   YOU_MOVE_YOUR_HANDS_IN_A_PRACTICED = 'You move your hands in a practiced'
+  YOU_NOTICE_A_BRONZE_SEAL = 'you notice a bronze seal'
   YOU_NOTICE_A_LUMPY_GREEN_RUNE = 'you notice a lumpy green rune'
   YOU_NUDGE_THE_BLACK_CRYSTAL = 'you nudge the black crystal'
   YOU_REACH_DOWN_AND_SCOOP = 'you reach down and scoop'
@@ -75,6 +76,7 @@ class LocksmithScript < BaseDragonrealmsScript
     THE_SEAL_HAS_BEEN_PRIED_AWAY,
     WHATEVER_IT_WAS_HAS_BEEN_PRIED_OUT,
     WHILE_CHECKING_THE_BOX_FOR_TRAPS,
+    YOU_NOTICE_A_BRONZE_SEAL,
     YOU_NOTICE_A_LUMPY_GREEN_RUNE,
     YOU_SEE_A_SHATTERED_GLASS_TUBE,
     YOU_SEE_WHAT_SEEMS_TO_BE_A_PIN,
@@ -89,6 +91,7 @@ class LocksmithScript < BaseDragonrealmsScript
     INDICATE_THAT_SOMETHING_IS_AWRY,
     LOOK_DANGEROUSLY_OUT_OF_PLACE,
     WHILE_CHECKING_THE_BOX_FOR_TRAPS,
+    YOU_NOTICE_A_BRONZE_SEAL,
     YOU_NOTICE_A_LUMPY_GREEN_RUNE,
     YOU_SEE_WHAT_SEEMS_TO_BE_A_PIN,
   ].join('|')

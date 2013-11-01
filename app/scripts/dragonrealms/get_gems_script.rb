@@ -18,6 +18,7 @@ class GetGemsScript < BaseDragonrealmsScript
     crystal
     diamond
     diopside
+    emerald
     garnet
     hematite
     iolite
