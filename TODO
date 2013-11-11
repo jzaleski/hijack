@@ -14,3 +14,8 @@ Dragonrealms:
 - create alchemy (mortar & pestle) script
 - create "travel" scripts (add helpers to "BaseDragonrealmsScript" or create a
   new base script)
+
+Gemstone:
+=========
+
+- create gem/get script(s)

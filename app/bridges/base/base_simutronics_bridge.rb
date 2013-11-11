@@ -25,7 +25,7 @@ class BaseSimutronicsBridge < BaseBridge
     # perform all operations on a copy of the original string
     str = super.dup
     # attempt to fix the player-status prompt
-    str.gsub!(/>\s?(\S)/, ">\n\\1")
+    str.gsub!(/>(\s*)(\S)/, ">\n\\1\\2")
     # remove the player-status prompt (if configured to do so)
     str.gsub!(/\A(\e\[\d+m|\w)*>/, '') if strip_player_status_prompt?
     # ensure that ANSI escape sequences are terminated
