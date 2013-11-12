@@ -5,6 +5,8 @@ General:
 - add the ability to re-{calculate,configure} screen cols/rows
 - add the ability to reload the config at runtime
   - revisit caching of configuration values
+- allow the specification of a key-mappings file on the command-line to be
+  loaded by the "input" script/wrapper
 
 Simutronics:
 ============
