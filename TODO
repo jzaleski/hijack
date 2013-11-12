@@ -6,16 +6,15 @@ General:
 - add the ability to reload the config at runtime
   - revisit caching of configuration values
 
+Simutronics:
+============
+
+- figure out the best way to share methods between DR/GS (mixins?)
+
 Dragonrealms:
 =============
 
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
-- move helper-methods (currently in "base_dragonrealms_script.rb") into a helper
 - create alchemy (mortar & pestle) script
 - create "travel" scripts (add helpers to "BaseDragonrealmsScript" or create a
   new base script)
-
-Gemstone:
-=========
-
-- create gem/get script(s)

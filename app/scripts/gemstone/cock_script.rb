@@ -1,6 +1,6 @@
-require 'scripts/base/base_script'
+require 'scripts/base/base_gemstone_script'
 
-class CockScript < BaseScript
+class CockScript < BaseGemstoneScript
 
   def validate_args(args)
     args.length == 1 || config_weapon

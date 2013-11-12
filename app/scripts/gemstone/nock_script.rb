@@ -1,6 +1,6 @@
-require 'scripts/base/base_script'
+require 'scripts/base/base_gemstone_script'
 
-class NockScript < BaseScript
+class NockScript < BaseGemstoneScript
 
   def validate_args(args)
     args.length == 2 || (config_ammo && config_ammo_container)

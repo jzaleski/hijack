@@ -1,6 +1,6 @@
-require 'scripts/base/base_script'
+require 'scripts/base/base_gemstone_script'
 
-class LoadScript < BaseScript
+class LoadScript < BaseGemstoneScript
 
   def validate_args(args)
     args.length == 3 || (config_weapon && config_ammo && config_ammo_container)

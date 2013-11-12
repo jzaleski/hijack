@@ -1,6 +1,6 @@
-require 'scripts/base/base_script'
+require 'scripts/base/base_simutronics_script'
 
-class BaseDragonrealmsScript < BaseScript
+class BaseDragonrealmsScript < BaseSimutronicsScript
 
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
   BUT_YOU_ARENT_HOLDING_THAT = "But you aren't holding that"
@@ -15,14 +15,12 @@ class BaseDragonrealmsScript < BaseScript
   OBVIOUS_PATHS = 'Obvious paths:'
   ONTO_YOUR_HANDS = 'onto your hands'
   REMOVE_WHAT = 'Remove what\?'
-  SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
   THEN_HANDS_YOU = 'then hands you'
   THERE_IS_NOTHING_ELSE = 'There is nothing else'
   THERE_IS_NO_MERCHANT = 'There is no merchant'
   TRIES_TO_FIND = 'tries to find'
-  WAIT = '\.\.\.wait'
   WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
   WHICH_APPEARS_DEAD = 'which appears dead'
@@ -46,7 +44,7 @@ class BaseDragonrealmsScript < BaseScript
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_DO = "You can't do"
   YOU_CANT_OPEN = "You can't open"
-  YOU_CLOSE_YOUR = 'You close your'
+  YOU_CLOSE = 'You close'
   YOU_DETACH_A = 'You detach a'
   YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
   YOU_DROP = 'You drop'
@@ -112,12 +110,12 @@ class BaseDragonrealmsScript < BaseScript
     THAT_IS_ALREADY_CLOSED,
     WHAT_WERE_YOU,
     YOU_CANT_CLOSE,
-    YOU_CLOSE_YOUR,
+    YOU_CLOSE,
   ].join('|')
 
   CLOSE_MY_SUCCESS_PATTERN = [
     THAT_IS_ALREADY_CLOSED,
-    YOU_CLOSE_YOUR,
+    YOU_CLOSE,
   ].join('|')
 
   DEAD_CREATURE_PATTERN = [
@@ -162,23 +160,12 @@ class BaseDragonrealmsScript < BaseScript
     YOU_DROP,
   ].join('|')
 
-  GET_MY_PATTERN = [
-    WHAT_WERE_YOU,
-    YOU_ARE_ALREADY,
-    YOU_NEED_A_FREE_HAND,
-    YOU_GET,
-  ].join('|')
-
-  GET_MY_SUCCESS_PATTERN = [
-    YOU_ARE_ALREADY,
-    YOU_GET,
-  ].join('|')
-
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,
     YOU_CANT_DO,
     YOU_GET,
+    YOU_NEED_A_FREE_HAND,
     YOU_PICK_UP,
   ].join('|')
 
@@ -186,6 +173,18 @@ class BaseDragonrealmsScript < BaseScript
     YOU_ARE_ALREADY,
     YOU_GET,
     YOU_PICK_UP,
+  ].join('|')
+
+  GET_MY_PATTERN = [
+    WHAT_WERE_YOU,
+    YOU_ARE_ALREADY,
+    YOU_GET,
+    YOU_NEED_A_FREE_HAND,
+  ].join('|')
+
+  GET_MY_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY,
+    YOU_GET,
   ].join('|')
 
   INVOKE_MY_PATTERN = [
@@ -290,11 +289,6 @@ class BaseDragonrealmsScript < BaseScript
     YOU_SLING_A,
     YOU_TAKE_A,
     YOU_WORK_YOUR_WAY,
-  ].join('|')
-
-  RETRY_PATTERN = [
-    SORRY_YOU_MAY_ONLY_TYPE_AHEAD,
-    WAIT,
   ].join('|')
 
   SELL_MY_PATTERN = [
@@ -426,18 +420,18 @@ class BaseDragonrealmsScript < BaseScript
     ).match(EMPTY_RIGHT_SUCCESS_PATTERN)
   end
 
-  def get_my(item, container=nil)
-    wait_for_match(
-      GET_MY_PATTERN,
-      container ? "get my #{item} from my #{container}" : "get my #{item}"
-    ).match(GET_MY_SUCCESS_PATTERN)
-  end
-
   def get(item, container=nil)
     wait_for_match(
       GET_PATTERN,
       container ? "get #{item} from #{container}" : "get #{item}"
     ).match(GET_SUCCESS_PATTERN)
+  end
+
+  def get_my(item, container=nil)
+    wait_for_match(
+      GET_MY_PATTERN,
+      container ? "get my #{item} from my #{container}" : "get my #{item}"
+    ).match(GET_MY_SUCCESS_PATTERN)
   end
 
   def invoke_my(item)
@@ -536,21 +530,6 @@ class BaseDragonrealmsScript < BaseScript
       WEAR_MY_PATTERN,
       "wear my #{item}"
     ).match(WEAR_MY_SUCCESS_PATTERN)
-  end
-
-  def wait_for_match(pattern, command=nil)
-    # handle retries because of roundtime or type-aheads here, most times, this
-    # loop will exit in one or few iterations
-    loop do
-      result = super(
-        "#{pattern}|#{RETRY_PATTERN}",
-        command
-      )
-      # success
-      return result if result.match(pattern)
-      # sleep before retrying
-      sleep 1
-    end
   end
 
 end
