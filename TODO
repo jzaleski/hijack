@@ -2,7 +2,6 @@ General:
 ========
 
 - add the ability to highlight patterns
-- add the ability to re-{calculate,configure} screen cols/rows
 - add the ability to reload the config at runtime
   - revisit caching of configuration values
 

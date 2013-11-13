@@ -52,9 +52,12 @@ class BaseBridge
     # store the command (we need to copy the string since the reference is
     # mutated below)
     @last_command = str.dup if opts[:store_command] == true
-    # script handling (this should probably be moved to script-manager)
+    # script handling
     if str.start_with?(';')
       @script_helper.execute(str[1..-1])
+    # layout handling
+    elsif str.start_with?('~')
+      @layout_helper.public_send(str[1..-1]) rescue nil
     # regular command(s)
     else
       # parse the command, this method will parse sub-commands, repeats and

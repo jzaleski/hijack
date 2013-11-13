@@ -30,6 +30,11 @@ class LayoutHelper
     end
   end
 
+  def reset_layout
+    @num_cols = nil
+    @num_rows = nil
+  end
+
   def strip_ansi_escape_sequences?
     @strip_ansi_escape_sequences ||= begin
       if @config.include?(:strip_ansi_escape_sequences)
