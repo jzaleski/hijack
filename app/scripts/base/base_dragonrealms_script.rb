@@ -11,8 +11,6 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   IS_INTACT = 'is intact\.'
   I_COULD_NOT_FIND = 'I could not find'
   NO_IDEA_HOW = 'no idea how'
-  OBVIOUS_EXITS = 'Obvious exits:'
-  OBVIOUS_PATHS = 'Obvious paths:'
   ONTO_YOUR_HANDS = 'onto your hands'
   REMOVE_WHAT = 'Remove what\?'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'

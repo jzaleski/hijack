@@ -15,5 +15,3 @@ Dragonrealms:
 
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
 - create alchemy (mortar & pestle) script
-- create "travel" scripts (add helpers to "BaseDragonrealmsScript" or create a
-  new base script)
