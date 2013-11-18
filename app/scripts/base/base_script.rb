@@ -46,7 +46,7 @@ class BaseScript
   end
 
   def run(args)
-    raise 'All Scripts(s) must override the "run" method'
+    raise %{All #{BaseScript}(s) must override the "run" method}
   end
 
   def paused?

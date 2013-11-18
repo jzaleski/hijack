@@ -1,47 +1,43 @@
-require 'scripts/base/base_gemstone_script'
+require 'scripts/base/base_simutronics_movement_script'
 
-class GreaterBurrowOrcsScript < BaseGemstoneScript
+class GreaterBurrowOrcsScript < BaseSimutronicsMovementScript
 
-  DIRECTIONS = [
-    'go gate',
-    SOUTHWEST,
-    SOUTH,
-    SOUTH,
-    SOUTH,
-    SOUTH,
-    SOUTH,
-    SOUTHEAST,
-    EAST,
-    EAST,
-    'go bridge',
-    SOUTH,
-    SOUTHWEST,
-    SOUTHEAST,
-    SOUTH,
-    WEST,
-    WEST,
-    SOUTHWEST,
-    EAST,
-    EAST,
-    SOUTH,
-    SOUTHWEST,
-    SOUTH,
-    WEST,
-    SOUTH,
-    SOUTHWEST,
-    NORTH,
-    NORTHWEST,
-    NORTH,
-    NORTHWEST,
-    'go crevice',
-  ]
+  protected
 
-  def run(args)
-    reverse = [RETURN, REVERSE].include?(args[0])
-    directions = reverse ? DIRECTIONS.reverse : DIRECTIONS
-    directions.each do |direction|
-      move(direction, reverse)
-    end
+  def directions
+    [
+      'go gate',
+      SOUTHWEST,
+      SOUTH,
+      SOUTH,
+      SOUTH,
+      SOUTH,
+      SOUTH,
+      SOUTHEAST,
+      EAST,
+      EAST,
+      'go bridge',
+      SOUTH,
+      SOUTHWEST,
+      SOUTHEAST,
+      SOUTH,
+      WEST,
+      WEST,
+      SOUTHWEST,
+      EAST,
+      EAST,
+      SOUTH,
+      SOUTHWEST,
+      SOUTH,
+      WEST,
+      SOUTH,
+      SOUTHWEST,
+      NORTH,
+      NORTHWEST,
+      NORTH,
+      NORTHWEST,
+      'go crevice',
+    ]
   end
 
 end

@@ -2,6 +2,14 @@ require 'bridges/base/base_bridge'
 
 class BaseSimutronicsBridge < BaseBridge
 
+  SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
+  WAIT = '\.\.\.wait'
+
+  RETRY_PATTERN = [
+    SORRY_YOU_MAY_ONLY_TYPE_AHEAD,
+    WAIT,
+  ].join('|')
+
   def initialize(config)
     super
     @config.merge!({
@@ -33,7 +41,9 @@ class BaseSimutronicsBridge < BaseBridge
     # remove all ANSI escape sequences (if configured to do so)
     str.gsub!(/\e\[\d+m/, '') if @layout_helper.strip_ansi_escape_sequences?
     # wrap the line if necessary (and append a LF)
-    "#{can_fit_on_one_line?(str) ? str : multi_line_output(str)}\n"
+    str = "#{can_fit_on_one_line?(str) ? str : multi_line_output(str)}\n"
+    # an empty string will not be output
+    should_output?(str) ? str : ''
   end
 
   protected
@@ -94,8 +104,24 @@ class BaseSimutronicsBridge < BaseBridge
     "#{buffer}#{temp.gchomp(' ')}"
   end
 
+  def retryable?(str)
+    str.match(RETRY_PATTERN)
+  end
+
+  def scripts_running?
+    @script_helper.num_running_non_paused > 0
+  end
+
+  def should_output?(str)
+    !(retryable?(str) && scripts_running? && strip_retryable_output?)
+  end
+
   def strip_player_status_prompt?
     @config[:strip_player_status_prompt].to_s =~ /\Atrue\Z/
+  end
+
+  def strip_retryable_output?
+    @config[:strip_retryable_output].to_s =~ /\Atrue\Z/
   end
 
 end

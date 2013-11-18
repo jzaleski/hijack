@@ -1,6 +1,6 @@
-require 'bridges/base/base_dragonrealms_bridge'
+require 'bridges/base/base_simutronics_bridge'
 
-class DragonrealmsPrimeBridge < BaseDragonrealmsBridge
+class DragonrealmsPrimeBridge < BaseSimutronicsBridge
 
   def initialize(config)
     super
