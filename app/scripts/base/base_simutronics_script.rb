@@ -18,6 +18,7 @@ class BaseSimutronicsScript < BaseScript
   WAIT = '\.\.\.wait'
   WEST = 'west'
   YOU_CANT_GO_THERE = "You can't go there"
+  WHERE_ARE_YOU_TRYING_TO_GO = 'Where are you trying to go'
 
   MOVE_OPPOSITES = {
     DOWN => UP,
@@ -35,6 +36,7 @@ class BaseSimutronicsScript < BaseScript
   MOVE_PATTERN = [
     OBVIOUS_EXITS,
     OBVIOUS_PATHS,
+    WHERE_ARE_YOU_TRYING_TO_GO,
     YOU_CANT_GO_THERE,
   ].join('|')
 
