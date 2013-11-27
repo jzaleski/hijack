@@ -4,7 +4,7 @@ require 'rspec'
 # configure RSpec
 RSpec.configure do |config|
   config.color_enabled = true
-  config.requires = ['./config/environment']
+  ['./config/environment'].each { |required_module| require required_module }
 end
 
 # as horrible as this patch may seem, the symptom will only ever happen in test
