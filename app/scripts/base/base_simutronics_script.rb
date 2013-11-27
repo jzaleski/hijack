@@ -60,7 +60,13 @@ class BaseSimutronicsScript < BaseScript
   end
 
   def reverse_direction(direction)
-    MOVE_OPPOSITES[direction] || direction
+    # a direction specify one or more possibilities (delimited by a "|")
+    possible_directions = direction.split('|')
+    # reverse "possible_directions" and then reverse each "possible_direction"
+    # then join the result with the delimiter
+    possible_directions.reverse.map do |possible_direction|
+      MOVE_OPPOSITES[possible_direction] || possible_direction
+    end.join('|')
   end
 
   def reverse_directions(directions)
