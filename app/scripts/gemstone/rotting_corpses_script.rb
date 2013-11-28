@@ -1,18 +1,11 @@
-require 'scripts/base/base_simutronics_movement_script'
+require 'scripts/gemstone/rotted_wooden_signpost_script'
 
-class RottingCorpsesScript < BaseSimutronicsMovementScript
+class RottingCorpsesScript < RottedWoodenSignpostScript
 
   protected
 
   def directions
-    [
-      'go gate',
-      SOUTHWEST,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTH,
+    super + [
       SOUTHWEST,
       SOUTH,
       SOUTHEAST,

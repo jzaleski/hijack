@@ -1,23 +1,11 @@
-require 'scripts/base/base_simutronics_movement_script'
+require 'scripts/gemstone/lesser_burrow_orcs_script'
 
-class GreaterBurrowOrcsScript < BaseSimutronicsMovementScript
+class GreaterBurrowOrcsScript < LesserBurrowOrcsScript
 
   protected
 
   def directions
-    [
-      'go gate',
-      SOUTHWEST,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTHEAST,
-      EAST,
-      EAST,
-      'go bridge',
-      SOUTH,
+    super + [
       SOUTHWEST,
       SOUTHEAST,
       SOUTH,
