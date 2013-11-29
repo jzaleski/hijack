@@ -31,10 +31,19 @@ class ScriptHelper
           @output_buffer.puts "\nScript: '#{script_name}' is already running.."
           return
         end
-        possible_script_paths = [
-          "#{SCRIPTS_DIR}/#{@config[:script_dir]}/#{script_name}_script.rb",
-          "#{SCRIPTS_DIR}/share/#{script_name}_script.rb",
-        ]
+        script_dir = @config[:script_dir]
+        current_town = @config[:current_town]
+        possible_script_paths = []
+        if script_dir
+          if current_town
+            possible_script_paths << \
+              "#{SCRIPTS_DIR}/#{script_dir}/#{current_town}/#{script_name}_script.rb"
+          end
+          possible_script_paths << \
+            "#{SCRIPTS_DIR}/#{script_dir}/#{script_name}_script.rb"
+        end
+        possible_script_paths << \
+          "#{SCRIPTS_DIR}/share/#{script_name}_script.rb"
         script_path = \
           possible_script_paths.detect {|script_file| File.exist?(script_file)}
         unless script_path
