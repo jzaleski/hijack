@@ -5,6 +5,7 @@ class BaseBridge
     @input_buffer = Buffer.new
     @output_buffer = Buffer.new
     @alias_helper = AliasHelper.new(@config)
+    @arguments_helper = ArgumentsHelper.new
     @callback_helper = CallbackHelper.new
     @layout_helper = LayoutHelper.new(@config)
     @script_helper = ScriptHelper.new(
@@ -52,12 +53,27 @@ class BaseBridge
     # store the command (we need to copy the string since the reference is
     # mutated below)
     @last_command = str.dup if opts[:store_command] == true
-    # script handling
-    if str.start_with?(';')
-      @script_helper.execute(str[1..-1])
+    # config handling
+    if str.start_with?('!')
+      begin
+        @config.public_send(*@arguments_helper.parse(str[1..-1]))
+        @output_buffer.puts("\nOk.")
+      rescue Exception => e
+        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+      end
     # layout handling
     elsif str.start_with?('~')
-      @layout_helper.public_send(str[1..-1]) rescue nil
+      begin
+        @layout_helper.public_send(*@arguments_helper.parse(str[1..-1]))
+        @output_buffer.puts("\nOk.")
+      rescue Exception => e
+        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+      end
+    # script handling
+    elsif str.start_with?(';')
+      @script_helper.execute(str[1..-1])
     # regular command(s)
     else
       # parse the command, this method will parse sub-commands, repeats and

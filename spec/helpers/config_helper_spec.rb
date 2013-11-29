@@ -11,12 +11,12 @@ describe ConfigHelper do
 
     it 'will update config with parsed values' do
       @subject.process_args(['--test=true', '--hello=world']).should == \
-        {:test => 'true', :hello => 'world'}
+        HashProxy.new({:test => 'true', :hello => 'world'})
     end
 
     it 'will ignore args that are not properly formatted' do
       @subject.process_args(['--test=true', 'hello=world']).should == \
-        {:test => 'true'}
+        HashProxy.new({:test => 'true'})
     end
 
   end
@@ -47,28 +47,28 @@ describe ConfigHelper do
       File.stub(:exist?).and_return(true)
       File.stub(:new).and_return(DummyFile.new(['test=true', 'hello=world']))
       @subject.process_config_file('config_file.conf').should == \
-        {:test => 'true', :hello => 'world'}
+        HashProxy.new({:test => 'true', :hello => 'world'})
     end
 
     it 'will ignore comments' do
       File.stub(:exist?).and_return(true)
       File.stub(:new).and_return(DummyFile.new(['# comment', 'test=true']))
       @subject.process_config_file('config_file.conf').should == \
-        {:test => 'true'}
+        HashProxy.new({:test => 'true'})
     end
 
     it 'will parse JSON encoded arrays' do
       File.stub(:exist?).and_return(true)
       File.stub(:new).and_return(DummyFile.new(['test=["hello", "world"]']))
       @subject.process_config_file('config_file.conf').should == \
-        {:test => ['hello', 'world']}
+        HashProxy.new({:test => ['hello', 'world']})
     end
 
     it 'will parse JSON encoded hashes' do
       File.stub(:exist?).and_return(true)
       File.stub(:new).and_return(DummyFile.new(['test={"hello": "world"}']))
       @subject.process_config_file('config_file.conf').should == \
-        {:test => {:hello => 'world'}}
+        HashProxy.new({:test => {:hello => 'world'}})
     end
 
   end

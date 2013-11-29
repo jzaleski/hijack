@@ -1,7 +1,7 @@
 class ConfigHelper
 
   def process_args(args)
-    config = {}
+    config = HashProxy.new
     (args || []).each do |arg|
       if match_data = /\A--(\S+)=(\S+)\Z/.match(arg)
         config[match_data[1].gsub(/-/, '_').to_sym] = match_data[2]
@@ -11,7 +11,7 @@ class ConfigHelper
   end
 
   def process_config_file(config_file)
-    config = {}
+    config = HashProxy.new
     if config_file && File.exist?(config_file)
       File.new(config_file).each_line do |line|
         # array or hash property (must be valid JSON)
@@ -29,11 +29,11 @@ class ConfigHelper
   end
 
   def process_json(json)
-    config = {}
-    unless json.empty?
-      config = JSON::parse(json).snake_case_keys.symbolize_keys
+    if json.empty?
+      HashProxy.new
+    else
+      HashProxy.new(JSON::parse(json).snake_case_keys.symbolize_keys)
     end
-    config
   end
 
 end
