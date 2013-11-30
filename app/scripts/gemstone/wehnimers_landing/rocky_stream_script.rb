@@ -61,4 +61,8 @@ class RockyStreamScript < RottedWoodenSignpostScript
     ]
   end
 
+  def location
+    "rocky_stream|#{WEHNIMERS_LANDING}"
+  end
+
 end

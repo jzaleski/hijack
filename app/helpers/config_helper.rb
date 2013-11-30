@@ -17,7 +17,7 @@ class ConfigHelper
         # array or hash property (must be valid JSON)
         if match_data = /\A(\S+)\s?=\s?(\[.+\]|\{.+\})\Z/.match(line)
           config[match_data[1].rstrip.gsub(/-/, '_').to_sym] = \
-            JSON::parse(match_data[2].strip, :symbolize_names => true).freeze
+            JSON::parse(match_data[2].strip, :symbolize_names => true)
         # basic property
         elsif match_data = /\A(\S+)\s?=\s?(\S+)\Z/.match(line)
           config[match_data[1].rstrip.gsub(/-/, '_').to_sym] = \

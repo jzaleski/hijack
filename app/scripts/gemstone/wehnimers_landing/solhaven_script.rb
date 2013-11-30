@@ -129,4 +129,8 @@ class SolhavenScript < RockyStreamScript
     ]
   end
 
+  def location
+    "north_market|#{SOLHAVEN}"
+  end
+
 end

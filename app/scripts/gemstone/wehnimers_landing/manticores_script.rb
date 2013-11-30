@@ -27,4 +27,8 @@ class ManticoresScript < RottedWoodenSignpostScript
     ]
   end
 
+  def location
+    "manticores|#{WEHNIMERS_LANDING}"
+  end
+
 end

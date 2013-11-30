@@ -87,7 +87,7 @@ class BaseBridge
   end
 
   def self.required_args
-    [].freeze
+    []
   end
 
   def start_buffering

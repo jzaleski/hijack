@@ -12,4 +12,8 @@ class SkeletalWarhorsesScript < SkeletalLordsScript
     ]
   end
 
+  def location
+    "skeletal_warhorses|#{WEHNIMERS_LANDING}"
+  end
+
 end

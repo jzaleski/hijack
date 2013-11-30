@@ -20,7 +20,7 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def self.required_args
-    [:account, :password, :character].freeze
+    [:account, :password, :character]
   end
 
   def connect

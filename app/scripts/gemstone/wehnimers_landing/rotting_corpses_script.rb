@@ -14,4 +14,8 @@ class RottingCorpsesScript < RockyStreamScript
     ]
   end
 
+  def location
+    "rotting_corpses|#{WEHNIMERS_LANDING}"
+  end
+
 end

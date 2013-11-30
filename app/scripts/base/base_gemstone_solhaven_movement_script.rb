@@ -1,11 +1,11 @@
-require 'scripts/base/base_simutronics_movement_script'
+require 'scripts/base/base_gemstone_movement_script'
 
-class BaseGemstoneSolhavenMovementScript < BaseSimutronicsMovementScript
+class BaseGemstoneSolhavenMovementScript < BaseGemstoneMovementScript
 
   protected
 
-  def directions
-    []
+  def location
+    "north_market|#{SOLHAVEN}"
   end
 
 end

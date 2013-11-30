@@ -16,12 +16,20 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
       # exit the script if there were no valid movement directions
       return unless moved
     end
+    # update location value (we made it to our destination)
+    @config[:location] = location
   end
 
   protected
 
   def directions
-    raise %{All #{BaseSimutronicsMovementScript}(s) must override the "directions" method}
+    raise \
+      %{All #{BaseSimutronicsMovementScript}(s) must override the "directions" method}
+  end
+
+  def location
+    raise \
+      %{All #{BaseSimutronicsMovementScript}(s) must override the "location" method}
   end
 
 end

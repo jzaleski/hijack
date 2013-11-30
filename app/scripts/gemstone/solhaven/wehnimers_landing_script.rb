@@ -8,4 +8,8 @@ class WehnimersLandingScript < SolhavenScript
     reverse_directions(super)
   end
 
+  def location
+    "town_square_central|#{WEHNIMERS_LANDING}"
+  end
+
 end

@@ -1,11 +1,11 @@
-require 'scripts/base/base_simutronics_movement_script'
+require 'scripts/base/base_gemstone_movement_script'
 
-class BaseGemstoneWehnimersLandingMovementScript < BaseSimutronicsMovementScript
+class BaseGemstoneWehnimersLandingMovementScript < BaseGemstoneMovementScript
 
   protected
 
-  def directions
-    []
+  def location
+    "town_square_central|#{WEHNIMERS_LANDING}"
   end
 
 end

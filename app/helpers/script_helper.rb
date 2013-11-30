@@ -33,10 +33,10 @@ class ScriptHelper
           return
         end
         script_dir = @config[:script_dir]
-        location = @config[:location]
+        locations = @config[:location].split('|') rescue []
         possible_script_paths = []
         if script_dir
-          if location
+          locations.each do |location|
             possible_script_paths << \
               "#{SCRIPTS_DIR}/#{script_dir}/#{location}/#{script_name}_script.rb"
           end

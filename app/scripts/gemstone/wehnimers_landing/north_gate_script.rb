@@ -14,4 +14,8 @@ class NorthGateScript < BaseGemstoneWehnimersLandingMovementScript
     ]
   end
 
+  def location
+    "north_gate|#{WEHNIMERS_LANDING}"
+  end
+
 end

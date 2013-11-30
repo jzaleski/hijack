@@ -16,4 +16,8 @@ class RottedWoodenSignpostScript < NorthGateScript
     ]
   end
 
+  def location
+    "rotted_wooden_signpost|#{WEHNIMERS_LANDING}"
+  end
+
 end

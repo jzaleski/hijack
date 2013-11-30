@@ -31,4 +31,8 @@ class CrystalGolemsScript < ManticoresScript
     ]
   end
 
+  def location
+    "crystal_golems|#{WEHNIMERS_LANDING}"
+  end
+
 end

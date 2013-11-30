@@ -14,4 +14,8 @@ class LesserBurrowOrcsScript < RottedWoodenSignpostScript
     ]
   end
 
+  def location
+    "lesser_burrow_orcs|#{WEHNIMERS_LANDING}"
+  end
+
 end

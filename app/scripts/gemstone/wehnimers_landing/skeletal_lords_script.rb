@@ -21,4 +21,8 @@ class SkeletalLordsScript < RottingCorpsesScript
     ]
   end
 
+  def location
+    "skeletal_lords|#{WEHNIMERS_LANDING}"
+  end
+
 end

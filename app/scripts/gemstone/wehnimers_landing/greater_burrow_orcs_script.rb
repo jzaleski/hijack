@@ -28,4 +28,8 @@ class GreaterBurrowOrcsScript < LesserBurrowOrcsScript
     ]
   end
 
+  def location
+    "greater_burrow_orcs|#{WEHNIMERS_LANDING}"
+  end
+
 end
