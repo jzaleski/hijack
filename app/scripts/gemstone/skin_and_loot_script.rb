@@ -20,7 +20,7 @@ class SkinAndLootScript < BaseGemstoneScript
   ].join('|')
 
   def validate_args(args)
-    args.length >= 3 ||
+    args.length == 3 ||
     (args.length == 2 && config_skinning_knife_container) ||
     (args.length == 1 && config_skinning_knife && config_skinning_knife_container) ||
     (config_creature && config_skinning_knife && config_skinning_knife_container)
@@ -30,11 +30,7 @@ class SkinAndLootScript < BaseGemstoneScript
     creature = args[0] || config_creature
     skinning_knife = args[1] || config_skinning_knife
     skinning_knife_container = args[2] || config_skinning_knife_container
-    cast_skinning_spell = (args[3] || config_cast_skinning_spell) =~ /\Atrue\Z/
     if open_my(skinning_knife_container) && get_my(skinning_knife)
-      if cast_skinning_spell
-        sleep 0.1 until incant('skinning')
-      end
       wait_for_match(
         SKIN_PATTERN,
         "skin #{creature}"
@@ -60,10 +56,6 @@ class SkinAndLootScript < BaseGemstoneScript
 
   def config_skinning_knife_container
     @config[:skin_skinning_knife_container]
-  end
-
-  def config_cast_skinning_spell
-    @config[:skin_cast_skinning_spell]
   end
 
 end
