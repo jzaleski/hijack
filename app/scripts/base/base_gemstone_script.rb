@@ -55,6 +55,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   CLOSE_MY_SUCCESS_PATTERN = [
     THAT_IS_ALREADY_CLOSED,
+    THERE_DOESNT_SEEM_TO_BE,
     YOU_CLOSE,
   ].join('|')
 
@@ -125,6 +126,15 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_WRING_YOUR_HANDS,
   ].join('|')
 
+  INCANT_PATTERN = [
+    THAT_IS_NOT_SOMETHING_YOU_CAN_PREPARE,
+    YOU_GESTURE,
+  ].join('|')
+
+  INCANT_SUCCESS_PATTERN = [
+    YOU_GESTURE,
+  ].join('|')
+
   OPEN_MY_PATTERN = [
     THAT_IS_ALREADY_OPEN,
     THERE_DOESNT_SEEM_TO_BE,
@@ -134,6 +144,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   OPEN_MY_SUCCESS_PATTERN = [
     THAT_IS_ALREADY_OPEN,
+    THERE_DOESNT_SEEM_TO_BE,
     YOU_OPEN,
   ].join('|')
 
@@ -215,6 +226,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       HOLD_PATTERN,
       "hold #{target}".rstrip
     ).match(HOLD_SUCCESS_PATTERN)
+  end
+
+  def incant(spell)
+    wait_for_match(
+      INCANT_PATTERN,
+      "incant #{spell}"
+    ).match(INCANT_SUCCESS_PATTERN)
   end
 
   def open_my(item)
