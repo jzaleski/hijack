@@ -118,7 +118,7 @@ class ScriptHelper
   def kill(script_name)
     script_object = @scripts[script_name]
     if script_object.nil?
-      @output_buffer.puts "\nscript: '#{script_name}' is not running.."
+      @output_buffer.puts "\nScript: '#{script_name}' is not running.."
       return
     end
     script_object.kill
@@ -146,7 +146,7 @@ class ScriptHelper
   def pause(script_name)
     script_object = @scripts[script_name]
     if script_object.nil?
-      @output_buffer.puts "\nscript: '#{script_name}' is not running.."
+      @output_buffer.puts "\nScript: '#{script_name}' is not running.."
       return
     end
     if script_object.paused?
@@ -170,7 +170,7 @@ class ScriptHelper
   def resume(script_name)
     script_object = @scripts[script_name]
     if script_object.nil?
-      @output_buffer.puts "\nscript: '#{script_name}' is not running.."
+      @output_buffer.puts "\nScript: '#{script_name}' is not running.."
       return
     end
     unless script_object.paused?
