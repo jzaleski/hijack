@@ -53,37 +53,8 @@ class BaseBridge
     # store the command (we need to copy the string since the reference is
     # mutated below)
     @last_command = str.dup if opts[:store_command] == true
-    # config handling
-    if str.start_with?('!')
-      begin
-        @config.public_send(*@arguments_helper.parse(str[1..-1]))
-        @output_buffer.puts("\nOk.")
-      rescue Exception => e
-        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
-      end
-    # layout handling
-    elsif str.start_with?('~')
-      begin
-        @layout_helper.public_send(*@arguments_helper.parse(str[1..-1]))
-        @output_buffer.puts("\nOk.")
-      rescue Exception => e
-        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
-      end
-    # script handling
-    elsif str.start_with?(';')
-      @script_helper.execute(str[1..-1])
-    # regular command(s)
-    else
-      # parse the command, this method will parse sub-commands, repeats and
-      # replace aliases
-      commands = parse_command(str)
-      # enqueue all of the commands for dispatch
-      commands.each {|command| @input_buffer.puts(command)}
-      # call the "on_enqueue" hook (if it was specified)
-      opts[:on_enqueue].call if opts[:on_enqueue] rescue nil
-    end
+    # handle the command
+    handle_command(str)
   end
 
   def self.required_args
@@ -115,6 +86,38 @@ class BaseBridge
   end
 
   protected
+
+  def handle_command(str)
+    # config handling
+    if str.start_with?('!')
+      begin
+        @config.public_send(*@arguments_helper.parse(str[1..-1]))
+        @output_buffer.puts("\nOk.")
+      rescue Exception => e
+        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+      end
+    # layout handling
+    elsif str.start_with?('~')
+      begin
+        @layout_helper.public_send(*@arguments_helper.parse(str[1..-1]))
+        @output_buffer.puts("\nOk.")
+      rescue Exception => e
+        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+      end
+    # script handling
+    elsif str.start_with?(';')
+      @script_helper.execute(str[1..-1])
+    # regular command(s)
+    else
+      # parse the command, this method will parse sub-commands, repeats and
+      # replace aliases
+      commands = parse_command(str)
+      # enqueue all of the commands for dispatch
+      commands.each {|command| @input_buffer.puts(command)}
+    end
+  end
 
   def socket
     raise %{All "#{BaseBridge}(s)" must override the "socket" method}

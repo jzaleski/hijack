@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ruby -r ./config/environment app/helpers/lich_net_helper.rb

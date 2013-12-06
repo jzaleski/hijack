@@ -1,6 +1,6 @@
-require 'bridges/base/base_simutronics_bridge'
+require 'bridges/base/base_gemstone_bridge'
 
-class GemstonePrimeBridge < BaseSimutronicsBridge
+class GemstonePrimeBridge < BaseGemstoneBridge
 
   def initialize(config)
     super
