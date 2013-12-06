@@ -43,6 +43,13 @@ class LichNetHelper
     @debug = opts[:debug].to_s == 'true'
   end
 
+  def connect
+    validate_args
+    initialize_network
+    login
+    initialize_threads
+  end
+
   def connected?
     !@ssl_socket.nil? &&
       !@ssl_socket.closed?
@@ -50,13 +57,6 @@ class LichNetHelper
 
   def disconnect
     @ssl_socket.close rescue nil
-  end
-
-  def run
-    validate_args
-    initialize_network
-    login
-    initialize_threads
   end
 
   private
@@ -157,7 +157,8 @@ class LichNetHelper
       while connected?
         value = @stdin.gets.rstrip
         value_parts = value.split(' ')
-        case value_parts[0]
+        command = value_parts[0]
+        case command
         when CHAT
           # format: chat <message>
           chat(value_parts[1..-1].join(' '))
@@ -170,6 +171,9 @@ class LichNetHelper
         when UNTUNE
           # format: untune <channel>
           untune(value_parts[1])
+        else
+          @stderr.puts(@output_format % \
+            %{#{LichNetHelper}: unexpected command: "#{command}"})
         end
       end
     end
@@ -213,7 +217,8 @@ class LichNetHelper
         when SERVER
           SERVER_MESSAGE_FORMAT % text
         else
-          @stderr.puts("#{LichNetHelper}: unexpected message-type: #{type}")
+          @stderr.puts(@output_format % \
+            %{#{LichNetHelper}: unexpected message-type: "#{type}"})
           nil
         end
       end
@@ -277,5 +282,5 @@ if $0 == __FILE__
     :output_format => ENV['OUTPUT_FORMAT'],
     :debug => ENV['DEBUG']
   )
-  lichnet_helper.run.join
+  lichnet_helper.connect.join
 end

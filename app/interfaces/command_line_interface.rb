@@ -63,7 +63,7 @@ class CommandLineInterface
         input = STDIN.gets.chomp
         unless input.empty?
           if input =~ /\A(exit|quit)\Z/
-            bridge.disconnect(input)
+            bridge.disconnect($1)
           else
             bridge.puts(input)
           end

@@ -17,23 +17,20 @@ class BaseBridge
     )
   end
 
-  def close
-    socket.close rescue nil
-  end
-
   def connect
     raise %{All "#{BaseBridge}(s)" must override the "connect" method}
   end
 
   def connected?
-    !socket.nil? && !socket.closed?
+    !socket.nil? &&
+      !socket.closed?
   end
 
   def disconnect(str=nil)
     # send the command immediately (if specified)
     socket.puts(str) unless str.nil? || str.empty?
     # close the socket
-    close
+    socket.close rescue nil
   end
 
   def gets
