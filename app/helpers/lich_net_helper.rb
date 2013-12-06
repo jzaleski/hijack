@@ -1,21 +1,55 @@
 class LichNetHelper
 
+  # general
+  CHANNEL = 'channel'
+  CHAT = 'chat'
+  CHAT_TO = 'chat_to'
+  FROM = 'from'
+  LNET = 'LNet'
+  LOGIN = 'login'
+  MESSAGE = 'message'
+  PING = 'ping'
+  PRIVATE = 'private'
+  PRIVATETO = 'privateto'
+  SERVER = 'server'
+  TO = 'to'
+  TUNE = 'tune'
+  TYPE = 'type'
+  UNTUNE = 'untune'
+
+  # formatting
+  CHANNEL_MESSAGE_FORMAT = '[%s] %s: "%s"'
+  CHANNEL_WITHOUT_PREFIX_FORMAT = %{#{LNET}:%s}
+  PRIVATETO_MESSAGE_FORMAT = %{[#{LNET}:PrivateTo] %s: "%s"}
+  PRIVATE_MESSAGE_FORMAT = %{[#{LNET}:Private] %s: "%s"}
+  SERVER_MESSAGE_FORMAT = %{[#{LNET}:Server] %s}
+
+  # defaults
+  DEFAULT_CHANNEL = LNET
+  DEFAULT_IP = '216.224.171.85'
+  DEFAULT_PORT = 7155
+  DEFAULT_OUTPUT_FORMAT = '%s'
+
   def initialize(opts={})
     @game = opts[:game]
     @name = opts[:name]
-    @channel = opts[:channel] || 'LNet'
-    @ip = opts[:ip] || '216.224.171.85'
-    @port = opts[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : 7155
+    @channel = opts[:channel] || DEFAULT_CHANNEL
+    @ip = opts[:ip] || DEFAULT_IP
+    @port = opts[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : DEFAULT_PORT
     @stdin = opts[:stdin] || STDIN
     @stdout = opts[:stdout] || STDOUT
     @stderr = opts[:stderr] || STDERR
-    @output_format = opts[:output_format] || '%s'
+    @output_format = opts[:output_format] || DEFAULT_OUTPUT_FORMAT
     @debug = opts[:debug].to_s == 'true'
   end
 
   def connected?
     !@ssl_socket.nil? &&
       !@ssl_socket.closed?
+  end
+
+  def disconnect
+    @ssl_socket.close rescue nil
   end
 
   def run
@@ -29,8 +63,8 @@ class LichNetHelper
 
   def chat(message)
     if !message.nil? && !message.empty?
-      write('message', {
-        :type => 'channel',
+      write(MESSAGE, {
+        :type => CHANNEL,
         :channel => @channel,
         :message => message,
       })
@@ -38,9 +72,9 @@ class LichNetHelper
   end
 
   def chat_to(to, message)
-    if [message, to].all? {|param| !param.nil? && !param.empty?}
-      write('message', {
-        :type => 'private',
+    if [to, message].all? {|param| !param.nil? && !param.empty?}
+      write(MESSAGE, {
+        :type => PRIVATE,
         :to => to,
         :message => message,
       })
@@ -69,7 +103,7 @@ class LichNetHelper
   def initialize_ping_thread
     @ping_thread ||= Thread.new do
       while connected?
-        write('ping') if (Time.now - @last_write) >= 60
+        write(PING) if (Time.now - @last_write) >= 60
         sleep 1
       end
     end
@@ -124,25 +158,25 @@ class LichNetHelper
         value = @stdin.gets.rstrip
         value_parts = value.split(' ')
         case value_parts[0]
-        when 'chat'
-          # format: ;lnet chat <message>
-          chat(value_parts[1..-1].join(' ').rstrip)
-        when 'chat_to'
-          # format: ;lnet chat_to <to> <message>
-          chat_to(value_parts[1], value_parts[2..-1].join(' ').rstrip)
-        when 'tune'
-          # format: ;lnet tune <channel>
-          tune((value_parts[1] || '').rstrip)
-        when 'untune'
-          # format: ;lnet untune <channel>
-          untune((value_parts[1] || '').rstrip)
+        when CHAT
+          # format: chat <message>
+          chat(value_parts[1..-1].join(' '))
+        when CHAT_TO
+          # format: chat_to <to> <message>
+          chat_to(value_parts[1], value_parts[2..-1].join(' '))
+        when TUNE
+          # format: tune <channel>
+          tune(value_parts[1])
+        when UNTUNE
+          # format: untune <channel>
+          untune(value_parts[1])
         end
       end
     end
   end
 
   def login
-    write('login', {
+    write(LOGIN, {
       :game => @game,
       :name => @name,
     })
@@ -150,22 +184,37 @@ class LichNetHelper
 
   def map_and_filter_messages(document)
     (document.elements || []).map do |element|
-      if element.name == 'message'
-        type = element.attributes['type']
-        from = element.attributes['from']
-        to = element.attributes['to']
-        channel = element.attributes['channel']
-        channel = 'LNet:%s' % channel if channel && !channel.include?('LNet')
+      if element.name == MESSAGE
+        channel = element.attributes[CHANNEL]
+        if !channel.nil? && !channel.include?(LNET)
+          channel = CHANNEL_WITHOUT_PREFIX_FORMAT % channel
+        end
+        from = element.attributes[FROM]
         text = element.text
+        to = element.attributes[TO]
+        type = element.attributes[TYPE]
         case type
-        when 'channel'
-          '[%s] %s: "%s"' % [channel, from, text]
-        when 'private'
-          '[LNet:Private] %s: "%s"' % [from, text]
-        when 'privateto'
-          '[LNet:PrivateTo] %s: "%s"' % [to, text]
-        when 'server'
-          '[LNet:Server] %s' % [element.text]
+        when CHANNEL
+          CHANNEL_MESSAGE_FORMAT % [
+            channel,
+            from,
+            text,
+          ]
+        when PRIVATETO
+          PRIVATETO_MESSAGE_FORMAT % [
+            to,
+            text,
+          ]
+        when PRIVATE
+          PRIVATE_MESSAGE_FORMAT % [
+            from,
+            text,
+          ]
+        when SERVER
+          SERVER_MESSAGE_FORMAT % text
+        else
+          @stderr.puts("#{LichNetHelper}: unexpected message-type: #{type}")
+          nil
         end
       end
     end.compact
@@ -186,7 +235,7 @@ class LichNetHelper
 
   def tune(channel)
     if !channel.nil? && !channel.empty?
-      write('tune', {
+      write(TUNE, {
         :channel => @channel = channel,
       })
     end
@@ -194,7 +243,7 @@ class LichNetHelper
 
   def untune(channel)
     if !channel.nil? && !channel.empty?
-      write('untune', {
+      write(UNTUNE, {
         :channel => @channel = channel,
       })
     end
@@ -210,7 +259,7 @@ class LichNetHelper
     document = REXML::Document.new
     element = document.add_element(tag)
     element.text = attributes.delete(:message)
-    attributes.each {|name, value| element.add_attribute(name.to_s, value)}
+    attributes.each {|key, value| element.add_attribute(key.to_s, value)}
     @ssl_socket.puts(document)
     @last_write = Time.now
     nil
@@ -230,4 +279,3 @@ if $0 == __FILE__
   )
   lichnet_helper.run.join
 end
-
