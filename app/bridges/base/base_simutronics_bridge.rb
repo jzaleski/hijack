@@ -35,7 +35,7 @@ class BaseSimutronicsBridge < BaseBridge
     # attempt to fix the player-status prompt
     str.gsub!(/>(\s*)(\S)/, ">\n\\1\\2")
     # remove the player-status prompt (if configured to do so)
-    str.gsub!(/\A(\e\[\d+m|\w)*>/, '') if strip_player_status_prompt?
+    str.gsub!(/\A(\e\[\d+m|\w|!)*>/, '') if strip_player_status_prompt?
     # ensure that ANSI escape sequences are terminated
     str << "\e[0m" if str.match(/\e\[\d+m/) && !str.match(/\e\[\0m/)
     # remove all ANSI escape sequences (if configured to do so)
