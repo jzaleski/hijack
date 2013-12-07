@@ -63,7 +63,7 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
   end
 
   def start_lich_net
-    @lich_net_helper.run
+    @lich_net_helper.connect
   end
 
 end

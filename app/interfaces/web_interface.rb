@@ -1,5 +1,3 @@
-require 'sinatra/base'
-
 class WebInterface < Sinatra::Base
 
   configure do
