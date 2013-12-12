@@ -1,6 +1,6 @@
 require 'scripts/base/base_gemstone_script'
 
-class SkinAndLootScript < BaseGemstoneScript
+class SkinScript < BaseGemstoneScript
 
   COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
