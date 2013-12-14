@@ -2,21 +2,14 @@ require 'scripts/base/base_gemstone_script'
 
 class SkinScript < BaseGemstoneScript
 
-  COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
   YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
-  YOU_SEARCH_THE = 'You search the'
   YOU_SKINNED = 'You skinned'
 
   SKIN_PATTERN = [
     YOU_BOTCHED_THE_JOB,
     YOU_CAN_ONLY_SKIN_CREATURES,
     YOU_SKINNED,
-  ].join('|')
-
-  LOOT_PATTERN = [
-    COULD_NOT_FIND_A_VALID_TARGET,
-    YOU_SEARCH_THE,
   ].join('|')
 
   def validate_args(args)
@@ -33,11 +26,7 @@ class SkinScript < BaseGemstoneScript
     if open_my(skinning_knife_container) && get_my(skinning_knife)
       wait_for_match(
         SKIN_PATTERN,
-        "skin #{creature}"
-      )
-      wait_for_match(
-        LOOT_PATTERN,
-        'loot'
+        "skin #{creature} with my #{skinning_knife}"
       )
     end
     store_my(skinning_knife, skinning_knife_container)
