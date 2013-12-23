@@ -46,7 +46,7 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
   def initialize_lich_net_helper
     @lich_net_helper ||= LichNetHelper.new(
       :game => @config[:lich_net_game],
-      :name => @config[:lich_net_name],
+      :name => @config[:lich_net_name] || @config[:character],
       :stdin => @lich_net_input_buffer,
       :stdout => @lich_net_output_buffer,
       :output_format => "\n%s"
