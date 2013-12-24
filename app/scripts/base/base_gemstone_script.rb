@@ -20,6 +20,9 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOUR_SPELL_IS_READY = 'Your spell is ready'
   YOU_ALREADY_HAVE_A_SPELL_READIED = 'You already have a spell readied'
   YOU_ALREADY_HAVE_THAT = 'You already have that'
+  YOU_ARE_ALREADY_KNEELING = 'You are already kneeling'
+  YOU_ARE_ALREADY_SITTING = 'You are already sitting'
+  YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_CLOSE = 'You close'
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
@@ -28,12 +31,18 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_FEEL_THE_MAGIC_OF_YOUR_SPELL = 'You feel the magic of your spell'
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
+  YOU_KNEEL_DOWN = 'You kneel down'
+  YOU_MOVE_TO_A_KNEELING = 'You move to a kneeling'
+  YOU_MOVE_TO_A_SITTING = 'You move to a sitting'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN = 'You open'
   YOU_PICK_UP = 'You pick up'
   YOU_PUT = 'You put'
   YOU_REACH_OUT_AND_HOLD = 'You reach out and hold'
   YOU_REMOVE = 'You remove'
+  YOU_SIT_DOWN = 'You sit down'
+  YOU_SIT_UP = 'You sit up'
+  YOU_STAND_BACK_UP = 'You stand back up'
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
 
   CAST_PATTERN = [
@@ -135,6 +144,18 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_GESTURE,
   ].join('|')
 
+  KNEEL_PATTERN = [
+    YOU_ARE_ALREADY_KNEELING,
+    YOU_KNEEL_DOWN,
+    YOU_MOVE_TO_A_KNEELING,
+  ].join('|')
+
+  KNEEL_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_KNEELING,
+    YOU_KNEEL_DOWN,
+    YOU_MOVE_TO_A_KNEELING,
+  ].join('|')
+
   OPEN_MY_PATTERN = [
     THAT_IS_ALREADY_OPEN,
     THERE_DOESNT_SEEM_TO_BE,
@@ -168,6 +189,30 @@ class BaseGemstoneScript < BaseSimutronicsScript
   RELEASE_SUCCESS_PATTERN = [
     PREPARED_SPELL_TO_RELEASE,
     YOU_FEEL_THE_MAGIC_OF_YOUR_SPELL,
+  ].join('|')
+
+  SIT_PATTERN = [
+    YOU_ARE_ALREADY_SITTING,
+    YOU_MOVE_TO_A_SITTING,
+    YOU_SIT_DOWN,
+    YOU_SIT_UP,
+  ].join('|')
+
+  SIT_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_SITTING,
+    YOU_MOVE_TO_A_SITTING,
+    YOU_SIT_DOWN,
+    YOU_SIT_UP,
+  ].join('|')
+
+  STAND_PATTERN = [
+    YOU_ARE_ALREADY_STANDING,
+    YOU_STAND_BACK_UP,
+  ].join('|')
+
+  STAND_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_STANDING,
+    YOU_STAND_BACK_UP,
   ].join('|')
 
   STORE_MY_PATTERN = [
@@ -235,6 +280,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
     ).match(INCANT_SUCCESS_PATTERN)
   end
 
+  def kneel
+    wait_for_match(
+      KNEEL_PATTERN,
+      'kneel'
+    ).match(KNEEL_SUCCESS_PATTERN)
+  end
+
   def open_my(item)
     wait_for_match(
       OPEN_MY_PATTERN,
@@ -254,6 +306,20 @@ class BaseGemstoneScript < BaseSimutronicsScript
       RELEASE_PATTERN,
       'release'
     ).match(RELEASE_SUCCESS_PATTERN)
+  end
+
+  def sit
+    wait_for_match(
+      SIT_PATTERN,
+      'sit'
+    ).match(SIT_SUCCESS_PATTERN)
+  end
+
+  def stand
+    wait_for_match(
+      STAND_PATTERN,
+      'stand'
+    ).match(STAND_SUCCESS_PATTERN)
   end
 
   def store_my(item, container)
