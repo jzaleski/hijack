@@ -24,10 +24,12 @@ class SkinScript < BaseGemstoneScript
     skinning_knife = args[1] || config_skinning_knife
     skinning_knife_container = args[2] || config_skinning_knife_container
     if open_my(skinning_knife_container) && get_my(skinning_knife)
+      sleep 0.1 until kneel
       wait_for_match(
         SKIN_PATTERN,
         "skin #{creature} with my #{skinning_knife}"
       )
+      sleep 0.1 until stand
     end
     store_my(skinning_knife, skinning_knife_container)
     close_my(skinning_knife_container)
