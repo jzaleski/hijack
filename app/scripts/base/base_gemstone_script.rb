@@ -4,6 +4,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
   CAST_AT_WHAT = 'Cast at what\?'
+  COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
   FROM_THE_GROUP = 'from the group'
   GET_WHAT = 'Get what\?'
   ISNT_IN_YOUR_GROUP = "isn't in your group"
@@ -40,6 +41,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_PUT = 'You put'
   YOU_REACH_OUT_AND_HOLD = 'You reach out and hold'
   YOU_REMOVE = 'You remove'
+  YOU_SEARCH_THE = 'You search the'
   YOU_SIT_DOWN = 'You sit down'
   YOU_SIT_UP = 'You sit up'
   YOU_STAND_BACK_UP = 'You stand back up'
@@ -142,6 +144,15 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   INCANT_SUCCESS_PATTERN = [
     YOU_GESTURE,
+  ].join('|')
+
+  LOOT_PATTERN = [
+    COULD_NOT_FIND_A_VALID_TARGET,
+    YOU_SEARCH_THE,
+  ].join('|')
+
+  LOOT_SUCCESS_PATTERN = [
+    YOU_SEARCH_THE,
   ].join('|')
 
   KNEEL_PATTERN = [
@@ -285,6 +296,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       KNEEL_PATTERN,
       'kneel'
     ).match(KNEEL_SUCCESS_PATTERN)
+  end
+
+  def loot
+    wait_for_match(
+      LOOT_PATTERN,
+      'loot'
+    ).match(LOOT_SUCCESS_PATTERN)
   end
 
   def open_my(item)
