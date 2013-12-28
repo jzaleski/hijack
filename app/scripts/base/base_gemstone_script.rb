@@ -17,6 +17,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   THERE_DOESNT_SEEM_TO_BE = "There doesn't seem to be"
   WHAT_WERE_YOU = 'What were you'
   WHO_DO_YOU_WISH_TO_REMOVE = 'Who do you wish to remove'
+  WONT_FIT_IN_THE = "won't fit in the"
   WRING_YOUR_HANDS = 'Wring your hands'
   YOUR_SPELL_IS_READY = 'Your spell is ready'
   YOU_ALREADY_HAVE_A_SPELL_READIED = 'You already have a spell readied'
@@ -228,6 +229,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   STORE_MY_PATTERN = [
     I_COULD_NOT_FIND,
+    WONT_FIT_IN_THE,
     YOU_PUT,
   ].join('|')
 
