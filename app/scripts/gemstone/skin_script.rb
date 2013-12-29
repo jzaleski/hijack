@@ -2,11 +2,13 @@ require 'scripts/base/base_gemstone_script'
 
 class SkinScript < BaseGemstoneScript
 
+  HAS_ALREADY_BEEN_SKINNED = 'has already been skinned'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
   YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
   YOU_SKINNED = 'You skinned'
 
   SKIN_PATTERN = [
+    HAS_ALREADY_BEEN_SKINNED,
     YOU_BOTCHED_THE_JOB,
     YOU_CAN_ONLY_SKIN_CREATURES,
     YOU_SKINNED,
