@@ -1,5 +1,7 @@
 class ScriptHelper
 
+  attr_reader :last_script
+
   def initialize(config, bridge, input_buffer, output_buffer, callback_helper)
     @config = config
     @bridge = bridge
@@ -8,6 +10,7 @@ class ScriptHelper
     @callback_helper = callback_helper
     @arguments_helper = ArgumentsHelper.new
     @scripts = {}
+    @last_scripts_by_type_name = {}
   end
 
   def execute(command)
@@ -96,9 +99,18 @@ class ScriptHelper
             script_name,
             script_object
           )
+          # update the "last_script" information
+          @last_script = script_name
+          script_object.class.ancestors[1..-1].each do |ancestor|
+            @last_scripts_by_type_name[ancestor.name] = script_name
+          end
         end
       end
     end
+  end
+
+  def last_script_of_type(type_name)
+    @last_scripts_by_type_name[type_name]
   end
 
   def num_running_non_paused

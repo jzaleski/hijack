@@ -13,3 +13,9 @@ Dragonrealms:
 
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
 - create alchemy (mortar & pestle) script
+
+Gemstone:
+=========
+
+- figure out how to more closely emulate "go2" functionality with the current
+  travel-script architecture
