@@ -143,7 +143,11 @@ class LichNetHelper
   end
 
   def initialize_tcp_socket
-    @tcp_socket ||= TCPSocket.open(@ip, @port)
+    @tcp_socket ||= begin
+      tcp_socket = TCPSocket.open(@ip, @port)
+      tcp_socket.sync = true
+      tcp_socket
+    end
   end
 
   def initialize_threads

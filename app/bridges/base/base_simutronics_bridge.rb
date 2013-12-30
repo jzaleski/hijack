@@ -26,6 +26,7 @@ class BaseSimutronicsBridge < BaseBridge
   def connect
     login
     @socket = TCPSocket.new(@config[:game_host], @config[:game_port])
+    @socket.sync = true
     @socket.puts "#{@config[:character_key]}\n\n"
   end
 
