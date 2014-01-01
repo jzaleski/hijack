@@ -2,6 +2,7 @@ General:
 ========
 
 - add the ability to highlight patterns
+- bridge is not fully disconnecting when EXITing from a script
 
 Simutronics:
 ============
