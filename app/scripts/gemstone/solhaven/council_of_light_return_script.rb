@@ -1,26 +1,11 @@
-require 'scripts/base/base_gemstone_solhaven_movement_script'
+require 'scripts/gemstone/solhaven/council_of_light_script'
 
-class CouncilOfLightReturnScript < BaseGemstoneSolhavenMovementScript
+class CouncilOfLightReturnScript < CouncilOfLightScript
 
   protected
 
   def directions
-    [
-      SOUTH,
-      EAST,
-      SOUTH,
-      EAST,
-      OUT,
-      'climb wall',
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTHWEST,
-      NORTHWEST,
-    ]
+    reverse_directions(super)
   end
 
 end
