@@ -17,8 +17,14 @@ class HashProxy
     @hash[key.to_sym] = value
   end
 
+  def delete(key)
+    @hash.delete(key.to_sym)
+  end
+
+  alias_method :reset, :delete
+
   def fetch(key)
-    @config.fetch(key.to_sym)
+    @hash.fetch(key.to_sym)
   end
 
   alias_method :get, :fetch
