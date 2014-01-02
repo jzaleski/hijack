@@ -2,48 +2,10 @@ require 'scripts/base/base_script'
 
 class BaseSimutronicsScript < BaseScript
 
-  DOWN = 'down'
-  EAST = 'east'
-  NORTH = 'north'
-  NORTHEAST = 'northeast'
-  NORTHWEST = 'northwest'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
-  OUT = 'out'
   SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
-  SOUTH = 'south'
-  SOUTHEAST = 'southeast'
-  SOUTHWEST = 'southwest'
-  UP = 'up'
   WAIT = '\.\.\.wait'
-  WEST = 'west'
-  YOU_CANT_GO_THERE = "You can't go there"
-  WHERE_ARE_YOU_TRYING_TO_GO = 'Where are you trying to go'
-
-  MOVE_OPPOSITES = {
-    DOWN => UP,
-    EAST => WEST,
-    NORTH => SOUTH,
-    NORTHEAST => SOUTHWEST,
-    NORTHWEST => SOUTHEAST,
-    SOUTH => NORTH,
-    SOUTHEAST => NORTHWEST,
-    SOUTHWEST => NORTHEAST,
-    UP => DOWN,
-    WEST => EAST,
-  }
-
-  MOVE_PATTERN = [
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
-    WHERE_ARE_YOU_TRYING_TO_GO,
-    YOU_CANT_GO_THERE,
-  ].join('|')
-
-  MOVE_SUCCESS_PATTERN = [
-    OBVIOUS_PATHS,
-    OBVIOUS_EXITS,
-  ].join('|')
 
   RETRY_PATTERN = [
     SORRY_YOU_MAY_ONLY_TYPE_AHEAD,
@@ -51,29 +13,6 @@ class BaseSimutronicsScript < BaseScript
   ].join('|')
 
   protected
-
-  def move(direction)
-    wait_for_match(
-      MOVE_PATTERN,
-      direction
-    ).match(MOVE_SUCCESS_PATTERN)
-  end
-
-  def reverse_direction(direction)
-    # a direction specify one or more possibilities (delimited by a "|")
-    possible_directions = direction.split('|')
-    # reverse "possible_directions" and then reverse each "possible_direction"
-    # then join the result with the delimiter
-    possible_directions.reverse.map do |possible_direction|
-      MOVE_OPPOSITES[possible_direction] || possible_direction
-    end.join('|')
-  end
-
-  def reverse_directions(directions)
-    directions.reverse.map do |direction|
-      reverse_direction(direction)
-    end
-  end
 
   def wait_for_match(pattern, command=nil)
     # handle retries because of roundtime or type-aheads here, most times, this
