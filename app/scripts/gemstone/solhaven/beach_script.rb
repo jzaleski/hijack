@@ -1,33 +1,11 @@
-require 'scripts/gemstone/solhaven/breach_script'
+require 'scripts/gemstone/solhaven/muddy_trail_script'
 
-class BeachScript < BreachScript
+class BeachScript < MuddyTrailScript
 
   protected
 
   def directions
     super + [
-      'go door',
-      WEST,
-      WEST,
-      SOUTHWEST,
-      WEST,
-      SOUTHWEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      SOUTHWEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      WEST,
-      SOUTHWEST,
-      WEST,
       WEST,
       WEST,
       WEST,

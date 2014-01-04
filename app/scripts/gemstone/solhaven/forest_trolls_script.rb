@@ -1,6 +1,6 @@
 require 'scripts/gemstone/solhaven/beach_script'
 
-class MongrelTrollsScript < BeachScript
+class ForestTrollsScript < BeachScript
 
   protected
 
@@ -17,7 +17,7 @@ class MongrelTrollsScript < BeachScript
   end
 
   def location
-    "mongrel_trolls|#{SOLHAVEN}"
+    "forest_trolls|#{SOLHAVEN}"
   end
 
 end

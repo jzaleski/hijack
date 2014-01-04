@@ -1,14 +1,11 @@
-require 'scripts/gemstone/solhaven/beach_script'
+require 'scripts/gemstone/solhaven/cavern_script'
 
-class ManticoresScript < BeachScript
+class ManticoresScript < CavernScript
 
   protected
 
   def directions
     super + [
-      WEST,
-      'go path',
-      "go cavern|#{OUT}",
       NORTHEAST,
       EAST,
       NORTHEAST,
