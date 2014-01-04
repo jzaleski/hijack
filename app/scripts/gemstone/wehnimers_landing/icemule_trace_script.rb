@@ -43,11 +43,18 @@ class IcemuleTraceScript < MammothRockslideScript
       SOUTHEAST,
       EAST,
       EAST,
+      "go gate|#{NORTH}",
+      "#{NORTH}|go gate",
+      NORTH,
+      NORTH,
+      NORTH,
+      NORTH,
+      NORTH,
     ]
   end
 
   def location
-    "south_gate|#{ICEMULE_TRACE}"
+    "town_center|#{ICEMULE_TRACE}"
   end
 
 end
