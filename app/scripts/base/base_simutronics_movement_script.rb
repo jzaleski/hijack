@@ -37,8 +37,8 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
   ].join('|')
 
   MOVE_SUCCESS_PATTERN = [
-    OBVIOUS_PATHS,
     OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
   ].join('|')
 
   def run(args)
