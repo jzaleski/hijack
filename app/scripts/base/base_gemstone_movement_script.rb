@@ -11,6 +11,7 @@ class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
   WEHNIMERS_LANDING = 'wehnimers_landing'
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_STAND_BACK_UP = 'You stand back up'
+  YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
   YOU_WILL_HAVE_TO_STAND_UP_FIRST = 'You will have to stand up first'
 
   ESCORT_MOVE_PATTERN = [
@@ -37,6 +38,7 @@ class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
   STAND_PATTERN = [
     YOU_ARE_ALREADY_STANDING,
     YOU_STAND_BACK_UP,
+    YOU_STRUGGLE_BUT_FAIL_TO_STAND,
   ].join('|')
 
   STAND_SUCCESS_PATTERN = [

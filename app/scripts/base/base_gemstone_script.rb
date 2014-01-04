@@ -46,6 +46,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_SIT_DOWN = 'You sit down'
   YOU_SIT_UP = 'You sit up'
   YOU_STAND_BACK_UP = 'You stand back up'
+  YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
 
   CAST_PATTERN = [
@@ -220,6 +221,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   STAND_PATTERN = [
     YOU_ARE_ALREADY_STANDING,
     YOU_STAND_BACK_UP,
+    YOU_STRUGGLE_BUT_FAIL_TO_STAND,
   ].join('|')
 
   STAND_SUCCESS_PATTERN = [
