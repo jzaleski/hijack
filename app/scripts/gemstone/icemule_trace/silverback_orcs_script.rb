@@ -1,18 +1,11 @@
-require 'scripts/base/base_gemstone_icemule_trace_movement_script'
+require 'scripts/gemstone/icemule_trace/east_gate_script'
 
-class SilverbackOrcsScript < BaseGemstoneIcemuleTraceMovementScript
+class SilverbackOrcsScript < EastGateScript
 
   protected
 
   def directions
-    [
-      EAST,
-      EAST,
-      EAST,
-      EAST,
-      EAST,
-      "go gate|#{EAST}",
-      "#{EAST}|go gate",
+    super + [
       EAST,
       NORTHEAST,
       "climb trail|#{UP}",
