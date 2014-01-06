@@ -123,8 +123,9 @@ class BaseBridge
   private
 
   def can_write?
-    !(@last_write_time && (Time.now - @last_write_time).to_f * 1000 < \
-    (@config[:allowed_command_frequency_ms] || 100))
+    @last_write_time.nil? ||
+    (Time.now - @last_write_time).to_f * 1000 >= \
+      @config[:allowed_command_frequency_ms].to_i
   end
 
   def parse_command(str)
