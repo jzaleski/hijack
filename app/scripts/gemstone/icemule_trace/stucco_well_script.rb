@@ -1,6 +1,6 @@
 require 'scripts/base/base_gemstone_icemule_trace_movement_script'
 
-class WellScript < BaseGemstoneIcemuleTraceMovementScript
+class StuccoWellScript < BaseGemstoneIcemuleTraceMovementScript
 
   protected
 
@@ -14,7 +14,7 @@ class WellScript < BaseGemstoneIcemuleTraceMovementScript
   end
 
   def location
-    "well|#{ICEMULE_TRACE}"
+    "stucco_well|#{ICEMULE_TRACE}"
   end
 
 end
