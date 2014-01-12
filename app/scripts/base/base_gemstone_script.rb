@@ -27,6 +27,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_CLOSE = 'You close'
+  YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
   YOU_DO_NOT_KNOW_THAT_SPELL = 'You do not know that spell'
   YOU_DROP = 'You drop'
@@ -186,6 +187,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
     THAT_IS_NOT_SOMETHING_YOU_CAN_PREPARE,
     YOUR_SPELL_IS_READY,
     YOU_ALREADY_HAVE_A_SPELL_READIED,
+    YOU_DONT_HAVE_ANY_MANA,
     YOU_DO_NOT_KNOW_THAT_SPELL,
   ].join('|')
 
