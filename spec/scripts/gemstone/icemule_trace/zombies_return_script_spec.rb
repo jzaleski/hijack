@@ -1,4 +1,4 @@
 require 'spec_helper'
-require 'scripts/gemstone/icemule_trace/abandoned_farm_return_script'
+require 'scripts/gemstone/icemule_trace/zombies_return_script'
 
-describe AbandonedFarmReturnScript do; end
+describe ZombiesReturnScript do; end
