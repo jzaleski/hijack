@@ -8,6 +8,7 @@ class BaseBridge
     @arguments_helper = ArgumentsHelper.new
     @callback_helper = CallbackHelper.new
     @layout_helper = LayoutHelper.new(@config)
+    @highlights_helper = HighlightsHelper.new(@config)
     @script_helper = ScriptHelper.new(
       @config,
       self,
@@ -38,8 +39,8 @@ class BaseBridge
     str = @output_buffer.gets.gsub(/\r\n/, "\n").gsub(/\r/, "\n").chomp
     # process any callbacks (returns nil)
     @callback_helper.process(str)
-    # return the result
-    str
+    # apply any highlights and return the result
+    @highlights_helper.process(str)
   end
 
   def puts(str, opts={})
