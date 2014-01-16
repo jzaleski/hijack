@@ -15,6 +15,7 @@ class HighlightsHelper
     :normal => 0,
     :red_bg => 41,
     :red_fg => 31,
+    :underline => 4,
     :white_bg => 47,
     :white_fg => 37,
     :yellow_bg => 43,
@@ -46,7 +47,7 @@ class HighlightsHelper
   private
 
   def attribute(opts)
-    opts[:bold] == true ? palette[:bold] : palette[:normal]
+    palette["#{opts[:attribute] || :normal}".to_sym]
   end
 
   def background(opts)
