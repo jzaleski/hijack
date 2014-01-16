@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Ensure the temporary directory exists
 TEMP_DIR='./tmp';
