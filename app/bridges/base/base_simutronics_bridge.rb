@@ -35,11 +35,11 @@ class BaseSimutronicsBridge < BaseBridge
     # attempt to fix the player-status prompt
     str.gsub!(/>(\s*)(\S)/, ">\n\\1\\2")
     # remove the player-status prompt (if configured to do so)
-    str.gsub!(/\A(\e\[\d+m|\w|!)*>/, '') if strip_player_status_prompt?
+    str.gsub!(/\A(\e\[[\d;]+m|\w|!)*>/, '') if strip_player_status_prompt?
     # ensure that ANSI escape sequences are terminated
-    str << "\e[0m" if str.match(/\e\[\d+m/) && !str.match(/\e\[\0m/)
+    str << "\e[0m" if str.match(/\e\[[\d;]+m/) && !str.match(/\e\[\0m/)
     # remove all ANSI escape sequences (if configured to do so)
-    str.gsub!(/\e\[\d+m/, '') if @layout_helper.strip_ansi_escape_sequences?
+    str.gsub!(/\e\[[\d;]+m/, '') if @layout_helper.strip_ansi_escape_sequences?
     # wrap the line if necessary (and append a LF)
     str = "#{can_fit_on_one_line?(str) ? str : multi_line_output(str)}\n"
     # an empty string will not be output
@@ -53,7 +53,7 @@ class BaseSimutronicsBridge < BaseBridge
   private
 
   def can_fit_on_one_line?(*strs)
-    strs.join(' ').gsub(/\e\[\d+m/, '').length <= @layout_helper.num_cols
+    strs.join(' ').gsub(/\e\[[\d;]+m/, '').length <= @layout_helper.num_cols
   end
 
   def login
@@ -69,7 +69,7 @@ class BaseSimutronicsBridge < BaseBridge
     if \
       login_response.nil? ||
       login_response =~ /REJECT/ ||
-      (login_key = /KEY\t([^\t]+)\t/.match(login_response).captures.first rescue nil).nil?
+      (/KEY\t([^\t]+)\t/.match(login_response).captures.first rescue nil).nil?
       abort('Cancelled account and/or invalid account/password specified')
     end
     login_socket.puts "M\n"

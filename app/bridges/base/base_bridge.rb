@@ -39,8 +39,8 @@ class BaseBridge
     str = @output_buffer.gets.gsub(/\r\n/, "\n").gsub(/\r/, "\n").chomp
     # process any callbacks (returns nil)
     @callback_helper.process(str)
-    # apply any highlights and return the result
-    @highlights_helper.process(str)
+    # apply any highlights, escape escaped escapes and return the result
+    @highlights_helper.process(str).gsub(/\\e/, "\e")
   end
 
   def puts(str, opts={})

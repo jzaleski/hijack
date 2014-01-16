@@ -1,65 +1,45 @@
 class HighlightsHelper
 
-  DEFAULT_PALETTE = {
-    :black_bg => 40,
-    :black_fg => 30,
-    :blue_bg => 44,
-    :blue_fg => 34,
-    :bold => 1,
-    :cyan_bg => 46,
-    :cyan_fg => 36,
-    :green_bg => 42,
-    :green_fg => 32,
-    :magenta_bg => 45,
-    :magenta_fg => 35,
-    :normal => 0,
-    :red_bg => 41,
-    :red_fg => 31,
-    :underline => 4,
-    :white_bg => 47,
-    :white_fg => 37,
-    :yellow_bg => 43,
-    :yellow_fg => 33,
-  }
-
-  DEFAULT_TEMPLATE = "\e[%{attribute};%{background};%{foreground}m%{value}\e[0m"
+  DEFAULT_HIGHLIGHTS = {}
+  DEFAULT_PALETTE = {}
+  DEFAULT_TEMPLATE = '%{value}'
 
   def initialize(config)
     @config = config
   end
 
   def process(line)
-    str = line.dup
-    highlights.each_pair do |value, opts|
-      str.gsub!(
-        value.to_s,
-        template % {
-          :attribute => attribute(opts),
-          :background => background(opts),
-          :foreground => foreground(opts),
-          :value => value,
-        }
-      )
+    line.dup.tap do |str|
+      highlights.each_pair do |value, opts|
+        str.gsub!(
+          value.to_s,
+          template % {
+            :background => background(opts),
+            :font => font(opts),
+            :foreground => foreground(opts),
+            :value => value,
+          }
+        )
+      end
     end
-    str
   end
 
   private
 
-  def attribute(opts)
-    palette["#{opts[:attribute] || :normal}".to_sym]
+  def background(opts)
+    palette[opts[:background].to_sym]
   end
 
-  def background(opts)
-    palette["#{opts[:background] || :black}_bg".to_sym]
+  def font(opts)
+    palette[opts[:font].to_sym]
   end
 
   def foreground(opts)
-    palette["#{opts[:foreground] || :white}_fg".to_sym]
+    palette[opts[:foreground].to_sym]
   end
 
   def highlights
-    @config[:highlights] || {}
+    @config[:highlights] || DEFAULT_HIGHLIGHTS
   end
 
   def palette
