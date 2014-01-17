@@ -1,5 +1,6 @@
 class HighlightsHelper
 
+  DEFAULT_DEFAULTS = {}
   DEFAULT_HIGHLIGHTS = {}
   DEFAULT_PALETTE = {}
   DEFAULT_TEMPLATE = '%{value}'
@@ -27,15 +28,19 @@ class HighlightsHelper
   private
 
   def background(opts)
-    palette[opts[:background].to_sym]
+    palette[(opts[:background] || defaults(:background)).to_sym]
+  end
+
+  def defaults(key)
+    (@config[:highlights_defaults] || DEFAULT_DEFAULTS)[key]
   end
 
   def font(opts)
-    palette[opts[:font].to_sym]
+    palette[(opts[:font] || defaults(:font)).to_sym]
   end
 
   def foreground(opts)
-    palette[opts[:foreground].to_sym]
+    palette[(opts[:foreground] || defaults(:foreground)).to_sym]
   end
 
   def highlights
