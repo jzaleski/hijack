@@ -1,7 +1,20 @@
+class ConfigProxy < HashProxy
+
+  def initialize
+    super
+    @config_helper = ConfigHelper.new
+  end
+
+  def reload(config_file=nil)
+    merge!(@config_helper.process_config_file(config_file || self[:config_file]))
+  end
+
+end
+
 class ConfigHelper
 
   def process_args(args)
-    config = HashProxy.new
+    config = ConfigProxy.new
     (args || []).each do |arg|
       if match_data = /\A--(\S+)=(\S+)\Z/.match(arg)
         config[match_data[1].gsub(/-/, '_').to_sym] = match_data[2]
@@ -11,7 +24,7 @@ class ConfigHelper
   end
 
   def process_config_file(config_file)
-    config = HashProxy.new
+    config = ConfigProxy.new
     if config_file && File.exist?(config_file)
       File.new(config_file).each_line do |line|
         # array or hash property (must be valid JSON)
@@ -30,9 +43,9 @@ class ConfigHelper
 
   def process_json(json)
     if json.empty?
-      HashProxy.new
+      ConfigProxy.new
     else
-      HashProxy.new(JSON::parse(json).snake_case_keys.symbolize_keys)
+      ConfigProxy.new(JSON::parse(json).snake_case_keys.symbolize_keys)
     end
   end
 

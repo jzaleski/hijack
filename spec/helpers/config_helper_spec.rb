@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'helpers/config_helper'
 
+describe ConfigProxy do; end
+
 describe ConfigHelper do
 
   before do

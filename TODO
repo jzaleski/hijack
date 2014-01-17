@@ -2,7 +2,6 @@ General:
 ========
 
 - bridge is not fully disconnecting when EXITing from a script
-- reload config "Hash{,Proxy}" at runtime (e.g. "!reload <path_to_file>")
 
 Simutronics:
 ============
