@@ -1,7 +1,7 @@
 class HighlightsHelper
 
   DEFAULT_DEFAULTS = {}
-  DEFAULT_HIGHLIGHTS = {}
+  DEFAULT_HIGHLIGHTS = []
   DEFAULT_PALETTE = {}
   DEFAULT_TEMPLATE = '%{value}'
 
@@ -11,16 +11,18 @@ class HighlightsHelper
 
   def process(line)
     line.dup.tap do |str|
-      highlights.each_pair do |value, opts|
-        str.gsub!(
-          value.to_s,
-          template % {
-            :background => background(opts),
-            :font => font(opts),
-            :foreground => foreground(opts),
-            :value => value,
-          }
-        )
+      highlights.each do |patterns, opts|
+        patterns.each do |pattern_and_value|
+          str.gsub!(
+            pattern_and_value,
+            template % {
+              :background => background(opts),
+              :font => font(opts),
+              :foreground => foreground(opts),
+              :value => pattern_and_value,
+            }
+          )
+        end
       end
     end
   end
