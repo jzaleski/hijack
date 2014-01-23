@@ -69,7 +69,7 @@ class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
   end
 
   def escorting?
-    @config[:escorting].to_s =~ /\Atrue\Z/
+    @config[:escorting].to_s == 'true'
   end
 
   # TODO: re-work for escort missions that span regions where slippage can occur

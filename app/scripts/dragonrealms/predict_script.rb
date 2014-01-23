@@ -117,9 +117,10 @@ class PredictScript < BaseDragonrealmsScript
 
   def run(args)
     num_observes = [1, (args[0] || config_num_observes).to_i].max
-    shuffle_objects_after_successful_observation = \
-      (args[1] || config_shuffle_objects_after_successful_observation).to_s =~ \
-        /\Atrue\Z/
+    shuffle_objects_after_successful_observation = (
+      args[1] ||
+      config_shuffle_objects_after_successful_obseravation
+    ).to_s == 'true'
     successful_observes = 0
     objects = OBJECTS.shuffle
     loop do

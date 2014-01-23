@@ -38,7 +38,7 @@ class LayoutHelper
   def strip_ansi_escape_sequences?
     @strip_ansi_escape_sequences ||= begin
       if @config.include?(:strip_ansi_escape_sequences)
-        @config[:strip_ansi_escape_sequences].to_s =~ /\Atrue\Z/
+        @config[:strip_ansi_escape_sequences].to_s == 'true'
       elsif RUBY_PLATFORM =~ /mingw32/
         true
       else

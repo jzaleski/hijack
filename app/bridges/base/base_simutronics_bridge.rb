@@ -117,11 +117,11 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def strip_player_status_prompt?
-    @config[:strip_player_status_prompt].to_s =~ /\Atrue\Z/
+    @config[:strip_player_status_prompt].to_s == 'true'
   end
 
   def strip_retryable_output?
-    @config[:strip_retryable_output].to_s =~ /\Atrue\Z/
+    @config[:strip_retryable_output].to_s == 'true'
   end
 
 end
