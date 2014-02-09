@@ -16,13 +16,14 @@ describe Buffer do
   describe 'puts' do
 
     it 'should always append the item to the end of the buffer' do
+      # admittedly this is not the best test, but it does the job and is more
+      # reliable than using "instance_variable_get"
       buffer = Buffer.new
-      1.upto(3) do |n|
-        buffer.puts(n)
-        # this isn't great but, it gives us what is needed to adequately test
-        # the refinement
-        buffer.instance_variable_get(:@que).last.should == n
-      end
+      buffer.puts(1)
+      buffer.length.should == 1
+      buffer.puts(2)
+      buffer.length.should == 2
+      buffer.gets.should == 1
     end
 
   end
