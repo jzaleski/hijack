@@ -31,7 +31,7 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
   private
 
   def enable_lich_net?
-    @config[:enable_lich_net].to_s == 'true'
+    @config[:enable_lich_net].to_s == 'true' && RUBY_PLATFORM !~ /java|jruby/
   end
 
   def initialize_lich_net_buffers

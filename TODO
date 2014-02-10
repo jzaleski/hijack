@@ -2,6 +2,7 @@ General:
 ========
 
 - bridge is not fully disconnecting when EXITing from a script
+- add "JRuby" compatibility to "LichNetHelper" (see: "base_gemstone_bridge.rb")
 
 Simutronics:
 ============
