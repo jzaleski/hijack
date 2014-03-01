@@ -26,9 +26,11 @@ SCRIPTS_DIR = "#{APP_DIR}/scripts"
 # Ensure that the "app" directory is in the load-path
 $LOAD_PATH.unshift(APP_DIR) unless $LOAD_PATH.include?(APP_DIR)
 
-# Require(s)
-REQUIRED_MODULES = \
-  %w[json openssl readline rexml/document set sinatra/base socket thread]
+# General require(s)
+REQUIRED_MODULES = %w[json openssl rexml/document set sinatra/base socket thread]
 REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{HELPERS_DIR}/*.rb"]
 REQUIRED_MODULES.each {|required_module| require required_module}
+
+# JRuby specific require(s)
+require 'readline' if RUBY_PLATFORM =~ /java|jruby/
