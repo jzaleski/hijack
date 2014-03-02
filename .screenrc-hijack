@@ -1,7 +1,7 @@
 # preserve the layout after detach/re-attach
 layout new
 
-# kill start-up messasge
+# don't display the start-up messasge
 startup_message off
 
 # automatically detach if diconnected
@@ -9,6 +9,9 @@ autodetach on
 
 # set the scrollback buffer-size
 defscrollback 100000
+
+# set the term-emulation mode
+term screen-256color
 
 # split horizontal
 split
