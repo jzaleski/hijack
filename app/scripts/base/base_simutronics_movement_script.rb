@@ -13,6 +13,7 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
   SOUTHWEST = 'southwest'
   UP = 'up'
   WEST = 'west'
+  WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to\?'
   WHERE_ARE_YOU_TRYING_TO_GO = 'Where are you trying to go'
   YOU_CANT_GO_THERE = "You can't go there"
 
@@ -32,6 +33,7 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
   MOVE_PATTERN = [
     OBVIOUS_EXITS,
     OBVIOUS_PATHS,
+    WHAT_WERE_YOU_REFERRING_TO,
     WHERE_ARE_YOU_TRYING_TO_GO,
     YOU_CANT_GO_THERE,
   ].join('|')
