@@ -15,8 +15,6 @@ class ThrowScript < BaseDragonrealmsScript
   def validate_args(args)
     # passed in weapon and targets
     args.length >= 2 ||
-    # weapon from config and passed in targets
-    (args.length == 1 && config_targets && !config_targets.empty?) ||
     # weapon and targets from config
     (config_weapon && config_targets && !config_targets.empty?)
   end
