@@ -14,6 +14,7 @@ Dragonrealms:
 
 - incorporate the use of a skinning knife in "skin_and_loot_script.rb"
 - create alchemy (mortar & pestle) script
+- create a script to cast a spell (untargeted) at a creature
 
 Gemstone:
 =========
