@@ -3,6 +3,7 @@ require 'scripts/base/base_dragonrealms_script'
 class LocksmithScript < BaseDragonrealmsScript
 
   AFTER_WIGGLING_THE_MILKY_WHITE_TUBE = 'After wiggling the milky-white tube'
+  A_BENT_NEEDLE_STICKS_HARMLESSLY = 'A bent needle sticks harmlessly'
   A_SMALL_BLACK_CRYSTAL_DEEP_IN = 'a small black crystal deep in'
   A_SMALL_GLASS_TUBE_OF_MILKY_WHITE = 'a small glass tube of milky-white'
   A_TINY_BRONZE_FACE_FAE_IN_APPEARANCE = 'A tiny bronze face, Fae in appearance'
@@ -20,6 +21,7 @@ class LocksmithScript < BaseDragonrealmsScript
   IT_SEEMS_HARMLESS = 'It seems harmless'
   LOOK_DANGEROUSLY_OUT_OF_PLACE = 'look dangerously out of place'
   SEALED_WITH_DIRT_BLOCKING_WHATEVER = 'sealed with dirt, blocking whatever'
+  SHOULD_NOT_TAKE_LONG_WITH_YOUR = 'should not take long with your'
   SOMEBODY_HAS_ALREADY_INSPECTED = 'Somebody has already inspected'
   STILL_GRINNING_RIDICULOUSLY = 'Still grinning ridiculously'
   THE_LOCK_HAS_THE_EDGE_ON_YOU = 'The lock has the edge on you'
@@ -48,6 +50,7 @@ class LocksmithScript < BaseDragonrealmsScript
   YOU_WINCE_AS_YOU_FEEL = 'You wince as you feel'
 
   DISARMED_PATTERN = [
+    A_BENT_NEEDLE_STICKS_HARMLESSLY,
     HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER,
     IT_LOOKS_SAFE_ENOUGH,
     IT_SEEMS_HARMLESS,
@@ -59,6 +62,7 @@ class LocksmithScript < BaseDragonrealmsScript
   ].join('|')
 
   DISARM_IDENTIFY_PATTERN = [
+    A_BENT_NEEDLE_STICKS_HARMLESSLY,
     A_SMALL_BLACK_CRYSTAL_DEEP_IN,
     A_SMALL_GLASS_TUBE_OF_MILKY_WHITE,
     A_TINY_BRONZE_FACE_FAE_IN_APPEARANCE,
@@ -138,6 +142,7 @@ class LocksmithScript < BaseDragonrealmsScript
     FAILS_TO_TEACH_YOU_ANYTHING,
     FIND_A_MORE_APPROPRIATE_TOOL,
     ITS_NOT_EVEN_LOCKED,
+    SHOULD_NOT_TAKE_LONG_WITH_YOUR,
     SOMEBODY_HAS_ALREADY_INSPECTED,
     THE_LOCK_HAS_THE_EDGE_ON_YOU,
     THE_ODDS_ARE_AGAINST_YOU,
@@ -148,6 +153,7 @@ class LocksmithScript < BaseDragonrealmsScript
   ].join('|')
 
   PICK_IDENTIFY_SUCCESS_PATTERN = [
+    SHOULD_NOT_TAKE_LONG_WITH_YOUR,
     SOMEBODY_HAS_ALREADY_INSPECTED,
     THE_LOCK_HAS_THE_EDGE_ON_YOU,
     THE_ODDS_ARE_AGAINST_YOU,
