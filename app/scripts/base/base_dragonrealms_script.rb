@@ -369,10 +369,10 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
 
   protected
 
-  def cast
+  def cast(target=nil)
     wait_for_match(
       CAST_PATTERN,
-      'cast'
+      "cast #{target}".rstrip
     ).match(CAST_SUCCESS_PATTERN)
   end
 
