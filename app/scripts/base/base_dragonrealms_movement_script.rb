@@ -15,6 +15,7 @@ class BaseDragonrealmsMovementScript < BaseSimutronicsMovementScript
     OBVIOUS_PATHS,
     WHAT_WERE_YOU_REFERRING_TO,
     YOU_CANT_GO_THERE,
+    YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED,
   ].join('|')
 
   RETREAT_PATTERN = [
