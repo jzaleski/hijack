@@ -12,10 +12,11 @@ class CastScript < BaseDragonrealmsScript
     mana = args[1] || config_mana
     target = args[2] || config_target
     loop do
-      prep(spell, mana)
+      sleep 0.1 until prep(spell, mana)
       sleep 10
-      cast(target)
-      sleep 20
+      cast_successful = false
+      5.times { break if cast_successful = cast(target) }
+      sleep 20 if cast_successful
     end
   end
 
