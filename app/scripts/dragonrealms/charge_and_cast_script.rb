@@ -5,7 +5,7 @@ class ChargeAndCastScript < BaseDragonrealmsScript
   def validate_args(args)
     # prep one or more spells using specific amounts of mana while charging one
     # or more items
-    args.length == 4 ||
+    args.length >= 4 ||
     # prep one or more spells using specific amounts of mana while charging one
     # or more [preconfigured] items
     (
@@ -27,7 +27,7 @@ class ChargeAndCastScript < BaseDragonrealmsScript
       spells.each_with_index do |spell, spell_index|
         prep_success = false
         5.times { break if prep_success = prep(spell, streams[spell_index]) }
-        if prep_succces
+        if prep_success
           charge_items_charged = 0
           charge_items.each_with_index do |charge_item, charge_item_index|
             if charge_my(charge_item, charge_streams[charge_item_index])
