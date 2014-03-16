@@ -11,6 +11,7 @@ class LocksmithScript < BaseDragonrealmsScript
   CAREFULLY_YOU_PRY_THE_BRONZE_FACE = 'Carefully, you pry the bronze face'
   FAILS_TO_REVEAL_TO_YOU = 'fails to reveal to you'
   FAILS_TO_TEACH_YOU_ANYTHING = 'fails to teach you anything'
+  FAR_ENOUGH_AWAY_FROM_THE_LOCK = 'far enough away from the lock'
   FIND_A_MORE_APPROPRIATE_TOOL = 'Find a more appropriate tool'
   HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER = 'have been bent away from each other'
   HIDDEN_NEXT_TO_THE_KEYHOLE = 'hidden next to the keyhole'
@@ -51,6 +52,7 @@ class LocksmithScript < BaseDragonrealmsScript
 
   DISARMED_PATTERN = [
     A_BENT_NEEDLE_STICKS_HARMLESSLY,
+    FAR_ENOUGH_AWAY_FROM_THE_LOCK,
     HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER,
     IT_LOOKS_SAFE_ENOUGH,
     IT_SEEMS_HARMLESS,
@@ -69,6 +71,7 @@ class LocksmithScript < BaseDragonrealmsScript
     A_TINY_GLASS_TUBE_FILLED_WITH,
     FAILS_TO_REVEAL_TO_YOU,
     FAILS_TO_TEACH_YOU_ANYTHING,
+    FAR_ENOUGH_AWAY_FROM_THE_LOCK,
     HAVE_BEEN_BENT_AWAY_FROM_EACH_OTHER,
     HIDDEN_NEXT_TO_THE_KEYHOLE,
     INDICATE_THAT_SOMETHING_IS_AWRY,
