@@ -1,3 +1,4 @@
-require File.expand_path('../config/environment.rb', File.dirname(__FILE__))
-require File.expand_path('../app/interfaces/web_interface.rb', File.dirname(__FILE__))
+dirname = File.dirname(__FILE__)
+require File.expand_path('../config/environment.rb', dirname)
+require File.expand_path('../app/interfaces/web_interface.rb', dirname)
 run WebInterface

@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
 
-rackup -p 4567 ./config/config.ru
+port=${PORT:-4567};
+pid_file=${PID_FILE:-./tmp/rack.pid};
+rackup_config=${RACKUP_CONFIG:-./config/config.ru};
+
+if [ -n "$DAEMONIZE" ];
+then
+  rackup -p $port -D -P $pid_file $rackup_config;
+else
+  rackup -p $port $rackup_config;
+fi
