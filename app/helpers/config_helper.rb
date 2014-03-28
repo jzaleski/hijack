@@ -1,6 +1,6 @@
 class ConfigProxy < HashProxy
 
-  def initialize
+  def initialize(config={})
     super
     @config_helper = ConfigHelper.new
   end
