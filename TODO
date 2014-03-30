@@ -20,3 +20,4 @@ Gemstone:
 
 - figure out how to more closely emulate "go2" functionality with the current
   travel-script architecture
+- enable "LichNet" for the "WebInterface"
