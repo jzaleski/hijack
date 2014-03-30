@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 port=${PORT:-4567};
-pid_file=${PID_FILE:-./tmp/rack.pid};
+pid_file=${PID_FILE:-./tmp/puma.pid};
 rackup_config=${RACKUP_CONFIG:-./config/config.ru};
 
 if [ -n "$DAEMONIZE" ];
 then
-  rackup -p $port -D -P $pid_file $rackup_config;
+  puma --port $port -d --pidfile $pid_file $rackup_config;
 else
-  rackup -p $port $rackup_config;
+  puma --port $port $rackup_config;
 fi
