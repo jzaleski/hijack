@@ -16,7 +16,7 @@ var Hijack = (function() {
       defaultOptions = {
         maxScrollbackLines: 500,
         outputHTML: true,
-        pollingIntervalMS: 10,
+        pollingIntervalMS: 0,
         stripPlayerStatusPrompt: true,
         stripRetryableOutput: true
       },
