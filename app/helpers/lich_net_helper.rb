@@ -259,7 +259,7 @@ class LichNetHelper
 
   def validate_args
     if [@game, @name].any? {|arg| arg.nil? || arg.empty?}
-      abort("\"#{LichNetHelper}\" is missing one or more required configuration values")
+      raise("\"#{LichNetHelper}\" is missing one or more required configuration values")
     end
   end
 

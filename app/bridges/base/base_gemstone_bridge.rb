@@ -31,7 +31,7 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
   private
 
   def enable_lich_net?
-    @config[:enable_lich_net].to_s == 'true' && RUBY_PLATFORM !~ /java|jruby/
+    @config[:enable_lich_net].to_s == 'true'
   end
 
   def initialize_lich_net_buffers
@@ -64,6 +64,8 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
 
   def start_lich_net
     @lich_net_helper.connect
+  rescue OpenSSL::SSL::SSLError
+    @output_buffer.puts("\nERROR: could not connect to LNet\n")
   end
 
 end
