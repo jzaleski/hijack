@@ -28,6 +28,7 @@ class LichNetHelper
   DEFAULT_CHANNEL = LNET
   DEFAULT_IP = '216.224.171.85'
   DEFAULT_PORT = 7155
+  DEFAULT_SSL_VERSION = :TLSv1
   DEFAULT_OUTPUT_FORMAT = '%s'
 
   def initialize(opts={})
@@ -36,6 +37,7 @@ class LichNetHelper
     @channel = opts[:channel] || DEFAULT_CHANNEL
     @ip = opts[:ip] || DEFAULT_IP
     @port = opts[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : DEFAULT_PORT
+    @ssl_version = (opts[:ssl_version] || DEFAULT_SSL_VERSION).to_sym
     @stdin = opts[:stdin] || STDIN
     @stdout = opts[:stdout] || STDOUT
     @stderr = opts[:stderr] || STDERR
@@ -128,6 +130,7 @@ class LichNetHelper
       ssl_context = OpenSSL::SSL::SSLContext.new
       ssl_context.key = @private_key
       ssl_context.cert = @certificate
+      ssl_context.ssl_version = @ssl_version
       ssl_context
     end
   end
@@ -282,6 +285,7 @@ if $0 == __FILE__
     :channel => ENV['CHANNEL'],
     :ip => ENV['IP'],
     :port => ENV['PORT'],
+    :ssl_version => ENV['SSL_VERSION'],
     :output_format => ENV['OUTPUT_FORMAT'],
     :debug => ENV['DEBUG']
   )
