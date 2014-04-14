@@ -8,13 +8,15 @@ class BaseBridge
     @arguments_helper = ArgumentsHelper.new
     @callback_helper = CallbackHelper.new
     @layout_helper = LayoutHelper.new(@config)
+    @logging_helper = LoggingHelper.new
     @highlights_helper = HighlightsHelper.new(@config)
     @script_helper = ScriptHelper.new(
       @config,
       self,
       @input_buffer,
       @output_buffer,
-      @callback_helper
+      @callback_helper,
+      @logging_helper
     )
   end
 
@@ -92,8 +94,7 @@ class BaseBridge
         @config.public_send(*@arguments_helper.parse(str[1..-1]))
         @output_buffer.puts("\nOk.")
       rescue Exception => e
-        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+        @logging_helper.log_exception_with_backtrace(e)
       end
     # layout handling
     elsif str.start_with?('~')
@@ -101,8 +102,7 @@ class BaseBridge
         @layout_helper.public_send(*@arguments_helper.parse(str[1..-1]))
         @output_buffer.puts("\nOk.")
       rescue Exception => e
-        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+        @logging_helper.log_exception_with_backtrace(e)
       end
     # script handling
     elsif str.start_with?(';')

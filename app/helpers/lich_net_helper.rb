@@ -43,6 +43,8 @@ class LichNetHelper
     @stderr = opts[:stderr] || STDERR
     @output_format = opts[:output_format] || DEFAULT_OUTPUT_FORMAT
     @debug = opts[:debug].to_s == 'true'
+    @logging_helper = opts[:logging_helper] || \
+      LoggingHelper.new(:exception_log => @stderr)
   end
 
   def connect
@@ -237,10 +239,7 @@ class LichNetHelper
       document = REXML::Document.new(value)
       map_and_filter_messages(document)
     rescue REXML::ParseException => e
-      if @debug
-        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-        @stderr.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
-      end
+      @logging_helper.log_exception_with_backtrace(e) if @debug
     end
   end
 

@@ -1,9 +1,10 @@
 class BaseScript
 
-  def initialize(config, bridge, callback_helper, opts={})
+  def initialize(config, bridge, callback_helper, logging_helper, opts={})
     @config = config
     @bridge = bridge
     @callback_helper = callback_helper
+    @logging_helper = logging_helper
     @on_exec = opts[:on_exec]
     @on_exit = opts[:on_exit]
     @on_kill = opts[:on_kill]
@@ -17,8 +18,7 @@ class BaseScript
       begin
         run(args)
       rescue Exception => e
-        backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-        STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+        @logging_helper.log_exception_with_backtrace(e)
       end
       @on_exit.call rescue nil
     end

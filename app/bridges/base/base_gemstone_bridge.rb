@@ -49,7 +49,8 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
       :name => @config[:lich_net_name] || @config[:character],
       :stdin => @lich_net_input_buffer,
       :stdout => @lich_net_output_buffer,
-      :output_format => "\n%s"
+      :output_format => "\n%s",
+      :logging_helper => @logging_helper
     )
   end
 
@@ -64,8 +65,8 @@ class BaseGemstoneBridge < BaseSimutronicsBridge
 
   def start_lich_net
     @lich_net_helper.connect
-  rescue OpenSSL::SSL::SSLError
-    @output_buffer.puts("\nERROR: could not connect to LNet\n")
+  rescue Exception => e
+    @logging_helper.log_exception_with_backtrace(e)
   end
 
 end

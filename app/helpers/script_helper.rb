@@ -2,12 +2,13 @@ class ScriptHelper
 
   attr_reader :last_script
 
-  def initialize(config, bridge, input_buffer, output_buffer, callback_helper)
+  def initialize(config, bridge, input_buffer, output_buffer, callback_helper, logging_helper)
     @config = config
     @bridge = bridge
     @input_buffer = input_buffer
     @output_buffer = output_buffer
     @callback_helper = callback_helper
+    @logging_helper = logging_helper
     @arguments_helper = ArgumentsHelper.new
     @scripts = {}
     @last_scripts_by_type_name = {}
@@ -57,8 +58,7 @@ class ScriptHelper
         begin
           load script_path
         rescue Exception => e
-          backtrace = e.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
-          STDERR.puts "\n#{e.class}: #{e.message}\n#{backtrace}"
+          @logging_helper.log_exception_with_backtrace(e)
           return
         end
         script_class_name = \
@@ -67,6 +67,7 @@ class ScriptHelper
           @config,
           @bridge,
           @callback_helper,
+          @logging_helper,
           :on_exec => lambda do
             @output_buffer.puts "\nScript: '#{script_name}' executing.."
           end,
