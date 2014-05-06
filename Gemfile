@@ -1,12 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'pry'
 gem 'puma'
+gem 'rake'
 gem 'sinatra'
-
-group :development do
-  gem 'pry'
-  gem 'rake'
-end
 
 group :test do
   gem 'rspec'
