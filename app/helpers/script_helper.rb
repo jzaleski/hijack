@@ -23,7 +23,7 @@ class ScriptHelper
         pause_all
       elsif command_parts[0] == 'ra'
         resume_all
-      elsif command_parts[0] == 'l'
+      elsif command_parts[0] == 'lr'
         list_running
       elsif command_parts[0] == 'k' && script_name = command_parts[1]
         kill(script_name)
@@ -36,22 +36,12 @@ class ScriptHelper
           @output_buffer.puts "\nScript: '#{script_name}' is already running.."
           return
         end
-        script_dir = @config[:script_dir]
-        locations = @config[:location].split('|') rescue []
-        possible_script_paths = []
-        if script_dir
-          locations.each do |location|
-            possible_script_paths << \
-              "#{SCRIPTS_DIR}/#{script_dir}/#{location}/#{script_name}_script.rb"
-          end
-          possible_script_paths << \
-            "#{SCRIPTS_DIR}/#{script_dir}/#{script_name}_script.rb"
-        end
-        possible_script_paths << \
-          "#{SCRIPTS_DIR}/share/#{script_name}_script.rb"
-        script_path = \
-          possible_script_paths.detect {|script_file| File.exist?(script_file)}
-        unless script_path
+        # this assumes that the directories are already ordered by precedence
+        script_path = possible_script_directories.map do |script_directory|
+          script_path = script_path(script_directory, script_name)
+          File.exist?(script_path) ? script_path : nil
+        end.compact.first
+        if script_path.nil?
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
         end
@@ -180,6 +170,22 @@ class ScriptHelper
     script_object && script_object.paused?
   end
 
+  def possible_script_directories
+    [].tap do |script_directories|
+      # [configured] game-specific directory
+      if script_dir = @config[:script_dir]
+        # location-specific scripts take precedence over game-specific scripts
+        (@config[:location].split('|') rescue []).each do |location|
+          script_directories << "#{SCRIPTS_DIR}/#{script_dir}/#{location}"
+        end
+        # game-specific scripts take precedence over shared scripts
+        script_directories << "#{SCRIPTS_DIR}/#{script_dir}"
+      end
+      # lastly, include the shared-directory
+      script_directories << "#{SCRIPTS_DIR}/share"
+    end
+  end
+
   def resume(script_name)
     script_object = @scripts[script_name]
     if script_object.nil?
@@ -202,6 +208,10 @@ class ScriptHelper
   def running?(script_name)
     script_object = @scripts[script_name]
     script_object && script_object.running?
+  end
+
+  def script_path(directory, script_name)
+    File.join(directory, "#{script_name}_script.rb")
   end
 
   def store(script_name, script_object)
