@@ -3,7 +3,7 @@ require 'refinements/buffer'
 
 describe Buffer do
 
-  describe 'gets' do
+  describe '#gets' do
 
     it 'should always return the first item in the buffer' do
       buffer = Buffer.new
@@ -13,7 +13,7 @@ describe Buffer do
 
   end
 
-  describe 'puts' do
+  describe '#puts' do
 
     it 'should always append the item to the end of the buffer' do
       # admittedly this is not the best test, but it does the job and is more

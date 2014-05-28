@@ -9,7 +9,7 @@ describe ConfigHelper do
     @subject = ConfigHelper.new
   end
 
-  describe 'process_args' do
+  describe '#process_args' do
 
     it 'will update config with parsed values' do
       @subject.process_args(['--test=true', '--hello=world']).should == \
@@ -23,7 +23,7 @@ describe ConfigHelper do
 
   end
 
-  describe 'process_config_file' do
+  describe '#process_config_file' do
 
     class DummyFile
 

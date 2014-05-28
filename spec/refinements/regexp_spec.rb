@@ -3,7 +3,7 @@ require 'refinements/regexp'
 
 describe Regexp do
 
-  describe 'union' do
+  describe '#union' do
 
     it 'should be able to union a "String" object' do
       Regexp.new('hello').union('world').should == /(?-mix:hello)|(?-mix:world)/

@@ -10,7 +10,7 @@ describe CallbackHelper do
     @callbacks = @subject.instance_variable_get(:@callbacks)
   end
 
-  describe 'add_match' do
+  describe '#add_match' do
 
     it 'will accept a String pattern' do
       match = 'hello'
@@ -35,7 +35,7 @@ describe CallbackHelper do
 
   end
 
-  describe 'process' do
+  describe '#process' do
 
     it 'will invoke all callbacks for a line matching a pattern' do
       line = 'hello'

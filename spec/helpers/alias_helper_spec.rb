@@ -3,7 +3,7 @@ require 'helpers/alias_helper'
 
 describe AliasHelper do
 
-  describe 'process' do
+  describe '#process' do
 
     before do
       @subject = AliasHelper.new({})

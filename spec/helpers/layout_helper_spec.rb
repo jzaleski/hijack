@@ -3,7 +3,7 @@ require 'helpers/layout_helper'
 
 describe LayoutHelper do
 
-  describe 'num_cols' do
+  describe '#num_cols' do
 
     it 'will read num_cols from config if specified' do
       LayoutHelper.new({:num_cols => 100}).num_cols.should eq(100)
@@ -15,7 +15,7 @@ describe LayoutHelper do
 
   end
 
-  describe 'num_rows' do
+  describe '#num_rows' do
 
     it 'will read num_rows from config if specified' do
       LayoutHelper.new({:num_rows => 50}).num_rows.should eq(50)
@@ -27,7 +27,7 @@ describe LayoutHelper do
 
   end
 
-  describe 'reset_layout' do
+  describe '#reset_layout' do
 
     it 'will reset num_cols and num_rows' do
       subject = LayoutHelper.new({:num_cols => 100, :num_rows => 50})
@@ -41,7 +41,7 @@ describe LayoutHelper do
 
   end
 
-  describe 'strip_ansi_escape_sequences?' do
+  describe '#strip_ansi_escape_sequences?' do
 
     it 'will read strip_ansi_escape_sequences from config if specified' do
       LayoutHelper.new({:strip_ansi_escape_sequences => true}).\

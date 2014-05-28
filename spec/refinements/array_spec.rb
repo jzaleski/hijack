@@ -3,7 +3,7 @@ require 'refinements/array'
 
 describe Array do
 
-  describe 'to_regexp' do
+  describe '#to_regexp' do
 
     it 'should produce a "Regexp" object' do
       array = ['hello', 'world.']

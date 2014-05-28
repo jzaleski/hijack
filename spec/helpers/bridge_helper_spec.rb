@@ -19,11 +19,7 @@ describe BridgeHelper do
 
   end
 
-  describe 'construct_bridge' do
-
-    before do
-      
-    end
+  describe '#construct_bridge' do
 
     it 'will raise an error if game is not specified' do
       expect{@subject.construct_bridge({})}.to \

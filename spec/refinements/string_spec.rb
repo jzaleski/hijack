@@ -3,7 +3,7 @@ require 'refinements/string'
 
 describe String do
 
-  describe 'blank?' do
+  describe '#blank?' do
 
     it 'is blank if a string is comprised of only whitespace characters' do
       ['', ' ', "\n", "\r", "\t"].each do |value|
@@ -19,7 +19,7 @@ describe String do
 
   end
 
-  describe 'capitalize' do
+  describe '#capitalize' do
 
     it 'should upcase the first letter and leave the rest of the "String" untouched' do
       string = 'helloWorld'
@@ -33,7 +33,7 @@ describe String do
 
   end
 
-  describe 'to_camel_case' do
+  describe '#to_camel_case' do
 
     it 'should produce an UpperCamelCase "String" by default' do
       string = 'hello_world'
@@ -62,7 +62,7 @@ describe String do
 
   end
 
-  describe 'to_regexp' do
+  describe '#to_regexp' do
 
     it 'should produce a "Regexp" object' do
       string = 'hello world.'
@@ -76,7 +76,7 @@ describe String do
 
   end
 
-  describe 'to_snake_case' do
+  describe '#to_snake_case' do
 
     it 'should be able to convert a lowerCamelCase "String" to snake_case' do
       string = 'helloWorld'
@@ -95,7 +95,7 @@ describe String do
 
   end
 
-  describe 'uncapitalize' do
+  describe '#uncapitalize' do
 
     it 'should downcase the first letter and leave the rest of the "String" untouched' do
       string = 'HelloWorld'
