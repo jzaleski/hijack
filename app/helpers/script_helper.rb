@@ -23,6 +23,8 @@ class ScriptHelper
         pause_all
       elsif command_parts[0] == 'ra'
         resume_all
+      elsif command_parts[0] == 'la'
+        list_available
       elsif command_parts[0] == 'lr'
         list_running
       elsif command_parts[0] == 'k' && script_name = command_parts[1]
@@ -133,17 +135,30 @@ class ScriptHelper
     end
   end
 
-  def list_running
-    script_names = @scripts.keys
-    if script_names.empty?
-      running_scripts = '(none)'
+  def list_available
+    scripts = possible_script_directories.map do |script_directory|
+      Dir["#{script_directory}/*_script.rb"].map do |script_path|
+        "- #{/\A.+\/([\w]+)_script\.rb\Z/.match(script_path).captures.first}"
+      end
+    end.flatten.sort.uniq
+    @output_buffer.puts "\nAvailable scripts:\n==================\n\n"
+    if scripts.empty?
+      @output_buffer.puts '(none)'
     else
-      running_scripts = script_names.sort.map do |script_name|
-        "- #{script_name} (#{@scripts[script_name].status})"
-      end.join("\n")
+      scripts.each { |script| @output_buffer.puts script }
     end
-    @output_buffer.puts \
-      "\nRunning scripts:\n================\n\n#{running_scripts}"
+  end
+
+  def list_running
+    scripts = @scripts.keys.sort.map do |script_name|
+      "- #{script_name} (#{@scripts[script_name].status})"
+    end
+    @output_buffer.puts "\nRunning scripts:\n================\n\n"
+    if scripts.empty?
+      @output_buffer.puts '(none)'
+    else
+      scripts.each { |script| @output_buffer.puts script }
+    end
   end
 
   def pause(script_name)
