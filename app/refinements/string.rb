@@ -1,5 +1,11 @@
 class String
 
+  # handle blank a bit differently for "String(s)" (a String consisting of only
+  # whitespace characters is considered blank)
+  def blank?
+    !!(self =~ /\A\s*\Z/)
+  end
+
   # override the default implementation of "capitalize" to only upcase the first
   # character and leave the rest of the string untouched (rather than downcasing
   # everything after the first letter)

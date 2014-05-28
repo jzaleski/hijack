@@ -3,6 +3,22 @@ require 'refinements/string'
 
 describe String do
 
+  describe 'blank?' do
+
+    it 'is blank if a string is comprised of only whitespace characters' do
+      ['', ' ', "\n", "\r", "\t"].each do |value|
+        value.blank?.should == true
+      end
+    end
+
+    it 'is not be blank if a string has at least one non-whitespace character' do
+      ['f', ' o', 'o ', "b\n", "\ra", "r\t"].each do |value|
+        value.blank?.should == false
+      end
+    end
+
+  end
+
   describe 'capitalize' do
 
     it 'should upcase the first letter and leave the rest of the "String" untouched' do
