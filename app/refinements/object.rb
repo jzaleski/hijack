@@ -1,7 +1,9 @@
 class Object
 
   def blank?
-    nil? || (respond_to?(:empty?) && empty?) || !self
+    nil? ||
+      (respond_to?(:empty?) && empty?) ||
+      !self
   end
 
   def presence

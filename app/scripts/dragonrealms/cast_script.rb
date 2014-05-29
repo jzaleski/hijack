@@ -4,7 +4,7 @@ class CastScript < BaseDragonrealmsScript
 
   def validate_args(args)
     args.length >= 1 ||
-    !config_spells.empty?
+      config_spells.present?
   end
 
   def run(args)

@@ -29,11 +29,11 @@ class AppraiseScript < BaseDragonrealmsScript
 
   def validate_args(args)
     args.length >= 1 ||
-    (config_args && !config_args.empty?)
+      config_args.present?
   end
 
   def run(args)
-    args = !args.empty? && args || config_args
+    args = args.presence || config_args
     interloop_sleep_time = 60
     loop do
       args.each do |arg|

@@ -7,25 +7,25 @@ class ArgumentsHelper
     tmp = ''
     # process the string one character at a time
     str.each_char do |c|
-      # append the buffer (if it is not empty) when ending double-quotes
+      # append the buffer (if it is not blank) when ending double-quotes
       if c == '"' && !in_single_quotes
         if in_double_quotes
-          args << tmp unless tmp.strip.empty?
+          args << tmp unless tmp.blank?
           tmp = ''
         end
         in_double_quotes = !in_double_quotes
         next
-      # append the buffer (if it is not empty) when ending single-quotes
+      # append the buffer (if it is not blank) when ending single-quotes
       elsif c == "'" && !in_double_quotes
         if in_single_quotes
-          args << tmp unless tmp.strip.empty?
+          args << tmp unless tmp.blank?
           tmp = ''
         end
         in_single_quotes = !in_single_quotes
         next
       # not in quotes, a space signifies the beginning of a new argument
       elsif c == ' ' && !in_double_quotes && !in_single_quotes
-        args << tmp unless tmp.strip.empty?
+        args << tmp unless tmp.blank?
         tmp = ''
         next
       end
@@ -34,7 +34,7 @@ class ArgumentsHelper
     end
     # if there is anything else in the buffer  make sure that it is appended to
     # the result before returning
-    args << tmp unless tmp.strip.empty?
+    args << tmp unless tmp.blank?
     args
   end
 

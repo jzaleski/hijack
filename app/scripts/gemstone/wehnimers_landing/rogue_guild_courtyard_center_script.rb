@@ -43,7 +43,7 @@ class RogueGuildCourtyardCenterScript < RogueGuildScript
 
   def directions
     password_actions = config_password_actions
-    return if password_actions.nil? || password_actions.empty?
+    return if password_actions.blank?
     super + [
       lambda do
         result = wait_for_match(

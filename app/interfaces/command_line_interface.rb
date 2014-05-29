@@ -50,7 +50,7 @@ class CommandLineInterface
     @read_thread ||= Thread.new do
       while bridge.connected?
         output = bridge.gets
-        unless output.empty?
+        unless output.blank?
           STDOUT.puts(output)
         end
       end
@@ -61,7 +61,7 @@ class CommandLineInterface
     @write_thread ||= Thread.new do
       while bridge.connected?
         input = STDIN.gets.chomp
-        unless input.empty?
+        unless input.blank?
           if input =~ /\A(exit|quit)\Z/
             bridge.disconnect($1)
           else

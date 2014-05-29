@@ -42,7 +42,7 @@ class ConfigHelper
   end
 
   def process_json(json)
-    if json.empty?
+    if json.blank?
       ConfigProxy.new
     else
       ConfigProxy.new(JSON::parse(json).snake_case_keys.symbolize_keys)

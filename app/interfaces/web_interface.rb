@@ -93,7 +93,7 @@ class WebInterface < Sinatra::Base
 
   post '/puts' do
     input = request_data
-    current_bridge.puts(input) unless current_bridge.nil? || input.empty?
+    current_bridge.puts(input) unless current_bridge.nil? || input.blank?
     nil
   end
 

@@ -15,7 +15,7 @@ class ScriptHelper
   end
 
   def execute(command)
-    unless command.empty?
+    unless command.blank?
       command_parts = command.split
       if command_parts[0] == 'ka'
         kill_all
@@ -43,7 +43,7 @@ class ScriptHelper
           script_path = script_path(script_directory, script_name)
           File.exist?(script_path) ? script_path : nil
         end.compact.first
-        if script_path.nil?
+        if script_path.blank?
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
         end
@@ -78,7 +78,7 @@ class ScriptHelper
             @output_buffer.puts "\nScript: '#{script_name}' resumed.."
           end
         )
-        unless script_object.nil?
+        if script_object.present?
           # strip out the "script_name" and leading/trailing whitespace before
           # attempting to parse the args out of the string
           args = @arguments_helper.parse(command.sub(script_name, '').strip)
@@ -230,7 +230,7 @@ class ScriptHelper
   end
 
   def store(script_name, script_object)
-    unless script_name.nil? || script_object.nil?
+    if script_name.present? && script_object.nil?
       @scripts[script_name] = script_object
     end
   end

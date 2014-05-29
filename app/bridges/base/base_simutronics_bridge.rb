@@ -67,7 +67,7 @@ class BaseSimutronicsBridge < BaseBridge
     login_socket.puts "A\t#{@config[:account]}\t#{hashed_password}\n"
     login_response = login_socket.gets
     if \
-      login_response.nil? ||
+      login_response.blank? ||
       login_response =~ /REJECT/ ||
       (/KEY\t([^\t]+)\t/.match(login_response).captures.first rescue nil).nil?
       abort('Cancelled account and/or invalid account/password specified')

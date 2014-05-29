@@ -25,13 +25,13 @@ class BaseBridge
   end
 
   def connected?
-    !socket.nil? &&
+    socket.present? &&
       !socket.closed?
   end
 
   def disconnect(str=nil)
     # send the command immediately (if specified)
-    socket.puts(str) unless str.nil? || str.empty?
+    socket.puts(str) unless str.blank?
     # close the socket
     socket.close rescue nil
   end
@@ -49,7 +49,7 @@ class BaseBridge
     # merge default options
     opts = {:store_command => true}.merge(opts)
     # repeat[ing] last command
-    str = @last_command if str == '!!' && @last_command
+    str = @last_command if str == '!!' && @last_command.present?
     # store the command (we need to copy the string since the reference is
     # mutated below)
     @last_command = str.dup if opts[:store_command] == true

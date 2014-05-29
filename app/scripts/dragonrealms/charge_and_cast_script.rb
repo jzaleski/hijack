@@ -9,10 +9,10 @@ class ChargeAndCastScript < BaseDragonrealmsScript
     # prep one or more spells using specific amounts of mana while charging one
     # or more [preconfigured] items
     (
-      !config_spells.empty? &&
-      !config_streams.empty? &&
-      !config_charge_streams.empty? &&
-      !config_charge_items.empty?
+      config_spells.present? &&
+      config_streams.present? &&
+      config_charge_items.present? &&
+      config_charge_streams.present?
     )
   end
 

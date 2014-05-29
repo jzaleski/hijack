@@ -54,7 +54,8 @@ class BaseScript
   end
 
   def running?
-    !@run_thread.nil? && @run_thread.alive?
+    @run_thread.present? &&
+      @run_thread.alive?
   end
 
   def sleeping?

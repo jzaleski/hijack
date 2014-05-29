@@ -55,7 +55,7 @@ class LichNetHelper
   end
 
   def connected?
-    !@ssl_socket.nil? &&
+    @ssl_socket.present? &&
       !@ssl_socket.closed?
   end
 
@@ -66,7 +66,7 @@ class LichNetHelper
   private
 
   def chat(message)
-    if !message.nil? && !message.empty?
+    if message.present?
       write(MESSAGE, {
         :type => CHANNEL,
         :channel => @channel,
@@ -76,7 +76,7 @@ class LichNetHelper
   end
 
   def chat_to(to, message)
-    if [to, message].all? {|param| !param.nil? && !param.empty?}
+    if [to, message].all?(&:present?)
       write(MESSAGE, {
         :type => PRIVATE,
         :to => to,
@@ -198,7 +198,7 @@ class LichNetHelper
     (document.elements || []).map do |element|
       if element.name == MESSAGE
         channel = element.attributes[CHANNEL]
-        if !channel.nil? && !channel.include?(LNET)
+        if channel.present? && !channel.include?(LNET)
           channel = CHANNEL_WITHOUT_PREFIX_FORMAT % channel
         end
         from = element.attributes[FROM]
@@ -244,7 +244,7 @@ class LichNetHelper
   end
 
   def tune(channel)
-    if !channel.nil? && !channel.empty?
+    if channel.present?
       write(TUNE, {
         :channel => @channel = channel,
       })
@@ -252,7 +252,7 @@ class LichNetHelper
   end
 
   def untune(channel)
-    if !channel.nil? && !channel.empty?
+    if channel.present?
       write(UNTUNE, {
         :channel => @channel = channel,
       })
@@ -260,7 +260,7 @@ class LichNetHelper
   end
 
   def validate_args
-    if [@game, @name].any? {|arg| arg.nil? || arg.empty?}
+    if [@game, @name].any?(&:blank?)
       raise("\"#{LichNetHelper}\" is missing one or more required configuration values")
     end
   end

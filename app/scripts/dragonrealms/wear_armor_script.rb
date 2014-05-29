@@ -3,9 +3,12 @@ require 'scripts/base/base_dragonrealms_script'
 class WearArmorScript < BaseDragonrealmsScript
 
   def validate_args(args)
-    args.length >= 2 ||
-    (config_container && args.length >= 1) ||
-    (config_container && config_armor_items && !config_armor_items.empty?)
+    args.length >= 2 || (
+      config_container.present? && (
+        args.length >= 1 ||
+        config_armor_items.present?
+      )
+    )
   end
 
   def run(args)
