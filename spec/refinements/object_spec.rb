@@ -51,4 +51,40 @@ describe Object do
 
   end
 
+  describe '#try' do
+
+    context 'object nil' do
+
+      let(:subject) { nil }
+
+      it 'returns nil when called with a block' do
+        expect(subject.try {|x| 'foo'}).to be_nil
+      end
+
+      it 'returns nil when called with arguments' do
+        expect(subject.try(:foo, :bar)).to be_nil
+      end
+
+    end
+
+    context 'object not nil' do
+
+      let(:subject) { Hash[:foo, :bar] }
+
+      it 'yields the object to a block' do
+        expect(subject.try {|x| x[:foo]}).to eq(:bar)
+      end
+
+      it 'invokes methods that are public' do
+        expect(subject.try(:keys)).to match_array([:foo])
+      end
+
+      it 'does not invoke methods that are not public' do
+        expect { subject.try(:initialize) }.to raise_error(NoMethodError)
+      end
+
+    end
+
+  end
+
 end

@@ -14,4 +14,16 @@ class Object
     !blank?
   end
 
+  def try(*args, &block)
+    # short-circuit immediately if "nil"
+    return if nil?
+    # no method name plus a block
+    if args.empty? && block_given?
+      yield self
+    # explicit method name, possibly arguments, possibly a block
+    else
+      public_send(*args, &block)
+    end
+  end
+
 end
