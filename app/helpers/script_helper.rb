@@ -15,7 +15,7 @@ class ScriptHelper
   end
 
   def execute(command)
-    unless command.blank?
+    if command.present?
       command_parts = command.split
       if command_parts[0] == 'ka'
         kill_all
@@ -43,7 +43,7 @@ class ScriptHelper
           script_path = script_path(script_directory, script_name)
           File.exist?(script_path) ? script_path : nil
         end.compact.first
-        if script_path.blank?
+        if script_path.nil?
           @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
           return
         end
@@ -230,7 +230,7 @@ class ScriptHelper
   end
 
   def store(script_name, script_object)
-    if script_name.present? && script_object.nil?
+    if script_name.present? && script_object.present?
       @scripts[script_name] = script_object
     end
   end
