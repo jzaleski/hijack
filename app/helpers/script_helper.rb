@@ -145,7 +145,7 @@ class ScriptHelper
     if scripts.empty?
       @output_buffer.puts '(none)'
     else
-      scripts.each { |script| @output_buffer.puts script }
+      scripts.each {|script| @output_buffer.puts script}
     end
   end
 
@@ -157,7 +157,7 @@ class ScriptHelper
     if scripts.empty?
       @output_buffer.puts '(none)'
     else
-      scripts.each { |script| @output_buffer.puts script }
+      scripts.each {|script| @output_buffer.puts script}
     end
   end
 

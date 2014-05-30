@@ -26,7 +26,7 @@ class ChargeAndCastScript < BaseDragonrealmsScript
     loop do
       spells.each_with_index do |spell, spell_index|
         prep_success = false
-        5.times { break if prep_success = prep(spell, streams[spell_index]) }
+        5.times {break if prep_success = prep(spell, streams[spell_index])}
         if prep_success
           charge_items_charged = 0
           charge_items.each_with_index do |charge_item, charge_item_index|
@@ -40,7 +40,7 @@ class ChargeAndCastScript < BaseDragonrealmsScript
           sleep_time = 15 - (charge_items_charged * 5)
           sleep sleep_time if sleep_time > 0
           cast_success = false
-          5.times { break if cast_success = cast(targets[spell_index]) }
+          5.times {break if cast_success = cast(targets[spell_index])}
           sleep interloop_sleep_time if cast_success
         end
       end

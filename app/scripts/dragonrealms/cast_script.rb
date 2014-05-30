@@ -15,11 +15,11 @@ class CastScript < BaseDragonrealmsScript
     loop do
       spells.each_with_index do |spell, spell_index|
         prep_success = false
-        5.times { break if prep_success = prep(spell, streams[spell_index]) }
+        5.times {break if prep_success = prep(spell, streams[spell_index])}
         if prep_success
           sleep 10
           cast_success = false
-          5.times { break if cast_success = cast(targets[spell_index]) }
+          5.times {break if cast_success = cast(targets[spell_index])}
           sleep interloop_sleep_time if cast_success
         end
       end
