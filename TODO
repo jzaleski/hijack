@@ -3,6 +3,8 @@ General:
 
 - bridge is not fully disconnecting when EXITing from a script
 - add "JRuby" compatibility to "LichNetHelper" (see: "base_gemstone_bridge.rb")
+- figure out an intelligent means to print the result of a config-proxy
+  operation to the output-pane
 
 Simutronics:
 ============
@@ -19,5 +21,6 @@ Gemstone:
 =========
 
 - figure out how to more closely emulate "go2" functionality with the current
-  travel-script architecture
+  travel-script architecture (thought: go to the nexus, if not at the nexus
+  then navigate out to other location)
 - enable "LichNet" for the "WebInterface"
