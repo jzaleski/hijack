@@ -10,13 +10,13 @@ describe ConfigHelper do
   describe '#process_args' do
 
     it 'will update config with parsed values' do
-      subject.process_args(['--test=true', '--hello=world']).should == \
-        HashProxy.new({:test => 'true', :hello => 'world'})
+      expect(subject.process_args(['--test=true', '--hello=world'])).to \
+        eq(HashProxy.new({:test => 'true', :hello => 'world'}))
     end
 
     it 'will ignore args that are not properly formatted' do
-      subject.process_args(['--test=true', 'hello=world']).should == \
-        HashProxy.new({:test => 'true'})
+      expect(subject.process_args(['--test=true', 'hello=world'])).to \
+        eq(HashProxy.new({:test => 'true'}))
     end
 
   end
@@ -36,37 +36,41 @@ describe ConfigHelper do
     end
 
     it 'will short-circuit if the config_file does not exist' do
-      File.should_receive(:exist?).with('config_file.conf')
-      File.should_not_receive(:new)
+      expect(File).to receive(:exist?).with('config_file.conf')
+      expect(File).to_not receive(:new)
       subject.process_config_file('config_file.conf')
     end
 
     it 'will process a config_file if it exists' do
-      File.stub(:exist?).and_return(true)
-      File.stub(:new).and_return(DummyFile.new(['test=true', 'hello=world']))
-      subject.process_config_file('config_file.conf').should == \
-        HashProxy.new({:test => 'true', :hello => 'world'})
+      expect(File).to receive(:exist?).and_return(true)
+      expect(File).to \
+        receive(:new).and_return(DummyFile.new(['test=true', 'hello=world']))
+      expect(subject.process_config_file('config_file.conf')).to \
+        eq(HashProxy.new({:test => 'true', :hello => 'world'}))
     end
 
     it 'will ignore comments' do
-      File.stub(:exist?).and_return(true)
-      File.stub(:new).and_return(DummyFile.new(['# comment', 'test=true']))
-      subject.process_config_file('config_file.conf').should == \
-        HashProxy.new({:test => 'true'})
+      expect(File).to receive(:exist?).and_return(true)
+      expect(File).to \
+        receive(:new).and_return(DummyFile.new(['# comment', 'test=true']))
+      expect(subject.process_config_file('config_file.conf')).to \
+        eq(HashProxy.new({:test => 'true'}))
     end
 
     it 'will parse JSON encoded arrays' do
-      File.stub(:exist?).and_return(true)
-      File.stub(:new).and_return(DummyFile.new(['test=["hello", "world"]']))
-      subject.process_config_file('config_file.conf').should == \
-        HashProxy.new({:test => ['hello', 'world']})
+      expect(File).to receive(:exist?).and_return(true)
+      expect(File).to \
+        receive(:new).and_return(DummyFile.new(['test=["hello", "world"]']))
+      expect(subject.process_config_file('config_file.conf')).to \
+        eq(HashProxy.new({:test => ['hello', 'world']}))
     end
 
     it 'will parse JSON encoded hashes' do
-      File.stub(:exist?).and_return(true)
-      File.stub(:new).and_return(DummyFile.new(['test={"hello": "world"}']))
-      subject.process_config_file('config_file.conf').should == \
-        HashProxy.new({:test => {:hello => 'world'}})
+      expect(File).to receive(:exist?).and_return(true)
+      expect(File).to \
+        receive(:new).and_return(DummyFile.new(['test={"hello": "world"}']))
+      expect(subject.process_config_file('config_file.conf')).to \
+        eq(HashProxy.new({:test => {:hello => 'world'}}))
     end
 
   end

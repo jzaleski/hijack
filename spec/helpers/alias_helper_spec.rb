@@ -8,30 +8,26 @@ describe AliasHelper do
     subject {AliasHelper.new({})}
 
     it 'will do nothing if there are no aliases configured' do
-      subject.should_receive(:aliases).at_least(:once).
-        and_return({})
-
+      expect(subject).to \
+        receive(:aliases).at_least(:once).and_return({})
       expect(subject.process('foo')).to eq('foo')
     end
 
     it 'will do nothing if there are no aliases mapped to the command' do
-      subject.should_receive(:aliases).at_least(:once).
-        and_return({:bar => 'biz'})
-
+      expect(subject).to \
+        receive(:aliases).at_least(:once).and_return({:bar => 'biz'})
       expect(subject.process('foo')).to eq('foo')
     end
 
     it 'will replace an alias' do
-      subject.should_receive(:aliases).at_least(:once).
-        and_return({:foo => 'bar'})
-
+      expect(subject).to \
+        receive(:aliases).at_least(:once).and_return({:foo => 'bar'})
       expect(subject.process('foo')).to eq('bar')
     end
 
     it 'will recursively replace aliases' do
-      subject.should_receive(:aliases).at_least(:once).
-        and_return({:foo => 'bar', :bar => 'biz'})
-
+      expect(subject).to \
+        receive(:aliases).at_least(:once).and_return({:foo => 'bar', :bar => 'biz'})
       expect(subject.process('foo')).to eq('biz')
     end
 

@@ -49,12 +49,12 @@ describe LayoutHelper do
 
     it 'will read strip_ansi_escape_sequences from config if specified' do
       subject = LayoutHelper.new({:strip_ansi_escape_sequences => true})
-      expect(subject.strip_ansi_escape_sequences?).to be_true
+      expect(subject.strip_ansi_escape_sequences?).to eq(true)
     end
 
     it 'will determine strip_ansi_escape_sequences' do
       subject = LayoutHelper.new({})
-      expect(subject.strip_ansi_escape_sequences?).to be_false
+      expect(subject.strip_ansi_escape_sequences?).to eq(false)
     end
 
   end

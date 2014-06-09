@@ -7,13 +7,13 @@ describe Object do
 
     it 'is blank if an object is nil, empty or falsy' do
       [nil, [], {}, '', false].each do |value|
-        expect(value.blank?).to be_true
+        expect(value.blank?).to eq(true)
       end
     end
 
     it 'is not blank if an object is not nil, empty or falsy' do
       [['foo'], {:foo => 'bar'}, 'foo', true].each do |value|
-        expect(value.blank?).to be_false
+        expect(value.blank?).to eq(false)
       end
     end
 
@@ -39,13 +39,13 @@ describe Object do
 
     it 'is present if an object is not nil, empty or falsy' do
       [['foo'], {:foo => 'bar'}, 'foo', true].each do |value|
-        expect(value.present?).to be_true
+        expect(value.present?).to eq(true)
       end
     end
 
     it 'is not present if an object is nil, empty or falsy' do
       [nil, [], {}, '', false].each do |value|
-        expect(value.present?).to be_false
+        expect(value.present?).to eq(false)
       end
     end
 

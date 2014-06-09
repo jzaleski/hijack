@@ -7,13 +7,13 @@ describe String do
 
     it 'is blank if a string is comprised of only whitespace characters' do
       ['', ' ', "\n", "\r", "\t"].each do |value|
-        expect(value.blank?).to be_true
+        expect(value.blank?).to eq(true)
       end
     end
 
     it 'is not be blank if a string has at least one non-whitespace character' do
       ['f', ' o', 'o ', "b\n", "\ra", "r\t"].each do |value|
-        expect(value.blank?).to be_false
+        expect(value.blank?).to eq(false)
       end
     end
 

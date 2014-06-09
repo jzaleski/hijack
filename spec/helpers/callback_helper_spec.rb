@@ -15,21 +15,21 @@ describe CallbackHelper do
       match = 'hello'
       callback = lambda {}
       subject.add_match(match, callback)
-      callbacks[match].should == [callback]
+      expect(callbacks[match]).to match_array(callback)
     end
 
     it 'will accept a Regexp pattern' do
       match = /hello/
       callback = lambda {}
       subject.add_match(match, callback)
-      callbacks[match].should == [callback]
+      expect(callbacks[match]).to match_array(callback)
     end
 
     it 'will allow multiple callbacks for the same pattern' do
       match = /hello/
       mock_callbacks = 1.upto(3).map {|n| lambda {'callback %s' % n}}
       mock_callbacks.each {|callback| subject.add_match(match, callback)}
-      callbacks[match].should == mock_callbacks
+      expect(callbacks[match]).to match_array(mock_callbacks)
     end
 
   end
@@ -41,7 +41,7 @@ describe CallbackHelper do
       match = /hello/
       3.times do
         callback = lambda {}
-        callback.should_receive(:call).with(line)
+        expect(callback).to receive(:call).with(line)
         subject.add_match(match, callback)
       end
       subject.process(line)
@@ -52,7 +52,7 @@ describe CallbackHelper do
       match = /hello/
       3.times {subject.add_match(match, lambda {})}
       subject.process(line)
-      callbacks[match].should be_nil
+      expect(callbacks[match]).to be_nil
     end
 
   end

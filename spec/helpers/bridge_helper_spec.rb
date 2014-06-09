@@ -35,36 +35,37 @@ describe BridgeHelper do
     end
 
     it 'will raise an error if the bridge-file cannot be loaded' do
-      File.stub(:exists?).and_return(true)
+      expect(File).to receive(:exists?).and_return(true)
       expect{subject.construct_bridge({:game => 'test', :bridge => 'cant_load'})}.to \
         raise_exception(LoadError)
     end
 
     it 'will raise an error if the bridge cannot be instantiated' do
-      File.stub(:exists?).and_return(true)
-      subject.stub(:load)
+      expect(File).to receive(:exists?).and_return(true)
+      expect(subject).to receive(:load)
       expect{subject.construct_bridge({:game => 'test', :bridge => 'cant_instantiate'})}.to \
         raise_exception(NameError)
     end
 
     it 'will raise an error if there are missing arguments' do
-      File.stub(:exists?).and_return(true)
-      subject.stub(:load)
+      expect(File).to receive(:exists?).and_return(true)
+      expect(subject).to receive(:load)
       expect{subject.construct_bridge({:game => 'test', :bridge => 'dummy'})}.to \
         raise_exception('Bridge: "DummyBridge" is missing one or more required arguments')
     end
 
     it 'will attempt to load, validate and construct a bridge' do
-      File.stub(:exists?).and_return(true)
-      subject.stub(:ensure_required_args!)
-      subject.should_receive(:load).with("#{BRIDGES_DIR}/test/dummy_bridge.rb")
-      subject.construct_bridge({
+      expect(File).to receive(:exists?).and_return(true)
+      expect(subject).to receive(:ensure_required_args!)
+      expect(subject).to \
+        receive(:load).with("#{BRIDGES_DIR}/test/dummy_bridge.rb")
+      expect(subject.construct_bridge({
         :game => 'test',
         :bridge => 'dummy',
         :hash => {},
         :array => [],
         :string => '',
-      }).should_not be_nil
+      })).to_not be_nil
     end
 
   end
