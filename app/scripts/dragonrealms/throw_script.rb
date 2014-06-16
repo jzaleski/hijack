@@ -12,16 +12,9 @@ class ThrowScript < BaseDragonrealmsScript
     YOU_THROW_A,
   ].join('|')
 
-  def validate_args(args)
-    args.length >= 2 || (
-      config_weapon.present? &&
-      config_targets.present?
-    )
-  end
-
-  def run(args)
-    weapon = args[0] || config_weapon
-    targets = args.length >= 2 ? args[1..-1] : config_targets
+  def run
+    weapon = @args[0] || config_weapon
+    targets = @args.length >= 2 ? @args[1..-1] : config_targets
     loop do
       targets.each do |target|
         result = wait_for_match(
@@ -32,24 +25,31 @@ class ThrowScript < BaseDragonrealmsScript
           when IS_ALREADY_QUITE_DEAD
             # if the current target is dead, wait a bit before trying again or
             # moving on to the next target
-            sleep 5
+            sleep 5.0
             next
           when ITS_BEST_YOU_NOT_DO_THAT
             # if there are no targets, wait for a while and then start over with
             # the first target
-            sleep 15
+            sleep 15.0
             break
           when YOU_THROW_A.to_regexp
             # throwing takes 2 seconds, minimum
-            sleep 2
+            sleep 2.0
             # pick up the throwing weapon
             sleep 0.1 until get(weapon)
             # wait another few seconds to give other scripts a chance to execute
-            sleep 3
+            sleep 3.0
             break
-          end
+        end
       end
     end
+  end
+
+  def validate_args
+    @args.length >= 2 || (
+      config_weapon.present? &&
+      config_targets.present?
+    )
   end
 
   private

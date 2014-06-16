@@ -1,6 +1,6 @@
-require 'scripts/base/base_gemstone_icemule_trace_movement_script'
+require 'scripts/gemstone/icemule_trace/town_center_script'
 
-class ThirstyPenguinScript < BaseGemstoneIcemuleTraceMovementScript
+class ThirstyPenguinScript < TownCenterScript
 
   protected
 

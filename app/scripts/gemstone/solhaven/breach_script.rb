@@ -1,6 +1,6 @@
-require 'scripts/base/base_gemstone_solhaven_movement_script'
+require 'scripts/gemstone/solhaven/north_market_script'
 
-class BreachScript < BaseGemstoneSolhavenMovementScript
+class BreachScript < NorthMarketScript
 
   protected
 

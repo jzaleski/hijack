@@ -14,17 +14,10 @@ class SkinScript < BaseGemstoneScript
     YOU_SKINNED,
   ].join('|')
 
-  def validate_args(args)
-    args.length == 3 ||
-    (args.length == 2 && config_skinning_knife_container) ||
-    (args.length == 1 && config_skinning_knife && config_skinning_knife_container) ||
-    (config_creature && config_skinning_knife && config_skinning_knife_container)
-  end
-
-  def run(args)
-    creature = args[0] || config_creature
-    skinning_knife = args[1] || config_skinning_knife
-    skinning_knife_container = args[2] || config_skinning_knife_container
+  def run
+    creature = @args[0] || config_creature
+    skinning_knife = @args[1] || config_skinning_knife
+    skinning_knife_container = @args[2] || config_skinning_knife_container
     if open_my(skinning_knife_container) && get_my(skinning_knife)
       sleep 0.1 until kneel
       wait_for_match(
@@ -35,6 +28,21 @@ class SkinScript < BaseGemstoneScript
     end
     store_my(skinning_knife, skinning_knife_container)
     close_my(skinning_knife_container)
+  end
+
+  def validate_args
+    @args.length == 3 || (
+      @args.length == 2 &&
+      config_skinning_knife_container.present?
+    ) || (
+      @args.length == 1 &&
+      config_skinning_knife.present? &&
+      config_skinning_knife_container.present?
+    ) || (
+      config_creature.present? &&
+      config_skinning_knife.present? &&
+      config_skinning_knife_container.present?
+    )
   end
 
   private

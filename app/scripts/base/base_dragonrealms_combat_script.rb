@@ -14,9 +14,9 @@ class BaseDragonrealmsCombatScript < BaseDragonrealmsScript
     YOU_TURN_TO_FACE,
   ].join('|')
 
-  def run(args)
-    interloop_sleep_time = (args[0] || 30).to_i
-    brawling_iterations = (args[1] || 1).to_i
+  def run
+    interloop_sleep_time = (@args[0] || 30.0).to_f
+    brawling_iterations = (@args[1] || 1).to_i
     maneuvers = combat_sequence + (brawling_sequence * brawling_iterations)
     loop do
       maneuvers.each do |maneuver, maneuver_sleep_time, maneuver_success_pattern|

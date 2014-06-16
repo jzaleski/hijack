@@ -2,18 +2,9 @@ require 'scripts/base/base_dragonrealms_script'
 
 class RemoveArmorScript < BaseDragonrealmsScript
 
-  def validate_args(args)
-    args.length >= 2 || (
-      config_container.present? && (
-        args.present? ||
-        config_armor_items.present?
-      )
-    )
-  end
-
-  def run(args)
-    container = args[0] || config_container
-    armor_items = args.length >= 1 ? args[1..-1] : config_armor_items
+  def run
+    container = @args[0] || config_container
+    armor_items = @args.length >= 1 ? @args[1..-1] : config_armor_items
     if open_my(container)
       armor_items.each do |armor_item|
         remove_my(armor_item)
@@ -21,6 +12,15 @@ class RemoveArmorScript < BaseDragonrealmsScript
       end
     end
     close_my(container)
+  end
+
+  def validate_args
+    @args.length >= 2 || (
+      config_container.present? && (
+        @args.present? ||
+        config_armor_items.present?
+      )
+    )
   end
 
   private

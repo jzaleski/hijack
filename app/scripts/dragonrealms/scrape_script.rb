@@ -12,18 +12,11 @@ class ScrapeScript < BaseDragonrealmsScript
     YOU_SCRAPE,
   ].join('|')
 
-  def validate_args(args)
-    args.length == 3 ||
-    (args.length == 2 && config_scraper_container) ||
-    (args.length == 1 && config_skin_container && config_scraper_container) ||
-    (config_skin && config_skin_container && config_scraper_container)
-  end
-
-  def run(args)
-    skin = args[0] || config_skin
-    skin_container = args[1] || config_skin_container
+  def run
+    skin = @args[0] || config_skin
+    skin_container = @args[1] || config_skin_container
     scraper = 'scraper'
-    scraper_container = args[2] || config_scraper_container
+    scraper_container = @args[2] || config_scraper_container
     if \
       open_my(skin_container) &&
       open_my(scraper_container) &&
@@ -50,12 +43,27 @@ class ScrapeScript < BaseDragonrealmsScript
               return
             end
           else
-            sleep 15
+            sleep 15.0
         end
       end
     end
     close_my(scraper_container)
     close_my(skin_container)
+  end
+
+  def validate_args
+    @args.length == 3 || (
+      @args.length == 2 &&
+      config_scraper_container.present?
+    ) || (
+      @args.length == 1 &&
+      config_skin_container.present? &&
+      config_scraper_container.present?
+    ) || (
+      config_skin.present? &&
+      config_skin_container.present? &&
+      config_scraper_container.present?
+    )
   end
 
   private

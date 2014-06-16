@@ -28,14 +28,9 @@ class ClimbScript < BaseDragonrealmsScript
     YOU_WERENT_PRACTICING_YOUR_CLIMBING,
   ].join('|')
 
-  def validate_args(args)
-    args.length == 1 ||
-    config_obstacle
-  end
-
-  def run(args)
-    obstacle = args[0] || config_obstacle
-    interloop_sleep_time = 30
+  def run
+    obstacle = @args[0] || config_obstacle
+    interloop_sleep_time = 30.0
     loop do
       result = wait_for_match(
         CLIMB_START_PATTERN,
@@ -58,6 +53,11 @@ class ClimbScript < BaseDragonrealmsScript
       return if result == THIS_CLIMB_IS_TOO_DIFFICULT
       sleep interloop_sleep_time
     end
+  end
+
+  def validate_args
+    @args.length == 1 ||
+      config_obstacle.present?
   end
 
   protected

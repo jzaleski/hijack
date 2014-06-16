@@ -17,6 +17,9 @@ HELPERS_DIR = "#{APP_DIR}/helpers"
 # Store the path to the "interfaces" directory as a constant
 INTERFACES_DIR = "#{APP_DIR}/interfaces"
 
+# Store the path to the "mixins" directory as a constant
+MIXINS_DIR = "#{APP_DIR}/mixins"
+
 # Store the path to the "refinements" directory as a constant
 REFINEMENTS_DIR = "#{APP_DIR}/refinements"
 

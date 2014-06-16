@@ -22,16 +22,10 @@ class ReadScrollsScript < BaseDragonrealmsScript
     YOU_UNROLL,
   ].join('|')
 
-  def validate_args(args)
-    args.length == 2 ||
-    (config_container_1 && config_container_2)
-  end
-
-  def run(args)
-    container_1 = args[0] || config_container_1
-    container_2 = args[1] || config_container_2
-    return unless open_my(container_1)
-    return unless open_my(container_2)
+  def run
+    container_1 = @args[0] || config_container_1
+    container_2 = @args[1] || config_container_2
+    return unless open_my(container_1) && open_my(container_2)
     # now that we're past the initial validations, set {current,other}_container
     @current_container = container_1
     @other_container = container_2
@@ -43,7 +37,7 @@ class ReadScrollsScript < BaseDragonrealmsScript
         @other_container_was_empty = true
         @current_container, @other_container = \
           @other_container, @current_container
-        sleep 90
+        sleep 90.0
         next
       end
       # if we're gotten this far, it is safe to reset this value
@@ -59,7 +53,7 @@ class ReadScrollsScript < BaseDragonrealmsScript
         'read my scroll'
       )
       # reading takes 5 seconds, minimum
-      sleep 5
+      sleep 5.0
       # roll
       wait_for_match(
         ROLL_PATTERN,
@@ -70,6 +64,13 @@ class ReadScrollsScript < BaseDragonrealmsScript
     end
     close_my(container_2)
     close_my(container_1)
+  end
+
+  def validate_args
+    @args.length == 2 || (
+      config_container_1.present? &&
+      config_container_2.present?
+    )
   end
 
   private

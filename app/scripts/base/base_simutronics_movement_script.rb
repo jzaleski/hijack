@@ -1,6 +1,9 @@
+require 'mixins/base/nexus_movement_script_mixin'
 require 'scripts/base/base_simutronics_script'
 
 class BaseSimutronicsMovementScript < BaseSimutronicsScript
+
+  include NexusMovementScriptMixin
 
   DOWN = 'down'
   EAST = 'east'
@@ -41,7 +44,7 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
     OBVIOUS_PATHS,
   ].join('|')
 
-  def run(args)
+  def run
     directions.each do |direction_or_method|
       moved = false
       # a method can be passed in for cases where something beyond basic
@@ -70,16 +73,6 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
 
   protected
 
-  def directions
-    raise \
-      %{All #{BaseSimutronicsMovementScript}(s) must override the "directions" method}
-  end
-
-  def location
-    raise \
-      %{All #{BaseSimutronicsMovementScript}(s) must override the "location" method}
-  end
-
   def move(direction)
     wait_for_match(
       MOVE_PATTERN,
@@ -95,12 +88,6 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
     possible_directions.reverse.map do |possible_direction|
       MOVE_OPPOSITES[possible_direction] || possible_direction
     end.join('|')
-  end
-
-  def reverse_directions(directions)
-    directions.reverse.map do |direction|
-      reverse_direction(direction)
-    end
   end
 
 end

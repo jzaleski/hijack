@@ -13,7 +13,7 @@ class GetCoinsScript < BaseDragonrealmsScript
     WHAT_WERE_YOU,
   ].join('|')
 
-  def run(args)
+  def run
     loop do
       result = wait_for_match(
         GET_COIN_PATTERN,

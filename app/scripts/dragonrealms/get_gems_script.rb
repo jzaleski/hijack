@@ -44,13 +44,8 @@ class GetGemsScript < BaseDragonrealmsScript
     zircon
   ]
 
-  def validate_args(args)
-    args.length == 1 ||
-    config_container
-  end
-
-  def run(args)
-    container = args[0] || config_container
+  def run
+    container = @args[0] || config_container
     return unless open_my(container)
     GEMS.each do |gem|
       loop do
@@ -74,6 +69,11 @@ class GetGemsScript < BaseDragonrealmsScript
       end
     end
     close_my(container)
+  end
+
+  def validate_args
+    @args.length == 1 ||
+      config_container.present?
   end
 
   private

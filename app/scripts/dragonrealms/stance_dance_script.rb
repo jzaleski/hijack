@@ -21,8 +21,8 @@ class StanceDanceScript < BaseDragonrealmsScript
     ['shield', 'block'],
   ]
 
-  def run(args)
-    interloop_sleep_time = (args[0] || 30).to_i
+  def run
+    interloop_sleep_time = (@args[0] || 30.0).to_f
     loop do
       STANCES_AND_MANEUVERS.each do |stance, maneuver|
        wait_for_match(

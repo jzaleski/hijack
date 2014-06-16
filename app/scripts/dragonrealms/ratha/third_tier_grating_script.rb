@@ -1,6 +1,6 @@
-require 'scripts/base/base_dragonrealms_ratha_movement_script'
+require 'scripts/dragonrealms/ratha/town_green_script'
 
-class ThirdTierGratingScript < BaseDragonrealmsRathaMovementScript
+class ThirdTierGratingScript < TownGreenScript
 
   protected
 

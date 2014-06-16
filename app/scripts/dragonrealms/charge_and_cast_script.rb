@@ -2,27 +2,13 @@ require 'scripts/base/base_dragonrealms_script'
 
 class ChargeAndCastScript < BaseDragonrealmsScript
 
-  def validate_args(args)
-    # prep one or more spells using specific amounts of mana while charging one
-    # or more items
-    args.length >= 4 ||
-    # prep one or more spells using specific amounts of mana while charging one
-    # or more [preconfigured] items
-    (
-      config_spells.present? &&
-      config_streams.present? &&
-      config_charge_items.present? &&
-      config_charge_streams.present?
-    )
-  end
-
-  def run(args)
-    spells = (args[0] || config_spells).split('|')
-    streams = (args[1] || config_streams).split('|')
-    charge_items = (args[2] || config_charge_items).split('|')
-    charge_streams = (args[3] || config_charge_streams).split('|')
-    targets = (args[4] || config_targets).split('|')
-    interloop_sleep_time = 20
+  def run
+    spells = (@args[0] || config_spells).split('|')
+    streams = (@args[1] || config_streams).split('|')
+    charge_items = (@args[2] || config_charge_items).split('|')
+    charge_streams = (@args[3] || config_charge_streams).split('|')
+    targets = (@args[4] || config_targets).split('|')
+    interloop_sleep_time = 20.0
     loop do
       spells.each_with_index do |spell, spell_index|
         prep_success = false
@@ -37,8 +23,8 @@ class ChargeAndCastScript < BaseDragonrealmsScript
               charge_items_charged += 1
             end
           end
-          sleep_time = 15 - (charge_items_charged * 5)
-          sleep sleep_time if sleep_time > 0
+          sleep_time = 15.0 - (charge_items_charged * 5.0)
+          sleep sleep_time if sleep_time > 0.0
           cast_success = false
           5.times {break if cast_success = cast(targets[spell_index])}
           sleep interloop_sleep_time if cast_success
@@ -47,26 +33,35 @@ class ChargeAndCastScript < BaseDragonrealmsScript
     end
   end
 
+  def validate_args
+    @args.length >= 4 || (
+      config_spells.present? &&
+      config_streams.present? &&
+      config_charge_items.present? &&
+      config_charge_streams.present?
+    )
+  end
+
   private
 
   def config_charge_items
-    ([] << @config[:charge_and_cast_charge_items]).flatten.join('|')
+    Array(@config[:charge_and_cast_charge_items]).join('|')
   end
 
   def config_charge_streams
-    ([] << @config[:charge_and_cast_charge_streams]).flatten.join('|')
+    Array(@config[:charge_and_cast_charge_streams]).join('|')
   end
 
   def config_spells
-    ([] << @config[:charge_and_cast_spells]).flatten.join('|')
+    Array(@config[:charge_and_cast_spells]).join('|')
   end
 
   def config_streams
-    ([] << @config[:charge_and_cast_magic_streams]).flatten.join('|')
+    Array(@config[:charge_and_cast_magic_streams]).join('|')
   end
 
   def config_targets
-    ([] << @config[:charge_and_cast_targets]).flatten.join('|')
+    Array(@config[:charge_and_cast_targets]).join('|')
   end
 
 end

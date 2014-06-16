@@ -2,19 +2,19 @@ require 'scripts/base/base_dragonrealms_script'
 
 class LootScript < BaseDragonrealmsScript
 
-  def run(args)
-    loot_type = args[0] || config_loot_type || 'goods'
+  def run
+    loot_type = @args[0] || config_loot_type || 'goods'
     loop do
       # any dead creatures?
       unless dead_creature?
-        sleep 15
+        sleep 15.0
         next
       end
       # loot the creature
       loot(loot_type)
       # wait a few additional seconds on loot-success before returning to the
       # main loop (give the creature some time to decay)
-      sleep 5
+      sleep 5.0
     end
   end
 

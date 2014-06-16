@@ -57,13 +57,13 @@ class SkinAndLootScript < BaseDragonrealmsScript
     YOU_WORK,
   ].join('|')
 
-  def run(args)
-    num_arranges = [0, (args[0] || config_num_arranges).to_i].max
-    loot_type = args[1] || config_loot_type || 'goods'
+  def run
+    num_arranges = [0, (@args[0] || config_num_arranges).to_i].max
+    loot_type = @args[1] || config_loot_type || 'goods'
     loop do
       # any dead creatures?
       unless dead_creature?
-        sleep 15
+        sleep 15.0
         next
       end
       # arrange
@@ -73,21 +73,21 @@ class SkinAndLootScript < BaseDragonrealmsScript
           'arrange'
         )
         break unless result.match(ARRANGE_SUCCESS_PATTERN)
-        sleep 2
+        sleep 2.0
       end
       # skin
       wait_for_match(
         SKIN_PATTERN,
         'skin'
       )
-      sleep 2
+      sleep 2.0
       # drop the skin
       empty_left
       # loot the creature
       loot(loot_type)
       # wait a few additional seconds on loot-success before returning to the
       # main loop (give the creature some time to decay)
-      sleep 5
+      sleep 5.0
     end
   end
 

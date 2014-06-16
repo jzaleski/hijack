@@ -177,19 +177,12 @@ class LocksmithScript < BaseDragonrealmsScript
     WITH_A_SOFT_CLICK,
   ].join('|')
 
-  def validate_args(args)
-    args.length >= 3 ||
-    (args.length == 2 && config_lockpick_container) ||
-    (args.length == 1 && config_lockpick && config_lockpick_container) ||
-    (config_box_container && config_lockpick && config_lockpick_container)
-  end
-
-  def run(args)
-    box_container = args[0] || config_box_container
-    lockpick = args[1] || config_lockpick
-    lockpick_container = args[2] || config_lockpick_container
-    disarm_option = args[3] || config_disarm_option || 'careful'
-    pick_option = args[4] || config_pick_option || 'careful'
+  def run
+    box_container = @args[0] || config_box_container
+    lockpick = @args[1] || config_lockpick
+    lockpick_container = @args[2] || config_lockpick_container
+    disarm_option = @args[3] || config_disarm_option || 'careful'
+    pick_option = @args[4] || config_pick_option || 'careful'
     # ensure that all of the necessary items are accessible
     if open_my(box_container) && open_my(lockpick_container)
       # try every box type
@@ -215,6 +208,21 @@ class LocksmithScript < BaseDragonrealmsScript
     # clean-up
     close_my(lockpick_container)
     close_my(box_container)
+  end
+
+  def validate_args
+    @args.length >= 3 || (
+      @args.length == 2 &&
+      config_lockpick_container.present?
+    ) || (
+      @args.length == 1 &&
+      config_lockpick.present? &&
+      config_lockpick_container.present?
+    ) || (
+      config_box_container.present? &&
+      config_lockpick.present? &&
+      config_lockpick_container.present?
+    )
   end
 
   private
@@ -246,7 +254,7 @@ class LocksmithScript < BaseDragonrealmsScript
           DISARM_IDENTIFY_PATTERN,
           "disarm my #{box} identify"
         )
-        sleep 5
+        sleep 5.0
         case result
           when DISARMED_PATTERN.to_regexp
             return true
@@ -259,7 +267,7 @@ class LocksmithScript < BaseDragonrealmsScript
           DISARM_PATTERN,
           "disarm my #{box} #{option}".rstrip
         )
-        sleep 5
+        sleep 5.0
         break if result.match(DISARM_SUCCESS_PATTERN)
       end
     end
@@ -271,7 +279,7 @@ class LocksmithScript < BaseDragonrealmsScript
         DISMANTLE_PATTERN,
         "dismantle my #{box}"
       )
-      sleep 5
+      sleep 5.0
       break if result.match(DISMANTLE_SUCCESS_PATTERN)
     end
   end
@@ -306,7 +314,7 @@ class LocksmithScript < BaseDragonrealmsScript
           "pick my #{box} #{option}".rstrip
         )
         return false if result.match(FIND_A_MORE_APPROPRIATE_TOOL)
-        sleep 5
+        sleep 5.0
         break if result.match(PICK_SUCCESS_PATTERN)
       end
     end

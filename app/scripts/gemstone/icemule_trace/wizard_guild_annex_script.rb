@@ -13,7 +13,7 @@ class WizardGuildAnnexScript < WizardGuildScript
   end
 
   def location
-    "annex|wizard_guild|#{ICEMULE_TRACE}"
+    "wizard_guild_annex|#{ICEMULE_TRACE}"
   end
 
 end

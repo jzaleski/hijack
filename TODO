@@ -20,7 +20,4 @@ Dragonrealms:
 Gemstone:
 =========
 
-- figure out how to more closely emulate "go2" functionality with the current
-  travel-script architecture (thought: go to the nexus, if not at the nexus
-  then navigate out to other location)
 - enable "LichNet" for the "WebInterface"

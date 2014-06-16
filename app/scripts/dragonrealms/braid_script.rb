@@ -26,14 +26,8 @@ class BraidScript < BaseDragonrealmsScript
     YOU_MANAGE_TO_FIND,
   ].join('|')
 
-  def validate_args(args)
-    args.length >= 1 ||
-    config_material
-  end
-
-  def run(args)
-    material = args[0] || config_material
-    wastebasket = args[1] || config_wastebasket
+  def run
+    material = @args[0] || config_material
     loop do
       # foraging
       result = wait_for_match(
@@ -46,7 +40,7 @@ class BraidScript < BaseDragonrealmsScript
           return
         # at this point successful or not we are in roundtime, so sleep
         else
-          sleep 5
+          sleep 5.0
       end
       # retry if we've hit one of the failure cases
       next if result.match(FORAGE_FAILURE_PATTERN)
@@ -58,21 +52,22 @@ class BraidScript < BaseDragonrealmsScript
         )
         # this is the mean roundtime value (sometimes more, sometimes less) by
         # staying conservative here we give other scripts a chance to execute
-        sleep 10
+        sleep 10.0
         # need more material
         break if result == MORE_MATERIAL
       end
     end
   end
 
+  def validate_args
+    @args.length == 1 ||
+      config_material.present?
+  end
+
   private
 
   def config_material
     @config[:braid_material]
-  end
-
-  def config_wastebasket
-    @config[:braid_wastebasket]
   end
 
 end

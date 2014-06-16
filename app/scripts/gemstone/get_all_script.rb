@@ -2,14 +2,9 @@ require 'scripts/base/base_gemstone_script'
 
 class GetAllScript < BaseGemstoneScript
 
-  def validate_args(args)
-    args.length == 2 ||
-    (args.length == 1 && config_container)
-  end
-
-  def run(args)
-    item = args[0]
-    container = args[1] || config_container
+  def run
+    item = @args[0]
+    container = @args[1] || config_container
     return unless open_my(container)
     loop do
       result = wait_for_match(
@@ -31,6 +26,13 @@ class GetAllScript < BaseGemstoneScript
       end
     end
     close_my(container)
+  end
+
+  def validate_args
+    @args.length == 2 || (
+      @args.length == 1 &&
+      config_container.present?
+    )
   end
 
   private

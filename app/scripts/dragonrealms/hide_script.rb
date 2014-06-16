@@ -24,14 +24,14 @@ class HideScript < BaseDragonrealmsScript
     YOU_COME_OUT,
   ].join('|')
 
-  def run(args)
-    interloop_sleep_time = (args[0] || 15).to_i
+  def run
+    interloop_sleep_time = (@args[0] || 15.0).to_f
     loop do
       result = wait_for_match(
         HIDE_PATTERN,
         'hide'
       )
-      sleep 7 if result.match(HIDE_SUCCESS_PATTERN)
+      sleep 7.0 if result.match(HIDE_SUCCESS_PATTERN)
       wait_for_match(
         UNHIDE_PATTERN,
         'unhide'

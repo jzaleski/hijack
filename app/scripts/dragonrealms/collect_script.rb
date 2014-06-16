@@ -40,13 +40,8 @@ class CollectScript < BaseDragonrealmsScript
     YOU_TAKE_A_STEP_BACK,
   ].join('|')
 
-  def validate_args(args)
-    args.length == 1 ||
-    config_item
-  end
-
-  def run(args)
-    item = args[0] || config_item
+  def run
+    item = @args[0] || config_item
     loop do
       result = wait_for_match(
         COLLECT_PATTERN,
@@ -56,10 +51,10 @@ class CollectScript < BaseDragonrealmsScript
         when COLLECT_FATAL_FAILURE_PATTERN
           return
         when COLLECT_FAILURE_PATTERN
-          sleep 5
+          sleep 5.0
           next
       end
-      sleep 15
+      sleep 15.0
       loop do
         result = wait_for_match(
           KICK_PATTERN,
@@ -71,8 +66,13 @@ class CollectScript < BaseDragonrealmsScript
           break
         end
       end
-      sleep 30
+      sleep 30.0
     end
+  end
+
+  def validate_args
+    @args.length == 1 ||
+      config_item.present?
   end
 
   private

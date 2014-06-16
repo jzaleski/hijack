@@ -33,65 +33,59 @@ class ScriptHelper
         pause(script_name)
       elsif command_parts[0] == 'r' && script_name = command_parts[1]
         resume(script_name)
-      elsif script_name = command_parts[0]
-        if running?(script_name)
-          @output_buffer.puts "\nScript: '#{script_name}' is already running.."
-          return
-        end
-        script_path = script_path(script_name)
-        if script_path.nil?
-          @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
-          return
-        end
-        begin
-          load script_path
-        rescue Exception => e
-          @logging_helper.log_exception_with_backtrace(e)
-          return
-        end
-        script_class_name = \
-          "#{script_name.split('_').map(&:capitalize).join}Script"
-        script_object = Object::const_get(script_class_name).new(
-          @config,
-          @bridge,
-          @callback_helper,
-          @logging_helper,
-          :on_exec => lambda do
-            @output_buffer.puts "\nScript: '#{script_name}' executing.."
-          end,
-          :on_exit => lambda do
-            delete(script_name)
-            @output_buffer.puts "\nScript: '#{script_name}' exited.."
-          end,
-          :on_kill => lambda do
-            delete(script_name)
-            @output_buffer.puts "\nScript: '#{script_name}' killed.."
-          end,
-          :on_pause => lambda do
-            @output_buffer.puts "\nScript: '#{script_name}' paused.."
-          end,
-          :on_resume => lambda do
-            @output_buffer.puts "\nScript: '#{script_name}' resumed.."
-          end
+      elsif top_level_script_name = command_parts[0]
+        # instantiate an "Array" (used like a "Stack") to store the script-names
+        # and script-objects in their desired execution order
+        script_names_and_objects = []
+        # [try to] construct the top-level script-object. First, extract the
+        # script-args (stripping out the "script_name" and any leading/trailing
+        # whitespace before attempting to parse the string)
+        top_level_script_object = construct_script_object(
+          top_level_script_name,
+          @arguments_helper.parse(command.sub(top_level_script_name, '').strip)
         )
-        if script_object.present?
-          # strip out the "script_name" and leading/trailing whitespace before
-          # attempting to parse the args out of the string
-          args = @arguments_helper.parse(command.sub(script_name, '').strip)
-          unless script_object.validate_args(args)
-            @output_buffer.puts \
-              "\nScript: '#{script_name}' was invoked with invalid arguments.."
-            return
-          end
-          script_object.start_run(args)
-          store(
-            script_name,
-            script_object
-          )
-          # update the "last_script" information
-          @last_script = script_name
-          script_object.class.ancestors[1..-1].each do |ancestor|
-            @last_scripts_by_type_name[ancestor.name] = script_name
+        # short circuit if the top-level script-object was not successfully
+        # constructed
+        return unless top_level_script_object.present?
+        # push the top-level script-name and script-object onto the stack
+        script_names_and_objects.push([
+          top_level_script_name,
+          top_level_script_object,
+        ])
+        # determine if it is necessary to return to the nexus before executing
+        # the top-level script-object
+        if \
+          should_return_to_nexus?(top_level_script_object) &&
+          return_script_name = return_script_name(@config[:location])
+          # [try to] construct the return script-object. For the time being the
+          # script-args are only passed to the top-level script-object (there is
+          # no specific reason for this)
+          return_script_object = construct_script_object(return_script_name)
+          # short circuit if the return script-object was not successfully
+          # constructed
+          return unless return_script_object.present?
+          # push the return script-object onto the stack
+          script_names_and_objects.push([
+            return_script_name,
+            return_script_object,
+          ])
+        end
+        # don't block the main-thread waiting for scripts to finish execution
+        Thread.new do
+          # when the stack is empty, we're done
+          while !script_names_and_objects.empty?
+            # unpack the script-name and script-object
+            script_name, script_object = script_names_and_objects.pop
+            # memoize the script-object so that it can be managed externally
+            store(script_name, script_object)
+            # update the "last_script" information
+            @last_script = script_name
+            script_object.class.ancestors[1..-1].each do |ancestor|
+              @last_scripts_by_type_name[ancestor.name] = script_name
+            end
+            # start execution then block until the script exits or is killed
+            script_object.start_run
+            sleep 0.1 until script_object.exited? || script_object.killed?
           end
         end
       end
@@ -105,6 +99,62 @@ class ScriptHelper
   end
 
   private
+
+  def construct_script_object(script_name, args=nil)
+    # short-circuit if the script-name is invalid
+    if script_name.blank?
+      @output_buffer.puts "\nInvalid script-name specified.."
+      return
+    end
+    # short-circuit if the script is already running
+    if running?(script_name)
+      @output_buffer.puts "\nScript: '#{script_name}' is already running.."
+      return
+    end
+    # short-circuit if a script-path could not be determined
+    if (script_path = script_path(script_name)).nil?
+      @output_buffer.puts "\nScript: '#{script_name}' does not exist.."
+      return
+    end
+    # short-circuit if the script-file could not be loaded
+    if !load_script(script_path)
+      @output_buffer.puts "\nScript: '#{script_name}' could to be loaded.."
+      return
+    end
+    # construct the script-object
+    script_object = Object::const_get(script_class_name(script_name)).new(
+      @config,
+      @bridge,
+      @callback_helper,
+      @logging_helper,
+      :args => args || [],
+      :on_exec => lambda do
+        @output_buffer.puts "\nScript: '#{script_name}' executing.."
+      end,
+      :on_exit => lambda do
+        delete(script_name)
+        @output_buffer.puts "\nScript: '#{script_name}' exited.."
+      end,
+      :on_kill => lambda do
+        delete(script_name)
+        @output_buffer.puts "\nScript: '#{script_name}' killed.."
+      end,
+      :on_pause => lambda do
+        @output_buffer.puts "\nScript: '#{script_name}' paused.."
+      end,
+      :on_resume => lambda do
+        @output_buffer.puts "\nScript: '#{script_name}' resumed.."
+      end
+    )
+    # short-circuit if the args to the script-object were invalid
+    if !script_object.validate_args
+      @output_buffer.puts \
+        "\nScript: '#{script_name}' was invoked with invalid arguments.."
+      return
+    end
+    # return the script-object
+    script_object
+  end
 
   def delete(script_name)
     if @scripts.include?(script_name)
@@ -124,6 +174,16 @@ class ScriptHelper
   def kill_all
     @scripts.keys.each do |script_name|
       kill(script_name)
+    end
+  end
+
+  def load_script(script_path)
+    begin
+      load script_path
+      true
+    rescue Exception => e
+      @logging_helper.log_exception_with_backtrace(e)
+      false
     end
   end
 
@@ -183,7 +243,7 @@ class ScriptHelper
       @output_buffer.puts "\nScript: '#{script_name}' is not running.."
       return
     end
-    unless script_object.paused?
+    if !script_object.paused?
       @output_buffer.puts "\nScript: '#{script_name}' is already running.."
       return
     end
@@ -194,6 +254,10 @@ class ScriptHelper
     @scripts.keys.each do |script_name|
       resume(script_name)
     end
+  end
+
+  def return_script_name(location)
+    "#{location.split('|').first}_return" if location.present?
   end
 
   def running?(script_name)
@@ -217,11 +281,27 @@ class ScriptHelper
     end
   end
 
+  def script_class_name(script_name)
+    "#{script_name.split('_').map(&:capitalize).join}Script"
+  end
+
   def script_path(script_name)
     script_directories.map do |script_directory|
       script_path = File.join(script_directory, "#{script_name}_script.rb")
       File.exist?(script_path) ? script_path : nil
     end.compact.first
+  end
+
+  def should_return_to_nexus?(script_object)
+    # it can be inferred that scripts that respond-to the "nexus_location"
+    # method are nexus[ed] travel-scripts. Under the conditions below it is
+    # necessary to travel back to the nexus before branching out to the desired
+    # location
+    script_object.present? &&
+      script_object.respond_to?(:nexus_location) &&
+      !script_object.class.name.end_with?('ReturnScript') &&
+      @config[:location].present? &&
+      script_object.nexus_location != @config[:location]
   end
 
   def store(script_name, script_object)

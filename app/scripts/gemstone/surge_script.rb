@@ -15,7 +15,7 @@ class SurgeScript < BaseGemstoneScript
     YOUR_MUSCLES_ACHE_MUCH_TOO_BADLY,
   ].join('|')
 
-  def run(args)
+  def run
     loop do
       result = wait_for_match(
         CMAN_SURGE_PATTERN,

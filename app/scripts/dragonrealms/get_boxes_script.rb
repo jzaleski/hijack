@@ -2,13 +2,8 @@ require 'scripts/base/base_dragonrealms_script'
 
 class GetBoxesScript < BaseDragonrealmsScript
 
-  def validate_args(args)
-    args.length == 1 ||
-    config_container
-  end
-
-  def run(args)
-    container = args[0] || config_container
+  def run
+    container = @args[0] || config_container
     return unless open_my(container)
     BOXES.each do |box|
       loop do
@@ -32,6 +27,11 @@ class GetBoxesScript < BaseDragonrealmsScript
       end
     end
     close_my(container)
+  end
+
+  def validate_args
+    @args.length == 1 ||
+      config_container.present?
   end
 
   private

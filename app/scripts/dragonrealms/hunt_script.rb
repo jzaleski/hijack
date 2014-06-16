@@ -8,14 +8,14 @@ class HuntScript < BaseDragonrealmsScript
     YOU_TAKE_NOTE_OF_ALL_THE_TRACKS,
   ].join('|')
 
-  def run(args)
+  def run
     loop do
       wait_for_match(
         HUNT_PATTERN,
         'hunt'
       )
-      # the learning timeout is 75s, wait a few extra seconds for good measure
-      sleep 80
+      # the learning timeout is ~75s, wait a few extra seconds for good measure
+      sleep 80.0
     end
   end
 

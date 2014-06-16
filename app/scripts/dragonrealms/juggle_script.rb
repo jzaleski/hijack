@@ -17,14 +17,9 @@ class JuggleScript < BaseDragonrealmsScript
     YOU_TOSS,
   ].join('|')
 
-  def validate_args(args)
-    args.length == 2 ||
-    (config_jugglies && config_jugglies_container)
-  end
-
-  def run(args)
-    jugglies = args[0] || config_jugglies
-    container = args[1] || config_container
+  def run
+    jugglies = @args[0] || config_jugglies
+    container = @args[1] || config_container
     if open_my(container) && get_my(jugglies, container)
       loop do
         result = wait_for_match(
@@ -32,11 +27,18 @@ class JuggleScript < BaseDragonrealmsScript
           "juggle my #{jugglies}"
         )
         break if result.match(JUGGLE_FAILURE_PATTERN)
-        sleep 15
+        sleep 15.0
       end
     end
     store_my(jugglies, container)
     close_my(container)
+  end
+
+  def validate_args
+    @args.length == 2 || (
+      config_jugglies.present? &&
+      config_jugglies_container.present?
+    )
   end
 
   private

@@ -19,14 +19,9 @@ class CompendiumScript < BaseDragonrealmsScript
     YOU_TURN_TO,
   ].join('|')
 
-  def validate_args(args)
-    args[0] ||
-    config_container
-  end
-
-  def run(args)
-    container = args[0] || config_container
-    num_pages = (args[1] || config_num_pages || 10).to_i
+  def run
+    container = @args[0] || config_container
+    num_pages = (@args[1] || config_num_pages || 10).to_i
     compendium = 'compendium'
     # only proceed if some pre-conditions are satisfied
     if open_my(container) && get_my(compendium, container) && open_my(compendium)
@@ -38,7 +33,7 @@ class CompendiumScript < BaseDragonrealmsScript
         # STUDYing will impose between 10 an 60 seconds roundtime (typically
         # it is on the lower side: 10s) we chose 30s here because we want to
         # be kind to other scripts and give them a chance to execute
-        sleep 30
+        sleep 30.0
         wait_for_match(
           TURN_PATTERN,
           'turn my compendium'
@@ -51,6 +46,11 @@ class CompendiumScript < BaseDragonrealmsScript
     close_my(compendium)
     store_my(compendium, container)
     close_my(container)
+  end
+
+  def validate_args
+    @args.length >= 1 ||
+      config_container.present?
   end
 
   private

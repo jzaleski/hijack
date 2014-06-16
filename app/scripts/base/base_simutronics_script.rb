@@ -24,8 +24,9 @@ class BaseSimutronicsScript < BaseScript
       )
       # success
       return result if result.match(pattern)
-      # sleep before retrying
-      sleep 1
+      # sleep before retrying, add a little entropy to ensure that all retries
+      # don't occur at exactly the same time
+      sleep 0.5 + rand(0.1)
     end
   end
 

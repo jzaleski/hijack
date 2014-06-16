@@ -1,6 +1,6 @@
-require 'scripts/base/base_gemstone_wehnimers_landing_movement_script'
+require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
-class BankScript < BaseGemstoneWehnimersLandingMovementScript
+class BankScript < TownSquareCentralScript
 
   protected
 

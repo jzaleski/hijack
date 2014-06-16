@@ -14,7 +14,7 @@ class WizardGuildEnchantingWorkshopScript < WizardGuildScript
   end
 
   def location
-    "enchanting_workshop|wizard_guild|#{ICEMULE_TRACE}"
+    "wizard_guild_enchanting_workshop|#{ICEMULE_TRACE}"
   end
 
 end

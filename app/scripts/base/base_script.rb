@@ -5,6 +5,7 @@ class BaseScript
     @bridge = bridge
     @callback_helper = callback_helper
     @logging_helper = logging_helper
+    @args = opts[:args]
     @on_exec = opts[:on_exec]
     @on_exit = opts[:on_exit]
     @on_kill = opts[:on_kill]
@@ -12,21 +13,23 @@ class BaseScript
     @on_resume = opts[:on_resume]
   end
 
-  def start_run(args)
-    @run_thread ||= Thread.new do
+  def start_run
+    if !running?
+      @running = true
       @on_exec.call rescue nil
       begin
-        run(args)
+        run
       rescue Exception => e
         @logging_helper.log_exception_with_backtrace(e)
       end
+      @running = false
       @on_exit.call rescue nil
     end
   end
 
   def kill
     if running?
-      @run_thread.kill
+      @killed = true
       @on_kill.call rescue nil
     end
   end
@@ -45,8 +48,16 @@ class BaseScript
     end
   end
 
-  def run(args)
+  def run
     raise %{All #{BaseScript}(s) must override the "run" method}
+  end
+
+  def exited?
+    @running == false
+  end
+
+  def killed
+    @killed == true
   end
 
   def paused?
@@ -54,8 +65,7 @@ class BaseScript
   end
 
   def running?
-    @run_thread.present? &&
-      @run_thread.alive?
+    @running == true
   end
 
   def sleeping?
@@ -69,6 +79,10 @@ class BaseScript
       'waiting for match'
     elsif sleeping?
       'sleeping'
+    elsif killed?
+      'killed'
+    elsif exited?
+      'exited'
     else
       'running'
     end
@@ -80,7 +94,7 @@ class BaseScript
     @sleeping = false
   end
 
-  def validate_args(args)
+  def validate_args
     true
   end
 

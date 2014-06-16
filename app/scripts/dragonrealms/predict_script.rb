@@ -115,10 +115,10 @@ class PredictScript < BaseDragonrealmsScript
     pg
   ]
 
-  def run(args)
-    num_observes = [1, (args[0] || config_num_observes).to_i].max
+  def run
+    num_observes = [1, (@args[0] || config_num_observes).to_i].max
     shuffle_objects_after_successful_observation = (
-      args[1] ||
+      @args[1] ||
       config_shuffle_objects_after_successful_obseravation
     ).to_s == 'true'
     successful_observes = 0
@@ -143,28 +143,28 @@ class PredictScript < BaseDragonrealmsScript
         case result
           # too soon
           when YOU_HAVE_NOT_PONDERED
-            sleep 30
+            sleep 30.0
             break
           # success
           when OBSERVE_SUCCESS_PATTERN.to_regexp
             # increment the success counter (first)
             successful_observes += 1
             # always around 10 seconds roundtime
-            sleep 10
+            sleep 10.0
             # check pool state
             wait_for_match(
               PREDICT_STATE_ALL_PATTERN,
               'predict state all'
             )
             # always around 20 seconds roundtime
-            sleep 20
+            sleep 20.0
             # re-shuffle objects (if configured to do so)
             objects.shuffle! if shuffle_objects_after_successful_observation
             # short-circuit if there is more observing to do
             if successful_observes < num_observes
               # the average observe cooldown time is 120 seconds but we already
               # have accounted for 30 seconds of it at this point
-              sleep 90
+              sleep 90.0
               break
             end
             # ensure that the objects are shuffled for the next iteration (only
@@ -179,18 +179,18 @@ class PredictScript < BaseDragonrealmsScript
                 "align #{alignment}"
               )
               # always 2 seconds roundtime (on success)
-              sleep 2 if YOU_FOCUS_INTERNALLY
+              sleep 2.0 if YOU_FOCUS_INTERNALLY
               result = wait_for_match(
                 PREDICT_FUTURE_PATTERN,
                 'predict future'
               )
               case result
                 when REMAINS_A_DARK_MYSTERY
-                  sleep 10
+                  sleep 10.0
                 when YOU_REALIZE_YOU_HAVE_NOT_PROPERLY_ALIGNED_YOURSELF
                   redo
                 else
-                  sleep 5
+                  sleep 5.0
               end
             end
             # analyze
@@ -203,7 +203,7 @@ class PredictScript < BaseDragonrealmsScript
             # where 'N' is the number of alignments, '2' is the standard align
             # roundtime and '7.5' is the average roundtime for the failure and
             # success cases when predicting the future
-            sleep 120 - (ALIGNMENTS.length * (2 + 7.5))
+            sleep 120.0 - (ALIGNMENTS.length * (2 + 7.5))
             break
         end
       end

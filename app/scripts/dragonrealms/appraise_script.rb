@@ -27,14 +27,9 @@ class AppraiseScript < BaseDragonrealmsScript
     YOU_BEGIN_TO_CAREFULLY_STUDY,
   ].join('|')
 
-  def validate_args(args)
-    args.length >= 1 ||
-      config_args.present?
-  end
-
-  def run(args)
-    args = args.presence || config_args
-    interloop_sleep_time = 60
+  def run
+    args = @args.presence || config_args
+    interloop_sleep_time = 60.0
     loop do
       args.each do |arg|
         # strip off any additional qualifiers, indices and/or descriptors
@@ -49,10 +44,15 @@ class AppraiseScript < BaseDragonrealmsScript
         )
         # only sleep on a successful appraise, don't worry about missing items
         # or invalid selectors
-        sleep 10 if result.match(appraise_success_pattern)
+        sleep 10.0 if result.match(appraise_success_pattern)
       end
       sleep interloop_sleep_time
     end
+  end
+
+  def validate_args
+    @args.length >= 1 ||
+      config_args.present?
   end
 
   private

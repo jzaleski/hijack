@@ -108,7 +108,7 @@ class LichNetHelper
     @ping_thread ||= Thread.new do
       while connected?
         write(PING) if (Time.now - @last_write) >= 60
-        sleep 1
+        sleep 1.0
       end
     end
   end
@@ -261,7 +261,8 @@ class LichNetHelper
 
   def validate_args
     if [@game, @name].any?(&:blank?)
-      raise("\"#{LichNetHelper}\" is missing one or more required configuration values")
+      raise \
+        %{"#{LichNetHelper}" is missing one or more required configuration values}
     end
   end
 
