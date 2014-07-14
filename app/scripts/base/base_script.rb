@@ -30,6 +30,7 @@ class BaseScript
   def kill
     if running?
       @killed = true
+      @running = false
       @on_kill.call rescue nil
     end
   end
