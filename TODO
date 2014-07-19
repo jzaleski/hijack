@@ -6,6 +6,12 @@ General:
 - figure out an intelligent means to print the result of a config-proxy
   operation to the output-pane
 
+Heroku:
+=======
+
+- clean up warnings during deploy
+- consider upgrading/deploying to the latest 2.1.x ruby-version
+
 Simutronics:
 ============
 
