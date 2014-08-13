@@ -73,7 +73,7 @@ class ScriptHelper
         # don't block the main-thread waiting for scripts to finish execution
         Thread.new do
           # when the stack is empty, we're done
-          while !script_names_and_objects.empty?
+          until script_names_and_objects.empty?
             # unpack the script-name and script-object
             script_name, script_object = script_names_and_objects.pop
             # memoize the script-object so that it can be managed externally
@@ -85,7 +85,10 @@ class ScriptHelper
             end
             # start execution then block until the script exits or is killed
             script_object.start_run
+            # wait for the script to finish execution
             sleep 0.1 while script_object.running?
+            # short-circuit immediately if the running script was killed
+            break if script_object.killed?
           end
         end
       end
