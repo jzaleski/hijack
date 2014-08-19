@@ -85,10 +85,8 @@ class ScriptHelper
             end
             # start execution then block until the script exits or is killed
             script_object.start_run
-            # wait for the script to finish execution
-            sleep 0.1 while script_object.running?
-            # short-circuit immediately if the running script was killed
-            break if script_object.killed?
+            # if the "script" was killed, we are done
+            return if script_object.killed?
           end
         end
       end

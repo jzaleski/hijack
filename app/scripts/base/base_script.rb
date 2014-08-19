@@ -1,5 +1,8 @@
 class BaseScript
 
+  # raised to short-circuit [script] execution immediately
+  class AbortedException < Exception; end
+
   def initialize(config, bridge, callback_helper, logging_helper, opts={})
     @config = config
     @bridge = bridge
@@ -19,6 +22,8 @@ class BaseScript
       @on_exec.call rescue nil
       begin
         run
+      rescue AbortedException
+        # NOOP
       rescue Exception => e
         @logging_helper.log_exception_with_backtrace(e)
       end
@@ -57,7 +62,7 @@ class BaseScript
     @running == false
   end
 
-  def killed
+  def killed?
     @killed == true
   end
 
@@ -74,25 +79,38 @@ class BaseScript
   end
 
   def status
-    if paused?
+    if killed?
+      'killed'
+    elsif exited?
+      'exited'
+    elsif paused?
       'paused'
     elsif waiting_for_match?
       'waiting for match'
     elsif sleeping?
       'sleeping'
-    elsif killed?
-      'killed'
-    elsif exited?
-      'exited'
     else
       'running'
     end
   end
 
+  def loop
+    # behaves like `loop do; end` but is constrained by `running?` (this allows
+    # the script to be aborted outside of the executing `Thread`)
+    yield while running?
+    # short-circuit, the script was aborted
+    raise AbortedException
+  end
+
   def sleep(duration)
+    # set "sleeping"
     @sleeping = true
+    # sleep for the specified "duration"
     Kernel::sleep(duration)
+    # reset "sleeping"
     @sleeping = false
+    # short-circuit, the script was aborted
+    raise AbortedException unless running?
   end
 
   def validate_args
@@ -128,9 +146,11 @@ class BaseScript
     # is set
     puts(command) if command
     # sleep on this thread while waiting for the hook to be invoked
-    sleep 0.1 until result
+    sleep 0.1 while running? && !result
     # reset "waiting_for_match"
     @waiting_for_match = false
+    # short-circuit, the script was aborted
+    raise AbortedException unless running?
     # return the result
     result
   end
