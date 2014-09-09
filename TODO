@@ -12,6 +12,11 @@ Heroku:
 - clean up warnings during deploy
 - consider upgrading/deploying to the latest 2.1.x ruby-version
 
+WebInterface:
+=============
+
+- expose methods for fetching the available games & bridges
+
 Simutronics:
 ============
 
