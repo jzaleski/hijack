@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/town_green_script'
 
 class ThirdTierBankScript < TownGreenScript
-
   protected
 
   def directions
@@ -26,5 +25,4 @@ class ThirdTierBankScript < TownGreenScript
   def location
     "third_tier_bank|#{RATHA}"
   end
-
 end

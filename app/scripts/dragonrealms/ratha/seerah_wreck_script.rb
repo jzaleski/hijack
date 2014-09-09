@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/first_tier_grating_script'
 
 class SeerahWreckScript < FirstTierGratingScript
-
   protected
 
   def directions
@@ -38,5 +37,4 @@ class SeerahWreckScript < FirstTierGratingScript
   def location
     "seerah_wreck|#{RATHA}"
   end
-
 end

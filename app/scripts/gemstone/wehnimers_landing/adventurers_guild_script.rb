@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
 class AdventurersGuildScript < TownSquareCentralScript
-
   protected
 
   def directions
@@ -23,5 +22,4 @@ class AdventurersGuildScript < TownSquareCentralScript
   def location
     "adventurers_guild|#{WEHNIMERS_LANDING}"
   end
-
 end

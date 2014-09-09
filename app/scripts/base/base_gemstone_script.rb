@@ -1,7 +1,6 @@
 require 'scripts/base/base_simutronics_script'
 
 class BaseGemstoneScript < BaseSimutronicsScript
-
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
   CAST_AT_WHAT = 'Cast at what\?'
   COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
@@ -352,5 +351,4 @@ class BaseGemstoneScript < BaseSimutronicsScript
       "put my #{item} in my #{container}"
     ).match(STORE_MY_SUCCESS_PATTERN)
   end
-
 end

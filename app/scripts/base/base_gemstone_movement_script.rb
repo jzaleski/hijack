@@ -1,7 +1,6 @@
 require 'scripts/base/base_simutronics_movement_script'
 
 class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
-
   BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'
   BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING = 'before you truly lose your footing'
   FIVE_SILVERS_ENTRANCE_FEE = 'five silvers entrance fee'
@@ -118,5 +117,4 @@ class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
       'stand'
     ).match(STAND_SUCCESS_PATTERN)
   end
-
 end

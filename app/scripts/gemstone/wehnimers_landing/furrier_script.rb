@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
 class FurrierScript < TownSquareCentralScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class FurrierScript < TownSquareCentralScript
   def location
     "furrier|#{WEHNIMERS_LANDING}"
   end
-
 end

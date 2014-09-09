@@ -1,7 +1,6 @@
 require 'bridges/base/base_gemstone_bridge'
 
 class GemstonePrimeBridge < BaseGemstoneBridge
-
   def initialize(config)
     super
     @config.merge!({
@@ -11,5 +10,4 @@ class GemstonePrimeBridge < BaseGemstoneBridge
       :script_dir => 'gemstone',
     })
   end
-
 end

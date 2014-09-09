@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/lesser_burrow_orcs_script'
 
 class GreaterBurrowOrcsScript < LesserBurrowOrcsScript
-
   protected
 
   def directions
@@ -31,5 +30,4 @@ class GreaterBurrowOrcsScript < LesserBurrowOrcsScript
   def location
     "greater_burrow_orcs|#{WEHNIMERS_LANDING}"
   end
-
 end

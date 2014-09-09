@@ -1,5 +1,4 @@
 class AliasHelper
-
   def initialize(config)
     @config = config
   end
@@ -15,5 +14,4 @@ class AliasHelper
   def aliases
     @config[:aliases] || {}
   end
-
 end

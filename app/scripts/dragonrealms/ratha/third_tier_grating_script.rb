@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/town_green_script'
 
 class ThirdTierGratingScript < TownGreenScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class ThirdTierGratingScript < TownGreenScript
   def location
     "third_tier_grating_script|#{RATHA}"
   end
-
 end

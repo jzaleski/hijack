@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/silverback_orcs_script'
 
 class SnowSpectresScript < SilverbackOrcsScript
-
   protected
 
   def directions
@@ -21,5 +20,4 @@ class SnowSpectresScript < SilverbackOrcsScript
   def location
     "snow_spectres|#{ICEMULE_TRACE}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
 
 class RogueGuildCourtyardCenterScript < RogueGuildScript
-
   THE_OAKEN_DOOR_GIVES_WAY = 'The oaken door gives way'
   YOU_KICK = 'You kick'
   YOU_PRESS_CLOSELY_AGAINST_THE_DOOR = 'You press closely against the door'
@@ -82,5 +81,4 @@ class RogueGuildCourtyardCenterScript < RogueGuildScript
   def config_password_actions
     @config[:rogue_guild_password_actions]
   end
-
 end

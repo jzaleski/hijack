@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class LocksmithScript < BaseDragonrealmsScript
-
   AFTER_WIGGLING_THE_MILKY_WHITE_TUBE = 'After wiggling the milky-white tube'
   A_BENT_NEEDLE_STICKS_HARMLESSLY = 'A bent needle sticks harmlessly'
   A_SMALL_BLACK_CRYSTAL_DEEP_IN = 'a small black crystal deep in'
@@ -319,5 +318,4 @@ class LocksmithScript < BaseDragonrealmsScript
       end
     end
   end
-
 end

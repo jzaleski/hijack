@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_spellup_script'
 
 class RangerSpellupScript < BaseGemstoneSpellupScript
-
   protected
 
   def spells
@@ -21,5 +20,4 @@ class RangerSpellupScript < BaseGemstoneSpellupScript
       [640, true],
     ]
   end
-
 end

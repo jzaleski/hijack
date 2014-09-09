@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class WestGateScript < TownCenterScript
-
   protected
 
   def directions
@@ -19,5 +18,4 @@ class WestGateScript < TownCenterScript
   def location
     "west_gate|#{ICEMULE_TRACE}"
   end
-
 end

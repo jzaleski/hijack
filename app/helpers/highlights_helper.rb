@@ -1,5 +1,4 @@
 class HighlightsHelper
-
   DEFAULT_DEFAULTS = {}
   DEFAULT_HIGHLIGHTS = []
   DEFAULT_PALETTE = {}
@@ -56,5 +55,4 @@ class HighlightsHelper
   def template
     @config[:highlights_template] || DEFAULT_TEMPLATE
   end
-
 end

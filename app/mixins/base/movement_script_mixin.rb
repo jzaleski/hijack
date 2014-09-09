@@ -1,5 +1,4 @@
 module MovementScriptMixin
-
   def directions
     raise %{All #{MovementScriptMixin}(s) must override the "directions" method}
   end
@@ -22,5 +21,4 @@ module MovementScriptMixin
       reverse_direction(direction)
     end
   end
-
 end

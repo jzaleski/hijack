@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/muddy_trail_script'
 
 class BeachScript < MuddyTrailScript
-
   protected
 
   def directions
@@ -59,5 +58,4 @@ class BeachScript < MuddyTrailScript
   def location
     "beach|#{SOLHAVEN}"
   end
-
 end

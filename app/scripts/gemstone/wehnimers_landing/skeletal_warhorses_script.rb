@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/skeletal_lords_script'
 
 class SkeletalWarhorsesScript < SkeletalLordsScript
-
   protected
 
   def directions
@@ -15,5 +14,4 @@ class SkeletalWarhorsesScript < SkeletalLordsScript
   def location
     "skeletal_warhorses|#{WEHNIMERS_LANDING}"
   end
-
 end

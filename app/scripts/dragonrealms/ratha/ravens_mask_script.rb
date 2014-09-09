@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/second_tier_drain_script'
 
 class RavensMaskScript < SecondTierDrainScript
-
   protected
 
   def directions
@@ -20,5 +19,4 @@ class RavensMaskScript < SecondTierDrainScript
   def location
     "ravens_mask|#{RATHA}"
   end
-
 end

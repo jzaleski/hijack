@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class FurrierScript < TownCenterScript
-
   protected
 
   def directions
@@ -21,5 +20,4 @@ class FurrierScript < TownCenterScript
   def location
     "furrier|#{ICEMULE_TRACE}"
   end
-
 end

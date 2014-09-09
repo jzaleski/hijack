@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class DaggerbeaksScript < NorthMarketScript
-
   protected
 
   def directions
@@ -34,5 +33,4 @@ class DaggerbeaksScript < NorthMarketScript
   def location
     "daggerbeaks|#{SOLHAVEN}"
   end
-
 end

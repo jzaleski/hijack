@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
 class RogueGuildScript < TownSquareCentralScript
-
   protected
 
   def directions
@@ -27,5 +26,4 @@ class RogueGuildScript < TownSquareCentralScript
   def location
     "rogue_guild|#{WEHNIMERS_LANDING}"
   end
-
 end

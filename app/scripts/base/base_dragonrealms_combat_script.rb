@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class BaseDragonrealmsCombatScript < BaseDragonrealmsScript
-
   THERE_IS_NOTHING_ELSE = 'There is nothing else'
   YOU_BEGIN_TO_ADVANCE = 'You begin to advance'
   YOU_MUST_BE_CLOSER = 'You must be closer'
@@ -50,5 +49,4 @@ class BaseDragonrealmsCombatScript < BaseDragonrealmsScript
       ['weave', 4.5],
     ]
   end
-
 end

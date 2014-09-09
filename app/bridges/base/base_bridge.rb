@@ -1,5 +1,4 @@
 class BaseBridge
-
   def initialize(config)
     @config = config
     @input_buffer = Buffer.new
@@ -131,24 +130,23 @@ class BaseBridge
 
   def parse_command(str)
     # define an array to hold the aggregated result
-    commands = []
-    # sub-commands are pipe-delimited (e.g. command1|command2)
-    str.split('|').each do |sub_str|
-      # repeated commands include a multiplier (e.g. command * 2)
-      command, num_repeats = sub_str.strip.split('*').map(&:strip)
-      # check if the sub-command is an alias and replace it here
-      command = @alias_helper.process(command)
-      # ensure that "num_repeats" is at least 1
-      num_repeats = [1, num_repeats.to_i].max
-      # recurse, there was a scriptlet nested in an alias
-      if num_repeats == 1 && command =~ /\*|\|/
-        commands += parse_command(command)
-      # apply the command multiplier (in most cases, 1)
-      else
-        commands += ([command] * num_repeats)
+    [].tap do |commands|
+      # sub-commands are pipe-delimited (e.g. command1|command2)
+      str.split('|').each do |sub_str|
+        # repeated commands include a multiplier (e.g. command * 2)
+        command, num_repeats = sub_str.strip.split('*').map(&:strip)
+        # check if the sub-command is an alias and replace it here
+        command = @alias_helper.process(command)
+        # ensure that "num_repeats" is at least 1
+        num_repeats = [1, num_repeats.to_i].max
+        # recurse, there was a scriptlet nested in an alias
+        if num_repeats == 1 && command =~ /\*|\|/
+          commands += parse_command(command)
+        # apply the command multiplier (in most cases, 1)
+        else
+          commands += ([command] * num_repeats)
+        end
       end
     end
-    commands
   end
-
 end

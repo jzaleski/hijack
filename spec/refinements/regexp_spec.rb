@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'refinements/regexp'
 
 describe Regexp do
-
   describe '#union' do
-
     subject {Regexp.new('hello')}
 
     it 'should be able to union a "String" object' do
@@ -19,7 +17,5 @@ describe Regexp do
       expect{subject.union(123)}.to \
         raise_error('All other elements must be or be convertable to "Regexp" objects')
     end
-
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/abandoned_farm_script'
 
 class WraithsScript < AbandonedFarmScript
-
   protected
 
   def directions
@@ -13,5 +12,4 @@ class WraithsScript < AbandonedFarmScript
   def location
     "wraiths|#{ICEMULE_TRACE}"
   end
-
 end

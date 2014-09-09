@@ -1,5 +1,4 @@
 class BaseScript
-
   # raised to short-circuit [script] execution immediately
   class AbortedException < Exception; end
 
@@ -154,5 +153,4 @@ class BaseScript
     # return the result
     result
   end
-
 end

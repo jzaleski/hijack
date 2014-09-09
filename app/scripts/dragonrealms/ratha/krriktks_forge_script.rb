@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/second_tier_drain_script'
 
 class KrriktksForgeScript < SecondTierDrainScript
-
   protected
 
   def directions
@@ -21,5 +20,4 @@ class KrriktksForgeScript < SecondTierDrainScript
   def location
     "krriktks_forge|#{RATHA}"
   end
-
 end

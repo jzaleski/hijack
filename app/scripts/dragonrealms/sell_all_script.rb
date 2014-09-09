@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class SellAllScript < BaseDragonrealmsScript
-
   def run
     item = @args[0]
     container = @args[1] || config_container
@@ -24,5 +23,4 @@ class SellAllScript < BaseDragonrealmsScript
   def config_container
     @config[:get_container]
   end
-
 end

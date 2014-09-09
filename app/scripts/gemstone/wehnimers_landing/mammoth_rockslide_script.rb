@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/stone_bridge_script'
 
 class MammothRockslideScript < StoneBridgeScript
-
   protected
 
   def directions
@@ -27,5 +26,4 @@ class MammothRockslideScript < StoneBridgeScript
   def location
     "mammoth_rockslide|#{WEHNIMERS_LANDING}"
   end
-
 end

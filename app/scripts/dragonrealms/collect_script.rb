@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class CollectScript < BaseDragonrealmsScript
-
   THE_ROOM_IS_TOO_CLUTTERED = 'The room is too cluttered'
   YOU_ARE_CERTAIN_YOU_COULD = 'You are certain you could'
   YOU_ARE_SURE_YOU_KNEW = 'You are sure you knew'
@@ -80,5 +79,4 @@ class CollectScript < BaseDragonrealmsScript
   def config_item
     @config[:collect_item]
   end
-
 end

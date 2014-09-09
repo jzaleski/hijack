@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/cavern_script'
 
 class ManticoresScript < CavernScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class ManticoresScript < CavernScript
   def location
     "manticores|#{SOLHAVEN}"
   end
-
 end

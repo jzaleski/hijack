@@ -1,7 +1,6 @@
 require 'bridges/base/base_simutronics_bridge'
 
 class DragonrealmsPrimeBridge < BaseSimutronicsBridge
-
   def initialize(config)
     super
     @config.merge!({
@@ -11,5 +10,4 @@ class DragonrealmsPrimeBridge < BaseSimutronicsBridge
       :script_dir => 'dragonrealms',
     })
   end
-
 end

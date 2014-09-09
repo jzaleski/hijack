@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/rocky_footpath_script'
 
 class MuddyPathScript < RockyFootpathScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class MuddyPathScript < RockyFootpathScript
   def location
     "muddy_path|#{SOLHAVEN}"
   end
-
 end

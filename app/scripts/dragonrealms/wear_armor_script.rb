@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class WearArmorScript < BaseDragonrealmsScript
-
   def run
     container = @args[0] || config_container
     armor_items = @args.length >= 1 ? @args[1..-1] : config_armor_items
@@ -32,5 +31,4 @@ class WearArmorScript < BaseDragonrealmsScript
   def config_container
     @config[:get_container]
   end
-
 end

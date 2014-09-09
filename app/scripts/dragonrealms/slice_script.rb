@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_combat_script'
 
 class SliceScript < BaseDragonrealmsCombatScript
-
   protected
 
   def combat_sequence
@@ -12,5 +11,4 @@ class SliceScript < BaseDragonrealmsCombatScript
       ['chop', 4.5],
     ]
   end
-
 end

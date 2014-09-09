@@ -1,7 +1,6 @@
 require 'scripts/base/base_simutronics_script'
 
 class BaseDragonrealmsScript < BaseSimutronicsScript
-
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
   BUT_YOU_ARENT_HOLDING_THAT = "But you aren't holding that"
   DEAD = '\(dead\)'
@@ -529,5 +528,4 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
       "wear my #{item}"
     ).match(WEAR_MY_SUCCESS_PATTERN)
   end
-
 end

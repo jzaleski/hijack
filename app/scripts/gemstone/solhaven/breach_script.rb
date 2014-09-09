@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class BreachScript < NorthMarketScript
-
   protected
 
   def directions
@@ -33,5 +32,4 @@ class BreachScript < NorthMarketScript
   def location
     "breach|#{SOLHAVEN}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/base/base_script'
 
 class BaseSimutronicsScript < BaseScript
-
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
   SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
@@ -29,5 +28,4 @@ class BaseSimutronicsScript < BaseScript
       sleep 0.5 + rand(0.1)
     end
   end
-
 end

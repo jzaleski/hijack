@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'refinements/object'
 
 describe Object do
-
   describe '#blank?' do
-
     it 'is blank if an object is nil, empty or falsy' do
       [nil, [], {}, '', false].each do |value|
         expect(value.blank?).to eq(true)
@@ -16,11 +14,9 @@ describe Object do
         expect(value.blank?).to eq(false)
       end
     end
-
   end
 
   describe '#presence' do
-
     it 'will return self if present' do
       [['foo'], {:foo => 'bar'}, 'foo', true].each do |value|
         expect(value.presence).to eq(value)
@@ -32,11 +28,9 @@ describe Object do
         expect(value.presence).to be_nil
       end
     end
-
   end
 
   describe '#present?' do
-
     it 'is present if an object is not nil, empty or falsy' do
       [['foo'], {:foo => 'bar'}, 'foo', true].each do |value|
         expect(value.present?).to eq(true)
@@ -48,13 +42,10 @@ describe Object do
         expect(value.present?).to eq(false)
       end
     end
-
   end
 
   describe '#try' do
-
     context 'object nil' do
-
       subject {nil}
 
       it 'returns nil when called with a block' do
@@ -64,11 +55,9 @@ describe Object do
       it 'returns nil when called with arguments' do
         expect(subject.try(:foo, :bar)).to be_nil
       end
-
     end
 
     context 'object not nil' do
-
       subject {Hash[:foo, :bar]}
 
       it 'yields the object to a block' do
@@ -82,9 +71,6 @@ describe Object do
       it 'does not invoke methods that are not public' do
         expect {subject.try(:initialize)}.to raise_error(NoMethodError)
       end
-
     end
-
   end
-
 end

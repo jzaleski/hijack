@@ -4,11 +4,9 @@ require 'helpers/config_helper'
 describe ConfigProxy do; end
 
 describe ConfigHelper do
-
   subject {ConfigHelper.new}
 
   describe '#process_args' do
-
     it 'will update config with parsed values' do
       expect(subject.process_args(['--test=true', '--hello=world'])).to \
         eq(HashProxy.new({:test => 'true', :hello => 'world'}))
@@ -18,13 +16,10 @@ describe ConfigHelper do
       expect(subject.process_args(['--test=true', 'hello=world'])).to \
         eq(HashProxy.new({:test => 'true'}))
     end
-
   end
 
   describe '#process_config_file' do
-
     class DummyFile
-
       def initialize(lines)
         @lines = lines
       end
@@ -32,7 +27,6 @@ describe ConfigHelper do
       def each_line
         @lines.each {|line| yield line}
       end
-
     end
 
     it 'will short-circuit if the config_file does not exist' do
@@ -72,7 +66,5 @@ describe ConfigHelper do
       expect(subject.process_config_file('config_file.conf')).to \
         eq(HashProxy.new({:test => {:hello => 'world'}}))
     end
-
   end
-
 end

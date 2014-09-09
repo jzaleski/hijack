@@ -1,5 +1,4 @@
 class HashProxy
-
   def initialize(hash={})
     @hash = hash
   end
@@ -46,5 +45,4 @@ class HashProxy
   end
 
   alias_method :set, :store
-
 end

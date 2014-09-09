@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class ChargeAndCastScript < BaseDragonrealmsScript
-
   def run
     spells = (@args[0] || config_spells).split('|')
     streams = (@args[1] || config_streams).split('|')
@@ -63,5 +62,4 @@ class ChargeAndCastScript < BaseDragonrealmsScript
   def config_targets
     Array(@config[:charge_and_cast_targets]).join('|')
   end
-
 end

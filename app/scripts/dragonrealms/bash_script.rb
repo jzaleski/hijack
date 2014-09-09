@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_combat_script'
 
 class BashScript < BaseDragonrealmsCombatScript
-
   protected
 
   def combat_sequence
@@ -13,5 +12,4 @@ class BashScript < BaseDragonrealmsCombatScript
       ['swing', 3.5],
     ]
   end
-
 end

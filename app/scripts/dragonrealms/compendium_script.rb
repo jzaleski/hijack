@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class CompendiumScript < BaseDragonrealmsScript
-
   IN_A_SUDDEN_MOMENT_OF_CLARITY = 'In a sudden moment of clarity'
   WHY_DO_YOU_NEED_TO_STUDY = 'Why do you need to study'
   WITH_A_SUDDEN_MOMENT_OF_CLARITY = 'With a sudden moment of clarity'
@@ -62,5 +61,4 @@ class CompendiumScript < BaseDragonrealmsScript
   def config_num_pages
     @config[:compendium_num_pages]
   end
-
 end

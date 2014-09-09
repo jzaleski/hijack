@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/manticores_script'
 
 class FireSalamandersScript < ManticoresScript
-
   protected
 
   def directions
@@ -29,5 +28,4 @@ class FireSalamandersScript < ManticoresScript
   def location
     "fire_salamanders|#{SOLHAVEN}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_combat_script'
 
 class ThrustScript < BaseDragonrealmsCombatScript
-
   protected
 
   def combat_sequence
@@ -12,5 +11,4 @@ class ThrustScript < BaseDragonrealmsCombatScript
       ['lunge', 3.5],
     ]
   end
-
 end

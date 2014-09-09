@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/muddy_path_script'
 
 class ShelfaeSoldiersScript < MuddyPathScript
-
   protected
 
   def directions
@@ -13,5 +12,4 @@ class ShelfaeSoldiersScript < MuddyPathScript
   def location
     "shelfae_soldiers|#{SOLHAVEN}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/glatoph_script'
 
 class GlacierScript < GlatophScript
-
   protected
 
   def directions
@@ -16,5 +15,4 @@ class GlacierScript < GlatophScript
   def location
     "glacier|#{WEHNIMERS_LANDING}"
   end
-
 end

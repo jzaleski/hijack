@@ -1,5 +1,4 @@
 class Array
-
   def to_regexp(opts={})
     # validate that there is at least one element
     raise 'Array must include at least one element' if empty?
@@ -16,5 +15,4 @@ class Array
       end
     Regexp.union(values)
   end
-
 end

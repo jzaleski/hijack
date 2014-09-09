@@ -1,5 +1,4 @@
 class Object
-
   def blank?
     nil? ||
       (respond_to?(:empty?) && empty?) ||
@@ -25,5 +24,4 @@ class Object
       public_send(*args, &block)
     end
   end
-
 end

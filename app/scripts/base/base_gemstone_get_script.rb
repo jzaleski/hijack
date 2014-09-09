@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_script'
 
 class BaseGemstoneGetScript < BaseGemstoneScript
-
   def run
     item = @args[0]
     container = @args[1] || config_container
@@ -22,5 +21,4 @@ class BaseGemstoneGetScript < BaseGemstoneScript
   def config_container
     raise %{All "#{BaseGemstoneGetScript}(s)" must override the "config_container" method}
   end
-
 end

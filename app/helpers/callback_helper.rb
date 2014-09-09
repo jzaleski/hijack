@@ -1,7 +1,11 @@
 class CallbackHelper
-
   def initialize
     @callbacks = {}
+  end
+
+  def add_match(pattern, callback)
+    # allow for multiple callbacks to match the same pattern
+    @callbacks[pattern] = (@callbacks[pattern] || []) << callback
   end
 
   def process(str)
@@ -14,10 +18,4 @@ class CallbackHelper
       end
     end
   end
-
-  def add_match(pattern, callback)
-    # allow for multiple callbacks to match the same pattern
-    @callbacks[pattern] = (@callbacks[pattern] || []) << callback
-  end
-
 end

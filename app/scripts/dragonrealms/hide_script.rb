@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class HideScript < BaseDragonrealmsScript
-
   ALREADY_HIDDEN = 'already hidden'
   YOU_ARE_NOT_HIDDEN = 'you are not hidden'
   YOU_BLEND_IN = 'You blend in'
@@ -39,5 +38,4 @@ class HideScript < BaseDragonrealmsScript
       sleep interloop_sleep_time
     end
   end
-
 end

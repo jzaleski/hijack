@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class PawnshopScript < NorthMarketScript
-
   protected
 
   def directions
@@ -15,5 +14,4 @@ class PawnshopScript < NorthMarketScript
   def location
     "pawnshop|#{SOLHAVEN}"
   end
-
 end

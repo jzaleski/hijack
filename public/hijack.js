@@ -1,5 +1,4 @@
 var Hijack = (function() {
-
   var $account,
       $bridge,
       $character,
@@ -242,5 +241,4 @@ var Hijack = (function() {
   return {
     init: init
   };
-
 })();

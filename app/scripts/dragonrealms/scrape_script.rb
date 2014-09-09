@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class ScrapeScript < BaseDragonrealmsScript
-
   CLEAN_AS_YOU_CAN_MAKE_IT = 'clean as you can make it'
   RUINED_BEYOND_REPAIR = 'ruined beyond repair'
   YOU_SCRAPE = 'You scrape'
@@ -79,5 +78,4 @@ class ScrapeScript < BaseDragonrealmsScript
   def config_skin_container
     @config[:scrape_skin_container]
   end
-
 end

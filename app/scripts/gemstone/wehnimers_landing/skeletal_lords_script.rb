@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/rotting_corpses_script'
 
 class SkeletalLordsScript < RottingCorpsesScript
-
   protected
 
   def directions
@@ -24,5 +23,4 @@ class SkeletalLordsScript < RottingCorpsesScript
   def location
     "skeletal_lords|#{WEHNIMERS_LANDING}"
   end
-
 end

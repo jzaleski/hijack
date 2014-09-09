@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_movement_script'
 
 class TownCenterScript < BaseGemstoneMovementScript
-
   def location
     nexus_location
   end
@@ -9,5 +8,4 @@ class TownCenterScript < BaseGemstoneMovementScript
   def nexus_location
     "town_center|#{ICEMULE_TRACE}"
   end
-
 end

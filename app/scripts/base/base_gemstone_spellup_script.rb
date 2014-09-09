@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_script'
 
 class BaseGemstoneSpellupScript < BaseGemstoneScript
-
   def run
     # parse the arguments or set the default(s)
     target = @args[0]
@@ -34,5 +33,4 @@ class BaseGemstoneSpellupScript < BaseGemstoneScript
     raise \
       %{All "#{BaseGemstoneSpellupScript}(s)" must override the "spells" method}
   end
-
 end

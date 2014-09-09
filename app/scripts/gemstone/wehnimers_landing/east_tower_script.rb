@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
 class EastTowerScript < TownSquareCentralScript
-
   protected
 
   def directions
@@ -18,5 +17,4 @@ class EastTowerScript < TownSquareCentralScript
   def location
     "east_tower|#{WEHNIMERS_LANDING}"
   end
-
 end

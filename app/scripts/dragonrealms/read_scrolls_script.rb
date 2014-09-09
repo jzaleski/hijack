@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class ReadScrollsScript < BaseDragonrealmsScript
-
   ALREADY_ROLLED_UP = 'already rolled up'
   GUIDING_YOUR_FINGERS = 'Guiding your fingers'
   ISNT_ROLLED_UP = "isn't rolled up"
@@ -82,5 +81,4 @@ class ReadScrollsScript < BaseDragonrealmsScript
   def config_container_2
     @config[:read_scrolls_container_2]
   end
-
 end

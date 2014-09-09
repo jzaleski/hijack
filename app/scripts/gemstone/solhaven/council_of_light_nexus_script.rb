@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/council_of_light_script'
 
 class CouncilOfLightNexusScript < CouncilOfLightScript
-
   GARGOYLE = 'gargoyle'
   LETTER_B = 'letter b'
   LETTER_C = 'letter c'
@@ -64,5 +63,4 @@ class CouncilOfLightNexusScript < CouncilOfLightScript
   def location
     "council_of_light_nexus|#{SOLHAVEN}"
   end
-
 end

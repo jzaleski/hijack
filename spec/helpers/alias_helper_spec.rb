@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'helpers/alias_helper'
 
 describe AliasHelper do
-
   describe '#process' do
-
     subject {AliasHelper.new({})}
 
     it 'will do nothing if there are no aliases configured' do
@@ -30,7 +28,5 @@ describe AliasHelper do
         receive(:aliases).at_least(:once).and_return({:foo => 'bar', :bar => 'biz'})
       expect(subject.process('foo')).to eq('biz')
     end
-
   end
-
 end

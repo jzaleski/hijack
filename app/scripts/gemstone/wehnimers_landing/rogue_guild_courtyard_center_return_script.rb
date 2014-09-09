@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
 
 class RogueGuildCourtyardCenterReturnScript < RogueGuildScript
-
   protected
 
   def directions
@@ -13,5 +12,4 @@ class RogueGuildCourtyardCenterReturnScript < RogueGuildScript
       'go door'
     ] + reverse_directions(super)
   end
-
 end

@@ -1,5 +1,4 @@
 module Kernel
-
   # rename the original "load" method (it's still used below)
   alias_method :original_load, :load
 
@@ -43,5 +42,4 @@ module Kernel
     # exception was not handled
     false
   end
-
 end

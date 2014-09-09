@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_script'
 
 class SurgeScript < BaseGemstoneScript
-
   YOUR_INTERNAL_STRENGTH_FULLY = 'Your internal strength fully recovers'
   YOUR_MUSCLES_ACHE_MUCH_TOO_BADLY = 'Your muscles ache much too badly'
   YOU_FOCUS_DEEP_WITHIN_YOURSELF = 'You focus deep within yourself'
@@ -25,5 +24,4 @@ class SurgeScript < BaseGemstoneScript
       wait_for_match(YOUR_INTERNAL_STRENGTH_FULLY)
     end
   end
-
 end

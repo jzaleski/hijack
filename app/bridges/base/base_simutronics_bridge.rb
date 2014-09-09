@@ -1,7 +1,6 @@
 require 'bridges/base/base_bridge'
 
 class BaseSimutronicsBridge < BaseBridge
-
   SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
   WAIT = '\.\.\.wait'
 
@@ -123,5 +122,4 @@ class BaseSimutronicsBridge < BaseBridge
   def strip_retryable_output?
     @config[:strip_retryable_output].to_s == 'true'
   end
-
 end

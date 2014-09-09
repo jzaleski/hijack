@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class FurrierScript < NorthMarketScript
-
   protected
 
   def directions
@@ -14,5 +13,4 @@ class FurrierScript < NorthMarketScript
   def location
     "furrier|#{SOLHAVEN}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class SilvermuleGamingHallScript < TownCenterScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class SilvermuleGamingHallScript < TownCenterScript
   def location
     "silvermule_gaming_hall|#{ICEMULE_TRACE}"
   end
-
 end

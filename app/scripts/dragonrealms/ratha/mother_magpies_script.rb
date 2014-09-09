@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/first_tier_grating_script'
 
 class MotherMagpiesScript < FirstTierGratingScript
-
   protected
 
   def directions
@@ -30,5 +29,4 @@ class MotherMagpiesScript < FirstTierGratingScript
   def location
     "mother_magpies|#{RATHA}"
   end
-
 end

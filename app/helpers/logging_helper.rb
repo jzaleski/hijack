@@ -1,5 +1,4 @@
 class LoggingHelper
-
   def initialize(opts={})
     @exception_log = opts[:exception_log] || STDERR
   end
@@ -20,5 +19,4 @@ class LoggingHelper
   def message(exception)
     "\n#{exception.class}: #{exception.message}"
   end
-
 end

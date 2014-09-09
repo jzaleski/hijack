@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/rotted_wooden_signpost_script'
 
 class ManticoresScript < RottedWoodenSignpostScript
-
   protected
 
   def directions
@@ -30,5 +29,4 @@ class ManticoresScript < RottedWoodenSignpostScript
   def location
     "manticores|#{WEHNIMERS_LANDING}"
   end
-
 end

@@ -1,5 +1,4 @@
 class LichNetHelper
-
   # general
   CHANNEL = 'channel'
   CHAT = 'chat'
@@ -275,7 +274,6 @@ class LichNetHelper
     @last_write = Time.now
     nil
   end
-
 end
 
 if $0 == __FILE__

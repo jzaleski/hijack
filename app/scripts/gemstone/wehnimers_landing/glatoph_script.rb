@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/rotted_wooden_signpost_script'
 
 class GlatophScript < RottedWoodenSignpostScript
-
   protected
 
   def directions
@@ -53,5 +52,4 @@ class GlatophScript < RottedWoodenSignpostScript
   def location
     "glatoph|#{WEHNIMERS_LANDING}"
   end
-
 end

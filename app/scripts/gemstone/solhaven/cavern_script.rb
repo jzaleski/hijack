@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/beach_script'
 
 class CavernScript < BeachScript
-
   protected
 
   def directions
@@ -15,5 +14,4 @@ class CavernScript < BeachScript
   def location
     "cavern|#{SOLHAVEN}"
   end
-
 end

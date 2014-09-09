@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class CastScript < BaseDragonrealmsScript
-
   def run
     spells = (@args[0] || config_spells).split('|')
     streams = (@args[1] || config_streams).split('|')
@@ -39,5 +38,4 @@ class CastScript < BaseDragonrealmsScript
   def config_targets
     ([] << @config[:cast_targets]).flatten.join('|')
   end
-
 end

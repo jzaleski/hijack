@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/community_well_script'
 
 class ThurfelsKeepScript < CommunityWellScript
-
   protected
 
   def directions
@@ -46,5 +45,4 @@ class ThurfelsKeepScript < CommunityWellScript
   def location
     "thurfels_keep|#{ICEMULE_TRACE}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/icemule_trace_script'
 
 class WehnimersLandingScript < IcemuleTraceScript
-
   protected
 
   def directions
@@ -11,5 +10,4 @@ class WehnimersLandingScript < IcemuleTraceScript
   def location
     "town_square_central|#{WEHNIMERS_LANDING}"
   end
-
 end

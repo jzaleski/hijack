@@ -1,7 +1,6 @@
 # contains all of the logic necessary to validate configuration and connect to
 # an end-point
 class CommandLineInterface
-
   def run
     # instantiate a "ConfigHelper" instance, this object provides helper methods
     # for parsing various types of configuration
@@ -75,7 +74,6 @@ class CommandLineInterface
   def wait_for_exit(bridge)
     sleep 0.25 while bridge.connected?
   end
-
 end
 
 # Application Entry-Point

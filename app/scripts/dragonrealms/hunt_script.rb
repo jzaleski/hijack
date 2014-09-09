@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class HuntScript < BaseDragonrealmsScript
-
   YOU_TAKE_NOTE_OF_ALL_THE_TRACKS = 'You take note of all the tracks'
 
   HUNT_PATTERN = [
@@ -18,5 +17,4 @@ class HuntScript < BaseDragonrealmsScript
       sleep 80.0
     end
   end
-
 end

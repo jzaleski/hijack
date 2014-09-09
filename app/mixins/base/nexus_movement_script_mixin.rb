@@ -1,7 +1,6 @@
 require 'mixins/base/movement_script_mixin'
 
 module NexusMovementScriptMixin
-
   include MovementScriptMixin
 
   def nexus?
@@ -9,8 +8,6 @@ module NexusMovementScriptMixin
   end
 
   def nexus_location
-    raise \
-      %{All #{NexusMovementScriptMixin}(s) must override the "nexus_location" method}
+    raise %{All #{NexusMovementScriptMixin}(s) must override the "nexus_location" method}
   end
-
 end

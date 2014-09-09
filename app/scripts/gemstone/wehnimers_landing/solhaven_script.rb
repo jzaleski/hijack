@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/rocky_stream_script'
 
 class SolhavenScript < RockyStreamScript
-
   protected
 
   def directions
@@ -132,5 +131,4 @@ class SolhavenScript < RockyStreamScript
   def location
     "north_market|#{SOLHAVEN}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
 class GemshopScript < TownSquareCentralScript
-
   protected
 
   def directions
@@ -18,5 +17,4 @@ class GemshopScript < TownSquareCentralScript
   def location
     "gemshop|#{WEHNIMERS_LANDING}"
   end
-
 end

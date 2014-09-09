@@ -1,5 +1,4 @@
 class BridgeHelper
-
   def construct_bridge(config)
     # extract and validate all of the necessary arguments
     game_name = ensure_game_name(config)
@@ -43,5 +42,4 @@ class BridgeHelper
     raise %{Bridge: "#{bridge_class.name}" is missing one or more required arguments} \
       unless bridge_class.required_args.all? {|key| config[key]}
   end
-
 end

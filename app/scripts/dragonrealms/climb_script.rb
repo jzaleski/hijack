@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class ClimbScript < BaseDragonrealmsScript
-
   CLIMB_PRACTICE = 'CLIMB PRACTICE'
   STAND_UP_FIRST = 'Stand up first'
   THIS_CLIMB_IS_TOO_DIFFICULT = 'This climb is too difficult'
@@ -65,5 +64,4 @@ class ClimbScript < BaseDragonrealmsScript
   def config_obstacle
     @config[:climb_obstacle]
   end
-
 end

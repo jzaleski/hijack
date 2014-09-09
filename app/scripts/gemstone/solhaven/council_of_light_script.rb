@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class CouncilOfLightScript < NorthMarketScript
-
   protected
 
   def directions
@@ -21,5 +20,4 @@ class CouncilOfLightScript < NorthMarketScript
   def location
     "council_of_light|#{SOLHAVEN}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class DenseFogScript < TownCenterScript
-
   protected
 
   def directions
@@ -20,5 +19,4 @@ class DenseFogScript < TownCenterScript
   def location
     "dense_fog|#{ICEMULE_TRACE}"
   end
-
 end

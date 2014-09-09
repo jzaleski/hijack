@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/silvermule_gaming_hall_script'
 
 class HouseOfPaupersScript < SilvermuleGamingHallScript
-
   protected
 
   def directions
@@ -16,5 +15,4 @@ class HouseOfPaupersScript < SilvermuleGamingHallScript
   def location
     "house_of_paupers|#{ICEMULE_TRACE}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/manticores_script'
 
 class CrystalGolemsScript < ManticoresScript
-
   protected
 
   def directions
@@ -34,5 +33,4 @@ class CrystalGolemsScript < ManticoresScript
   def location
     "crystal_golems|#{WEHNIMERS_LANDING}"
   end
-
 end

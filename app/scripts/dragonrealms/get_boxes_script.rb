@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class GetBoxesScript < BaseDragonrealmsScript
-
   def run
     container = @args[0] || config_container
     return unless open_my(container)
@@ -39,5 +38,4 @@ class GetBoxesScript < BaseDragonrealmsScript
   def config_container
     @config[:get_container]
   end
-
 end

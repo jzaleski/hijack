@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/east_gate_script'
 
 class SilverbackOrcsScript < EastGateScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class SilverbackOrcsScript < EastGateScript
   def location
     "silverback_orcs|#{ICEMULE_TRACE}"
   end
-
 end

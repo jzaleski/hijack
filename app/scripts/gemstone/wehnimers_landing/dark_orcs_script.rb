@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/abandoned_inn_script'
 
 class DarkOrcsScript < AbandonedInnScript
-
   protected
 
   def directions
@@ -20,5 +19,4 @@ class DarkOrcsScript < AbandonedInnScript
   def location
     "dark_orcs|#{WEHNIMERS_LANDING}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/first_tier_grating_script'
 
 class CarouselScript < FirstTierGratingScript
-
   protected
 
   def directions
@@ -25,5 +24,4 @@ class CarouselScript < FirstTierGratingScript
   def location
     "carousel|#{RATHA}"
   end
-
 end

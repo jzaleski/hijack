@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/deep_chasm_script'
 
 class StoneBridgeScript < DeepChasmScript
-
   protected
 
   def directions
@@ -31,5 +30,4 @@ class StoneBridgeScript < DeepChasmScript
   def location
     "stone_bridge|#{WEHNIMERS_LANDING}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class AdventurersGuildScript < NorthMarketScript
-
   protected
 
   def directions
@@ -17,5 +16,4 @@ class AdventurersGuildScript < NorthMarketScript
   def location
     "adventurers_guild|#{SOLHAVEN}"
   end
-
 end

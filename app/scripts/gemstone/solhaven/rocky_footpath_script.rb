@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/breach_script'
 
 class RockyFootpathScript < BreachScript
-
   protected
 
   def directions
@@ -21,5 +20,4 @@ class RockyFootpathScript < BreachScript
   def location
     "rocky_footpath|#{SOLHAVEN}"
   end
-
 end

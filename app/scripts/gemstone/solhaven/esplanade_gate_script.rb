@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class EsplanadeGateScript < NorthMarketScript
-
   protected
 
   def directions
@@ -19,5 +18,4 @@ class EsplanadeGateScript < NorthMarketScript
   def location
     "esplanade_gate|#{SOLHAVEN}"
   end
-
 end

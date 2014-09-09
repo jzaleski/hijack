@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/mammoth_rockslide_script'
 
 class IcemuleTraceScript < MammothRockslideScript
-
   protected
 
   def directions
@@ -56,5 +55,4 @@ class IcemuleTraceScript < MammothRockslideScript
   def location
     "town_center|#{ICEMULE_TRACE}"
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class AlchemistScript < NorthMarketScript
-
   protected
 
   def directions
@@ -26,5 +25,4 @@ class AlchemistScript < NorthMarketScript
   def location
     "alchemist|#{SOLHAVEN}"
   end
-
 end

@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'helpers/callback_helper'
 
 describe CallbackHelper do
-
   subject {CallbackHelper.new}
 
   # this isn't great, but it gives us everything needed to adequately test the
@@ -10,7 +9,6 @@ describe CallbackHelper do
   let(:callbacks) {subject.instance_variable_get(:@callbacks)}
 
   describe '#add_match' do
-
     it 'will accept a String pattern' do
       match = 'hello'
       callback = lambda {}
@@ -31,11 +29,9 @@ describe CallbackHelper do
       mock_callbacks.each {|callback| subject.add_match(match, callback)}
       expect(callbacks[match]).to match_array(mock_callbacks)
     end
-
   end
 
   describe '#process' do
-
     it 'will invoke all callbacks for a line matching a pattern' do
       line = 'hello'
       match = /hello/
@@ -54,7 +50,5 @@ describe CallbackHelper do
       subject.process(line)
       expect(callbacks[match]).to be_nil
     end
-
   end
-
 end

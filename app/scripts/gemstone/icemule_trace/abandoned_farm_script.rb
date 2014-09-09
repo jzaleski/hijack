@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/south_gate_script'
 
 class AbandonedFarmScript < SouthGateScript
-
   protected
 
   def directions
@@ -26,5 +25,4 @@ class AbandonedFarmScript < SouthGateScript
   def location
     "abandoned_farm|#{ICEMULE_TRACE}"
   end
-
 end

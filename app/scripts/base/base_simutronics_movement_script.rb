@@ -2,7 +2,6 @@ require 'mixins/base/nexus_movement_script_mixin'
 require 'scripts/base/base_simutronics_script'
 
 class BaseSimutronicsMovementScript < BaseSimutronicsScript
-
   include NexusMovementScriptMixin
 
   DOWN = 'down'
@@ -89,5 +88,4 @@ class BaseSimutronicsMovementScript < BaseSimutronicsScript
       MOVE_OPPOSITES[possible_direction] || possible_direction
     end.join('|')
   end
-
 end

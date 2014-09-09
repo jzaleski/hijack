@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class LootScript < BaseDragonrealmsScript
-
   def run
     loot_type = @args[0] || config_loot_type || 'goods'
     loop do
@@ -23,5 +22,4 @@ class LootScript < BaseDragonrealmsScript
   def config_loot_type
     @config[:loot_type]
   end
-
 end

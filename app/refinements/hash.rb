@@ -1,5 +1,4 @@
 class Hash
-
   def camel_case_keys(opts={})
     dup.camel_case_keys!(opts)
   end
@@ -38,5 +37,4 @@ class Hash
     end
     self
   end
-
 end

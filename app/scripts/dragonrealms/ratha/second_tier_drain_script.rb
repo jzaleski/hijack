@@ -1,7 +1,6 @@
 require 'scripts/dragonrealms/ratha/third_tier_grating_script'
 
 class SecondTierDrainScript < ThirdTierGratingScript
-
   protected
 
   def directions
@@ -20,5 +19,4 @@ class SecondTierDrainScript < ThirdTierGratingScript
   def location
     "second_tier_drain_script|#{RATHA}"
   end
-
 end

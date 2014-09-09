@@ -1,7 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/glacier_script'
 
 class DeepChasmScript < GlacierScript
-
   protected
 
   def directions
@@ -24,5 +23,4 @@ class DeepChasmScript < GlacierScript
   def location
     "deep_chasm|#{WEHNIMERS_LANDING}"
   end
-
 end

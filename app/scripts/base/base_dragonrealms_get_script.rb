@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class BaseDragonrealmsGetScript < BaseDragonrealmsScript
-
   def run
     item = @args[0]
     container = @args[1] || config_container
@@ -22,5 +21,4 @@ class BaseDragonrealmsGetScript < BaseDragonrealmsScript
   def config_container
     raise %{All "#{BaseDragonrealmsGetScript}(s)" must override the "config_container" method}
   end
-
 end

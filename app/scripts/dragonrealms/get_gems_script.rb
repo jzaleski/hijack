@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class GetGemsScript < BaseDragonrealmsScript
-
   GEMS = %w[
     agate
     alexandrite
@@ -81,5 +80,4 @@ class GetGemsScript < BaseDragonrealmsScript
   def config_container
     @config[:gem_container]
   end
-
 end

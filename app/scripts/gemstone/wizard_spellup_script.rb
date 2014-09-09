@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_spellup_script'
 
 class WizardSpellupScript < BaseGemstoneSpellupScript
-
   protected
 
   def spells
@@ -23,5 +22,4 @@ class WizardSpellupScript < BaseGemstoneSpellupScript
       [913, true],
     ]
   end
-
 end

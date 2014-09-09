@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class TmScript < BaseDragonrealmsScript
-
   def run
     spells = (@args[0] || config_spell).split('|')
     streams = (@args[1] || config_streams).split('|')
@@ -40,5 +39,4 @@ class TmScript < BaseDragonrealmsScript
   def config_streams
     Array(@config[:tm_streams]).join('|')
   end
-
 end

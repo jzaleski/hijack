@@ -1,5 +1,4 @@
 class WebInterface < Sinatra::Base
-
   configure do
     set :connections, {}
     set :html_transformations, \
@@ -9,7 +8,6 @@ class WebInterface < Sinatra::Base
   end
 
   helpers do
-
     def current_bridge
       @current_bridge ||= current_connection[:bridge] rescue nil
     end
@@ -49,7 +47,6 @@ class WebInterface < Sinatra::Base
     def set_connection(connection)
       settings.connections[session_id] = connection
     end
-
   end
 
   get '/' do
@@ -98,5 +95,4 @@ class WebInterface < Sinatra::Base
   end
 
   run! if $0 == __FILE__
-
 end

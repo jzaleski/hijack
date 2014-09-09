@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class PredictScript < BaseDragonrealmsScript
-
   FOILED_BY_THE = 'foiled by the'
   MENTALLY_SEEKING_THE_THREADS = 'mentally seeking the threads'
   RECEIVES_A_MIND_NUMBING_JOLT = 'receives a numbing jolt'
@@ -219,5 +218,4 @@ class PredictScript < BaseDragonrealmsScript
   def config_shuffle_objects_after_successful_observation
     @config[:predict_shuffle_objects_after_successful_observation]
   end
-
 end

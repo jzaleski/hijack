@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'refinements/array'
 
 describe Array do
-
   describe '#to_regexp' do
-
     it 'returns a "Regexp" object' do
       subject = ['hello', 'world.']
       expect(subject.to_regexp).to \
@@ -28,7 +26,5 @@ describe Array do
       expect{subject.to_regexp}.to \
         raise_error('All elements must be or be convertable to "Regexp" objects')
     end
-
   end
-
 end

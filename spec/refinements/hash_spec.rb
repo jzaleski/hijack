@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'refinements/hash'
 
 describe Hash do
-
   describe '#camel_case_keys' do
-
     it 'should convert "String" keys to UpperCamelCase by default (and skip keys that are already UpperCamelCase)' do
       subject = {
         'lowerCamelCase' => nil,
@@ -49,11 +47,9 @@ describe Hash do
         false => nil,
       })
     end
-
   end
 
   describe '#camel_case_keys!' do
-
     it 'should convert "String" keys to UpperCamelCase by default (and skip keys that are already UpperCamelCase)' do
       subject = {
         'lowerCamelCase' => nil,
@@ -101,11 +97,9 @@ describe Hash do
         false => nil,
       })
     end
-
   end
 
   describe '#snake_case_keys' do
-
     it 'should snake_case "String" keys regardless of case (and skip keys that are already snake_case)' do
       subject = {
         'lowerCamelCase' => nil,
@@ -137,11 +131,9 @@ describe Hash do
         false => nil,
       })
     end
-
   end
 
   describe '#snake_case_keys!' do
-
     it 'should snake_case "String" keys regardless of case (and skip keys that are already snake_case)' do
       subject = {
         'lowerCamelCase' => nil,
@@ -175,11 +167,9 @@ describe Hash do
         false => nil,
       })
     end
-
   end
 
   describe '#symbolize_keys' do
-
     it 'should symbolize "String" keys regardless of case (and skip keys that are already symbols)' do
       subject = {
         'lowerCamelCase' => nil,
@@ -230,11 +220,9 @@ describe Hash do
         :UpperCamelCase => nil,
       })
     end
-
   end
 
   describe '#symbolize_keys!' do
-
     it 'should symbolize "String" keys regardless of case (and skip keys that are already symbols)' do
       subject = {
         'lowerCamelCase' => nil,
@@ -288,7 +276,5 @@ describe Hash do
         :UpperCamelCase => nil,
       })
     end
-
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class SkinAndLootScript < BaseDragonrealmsScript
-
   ARRANGE_WHAT = 'Arrange what\?'
   A_SMALL_SLIP = 'A small slip'
   BUNGLE_THE_ATTEMPT = 'bungle the attempt'
@@ -100,5 +99,4 @@ class SkinAndLootScript < BaseDragonrealmsScript
   def config_num_arranges
     @config[:skin_num_arranges]
   end
-
 end

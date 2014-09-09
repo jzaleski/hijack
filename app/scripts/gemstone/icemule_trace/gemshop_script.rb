@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class GemshopScript < TownCenterScript
-
   protected
 
   def directions
@@ -16,5 +15,4 @@ class GemshopScript < TownCenterScript
   def location
     "gemshop|#{ICEMULE_TRACE}"
   end
-
 end

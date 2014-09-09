@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/rocky_footpath_script'
 
 class WoodWightsScript < RockyFootpathScript
-
   protected
 
   def directions
@@ -13,5 +12,4 @@ class WoodWightsScript < RockyFootpathScript
   def location
     "wood_wights|#{SOLHAVEN}"
   end
-
 end

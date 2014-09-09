@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/wizard_guild_script'
 
 class WizardGuildEnchantingWorkshopScript < WizardGuildScript
-
   protected
 
   def directions
@@ -16,5 +15,4 @@ class WizardGuildEnchantingWorkshopScript < WizardGuildScript
   def location
     "wizard_guild_enchanting_workshop|#{ICEMULE_TRACE}"
   end
-
 end

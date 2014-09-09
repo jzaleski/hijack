@@ -1,7 +1,6 @@
 require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class ThirstyPenguinScript < TownCenterScript
-
   protected
 
   def directions
@@ -16,5 +15,4 @@ class ThirstyPenguinScript < TownCenterScript
   def location
     "thirsty_penguin|#{ICEMULE_TRACE}"
   end
-
 end

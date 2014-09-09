@@ -2,11 +2,9 @@ require 'spec_helper'
 require 'helpers/bridge_helper'
 
 describe BridgeHelper do
-
   subject {BridgeHelper.new}
 
   class DummyBridge
-
     def initialize(config)
       @config = config
     end
@@ -14,11 +12,9 @@ describe BridgeHelper do
     def self.required_args
       [:hash, :array, :string].freeze
     end
-
   end
 
   describe '#construct_bridge' do
-
     it 'will raise an error if game is not specified' do
       expect{subject.construct_bridge({})}.to \
         raise_exception('You must specify a "game"')
@@ -67,7 +63,5 @@ describe BridgeHelper do
         :string => '',
       })).to_not be_nil
     end
-
   end
-
 end

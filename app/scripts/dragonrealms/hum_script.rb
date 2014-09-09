@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class HumScript < BaseDragonrealmsScript
-
   YOU_FINISH_HUMMING = 'You finish humming'
 
   def run
@@ -25,5 +24,4 @@ class HumScript < BaseDragonrealmsScript
   def config_hum_song
     @config[:hum_song]
   end
-
 end

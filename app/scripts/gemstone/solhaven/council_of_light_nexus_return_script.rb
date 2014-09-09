@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/council_of_light_script'
 
 class CouncilOfLightNexusReturnScript < CouncilOfLightScript
-
   protected
 
   def directions
@@ -13,5 +12,4 @@ class CouncilOfLightNexusReturnScript < CouncilOfLightScript
       OUT,
     ] + reverse_directions(super)
   end
-
 end

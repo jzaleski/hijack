@@ -1,5 +1,4 @@
 class ScriptHelper
-
   attr_reader :last_script
 
   def initialize(config, bridge, input_buffer, output_buffer, callback_helper, logging_helper)
@@ -310,5 +309,4 @@ class ScriptHelper
       @scripts[script_name] = script_object
     end
   end
-
 end

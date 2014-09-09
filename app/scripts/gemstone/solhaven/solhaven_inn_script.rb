@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/north_market_script'
 
 class SolhavenInnScript < NorthMarketScript
-
   protected
 
   def directions
@@ -16,5 +15,4 @@ class SolhavenInnScript < NorthMarketScript
   def location
     "solhaven_inn|#{SOLHAVEN}"
   end
-
 end

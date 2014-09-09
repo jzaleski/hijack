@@ -1,7 +1,6 @@
 require 'scripts/base/base_gemstone_script'
 
 class GetAllScript < BaseGemstoneScript
-
   def run
     item = @args[0]
     container = @args[1] || config_container
@@ -40,5 +39,4 @@ class GetAllScript < BaseGemstoneScript
   def config_container
     @config[:get_container]
   end
-
 end

@@ -1,5 +1,4 @@
 class String
-
   # handle blank a bit differently for "String(s)" (a String consisting of only
   # whitespace characters is considered blank)
   def blank?
@@ -46,5 +45,4 @@ class String
   def uncapitalize
     self[0].downcase + self[1..-1]
   end
-
 end

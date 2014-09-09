@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class JuggleScript < BaseDragonrealmsScript
-
   ITS_EASIER_TO_JUGGLE = "It's easier to juggle"
   YOU_CANNOT_JUGGLE = 'You cannot juggle'
   YOU_TOSS = 'You toss'
@@ -50,5 +49,4 @@ class JuggleScript < BaseDragonrealmsScript
   def config_jugglies
     @config[:juggle_jugglies]
   end
-
 end

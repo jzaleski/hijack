@@ -1,5 +1,4 @@
 class LayoutHelper
-
   def initialize(config)
     @config = config
   end
@@ -50,5 +49,4 @@ class LayoutHelper
       end
     end
   end
-
 end

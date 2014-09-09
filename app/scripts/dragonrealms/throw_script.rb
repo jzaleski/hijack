@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class ThrowScript < BaseDragonrealmsScript
-
   IS_ALREADY_QUITE_DEAD = 'is already quite dead'
   ITS_BEST_YOU_NOT_DO_THAT = "It's best you not do that"
   YOU_THROW_A = '[Yy]ou throw a'
@@ -61,5 +60,4 @@ class ThrowScript < BaseDragonrealmsScript
   def config_targets
     @config[:throw_targets]
   end
-
 end

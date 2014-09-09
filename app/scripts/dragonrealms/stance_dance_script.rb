@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class StanceDanceScript < BaseDragonrealmsScript
-
   BUT_YOU_ARE_ALREADY = 'But you are already'
   YOU_ARE_NOW_SET_TO_USE = 'You are now set to use'
   YOU_MOVE_INTO_A_POSITION = 'You move into a position'
@@ -37,5 +36,4 @@ class StanceDanceScript < BaseDragonrealmsScript
       end
     end
   end
-
 end

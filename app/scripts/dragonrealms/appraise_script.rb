@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class AppraiseScript < BaseDragonrealmsScript
-
   APPRAISE_WHAT = 'Appraise what\?'
   ITEM_APPEARS_TO_BE = '%{item} appears to be'
   ITEM_IS_A = '%{item} is a'
@@ -60,5 +59,4 @@ class AppraiseScript < BaseDragonrealmsScript
   def config_args
     @config[:appraise_args]
   end
-
 end

@@ -1,7 +1,6 @@
 require 'scripts/gemstone/solhaven/beach_script'
 
 class ForestTrollsScript < BeachScript
-
   protected
 
   def directions
@@ -19,5 +18,4 @@ class ForestTrollsScript < BeachScript
   def location
     "forest_trolls|#{SOLHAVEN}"
   end
-
 end

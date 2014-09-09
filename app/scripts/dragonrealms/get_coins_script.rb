@@ -1,7 +1,6 @@
 require 'scripts/base/base_dragonrealms_script'
 
 class GetCoinsScript < BaseDragonrealmsScript
-
   DOKORA = 'Dokora[s]?\.'
   KRONAR = 'Kronar[s]?\.'
   LIRUM = 'Lirum[s]?\.'
@@ -22,5 +21,4 @@ class GetCoinsScript < BaseDragonrealmsScript
       break if result.match(WHAT_WERE_YOU)
     end
   end
-
 end
