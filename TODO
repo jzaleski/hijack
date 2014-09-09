@@ -5,6 +5,8 @@ General:
 - add "JRuby" compatibility to "LichNetHelper" (see: "base_gemstone_bridge.rb")
 - figure out an intelligent means to print the result of a config-proxy
   operation to the output-pane
+- show script names in tabular form (list-available)
+- create standard reverse-directions/directions mixin
 
 Heroku:
 =======
