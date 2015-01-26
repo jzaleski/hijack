@@ -1,6 +1,7 @@
 General:
 ========
 
+- treat CONF_FILE and --config-file as one in the same
 - bridge is not fully disconnecting when EXITing from w/in script
 - add "JRuby" compatibility to "LichNetHelper" (see: "base_gemstone_bridge.rb")
 - figure out an intelligent means to print the result of a config-proxy
