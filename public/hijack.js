@@ -1,4 +1,4 @@
-var Hijack = (function() {
+var Hijack = (function($) {
   var $account,
       $bridge,
       $character,
@@ -156,6 +156,9 @@ var Hijack = (function() {
     $testSizeTest.remove();
     // wire up the "puts" handler
     $input.keyup(function(event) {
+      // stop event propagation
+      event.preventDefault();
+      // wire up special handlers
       switch (event.which) {
         // enter/return
         case 13:
@@ -241,4 +244,4 @@ var Hijack = (function() {
   return {
     init: init
   };
-})();
+})(jQuery);

@@ -5,13 +5,13 @@ language: ruby
 
 matrix:
   allow_failures:
-    - rvm: jruby-19mode
-    - rvm: jruby-20mode
+    - rvm: jruby-9.0.5.0
+    - rvm: rbx-3.27
 
 rvm:
-  - 1.9.3
   - 2.0.0
-  - 2.1.0
-  - 2.1.1
-  - jruby-19mode
-  - jruby-20mode
+  - 2.1.8
+  - 2.2.4
+  - 2.3.0
+  - jruby-9.0.5.0
+  - rbx-3.27
