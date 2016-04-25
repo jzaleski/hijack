@@ -6,11 +6,13 @@ describe Regexp do
     subject {Regexp.new('hello')}
 
     it 'should be able to union a "String" object' do
-      expect(subject.union('world')).to eq(/(?-mix:hello)|(?-mix:world)/)
+      expect(subject.union('world')).to \
+        satisfy { |regexp| 'hello' =~ regexp && 'world' =~ regexp }
     end
 
     it 'should be able to union another "Regexp" object' do
-      expect(subject.union(/world/)).to eq(/(?-mix:hello)|(?-mix:world)/)
+      expect(subject.union(/world/)).to \
+        satisfy { |regexp| 'hello' =~ regexp && 'world' =~ regexp }
     end
 
     it 'should raise an error if others are not or cannot be converted to "Regexp" objects' do
