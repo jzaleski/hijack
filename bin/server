@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Ensure the temporary directory exists
+TEMP_DIR='./tmp';
+[[ ! -d $TEMP_DIR ]] && mkdir -p $TEMP_DIR;
+
+PORT=${PORT:-4567};
+PID_FILE=${PID_FILE:-./tmp/puma.pid};
+RACKUP_CONFIG=${RACKUP_CONFIG:-./config.ru};
+
+if [ -n "$DAEMONIZE" ];
+then
+  puma --port $PORT -d --pidfile $PID_FILE $RACKUP_CONFIG;
+else
+  puma --port $PORT $RACKUP_CONFIG;
+fi
