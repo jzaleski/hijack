@@ -10,6 +10,7 @@ class LichNetHelper
   PING = 'ping'
   PRIVATE = 'private'
   PRIVATETO = 'privateto'
+  EXIT_QUIT = /exit|quit/
   SERVER = 'server'
   TO = 'to'
   TUNE = 'tune'
@@ -25,7 +26,7 @@ class LichNetHelper
 
   # defaults
   DEFAULT_CHANNEL = LNET
-  DEFAULT_IP = '216.224.171.85'
+  DEFAULT_HOST = 'lnet.lichproject.org'
   DEFAULT_PORT = 7155
   DEFAULT_SSL_VERSION = :TLSv1
   DEFAULT_OUTPUT_FORMAT = '%s'
@@ -34,7 +35,7 @@ class LichNetHelper
     @game = opts[:game]
     @name = opts[:name]
     @channel = opts[:channel] || DEFAULT_CHANNEL
-    @ip = opts[:ip] || DEFAULT_IP
+    @host = opts[:host] || DEFAULT_HOST
     @port = opts[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : DEFAULT_PORT
     @ssl_version = (opts[:ssl_version] || DEFAULT_SSL_VERSION).to_sym
     @stdin = opts[:stdin] || STDIN
@@ -60,6 +61,7 @@ class LichNetHelper
 
   def disconnect
     @ssl_socket.close rescue nil
+    @ssl_socket = nil
   end
 
   private
@@ -84,12 +86,8 @@ class LichNetHelper
     end
   end
 
-  def initialize_network
-    initialize_private_key
-    initialize_certificate
-    initialize_tcp_socket
-    initialize_ssl_context
-    initialize_ssl_socket
+  def debug?
+    !!@debug
   end
 
   def initialize_certificate
@@ -101,6 +99,14 @@ class LichNetHelper
       certificate.sign(@private_key, OpenSSL::Digest::SHA1.new)
       certificate
     end
+  end
+
+  def initialize_network
+    initialize_private_key
+    initialize_certificate
+    initialize_tcp_socket
+    initialize_ssl_context
+    initialize_ssl_socket
   end
 
   def initialize_ping_thread
@@ -147,7 +153,7 @@ class LichNetHelper
 
   def initialize_tcp_socket
     @tcp_socket ||= begin
-      tcp_socket = TCPSocket.open(@ip, @port)
+      tcp_socket = TCPSocket.open(@host, @port)
       tcp_socket.sync = true
       tcp_socket
     end
@@ -172,6 +178,9 @@ class LichNetHelper
         when CHAT_TO
           # format: chat_to <to> <message>
           chat_to(value_parts[1], value_parts[2..-1].join(' '))
+        when EXIT_QUIT
+          # format: exit|quit
+          disconnect
         when TUNE
           # format: tune <channel>
           tune(value_parts[1])
@@ -238,7 +247,7 @@ class LichNetHelper
       document = REXML::Document.new(value)
       map_and_filter_messages(document)
     rescue REXML::ParseException => e
-      @logging_helper.log_exception_with_backtrace(e) if @debug
+      @logging_helper.log_exception_with_backtrace(e) if debug?
     end
   end
 
@@ -281,7 +290,7 @@ if $0 == __FILE__
     :game => ENV['GAME'],
     :name => ENV['NAME'],
     :channel => ENV['CHANNEL'],
-    :ip => ENV['IP'],
+    :host => ENV['HOST'],
     :port => ENV['PORT'],
     :ssl_version => ENV['SSL_VERSION'],
     :output_format => ENV['OUTPUT_FORMAT'],
