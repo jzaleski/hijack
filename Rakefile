@@ -10,7 +10,7 @@ end
 begin
   require 'rspec/core/rake_task'
 rescue LoadError
-  return
+  # Swallow
 end
 
 if defined?(RSpec::Core::RakeTask)
