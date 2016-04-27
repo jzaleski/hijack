@@ -10,6 +10,10 @@ gem 'puma'
 gem 'rake'
 gem 'sinatra'
 
+group :development do
+  gem 'foreman'
+end
+
 group :test do
   gem 'rspec'
 end
