@@ -7,12 +7,18 @@ task :cleanup do
   end
 end
 
-require 'rspec/core/rake_task'
-
-RSpec::Core::RakeTask.new(:spec) do |t|
-  t.rspec_opts = %w(--format progress)
+begin
+  require 'rspec/core/rake_task'
+rescue LoadError
+  return
 end
 
-task :test => :spec
+if defined?(RSpec::Core::RakeTask)
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.rspec_opts = %w(--format progress)
+  end
 
-task :default => :test
+  task :test => :spec
+
+  task :default => :test
+end
