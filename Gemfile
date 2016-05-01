@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 
-custom_ruby_version = ENV['CUSTOM_RUBY_VERSION']
-if !custom_ruby_version.nil?
-  ruby custom_ruby_version
+if ENV['HEROKU']
+  ruby '2.2.3', :engine => 'jruby', :engine_version => '9.0.5.0'
 end
 
 gem 'pry'
