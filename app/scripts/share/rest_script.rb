@@ -4,7 +4,7 @@ class RestScript < BaseScript
   def run
     loop do
       sleep 60.0
-      puts 'exp'
+      puts 'experience'
     end
   end
 end
