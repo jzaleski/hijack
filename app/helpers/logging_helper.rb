@@ -13,7 +13,7 @@ class LoggingHelper
   private
 
   def backtrace(exception)
-    exception.backtrace.map {|line| "\tfrom #{line}"}.join("\n")
+    exception.backtrace.map { |line| "\tfrom #{line}" }.join("\n")
   end
 
   def message(exception)

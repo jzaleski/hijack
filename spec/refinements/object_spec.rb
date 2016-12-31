@@ -49,7 +49,7 @@ describe Object do
       subject {nil}
 
       it 'returns nil when called with a block' do
-        expect(subject.try {|x| 'foo'}).to be_nil
+        expect(subject.try { |x| 'foo' }).to be_nil
       end
 
       it 'returns nil when called with arguments' do
@@ -61,7 +61,7 @@ describe Object do
       subject {Hash[:foo, :bar]}
 
       it 'yields the object to a block' do
-        expect(subject.try {|x| x[:foo]}).to eq(:bar)
+        expect(subject.try { |x| x[:foo] }).to eq(:bar)
       end
 
       it 'invokes methods that are public' do

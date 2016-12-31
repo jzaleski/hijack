@@ -68,8 +68,11 @@ class BaseBridge
     end
     @write_thread ||= Thread.new do
       while connected?
-        # skip this iteration if we're not able to write
-        next unless can_write?
+        # some games have a limit on how frequently commands can be executed and
+        # this loop will execute commands in near real time. To ensure that we
+        # do not get rate-limited, we will throttle writes (the delay value is
+        # configurable via the `allowed_command_frequency_ms` config-parameter)
+        throttle_write
         # extract the command and opts (opts *should* never be nil, but we are
         # safe either way)
         command, opts = @input_buffer.gets
@@ -112,7 +115,7 @@ class BaseBridge
       # replace aliases
       commands = parse_command(str)
       # enqueue all of the commands for dispatch
-      commands.each {|command| @input_buffer.puts(command)}
+      commands.each { |command| @input_buffer.puts(command) }
     end
   end
 
@@ -121,12 +124,6 @@ class BaseBridge
   end
 
   private
-
-  def can_write?
-    @last_write_time.nil? ||
-    (Time.now - @last_write_time).to_f * 1000 >= \
-      @config[:allowed_command_frequency_ms].to_i
-  end
 
   def parse_command(str)
     # define an array to hold the aggregated result
@@ -141,12 +138,21 @@ class BaseBridge
         num_repeats = [1, num_repeats.to_i].max
         # recurse, there was a scriptlet nested in an alias
         if num_repeats == 1 && command =~ /\*|\|/
-          commands += parse_command(command)
+          parse_command(command).each { |sub_command| commands << [sub_command] }
         # apply the command multiplier (in most cases, 1)
         else
-          commands += ([command] * num_repeats)
+          1.upto(num_repeats) { |_| commands << [command] }
         end
       end
     end
+  end
+
+  def throttle_write
+    return if @last_write_time.nil?
+    allowed_command_frequency_ms = @config[:allowed_command_frequency_ms].to_f
+    last_write_time_delta_ms = (Time.now - @last_write_time).to_f * 1000.0
+    return if last_write_time_delta_ms >= allowed_command_frequency_ms
+    sleep_time = (allowed_command_frequency_ms - last_write_time_delta_ms) / 1000.0
+    Kernel::sleep(sleep_time)
   end
 end

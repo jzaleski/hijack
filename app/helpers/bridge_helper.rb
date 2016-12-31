@@ -1,4 +1,10 @@
 class BridgeHelper
+  def available_bridges(game)
+    Dir.entries("#{BRIDGES_DIR}/#{game}").
+      reject { |entry| BRIDGES_TO_IGNORE.include?(entry) }.
+      map { |entry| entry.gsub(/_bridge\.rb\Z/, '') }
+  end
+
   def construct_bridge(config)
     # extract and validate all of the necessary arguments
     game_name = ensure_game_name(config)
@@ -14,6 +20,12 @@ class BridgeHelper
   end
 
   private
+
+  BRIDGES_TO_IGNORE = %w[
+    .
+    ..
+    base
+  ]
 
   def construct_bridge_class_name(bridge_name)
     "#{bridge_name.split('_').map(&:capitalize).join}Bridge"
@@ -40,6 +52,6 @@ class BridgeHelper
 
   def ensure_required_args!(config, bridge_class)
     raise %{Bridge: "#{bridge_class.name}" is missing one or more required arguments} \
-      unless bridge_class.required_args.all? {|key| config[key]}
+      unless bridge_class.required_args.all? { |key| config[key] }
   end
 end

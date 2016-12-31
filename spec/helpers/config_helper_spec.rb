@@ -25,7 +25,7 @@ describe ConfigHelper do
       end
 
       def each_line
-        @lines.each {|line| yield line}
+        @lines.each { |line| yield line }
       end
     end
 

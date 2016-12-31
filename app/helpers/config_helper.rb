@@ -38,11 +38,11 @@ class ConfigHelper
     end
   end
 
-  def process_json(json)
-    if json.blank?
+  def process_hash(hash)
+    if hash.blank?
       ConfigProxy.new
     else
-      ConfigProxy.new(JSON::parse(json).snake_case_keys.symbolize_keys)
+      ConfigProxy.new(hash.snake_case_keys.symbolize_keys)
     end
   end
 end

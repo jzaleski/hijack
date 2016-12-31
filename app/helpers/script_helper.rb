@@ -197,7 +197,7 @@ class ScriptHelper
     if scripts.empty?
       @output_buffer.puts '(none)'
     else
-      scripts.each {|script| @output_buffer.puts script}
+      scripts.each { |script| @output_buffer.puts(script) }
     end
   end
 
@@ -209,7 +209,7 @@ class ScriptHelper
     if scripts.empty?
       @output_buffer.puts '(none)'
     else
-      scripts.each {|script| @output_buffer.puts script}
+      scripts.each { |script| @output_buffer.puts(script) }
     end
   end
 
@@ -301,7 +301,8 @@ class ScriptHelper
       script_object.respond_to?(:nexus_location) &&
       !script_object.class.name.end_with?('ReturnScript') &&
       @config[:location].present? &&
-      script_object.nexus_location != @config[:location]
+      script_object.nexus_location != @config[:location] &&
+      last_script !~ /_return\Z/
   end
 
   def store(script_name, script_object)

@@ -14,7 +14,6 @@ var Hijack = (function($) {
       config,
       defaultOptions = {
         maxScrollbackLines: 500,
-        outputHTML: true,
         pollingIntervalMS: 0,
         stripPlayerStatusPrompt: true,
         stripRetryableOutput: true
@@ -33,16 +32,16 @@ var Hijack = (function($) {
         character: $character.val(),
         numCols: config.numCols,
         numRows: config.numRows,
-        outputHTML: config.outputHTML,
         stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
         stripRetryableOutput: config.stripRetryableOutput
       }),
       success: function() {
         $game.val('');
-        $bridge.val('');
-        $account.val('');
-        $password.val('');
-        $character.val('');
+        resetElement($bridge);
+        disableElement($bridge);
+        resetElement($account);
+        resetElement($password);
+        resetElement($character);
         $connectContainer.css('visibility', 'hidden');
         $gameContainer.css('visibility', 'visible');
         $input.focus();
@@ -57,6 +56,10 @@ var Hijack = (function($) {
     });
   };
 
+  var disableElement = function($element) {
+    $element.attr('disabled', 'disabled');
+  }
+
   var disconnect = function(str) {
     $.ajax({
       type: 'POST',
@@ -65,13 +68,17 @@ var Hijack = (function($) {
       success: function() {
         $.ajaxBuffer.abortAll();
         $gameContainer.css('visibility', 'hidden');
-        $output.val('');
-        $input.val('');
+        resetElement($output);
+        resetElement($input);
         $connectContainer.css('visibility', 'visible');
         $game.focus();
       }
     });
   };
+
+  var enableElement = function($element) {
+    $element.removeAttr('disabled');
+  }
 
   var gets = function() {
     setTimeout(function() {
@@ -163,7 +170,7 @@ var Hijack = (function($) {
         // enter/return
         case 13:
           puts($.trim($input.val()));
-          $input.val('');
+          resetElement($input);
           break;
         // up arrow
         case 38:
@@ -193,8 +200,54 @@ var Hijack = (function($) {
         }
       });
     });
+    // load the game
+    loadAvailableGames();
+    // wire up the change handler for the game dropdown
+    $game.change(function() {
+      resetElement($bridge);
+      disableElement($bridge);
+      loadAvailableBridges($game.val());
+    });
     // set focus to the "game" field initially
     $game.focus();
+  };
+
+  var loadAvailableBridges = function(game) {
+    if (game.length > 0) {
+      $.ajax({
+        type: 'GET',
+        url: '/bridges',
+        data: {game: game},
+        success: function(bridges) {
+          resetElement($bridge);
+          $.each(bridges, function(index, bridge) {
+            $bridge.append(new Option(formatString(bridge), bridge));
+          });
+          enableElement($bridge);
+        }
+      });
+    }
+  };
+
+  var formatString = function(str) {
+    return $.map(str.split('_'), function(strPart) {
+      return strPart.substr(0,1).toUpperCase() + strPart.substr(1);
+    }).join(' ');
+  }
+
+  var loadAvailableGames = function() {
+    $.ajax({
+      type: 'GET',
+      url: '/games',
+      success: function(games) {
+        resetElement($game);
+        resetElement($bridge);
+        disableElement($bridge);
+        $.each(games, function(index, game) {
+          $game.append(new Option(formatString(game), game));
+        });
+      }
+    });
   };
 
   var puts = function(str) {
@@ -215,6 +268,14 @@ var Hijack = (function($) {
     }
   };
 
+  var resetElement = function($element) {
+    if ($element.is('select')) {
+      $element.empty().append(new Option('--- SELECT ONE ---', ''));
+    } else {
+      $element.val('');
+    }
+  }
+
   var setInput = function(str) {
     if (str !== undefined) {
       $input.val(str);
@@ -232,11 +293,7 @@ var Hijack = (function($) {
     // generate the output (at this point the output format does not matter)
     var output = scrollbackLines.join('');
     // update the UI
-    if (config.outputHTML) {
-      $output.html(output);
-    } else {
-      $output.val(output);
-    }
+    $output.html(output);
     // scroll the "output" element to the bottom
     $output.scrollTop($output[0].scrollHeight);
   };

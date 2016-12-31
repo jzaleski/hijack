@@ -1,7 +1,7 @@
 require 'bridges/base/base_simutronics_bridge'
 
 class BaseGemstoneBridge < BaseSimutronicsBridge
-  def disconnet(str=nil)
+  def disconnect(str=nil)
     if lich_net_connected?
       @lich_net_helper.disconnect
     end

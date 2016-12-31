@@ -278,7 +278,7 @@ class LichNetHelper
     document = REXML::Document.new
     element = document.add_element(tag)
     element.text = attributes.delete(:message)
-    attributes.each {|key, value| element.add_attribute(key.to_s, value)}
+    attributes.each { |key, value| element.add_attribute(key.to_s, value) }
     @ssl_socket.puts(document)
     @last_write = Time.now
     nil

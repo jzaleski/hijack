@@ -8,6 +8,14 @@ class WebInterface < Sinatra::Base
   end
 
   helpers do
+    def bridge_helper
+      @bridge_helper ||= BridgeHelper.new
+    end
+
+    def config_helper
+      @config_helper ||= ConfigHelper.new
+    end
+
     def current_bridge
       @current_bridge ||= current_connection[:bridge] rescue nil
     end
@@ -20,23 +28,23 @@ class WebInterface < Sinatra::Base
       @current_connection ||= settings.connections[session_id]
     end
 
-    def generate_response_data(str)
-      output_html? ? htmlify(str) : str
+    def game_helper
+      @game_helper ||= GameHelper.new
     end
 
-    def htmlify(str)
+    def htmlify(value)
       # process any HTML escape sequences
       '<pre>%s</pre>' % \
-        settings.html_transformations.reduce(str) do |memo, (pattern, replacement)|
+        settings.html_transformations.reduce(value) do |memo, (pattern, replacement)|
           memo.gsub(pattern, replacement)
         end
     end
 
-    def output_html?
-      current_config[:output_html] == true
+    def jsonify(value)
+      value.to_json
     end
 
-    def request_data
+    def request_text
       request.body.read.rstrip
     end
 
@@ -50,17 +58,27 @@ class WebInterface < Sinatra::Base
   end
 
   get '/' do
+    content_type :html
     send_file File.join(settings.public_folder, 'index.html')
   end
 
+  get '/bridges' do
+    content_type :json
+    jsonify(bridge_helper.available_bridges(request[:game]))
+  end
+
+  get '/games' do
+    content_type :json
+    jsonify(game_helper.available_games)
+  end
+
   get '/gets' do
-    generate_response_data(current_bridge.gets) unless current_bridge.nil?
+    content_type :text
+    htmlify(current_bridge.gets) unless current_bridge.nil?
   end
 
   post '/connect' do
-    config_helper = ConfigHelper.new
-    config = config_helper.process_json(request_data)
-    bridge_helper = BridgeHelper.new
+    config = config_helper.process_hash(JSON::parse(request_text))
     begin
       bridge = bridge_helper.construct_bridge(config)
     rescue Exception => e
@@ -84,12 +102,12 @@ class WebInterface < Sinatra::Base
   end
 
   post '/disconnect' do
-    current_bridge.disconnect(request_data) unless current_bridge.nil?
+    current_bridge.disconnect(request_text) unless current_bridge.nil?
     nil
   end
 
   post '/puts' do
-    input = request_data
+    input = request_text
     current_bridge.puts(input) unless current_bridge.nil? || input.blank?
     nil
   end

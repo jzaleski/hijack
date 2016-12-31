@@ -6,8 +6,8 @@ describe Buffer do
 
   describe '#gets' do
     it 'should always return the first item in the buffer' do
-      1.upto(3) {|n| subject.puts(n)}
-      1.upto(3) {|n| expect(subject.gets).to eq(n)}
+      1.upto(3) { |n| subject.puts(n) }
+      1.upto(3) { |n| expect(subject.gets).to eq(n) }
     end
   end
 

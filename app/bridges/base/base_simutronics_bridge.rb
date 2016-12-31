@@ -12,6 +12,7 @@ class BaseSimutronicsBridge < BaseBridge
   def initialize(config)
     super
     @config.merge!({
+      :allowed_command_frequency_ms => 100,
       :login_host => 'eaccess.play.net',
       :login_port => 7900,
     })
@@ -61,7 +62,7 @@ class BaseSimutronicsBridge < BaseBridge
     hash_key_character_codes = login_socket.gets.bytes.to_a
     password_character_codes = @config[:password].bytes.to_a
     password_character_codes.each_index \
-      {|i| password_character_codes[i] = ((password_character_codes[i] - 32) ^ hash_key_character_codes[i]) + 32}
+      { |i| password_character_codes[i] = ((password_character_codes[i] - 32) ^ hash_key_character_codes[i]) + 32 }
     hashed_password = password_character_codes.map(&:chr).join
     login_socket.puts "A\t#{@config[:account]}\t#{hashed_password}\n"
     login_response = login_socket.gets
