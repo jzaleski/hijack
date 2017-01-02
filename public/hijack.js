@@ -13,12 +13,13 @@ var Hijack = (function($) {
       commandHistoryIndex = -1,
       config,
       defaultOptions = {
+        enableLichNet: true,
         maxScrollbackLines: 500,
         pollingIntervalMS: 0,
-        stripPlayerStatusPrompt: true,
-        stripRetryableOutput: true
+        stripPlayerStatusPrompt: false,
+        stripRetryableOutput: false
       },
-      scrollbackLines = [];
+      scrollbackLines = -1;
 
   var connect = function() {
     $.ajax({
@@ -32,6 +33,7 @@ var Hijack = (function($) {
         character: $character.val(),
         numCols: config.numCols,
         numRows: config.numRows,
+        enableLichNet: config.enableLichNet,
         stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
         stripRetryableOutput: config.stripRetryableOutput
       }),
@@ -256,6 +258,7 @@ var Hijack = (function($) {
         disconnect(str);
       } else {
         commandHistory.unshift(str);
+        commandHistoryIndex = -1;
         $.ajax({
           type: 'POST',
           url: '/puts',
@@ -283,17 +286,12 @@ var Hijack = (function($) {
   };
 
   var updateOutput = function(str) {
-    // first, append the new line
-    scrollbackLines.push(str);
-    // trim the line-buffer (if necessary)
-    if (scrollbackLines.length > config.maxScrollbackLines) {
-      scrollbackLines = scrollbackLines.slice(
-        scrollbackLines.length - config.maxScrollbackLines);
-    }
-    // generate the output (at this point the output format does not matter)
-    var output = scrollbackLines.join('');
     // update the UI
-    $output.html(output);
+    $output.append(str);
+    // increment the line counter (only do this up to `config.maxScrollbackLines`)
+    if (scrollbackLines < config.maxScrollbackLines) scrollbackLines += 1;
+    // if we've hit the maximum number of scrollback lines, delete the first element
+    if (scrollbackLines === config.maxScrollbackLines) $output.find('pre').first().remove();
     // scroll the "output" element to the bottom
     $output.scrollTop($output[0].scrollHeight);
   };

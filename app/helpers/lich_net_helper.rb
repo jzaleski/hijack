@@ -3,6 +3,7 @@ class LichNetHelper
   CHANNEL = 'channel'
   CHAT = 'chat'
   CHAT_TO = 'chat_to'
+  EXIT_QUIT = /exit|quit/
   FROM = 'from'
   LNET = 'LNet'
   LOGIN = 'login'
@@ -10,7 +11,6 @@ class LichNetHelper
   PING = 'ping'
   PRIVATE = 'private'
   PRIVATETO = 'privateto'
-  EXIT_QUIT = /exit|quit/
   SERVER = 'server'
   TO = 'to'
   TUNE = 'tune'
@@ -25,11 +25,13 @@ class LichNetHelper
   SERVER_MESSAGE_FORMAT = %{[#{LNET}:Server] %s}
 
   # defaults
+  DEFAULT_CERTIFICATE_FILE_PATH = "#{CONFIG_DIR}/lich_net.cert"
   DEFAULT_CHANNEL = LNET
+  DEFAULT_CLIENT_VERSION = '1.4'
   DEFAULT_HOST = 'lnet.lichproject.org'
-  DEFAULT_PORT = 7155
-  DEFAULT_SSL_VERSION = :TLSv1
+  DEFAULT_LICH_VERSION = '4.3.12'
   DEFAULT_OUTPUT_FORMAT = '%s'
+  DEFAULT_PORT = 7155
 
   def initialize(opts={})
     @game = opts[:game]
@@ -37,11 +39,14 @@ class LichNetHelper
     @channel = opts[:channel] || DEFAULT_CHANNEL
     @host = opts[:host] || DEFAULT_HOST
     @port = opts[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : DEFAULT_PORT
-    @ssl_version = (opts[:ssl_version] || DEFAULT_SSL_VERSION).to_sym
+    @client_version = opts[:client_version] || DEFAULT_CLIENT_VERSION
+    @lich_version = opts[:lich_version] || DEFAULT_LICH_VERSION
     @stdin = opts[:stdin] || STDIN
     @stdout = opts[:stdout] || STDOUT
     @stderr = opts[:stderr] || STDERR
     @output_format = opts[:output_format] || DEFAULT_OUTPUT_FORMAT
+    @certificate_file_path = opts[:certificate_file_path] || \
+      DEFAULT_CERTIFICATE_FILE_PATH
     @debug = opts[:debug].to_s == 'true'
     @logging_helper = opts[:logging_helper] || \
       LoggingHelper.new(:exception_log => @stderr)
@@ -91,19 +96,20 @@ class LichNetHelper
   end
 
   def initialize_certificate
-    @certificate ||= begin
-      certificate = OpenSSL::X509::Certificate.new
-      certificate.not_before = Time.now
-      certificate.not_after = Time.now + 3600
-      certificate.public_key = @private_key.public_key
-      certificate.sign(@private_key, OpenSSL::Digest::SHA1.new)
-      certificate
+    @certificate ||= OpenSSL::X509::Certificate.new(File.read(@certificate_file_path))
+  end
+
+  def initialize_certificate_store
+    @certificate_store ||= begin
+      certificate_store = OpenSSL::X509::Store.new
+      certificate_store.add_cert(@certificate)
+      certificate_store
     end
   end
 
   def initialize_network
-    initialize_private_key
     initialize_certificate
+    initialize_certificate_store
     initialize_tcp_socket
     initialize_ssl_context
     initialize_ssl_socket
@@ -116,10 +122,6 @@ class LichNetHelper
         sleep 1.0
       end
     end
-  end
-
-  def initialize_private_key
-    @private_key ||= OpenSSL::PKey::RSA.new(512)
   end
 
   def initialize_read_thread
@@ -135,9 +137,9 @@ class LichNetHelper
   def initialize_ssl_context
     @ssl_context ||= begin
       ssl_context = OpenSSL::SSL::SSLContext.new
-      ssl_context.key = @private_key
-      ssl_context.cert = @certificate
-      ssl_context.ssl_version = @ssl_version
+      ssl_context.cert_store = @certificate_store
+      ssl_context.options = (OpenSSL::SSL::OP_NO_SSLv2 + OpenSSL::SSL::OP_NO_SSLv3)
+      ssl_context.verify_mode = OpenSSL::SSL::VERIFY_PEER
       ssl_context
     end
   end
@@ -199,6 +201,8 @@ class LichNetHelper
     write(LOGIN, {
       :game => @game,
       :name => @name,
+      :client => @client_version,
+      :lich => @lich_version,
     })
   end
 
@@ -292,8 +296,10 @@ if $0 == __FILE__
     :channel => ENV['CHANNEL'],
     :host => ENV['HOST'],
     :port => ENV['PORT'],
-    :ssl_version => ENV['SSL_VERSION'],
+    :client_version => ENV['CLIENT_VERSION'],
+    :lich_version => ENV['LICH_VERSION'],
     :output_format => ENV['OUTPUT_FORMAT'],
+    :certificate_file_path => ENV['CERTIFICATE_FILE_PATH'],
     :debug => ENV['DEBUG']
   )
   lichnet_helper.connect.join

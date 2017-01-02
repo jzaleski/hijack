@@ -9,6 +9,14 @@ class BaseSimutronicsBridge < BaseBridge
     WAIT,
   ].join('|')
 
+  def self.required_args
+    [
+      :account,
+      :character,
+      :password,
+    ]
+  end
+
   def initialize(config)
     super
     @config.merge!({
@@ -16,10 +24,6 @@ class BaseSimutronicsBridge < BaseBridge
       :login_host => 'eaccess.play.net',
       :login_port => 7900,
     })
-  end
-
-  def self.required_args
-    [:account, :password, :character]
   end
 
   def connect

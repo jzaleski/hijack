@@ -11,6 +11,9 @@ APP_DIR = "#{ROOT_DIR}/app"
 # Store the path to the "bridges" directory as a constant
 BRIDGES_DIR = "#{APP_DIR}/bridges"
 
+# Store the path to the "config" directory as a constant
+CONFIG_DIR = "#{ROOT_DIR}/config"
+
 # Store the path to the "helpers" directory as a constant
 HELPERS_DIR = "#{APP_DIR}/helpers"
 
