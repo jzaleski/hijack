@@ -33,7 +33,6 @@ class WebInterface < Sinatra::Base
     end
 
     def htmlify(value)
-      # process any HTML escape sequences
       '<pre>%s</pre>' % \
         settings.html_transformations.reduce(value) do |memo, (pattern, replacement)|
           memo.gsub(pattern, replacement)
@@ -78,7 +77,11 @@ class WebInterface < Sinatra::Base
   end
 
   post '/connect' do
-    config = config_helper.process_hash(JSON::parse(request_text))
+    begin
+      config = config_helper.process_hash(JSON::parse(request_text))
+    rescue Exception => e
+      halt 400, e.message
+    end
     begin
       bridge = bridge_helper.construct_bridge(config)
     rescue Exception => e

@@ -9,8 +9,8 @@ var Hijack = (function($) {
       $input,
       $output,
       $password,
-      commandHistory = [],
-      commandHistoryIndex = -1,
+      commandHistory,
+      commandHistoryIndex,
       config,
       defaultOptions = {
         enableLichNet: true,
@@ -19,7 +19,7 @@ var Hijack = (function($) {
         stripPlayerStatusPrompt: false,
         stripRetryableOutput: false
       },
-      scrollbackLines = -1;
+      scrollbackLines;
 
   var connect = function() {
     $.ajax({
@@ -44,6 +44,11 @@ var Hijack = (function($) {
         resetElement($account);
         resetElement($password);
         resetElement($character);
+        commandHistory = [];
+        commandHistoryIndex = -1;
+        resetElement($input);
+        scrollbackLines = -1;
+        $output.html('');
         $connectContainer.css('visibility', 'hidden');
         $gameContainer.css('visibility', 'visible');
         $input.focus();
