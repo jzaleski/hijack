@@ -93,15 +93,18 @@ class BaseBridge
     # config handling
     if str.start_with?('!')
       begin
-        @config.public_send(*@arguments_helper.parse(str[1..-1]))
-        @output_buffer.puts("\nOk.")
+        method, *args = @arguments_helper.parse(str[1..-1])
+        result = @config.public_send(method, *args)
+        result = result.present? && args.length == 1 ? "[config] #{args[0]}: #{result}" : 'Ok.'
+        @output_buffer.puts("\n#{result}")
       rescue Exception => e
         @logging_helper.log_exception_with_backtrace(e)
       end
     # layout handling
     elsif str.start_with?('~')
       begin
-        @layout_helper.public_send(*@arguments_helper.parse(str[1..-1]))
+        method, *args = @arguments_helper.parse(str[1..-1])
+        @layout_helper.public_send(method, *args)
         @output_buffer.puts("\nOk.")
       rescue Exception => e
         @logging_helper.log_exception_with_backtrace(e)
@@ -141,7 +144,7 @@ class BaseBridge
           parse_command(command).each { |sub_command| commands << [sub_command] }
         # apply the command multiplier (in most cases, 1)
         else
-          1.upto(num_repeats) { |_| commands << [command] }
+          num_repeats.times { commands << [command] }
         end
       end
     end
