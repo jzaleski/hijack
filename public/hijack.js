@@ -14,6 +14,7 @@ var Hijack = (function($) {
       config,
       defaultOptions = {
         enableLichNet: true,
+        enableSessionReconnect: true,
         maxScrollbackLines: 500,
         pollingIntervalMS: 0,
         stripPlayerStatusPrompt: false,
@@ -34,32 +35,12 @@ var Hijack = (function($) {
         numCols: config.numCols,
         numRows: config.numRows,
         enableLichNet: config.enableLichNet,
+        enableSessionReconnect: config.enableSessionReconnect,
         stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
         stripRetryableOutput: config.stripRetryableOutput
       }),
-      success: function() {
-        $game.val('');
-        resetElement($bridge);
-        disableElement($bridge);
-        resetElement($account);
-        resetElement($password);
-        resetElement($character);
-        commandHistory = [];
-        commandHistoryIndex = -1;
-        resetElement($input);
-        scrollbackLines = -1;
-        $output.html('');
-        $connectContainer.css('visibility', 'hidden');
-        $gameContainer.css('visibility', 'visible');
-        $input.focus();
-        gets();
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        if (jqXHR && jqXHR.responseText !== undefined) {
-          alert(jqXHR.responseText);
-        }
-        $connect.focus();
-      }
+      success: onConnectSuccess,
+      error: onConnectError
     });
   };
 
@@ -91,8 +72,9 @@ var Hijack = (function($) {
     setTimeout(function() {
       $.ajax({
         url: '/gets',
-        success: function(str) {
-          if (str.length > 0) {
+        success: function(result) {
+          var str = result.data;
+          if (str !== undefined && str.length > 0) {
             updateOutput(str);
           }
           gets();
@@ -103,7 +85,11 @@ var Hijack = (function($) {
 
   var init = function(options) {
     // merge the defaults w/ the passed in options
-    config = $.extend({}, defaultOptions, options);
+    config = $.extend(
+      {},
+      defaultOptions,
+      options
+    );
     // ensure "connectContainerSelector" is specified and exists
     $connectContainer = $(config.connectContainerSelector);
     if ($connectContainer.length != 1) {
@@ -199,15 +185,20 @@ var Hijack = (function($) {
       connect();
     });
     // trigger the "connect" handler if enter is pressed in an input field
-    $.each([$game, $bridge, $account, $password, $character], function(index, element) {
-      var $this = $(this);
-      $this.keyup(function(event) {
+    $.each([
+      $account,
+      $bridge,
+      $character,
+      $game,
+      $password
+    ], function(index, element) {
+      $(this).keyup(function(event) {
         if (event.which == 13) {
           connect();
         }
       });
     });
-    // load the game
+    // load the available game list
     loadAvailableGames();
     // wire up the change handler for the game dropdown
     $game.change(function() {
@@ -217,6 +208,8 @@ var Hijack = (function($) {
     });
     // set focus to the "game" field initially
     $game.focus();
+    // attempt to reconnect (if session reconnect is enabled)
+    if (config.enableSessionReconnect) reconnect();
   };
 
   var loadAvailableBridges = function(game) {
@@ -257,6 +250,29 @@ var Hijack = (function($) {
     });
   };
 
+  var onConnectError = function(jqXHR, textStatus, errorThrown) {
+    if (jqXHR && jqXHR.responseText !== undefined) alert(jqXHR.responseText);
+    $connect.focus();
+  }
+
+  var onConnectSuccess = function() {
+    $game.val('');
+    resetElement($bridge);
+    disableElement($bridge);
+    resetElement($account);
+    resetElement($password);
+    resetElement($character);
+    commandHistory = [];
+    commandHistoryIndex = -1;
+    resetElement($input);
+    scrollbackLines = -1;
+    $output.html('');
+    $connectContainer.css('visibility', 'hidden');
+    $gameContainer.css('visibility', 'visible');
+    $input.focus();
+    gets();
+  }
+
   var puts = function(str) {
     if (str.length > 0) {
       if (str.match(/^(exit|quit)$/)) {
@@ -267,14 +283,19 @@ var Hijack = (function($) {
         $.ajax({
           type: 'POST',
           url: '/puts',
-          data: str,
-          error: function(jqXHR, textStatus, errorThrown) {
-            // TODO: possibly retry?
-          }
+          data: str
         });
       }
     }
   };
+
+  var reconnect = function() {
+    $.ajax({
+      type: 'POST',
+      url: '/reconnect',
+      success: onConnectSuccess
+    });
+  }
 
   var resetElement = function($element) {
     if ($element.is('select')) {

@@ -12,6 +12,11 @@ class WebInterface < Sinatra::Base
       @bridge_helper ||= BridgeHelper.new
     end
 
+    def can_reconnect_session?
+      current_bridge.try(:connected?) &&
+        current_config.try(:[], :enable_session_reconnect).to_s == 'true'
+    end
+
     def config_helper
       @config_helper ||= ConfigHelper.new
     end
@@ -37,6 +42,14 @@ class WebInterface < Sinatra::Base
         settings.html_transformations.reduce(value) do |memo, (pattern, replacement)|
           memo.gsub(pattern, replacement)
         end
+    end
+
+    def json_data(data)
+      jsonify({:data => data})
+    end
+
+    def json_success
+      jsonify({:success => true})
     end
 
     def jsonify(value)
@@ -72,11 +85,15 @@ class WebInterface < Sinatra::Base
   end
 
   get '/gets' do
-    content_type :text
-    htmlify(current_bridge.gets) unless current_bridge.nil?
+    content_type :json
+    if current_bridge.nil?
+      halt 400, "Couldn't read from `Bridge`"
+    end
+    json_data(htmlify(current_bridge.gets))
   end
 
   post '/connect' do
+    content_type :json
     begin
       config = config_helper.process_hash(JSON::parse(request_text))
     rescue Exception => e
@@ -101,18 +118,34 @@ class WebInterface < Sinatra::Base
       :bridge => bridge,
       :config => config,
     })
-    nil
+    json_success
   end
 
   post '/disconnect' do
-    current_bridge.disconnect(request_text) unless current_bridge.nil?
-    nil
+    content_type :json
+    if current_bridge.nil?
+      halt 400, "Couldn't disconnect from `Bridge`"
+    end
+    current_bridge.disconnect(request_text)
+    json_success
   end
 
   post '/puts' do
+    content_type :json
+    if current_bridge.nil?
+      halt 400, "Couldn't write to `Bridge`"
+    end
     input = request_text
-    current_bridge.puts(input) unless current_bridge.nil? || input.blank?
-    nil
+    current_bridge.puts(input) unless input.blank?
+    json_success
+  end
+
+  post '/reconnect' do
+    content_type :json
+    if !can_reconnect_session?
+      halt 400, "Couldn't reconnect to `Session`"
+    end
+    json_success
   end
 
   run! if $0 == __FILE__
