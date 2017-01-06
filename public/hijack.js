@@ -16,7 +16,6 @@ var Hijack = (function($) {
         enableLichNet: true,
         enableSessionReconnect: true,
         maxScrollbackLines: 500,
-        pollingIntervalMS: 0,
         stripPlayerStatusPrompt: false,
         stripRetryableOutput: false
       },
@@ -26,7 +25,7 @@ var Hijack = (function($) {
     $.ajax({
       type: 'POST',
       url: '/connect',
-      data: JSON.stringify({
+      data: requestData({
         game: $game.val(),
         bridge: $bridge.val(),
         account: $account.val(),
@@ -52,7 +51,7 @@ var Hijack = (function($) {
     $.ajax({
       type: 'POST',
       url: '/disconnect',
-      data: str,
+      data: requestData(str),
       success: function() {
         $.ajaxBuffer.abortAll();
         $gameContainer.css('visibility', 'hidden');
@@ -69,18 +68,16 @@ var Hijack = (function($) {
   }
 
   var gets = function() {
-    setTimeout(function() {
-      $.ajax({
-        url: '/gets',
-        success: function(result) {
-          var str = result.data;
-          if (str !== undefined && str.length > 0) {
-            updateOutput(str);
-          }
-          gets();
+    $.ajax({
+      url: '/gets',
+      success: function(result) {
+        var str = responseData(result);
+        if (str.length > 0) {
+          updateOutput(str);
         }
-      });
-    }, config.pollingIntervalMS);
+        gets();
+      }
+    });
   };
 
   var init = function(options) {
@@ -217,8 +214,9 @@ var Hijack = (function($) {
       $.ajax({
         type: 'GET',
         url: '/bridges',
-        data: {game: game},
-        success: function(bridges) {
+        data: requestData(game),
+        success: function(result) {
+          var bridges = responseData(result);
           resetElement($bridge);
           $.each(bridges, function(index, bridge) {
             $bridge.append(new Option(formatString(bridge), bridge));
@@ -239,7 +237,8 @@ var Hijack = (function($) {
     $.ajax({
       type: 'GET',
       url: '/games',
-      success: function(games) {
+      success: function(result) {
+        var games = responseData(result);
         resetElement($game);
         resetElement($bridge);
         disableElement($bridge);
@@ -283,7 +282,7 @@ var Hijack = (function($) {
         $.ajax({
           type: 'POST',
           url: '/puts',
-          data: str
+          data: requestData(str),
         });
       }
     }
@@ -297,12 +296,20 @@ var Hijack = (function($) {
     });
   }
 
+  var requestData = function(value) {
+    return value ? {data: value} : null;
+  }
+
   var resetElement = function($element) {
     if ($element.is('select')) {
       $element.empty().append(new Option('--- SELECT ONE ---', ''));
     } else {
       $element.val('');
     }
+  }
+
+  var responseData = function(value) {
+    return value && value.data ? value.data : null;
   }
 
   var setInput = function(str) {

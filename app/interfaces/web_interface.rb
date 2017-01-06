@@ -44,20 +44,20 @@ class WebInterface < Sinatra::Base
         end
     end
 
-    def json_data(data)
-      jsonify({:data => data})
-    end
-
-    def json_success
-      jsonify({:success => true})
-    end
-
     def jsonify(value)
       value.to_json
     end
 
-    def request_text
-      request.body.read.rstrip
+    def request_data
+      request[:data]
+    end
+
+    def response_data(value)
+      jsonify({:data => value})
+    end
+
+    def response_success
+      jsonify({:success => true})
     end
 
     def session_id
@@ -69,33 +69,34 @@ class WebInterface < Sinatra::Base
     end
   end
 
-  get '/' do
+  before(/\//) do
     content_type :html
+  end
+
+  before(/\/[a-z_]+/) do
+    content_type :json
+  end
+
+  get '/' do
     send_file File.join(settings.public_folder, 'index.html')
   end
 
   get '/bridges' do
-    content_type :json
-    jsonify(bridge_helper.available_bridges(request[:game]))
+    response_data(bridge_helper.available_bridges(request_data))
   end
 
   get '/games' do
-    content_type :json
-    jsonify(game_helper.available_games)
+    response_data(game_helper.available_games)
   end
 
   get '/gets' do
-    content_type :json
-    if current_bridge.nil?
-      halt 400, "Couldn't read from `Bridge`"
-    end
-    json_data(htmlify(current_bridge.gets))
+    halt 400, "Couldn't read from `Bridge`" if current_bridge.nil?
+    response_data(htmlify(current_bridge.gets))
   end
 
   post '/connect' do
-    content_type :json
     begin
-      config = config_helper.process_hash(JSON::parse(request_text))
+      config = config_helper.process_hash(request_data)
     rescue Exception => e
       halt 400, e.message
     end
@@ -118,34 +119,25 @@ class WebInterface < Sinatra::Base
       :bridge => bridge,
       :config => config,
     })
-    json_success
+    response_success
   end
 
   post '/disconnect' do
-    content_type :json
-    if current_bridge.nil?
-      halt 400, "Couldn't disconnect from `Bridge`"
-    end
-    current_bridge.disconnect(request_text)
-    json_success
+    halt 400, "Couldn't disconnect from `Bridge`" if current_bridge.nil?
+    current_bridge.disconnect(request_data)
+    response_success
   end
 
   post '/puts' do
-    content_type :json
-    if current_bridge.nil?
-      halt 400, "Couldn't write to `Bridge`"
-    end
-    input = request_text
-    current_bridge.puts(input) unless input.blank?
-    json_success
+    halt 400, "Couldn't write to `Bridge`" if current_bridge.nil?
+    data = request_data
+    current_bridge.puts(data) unless data.blank?
+    response_success
   end
 
   post '/reconnect' do
-    content_type :json
-    if !can_reconnect_session?
-      halt 400, "Couldn't reconnect to `Session`"
-    end
-    json_success
+    halt 400, "Couldn't reconnect to `Session`" unless can_reconnect_session?
+    response_success
   end
 
   run! if $0 == __FILE__
