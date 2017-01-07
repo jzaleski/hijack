@@ -89,3 +89,9 @@ pre {
   bottom: 0;
   width: 100%;
 }
+
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+  #output, #input {
+    font-size: 10px;
+  }
+}
