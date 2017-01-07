@@ -10,6 +10,7 @@ class NorthGateScript < TownSquareCentralScript
       NORTH,
       EAST,
       NORTH,
+      'go gate',
     ]
   end
 

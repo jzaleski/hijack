@@ -1,6 +1,6 @@
 require 'scripts/gemstone/wehnimers_landing/north_gate_script'
 
-class RottedWoodenSignpostScript < NorthGateScript
+class WestGateScript < NorthGateScript
   protected
 
   def directions
@@ -8,13 +8,10 @@ class RottedWoodenSignpostScript < NorthGateScript
       SOUTHWEST,
       SOUTH,
       SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTH,
     ]
   end
 
   def location
-    "rotted_wooden_signpost|#{WEHNIMERS_LANDING}"
+    "west_gate|#{WEHNIMERS_LANDING}"
   end
 end
