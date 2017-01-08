@@ -1,22 +1,14 @@
-require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
+require 'scripts/gemstone/wehnimers_landing/fire_salamanders_script'
 
-class RatsScript < TownSquareCentralScript
+class RatsScript < FireSalamandersScript
   protected
 
   def directions
-    [
+    super + [
+      'go root',
       EAST,
       EAST,
       EAST,
-      NORTH,
-      EAST,
-      EAST,
-      SOUTH,
-      SOUTH,
-      'go open',
-      EAST,
-      'go hole',
-      'go open',
       EAST,
       NORTH,
       'go grate',
