@@ -11,6 +11,7 @@ class ScriptHelper
     @arguments_helper = ArgumentsHelper.new
     @scripts = {}
     @last_scripts_by_type_name = {}
+    @last_modified_times_by_script_path = {}
   end
 
   def execute(command)
@@ -179,7 +180,7 @@ class ScriptHelper
 
   def load_script(script_path)
     begin
-      load script_path
+      load script_path, script_modified?(script_path)
       true
     rescue Exception => e
       @logging_helper.log_exception_with_backtrace(e)
@@ -283,6 +284,14 @@ class ScriptHelper
 
   def script_class_name(script_name)
     "#{script_name.split('_').map(&:capitalize).join}Script"
+  end
+
+  def script_modified?(script_path)
+    last_modified_time = File.mtime(script_path)
+    stored_last_modified_time = @last_modified_times_by_script_path.
+      fetch(script_path, last_modified_time)
+    @last_modified_times_by_script_path[script_path] = last_modified_time
+    last_modified_time > stored_last_modified_time
   end
 
   def script_path(script_name)
