@@ -3,6 +3,7 @@ require 'scripts/base/base_simutronics_movement_script'
 class BaseDragonrealmsMovementScript < BaseSimutronicsMovementScript
   ARE_UNABLE_TO_GET_AWAY = 'are unable to get away'
   AS_FAR_AWAY_AS_YOU_CAN_GET = 'as far away as you can get'
+  CROSSING = 'crossing'
   RATHA = 'ratha'
   WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to\?'
   YOU_RETREAT = 'You retreat'

@@ -1,17 +1,13 @@
 require 'scripts/base/base_dragonrealms_combat_script'
 
 class BrawlScript < BaseDragonrealmsCombatScript
-  def run
-    # update args to include the "interloop_sleep_time" & "brawling_iterations"
-    # or its default
-    @args = [@args[0], @args[1] || 3]
-    # invoke the base run method
-    super
-  end
-
   protected
 
   def combat_sequence
-    []
+    [
+      ['circle', 3.5, 'circle back|first moving one way and then another'],
+      ['bob', 4.5],
+      ['weave', 4.5],
+    ]
   end
 end
