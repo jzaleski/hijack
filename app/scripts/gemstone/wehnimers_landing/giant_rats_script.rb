@@ -1,10 +1,14 @@
 require 'scripts/gemstone/wehnimers_landing/fire_salamanders_script'
 
-class RatsScript < FireSalamandersScript
+class GiantRatsScript < FireSalamandersScript
   protected
 
   def directions
     super + [
+      EAST,
+      EAST,
+      EAST,
+      EAST,
       'go root',
       EAST,
       EAST,
@@ -16,6 +20,6 @@ class RatsScript < FireSalamandersScript
   end
 
   def location
-    "rats|#{WEHNIMERS_LANDING}"
+    "giant_rats|#{WEHNIMERS_LANDING}"
   end
 end

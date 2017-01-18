@@ -9,10 +9,6 @@ class FireSalamandersScript < TownSquareCentralScript
       'climb rope',
       SOUTH,
       'go rubble',
-      EAST,
-      EAST,
-      EAST,
-      EAST,
     ]
   end
 
