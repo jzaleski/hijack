@@ -1,5 +1,4 @@
 class LichNetHelper
-  # general
   CHANNEL = 'channel'
   CHAT = 'chat'
   CHAT_TO = 'chat_to'
@@ -17,14 +16,12 @@ class LichNetHelper
   TYPE = 'type'
   UNTUNE = 'untune'
 
-  # formatting
   CHANNEL_MESSAGE_FORMAT = '[%s] %s: "%s"'
   CHANNEL_WITHOUT_PREFIX_FORMAT = %{#{LNET}:%s}
   PRIVATETO_MESSAGE_FORMAT = %{[#{LNET}:PrivateTo] %s: "%s"}
   PRIVATE_MESSAGE_FORMAT = %{[#{LNET}:Private] %s: "%s"}
   SERVER_MESSAGE_FORMAT = %{[#{LNET}:Server] %s}
 
-  # defaults
   DEFAULT_CERTIFICATE_FILE_PATH = "#{CONFIG_DIR}/lich_net.cert"
   DEFAULT_CHANNEL = LNET
   DEFAULT_CLIENT_VERSION = '1.4'
@@ -57,6 +54,7 @@ class LichNetHelper
     initialize_network
     login
     initialize_threads
+    tune(@channel)
   end
 
   def connected?
@@ -266,7 +264,7 @@ class LichNetHelper
   def untune(channel)
     if channel.present?
       write(UNTUNE, {
-        :channel => @channel = channel,
+        :channel => channel,
       })
     end
   end

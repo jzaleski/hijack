@@ -51,6 +51,7 @@ class BaseLichNetBridge < BaseSimutronicsBridge
     @lich_net_helper ||= LichNetHelper.new(
       :game => @config[:lich_net_game],
       :name => @config[:lich_net_name],
+      :channel => @config[:lich_net_channel],
       :stdin => @lich_net_input_buffer,
       :stdout => @lich_net_output_buffer,
       :output_format => "\n%s",
