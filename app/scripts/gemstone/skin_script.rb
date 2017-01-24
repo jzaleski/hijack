@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_script'
+require_reload 'scripts/base/base_gemstone_script'
 
 class SkinScript < BaseGemstoneScript
   HAS_ALREADY_BEEN_SKINNED = 'has already been skinned'

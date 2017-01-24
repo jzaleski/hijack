@@ -1,4 +1,4 @@
-require 'scripts/base/base_script'
+require_reload 'scripts/base/base_script'
 
 class WaitforScript < BaseScript
   def run

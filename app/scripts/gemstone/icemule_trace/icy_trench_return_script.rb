@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/icy_trench_script'
+require_reload 'scripts/gemstone/icemule_trace/icy_trench_script'
 
 class IcyTrenchReturnScript < IcyTrenchScript
   protected

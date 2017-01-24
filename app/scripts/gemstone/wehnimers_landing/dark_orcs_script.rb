@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/abandoned_inn_script'
+require_reload 'scripts/gemstone/wehnimers_landing/abandoned_inn_script'
 
 class DarkOrcsScript < AbandonedInnScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+require_reload 'scripts/base/base_dragonrealms_script'
 
 class AppraiseScript < BaseDragonrealmsScript
   APPRAISE_WHAT = 'Appraise what\?'

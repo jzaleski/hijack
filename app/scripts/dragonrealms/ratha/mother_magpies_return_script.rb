@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/mother_magpies_script'
+require_reload 'scripts/dragonrealms/ratha/mother_magpies_script'
 
 class MotherMagpiesReturnScript < MotherMagpiesScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/glatoph_script'
+require_reload 'scripts/gemstone/wehnimers_landing/glatoph_script'
 
 class FirephantomsScript < GlatophScript
   protected

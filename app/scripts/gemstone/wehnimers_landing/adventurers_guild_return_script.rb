@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/adventurers_guild_script'
+require_reload 'scripts/gemstone/wehnimers_landing/adventurers_guild_script'
 
 class AdventurersGuildReturnScript < AdventurersGuildScript
   protected

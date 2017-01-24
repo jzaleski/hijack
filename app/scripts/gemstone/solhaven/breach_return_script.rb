@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/breach_script'
+require_reload 'scripts/gemstone/solhaven/breach_script'
 
 class BreachReturnScript < BreachScript
   protected

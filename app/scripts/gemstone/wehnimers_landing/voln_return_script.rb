@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/voln_script'
+require_reload 'scripts/gemstone/wehnimers_landing/voln_script'
 
 class VolnReturnScript < VolnScript
   protected

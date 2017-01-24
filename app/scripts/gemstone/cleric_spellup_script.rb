@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_spellup_script'
+require_reload 'scripts/base/base_gemstone_spellup_script'
 
 class ClericSpellupScript < BaseGemstoneSpellupScript
   protected

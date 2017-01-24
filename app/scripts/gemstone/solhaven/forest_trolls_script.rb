@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/beach_script'
+require_reload 'scripts/gemstone/solhaven/beach_script'
 
 class ForestTrollsScript < BeachScript
   protected

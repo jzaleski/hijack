@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/wood_wights_script'
+require_reload 'scripts/gemstone/solhaven/wood_wights_script'
 
 class WoodWightsReturnScript < WoodWightsScript
   protected

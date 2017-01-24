@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/gemshop_script'
+require_reload 'scripts/gemstone/icemule_trace/gemshop_script'
 
 class GemshopReturnScript < GemshopScript
   protected

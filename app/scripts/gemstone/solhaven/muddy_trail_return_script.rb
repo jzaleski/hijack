@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/muddy_trail_script'
+require_reload 'scripts/gemstone/solhaven/muddy_trail_script'
 
 class MuddyTrailReturnScript < MuddyTrailScript
   protected

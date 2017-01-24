@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/thyrils_script'
+require_reload 'scripts/gemstone/wehnimers_landing/thyrils_script'
 
 class ThyrilsReturnScript < ThyrilsScript
   protected

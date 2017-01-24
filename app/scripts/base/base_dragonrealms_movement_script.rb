@@ -1,4 +1,4 @@
-require 'scripts/base/base_simutronics_movement_script'
+require_reload 'scripts/base/base_simutronics_movement_script'
 
 class BaseDragonrealmsMovementScript < BaseSimutronicsMovementScript
   ARE_UNABLE_TO_GET_AWAY = 'are unable to get away'

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/rocky_stream_script'
+require_reload 'scripts/gemstone/wehnimers_landing/rocky_stream_script'
 
 class RockyStreamReturnScript < RockyStreamScript
   protected

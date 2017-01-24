@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/clovertooth_hall_script'
+require_reload 'scripts/gemstone/icemule_trace/clovertooth_hall_script'
 
 class ClovertoothHallReturnScript < ClovertoothHallScript
   protected

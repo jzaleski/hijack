@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/south_gate_script'
+require_reload 'scripts/gemstone/icemule_trace/south_gate_script'
 
 class AbandonedFarmScript < SouthGateScript
   protected

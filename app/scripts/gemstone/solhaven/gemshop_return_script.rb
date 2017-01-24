@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/gemshop_script'
+require_reload 'scripts/gemstone/solhaven/gemshop_script'
 
 class GemshopReturnScript < GemshopScript
   protected

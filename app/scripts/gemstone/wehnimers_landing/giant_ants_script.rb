@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/fire_salamanders_script'
+require_reload 'scripts/gemstone/wehnimers_landing/fire_salamanders_script'
 
 class GiantAntsScript < FireSalamandersScript
   protected

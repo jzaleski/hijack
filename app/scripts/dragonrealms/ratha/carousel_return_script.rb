@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/carousel_script'
+require_reload 'scripts/dragonrealms/ratha/carousel_script'
 
 class CarouselReturnScript < CarouselScript
   protected

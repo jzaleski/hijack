@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/furrier_script'
+require_reload 'scripts/gemstone/icemule_trace/furrier_script'
 
 class FurrierReturnScript < FurrierScript
   protected

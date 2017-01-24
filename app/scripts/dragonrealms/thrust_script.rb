@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_combat_script'
+require_reload 'scripts/base/base_dragonrealms_combat_script'
 
 class ThrustScript < BaseDragonrealmsCombatScript
   protected

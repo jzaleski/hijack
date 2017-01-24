@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/pawnshop_script'
+require_reload 'scripts/gemstone/wehnimers_landing/pawnshop_script'
 
 class PawnshopReturnScript < PawnshopScript
   protected

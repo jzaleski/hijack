@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/council_of_light_script'
+require_reload 'scripts/gemstone/solhaven/council_of_light_script'
 
 class CouncilOfLightNexusReturnScript < CouncilOfLightScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/east_tower_script'
+require_reload 'scripts/gemstone/wehnimers_landing/east_tower_script'
 
 class EastTowerReturnScript < EastTowerScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/town_center_script'
+require_reload 'scripts/gemstone/icemule_trace/town_center_script'
 
 class BankScript < TownCenterScript
   protected

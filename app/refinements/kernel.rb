@@ -66,8 +66,12 @@ module Kernel
   end
 
   def should_reload?(name)
+    # perform all operations on a copy of the original string
+    file_path = name.dup
+    # if the app-prefix is not included in the file-path, prepend it
+    file_path = file_path !~ /\Aapp\// ? "app/#{file_path}" : file_path
     # if the file-path doesn't end w/ the expected extension, append it
-    file_path = (name !~ /\.rb\Z/) ? "#{name}.rb" : name
+    file_path = file_path !~ /\.rb\Z/ ? "#{file_path}.rb" : file_path
     # capture the modified timestamp of the file
     last_modified_time = File.mtime(file_path)
     # attempt to fetch the previous modified timestamp from the `Hash` if one is

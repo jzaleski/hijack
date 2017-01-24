@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/temple_script'
+require_reload 'scripts/gemstone/wehnimers_landing/temple_script'
 
 class TempleReturnScript < TempleScript
   protected

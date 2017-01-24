@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/manticores_script'
+require_reload 'scripts/gemstone/wehnimers_landing/manticores_script'
 
 class CrystalGolemsScript < ManticoresScript
   protected

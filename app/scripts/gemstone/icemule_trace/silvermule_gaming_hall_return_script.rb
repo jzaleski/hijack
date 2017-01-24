@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/silvermule_gaming_hall_script'
+require_reload 'scripts/gemstone/icemule_trace/silvermule_gaming_hall_script'
 
 class SilvermuleGamingHallReturnScript < SilvermuleGamingHallScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/skin_script'
+require_reload 'scripts/gemstone/skin_script'
 
 class SkinAndLootAllScript < SkinScript
   GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"

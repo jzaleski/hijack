@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/third_tier_bank_script'
+require_reload 'scripts/dragonrealms/ratha/third_tier_bank_script'
 
 class ThirdTierBankReturnScript < ThirdTierBankScript
   protected

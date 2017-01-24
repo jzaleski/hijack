@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/alchemist_script'
+require_reload 'scripts/gemstone/solhaven/alchemist_script'
 
 class AlchemistReturnScript < AlchemistScript
   protected

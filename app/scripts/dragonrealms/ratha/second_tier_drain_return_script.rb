@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/second_tier_drain_script'
+require_reload 'scripts/dragonrealms/ratha/second_tier_drain_script'
 
 class SecondTierDrainReturnScript < SecondTierDrainScript
   protected

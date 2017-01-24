@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/west_gate_script'
+require_reload 'scripts/gemstone/icemule_trace/west_gate_script'
 
 class IcyTrenchScript < WestGateScript
   protected

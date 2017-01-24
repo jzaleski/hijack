@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/crossing/bank_script'
+require_reload 'scripts/dragonrealms/crossing/bank_script'
 
 class ShipRatsScript < BankScript
   protected

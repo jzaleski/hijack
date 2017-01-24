@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_movement_script'
+require_reload 'scripts/base/base_dragonrealms_movement_script'
 
 class BankScript < BaseDragonrealmsMovementScript
   def location

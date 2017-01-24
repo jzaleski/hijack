@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/icemule_trace_script'
+require_reload 'scripts/gemstone/wehnimers_landing/icemule_trace_script'
 
 class WehnimersLandingScript < IcemuleTraceScript
   protected

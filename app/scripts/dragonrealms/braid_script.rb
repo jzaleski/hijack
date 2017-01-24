@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+require_reload 'scripts/base/base_dragonrealms_script'
 
 class BraidScript < BaseDragonrealmsScript
   AT_LEAST_ONE_HAND_FREE = 'at least one hand free'

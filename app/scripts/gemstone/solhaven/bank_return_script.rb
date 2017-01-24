@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/bank_script'
+require_reload 'scripts/gemstone/solhaven/bank_script'
 
 class BankReturnScript < BankScript
   protected

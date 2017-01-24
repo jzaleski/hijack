@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/firephantoms_script'
+require_reload 'scripts/gemstone/wehnimers_landing/firephantoms_script'
 
 class FirephantomsReturnScript < FirephantomsScript
   protected

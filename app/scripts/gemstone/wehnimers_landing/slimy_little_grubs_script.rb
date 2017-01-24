@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/hobgoblins_script'
+require_reload 'scripts/gemstone/wehnimers_landing/hobgoblins_script'
 
 class SlimyLittleGrubsScript < HobgoblinsScript
   protected

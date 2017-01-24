@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/shelfae_soldiers_script'
+require_reload 'scripts/gemstone/solhaven/shelfae_soldiers_script'
 
 class ShelfaeSoldiersReturnScript < ShelfaeSoldiersScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/pawnshop_script'
+require_reload 'scripts/gemstone/solhaven/pawnshop_script'
 
 class PawnshopReturnScript < PawnshopScript
   protected

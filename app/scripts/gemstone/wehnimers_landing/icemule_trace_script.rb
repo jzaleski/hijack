@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/mammoth_rockslide_script'
+require_reload 'scripts/gemstone/wehnimers_landing/mammoth_rockslide_script'
 
 class IcemuleTraceScript < MammothRockslideScript
   protected

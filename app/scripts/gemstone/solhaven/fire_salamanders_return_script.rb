@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/fire_salamanders_script'
+require_reload 'scripts/gemstone/solhaven/fire_salamanders_script'
 
 class FireSalamandersReturnScript < FireSalamandersScript
   protected

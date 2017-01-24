@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/bank_script'
+require_reload 'scripts/gemstone/wehnimers_landing/bank_script'
 
 class BankReturnScript < BankScript
   protected

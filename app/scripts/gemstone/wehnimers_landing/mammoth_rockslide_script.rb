@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/stone_bridge_script'
+require_reload 'scripts/gemstone/wehnimers_landing/stone_bridge_script'
 
 class MammothRockslideScript < StoneBridgeScript
   protected

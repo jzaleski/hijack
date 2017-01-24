@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_get_script'
+require_reload 'scripts/base/base_gemstone_get_script'
 
 class GemScript < BaseGemstoneGetScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/base/base_simutronics_movement_script'
+require_reload 'scripts/base/base_simutronics_movement_script'
 
 class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
   BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/muddy_path_script'
+require_reload 'scripts/gemstone/solhaven/muddy_path_script'
 
 class ShelfaeSoldiersScript < MuddyPathScript
   protected

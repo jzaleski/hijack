@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/giant_ants_script'
+require_reload 'scripts/gemstone/wehnimers_landing/giant_ants_script'
 
 class GiantAntsReturnScript < GiantAntsScript
   protected

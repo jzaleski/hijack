@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_movement_script'
+require_reload 'scripts/base/base_gemstone_movement_script'
 
 class NorthMarketScript < BaseGemstoneMovementScript
   def location

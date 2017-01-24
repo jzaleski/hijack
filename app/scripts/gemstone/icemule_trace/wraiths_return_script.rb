@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/wraiths_script'
+require_reload 'scripts/gemstone/icemule_trace/wraiths_script'
 
 class WraithsReturnScript < WraithsScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/dense_fog_script'
+require_reload 'scripts/gemstone/icemule_trace/dense_fog_script'
 
 class DenseFogReturnScript < DenseFogScript
   protected

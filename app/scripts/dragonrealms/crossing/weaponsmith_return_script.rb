@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/crossing/weaponsmith_script'
+require_reload 'scripts/dragonrealms/crossing/weaponsmith_script'
 
 class WeaponsmithReturnScript < WeaponsmithScript
   protected

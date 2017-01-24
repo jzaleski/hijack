@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/sea_nymphs_script'
+require_reload 'scripts/gemstone/wehnimers_landing/sea_nymphs_script'
 
 class SeaNymphsReturnScript < SeaNymphsScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/skeletal_lords_script'
+require_reload 'scripts/gemstone/wehnimers_landing/skeletal_lords_script'
 
 class SkeletalLordsReturnScript < SkeletalLordsScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/wizard_guild_script'
+require_reload 'scripts/gemstone/icemule_trace/wizard_guild_script'
 
 class WizardGuildEnchantingWorkshopScript < WizardGuildScript
   protected

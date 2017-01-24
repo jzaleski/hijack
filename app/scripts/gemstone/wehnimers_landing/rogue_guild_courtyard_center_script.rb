@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
+require_reload 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
 
 class RogueGuildCourtyardCenterScript < RogueGuildScript
   THE_OAKEN_DOOR_GIVES_WAY = 'The oaken door gives way'

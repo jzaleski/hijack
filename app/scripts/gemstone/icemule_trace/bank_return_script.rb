@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/bank_script'
+require_reload 'scripts/gemstone/icemule_trace/bank_script'
 
 class BankReturnScript < BankScript
   protected

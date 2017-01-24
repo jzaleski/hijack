@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/thurfels_keep_script'
+require_reload 'scripts/gemstone/icemule_trace/thurfels_keep_script'
 
 class ThurfelsKeepReturnScript < ThurfelsKeepScript
   protected

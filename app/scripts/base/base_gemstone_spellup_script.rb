@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_script'
+require_reload 'scripts/base/base_gemstone_script'
 
 class BaseGemstoneSpellupScript < BaseGemstoneScript
   def run

@@ -1,4 +1,4 @@
-require 'scripts/base/base_simutronics_script'
+require_reload 'scripts/base/base_simutronics_script'
 
 class BaseGemstoneScript < BaseSimutronicsScript
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
