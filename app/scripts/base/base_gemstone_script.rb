@@ -25,6 +25,8 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_ALREADY_SITTING = 'You are already sitting'
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
+  YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
+  YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
   YOU_CLOSE = 'You close'
   YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
@@ -219,6 +221,22 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_SIT_UP,
   ].join('|')
 
+  STANCE_DEFENSIVE_PATTERN = [
+    YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE,
+  ].join('|')
+
+  STANCE_DEFENSIVE_SUCCESS_PATTERN = [
+    YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE,
+  ].join('|')
+
+  STANCE_OFFENSIVE_PATTERN = [
+    YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE,
+  ].join('|')
+
+  STANCE_OFFENSIVE_SUCCESS_PATTERN = [
+    YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE,
+  ].join('|')
+
   STAND_PATTERN = [
     YOU_ARE_ALREADY_STANDING,
     YOU_STAND_BACK_UP,
@@ -336,6 +354,20 @@ class BaseGemstoneScript < BaseSimutronicsScript
       SIT_PATTERN,
       'sit'
     ).match(SIT_SUCCESS_PATTERN)
+  end
+
+  def stance_defensive
+    wait_for_match(
+      STANCE_DEFENSIVE_PATTERN,
+      'stance defensive',
+    ).match(STANCE_DEFENSIVE_SUCCESS_PATTERN)
+  end
+
+  def stance_offensive
+    wait_for_match(
+      STANCE_OFFENSIVE_PATTERN,
+      'stance offensive',
+    ).match(STANCE_OFFENSIVE_SUCCESS_PATTERN)
   end
 
   def stand
