@@ -13,19 +13,19 @@ describe AliasHelper do
 
     it 'will do nothing if there are no aliases mapped to the command' do
       expect(subject).to \
-        receive(:aliases).at_least(:once).and_return({:bar => 'biz'})
+        receive(:aliases).at_least(:once).and_return({/bar/ => 'biz'})
       expect(subject.process('foo')).to eq('foo')
     end
 
     it 'will replace an alias' do
       expect(subject).to \
-        receive(:aliases).at_least(:once).and_return({:foo => 'bar'})
+        receive(:aliases).at_least(:once).and_return({/foo/ => 'bar'})
       expect(subject.process('foo')).to eq('bar')
     end
 
     it 'will recursively replace aliases' do
       expect(subject).to \
-        receive(:aliases).at_least(:once).and_return({:foo => 'bar', :bar => 'biz'})
+        receive(:aliases).at_least(:once).and_return({/foo/ => 'bar', /bar/ => 'biz'})
       expect(subject.process('foo')).to eq('biz')
     end
   end

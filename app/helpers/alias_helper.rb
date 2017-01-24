@@ -4,14 +4,20 @@ class AliasHelper
   end
 
   def process(command)
-    alias_ = command.to_sym
-    return command unless aliases.include?(alias_)
-    process(aliases[alias_])
+    aliases.each do |regexp, replacement|
+      return process(replacement) if regexp.match(command)
+    end
+    command
   end
 
   private
 
   def aliases
-    @config[:aliases] || {}
+    @aliases ||= begin
+      (@config[:aliases] || {}).reduce({}) do |memo, (pattern, replacement)|
+        memo[pattern.to_regexp] = replacement
+        memo
+      end
+    end
   end
 end
