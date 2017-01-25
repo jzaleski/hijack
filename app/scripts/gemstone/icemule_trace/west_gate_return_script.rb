@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/west_gate_script'
+require 'scripts/gemstone/icemule_trace/west_gate_script'
 
 class WestGateReturnScript < WestGateScript
   protected

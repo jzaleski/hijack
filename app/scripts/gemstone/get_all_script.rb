@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_gemstone_script'
+require 'scripts/base/base_gemstone_script'
 
 class GetAllScript < BaseGemstoneScript
   def run

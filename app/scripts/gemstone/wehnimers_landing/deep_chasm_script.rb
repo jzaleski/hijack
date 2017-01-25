@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/glacier_script'
+require 'scripts/gemstone/wehnimers_landing/glacier_script'
 
 class DeepChasmScript < GlacierScript
   protected

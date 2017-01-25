@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
+require 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
 
 class RogueGuildReturnScript < RogueGuildScript
   protected

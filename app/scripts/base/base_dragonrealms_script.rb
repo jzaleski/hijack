@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_simutronics_script'
+require 'scripts/base/base_simutronics_script'
 
 class BaseDragonrealmsScript < BaseSimutronicsScript
   ATTEMPT_TO_CHANNEL = 'attempt to channel'

@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class PredictScript < BaseDragonrealmsScript
   FOILED_BY_THE = 'foiled by the'

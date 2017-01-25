@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/snow_spectres_script'
+require 'scripts/gemstone/icemule_trace/snow_spectres_script'
 
 class SnowSpectresReturnScript < SnowSpectresScript
   protected

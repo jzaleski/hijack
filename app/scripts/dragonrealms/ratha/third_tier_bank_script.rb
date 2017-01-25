@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/ratha/town_green_script'
+require 'scripts/dragonrealms/ratha/town_green_script'
 
 class ThirdTierBankScript < TownGreenScript
   protected

@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_movement_script'
+require 'scripts/base/base_dragonrealms_movement_script'
 
 class TownGreenScript < BaseDragonrealmsMovementScript
   def location

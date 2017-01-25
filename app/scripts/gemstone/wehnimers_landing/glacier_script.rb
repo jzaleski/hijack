@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/glatoph_script'
+require 'scripts/gemstone/wehnimers_landing/glatoph_script'
 
 class GlacierScript < GlatophScript
   protected

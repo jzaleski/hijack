@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/ratha/third_tier_grating_script'
+require 'scripts/dragonrealms/ratha/third_tier_grating_script'
 
 class ThirdTierGratingReturnScript < ThirdTierGratingScript
   protected

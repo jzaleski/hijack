@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/armory_script'
+require 'scripts/gemstone/wehnimers_landing/armory_script'
 
 class ArmoryReturnScript < ArmoryScript
   protected

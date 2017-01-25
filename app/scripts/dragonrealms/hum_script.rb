@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class HumScript < BaseDragonrealmsScript
   YOU_FINISH_HUMMING = 'You finish humming'

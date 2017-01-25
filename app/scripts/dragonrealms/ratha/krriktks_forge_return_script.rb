@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/ratha/krriktks_forge_script'
+require 'scripts/dragonrealms/ratha/krriktks_forge_script'
 
 class KrriktksForgeReturnScript < KrriktksForgeScript
   protected

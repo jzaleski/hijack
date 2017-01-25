@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/cave_nippers_script'
+require 'scripts/gemstone/wehnimers_landing/cave_nippers_script'
 
 class CaveNippersReturnScript < CaveNippersScript
   protected

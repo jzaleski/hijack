@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/esplanade_gate_script'
+require 'scripts/gemstone/solhaven/esplanade_gate_script'
 
 class EsplanadeGateReturnScript < EsplanadeGateScript
   protected

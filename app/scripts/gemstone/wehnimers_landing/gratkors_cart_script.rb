@@ -1,0 +1,16 @@
+require 'scripts/gemstone/wehnimers_landing/north_gate_script'
+
+class GratkorsCartScript < NorthGateScript
+  protected
+
+  def directions
+    super + [
+      NORTH,
+      'go clearing|go path',
+    ]
+  end
+
+  def location
+    "gratkors_cart|#{WEHNIMERS_LANDING}"
+  end
+end

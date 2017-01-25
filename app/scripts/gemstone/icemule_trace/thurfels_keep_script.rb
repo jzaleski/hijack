@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/community_well_script'
+require 'scripts/gemstone/icemule_trace/community_well_script'
 
 class ThurfelsKeepScript < CommunityWellScript
   protected

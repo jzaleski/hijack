@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/north_gate_script'
+require 'scripts/gemstone/wehnimers_landing/north_gate_script'
 
 class NorthGateReturnScript < NorthGateScript
   protected

@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/abandoned_farm_script'
+require 'scripts/gemstone/icemule_trace/abandoned_farm_script'
 
 class WraithsScript < AbandonedFarmScript
   protected

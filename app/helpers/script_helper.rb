@@ -184,7 +184,7 @@ class ScriptHelper
 
   def load_script(script_path)
     begin
-      load_reload script_path
+      load script_path, true
       true
     rescue Exception => e
       @logging_helper.log_exception_with_backtrace(e)

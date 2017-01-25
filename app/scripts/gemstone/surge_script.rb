@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_gemstone_script'
+require 'scripts/base/base_gemstone_script'
 
 class SurgeScript < BaseGemstoneScript
   YOUR_INTERNAL_STRENGTH_FULLY = 'Your internal strength fully recovers'

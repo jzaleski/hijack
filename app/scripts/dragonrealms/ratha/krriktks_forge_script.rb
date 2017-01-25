@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/ratha/second_tier_drain_script'
+require 'scripts/dragonrealms/ratha/second_tier_drain_script'
 
 class KrriktksForgeScript < SecondTierDrainScript
   protected

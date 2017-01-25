@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/ratha/first_tier_grating_script'
+require 'scripts/dragonrealms/ratha/first_tier_grating_script'
 
 class MotherMagpiesScript < FirstTierGratingScript
   protected

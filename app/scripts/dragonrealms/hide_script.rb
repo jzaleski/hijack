@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class HideScript < BaseDragonrealmsScript
   ALREADY_HIDDEN = 'already hidden'

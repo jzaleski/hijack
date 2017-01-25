@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/silverback_orcs_script'
+require 'scripts/gemstone/icemule_trace/silverback_orcs_script'
 
 class SnowSpectresScript < SilverbackOrcsScript
   protected

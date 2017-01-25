@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/adventurers_guild_script'
+require 'scripts/gemstone/solhaven/adventurers_guild_script'
 
 class AdventurersGuildReturnScript < AdventurersGuildScript
   protected

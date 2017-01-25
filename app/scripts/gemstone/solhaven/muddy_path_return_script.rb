@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/muddy_path_script'
+require 'scripts/gemstone/solhaven/muddy_path_script'
 
 class MuddyPathReturnScript < MuddyPathScript
   protected

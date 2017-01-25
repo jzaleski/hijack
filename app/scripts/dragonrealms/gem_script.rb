@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_get_script'
+require 'scripts/base/base_dragonrealms_get_script'
 
 class GemScript < BaseDragonrealmsGetScript
   protected

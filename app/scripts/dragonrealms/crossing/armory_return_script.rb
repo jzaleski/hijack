@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/crossing/armory_script'
+require 'scripts/dragonrealms/crossing/armory_script'
 
 class ArmoryReturnScript < ArmoryScript
   protected

@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/council_of_light_script'
+require 'scripts/gemstone/solhaven/council_of_light_script'
 
 class CouncilOfLightReturnScript < CouncilOfLightScript
   protected

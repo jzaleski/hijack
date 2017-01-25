@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/town_center_script'
+require 'scripts/gemstone/icemule_trace/town_center_script'
 
 class DenseFogScript < TownCenterScript
   protected

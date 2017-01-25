@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_combat_script'
+require 'scripts/base/base_dragonrealms_combat_script'
 
 class BrawlScript < BaseDragonrealmsCombatScript
   protected

@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/rotted_wooden_signpost_script'
+require 'scripts/gemstone/wehnimers_landing/rotted_wooden_signpost_script'
 
 class RottedWoodenSignpostReturnScript < RottedWoodenSignpostScript
   protected

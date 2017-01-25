@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/crossing/ship_rats_script'
+require 'scripts/dragonrealms/crossing/ship_rats_script'
 
 class ShipRatsReturnScript < ShipRatsScript
   protected

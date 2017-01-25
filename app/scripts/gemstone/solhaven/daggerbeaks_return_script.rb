@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/daggerbeaks_script'
+require 'scripts/gemstone/solhaven/daggerbeaks_script'
 
 class DaggerbeaksReturnScript < DaggerbeaksScript
   protected

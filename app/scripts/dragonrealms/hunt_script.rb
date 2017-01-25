@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class HuntScript < BaseDragonrealmsScript
   YOU_TAKE_NOTE_OF_ALL_THE_TRACKS = 'You take note of all the tracks'

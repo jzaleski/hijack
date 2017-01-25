@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/town_square_central_script'
+require 'scripts/gemstone/wehnimers_landing/town_square_central_script'
 
 class FireSalamandersScript < TownSquareCentralScript
   protected

@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/solhaven_inn_script'
+require 'scripts/gemstone/solhaven/solhaven_inn_script'
 
 class SolhavenInnReturnScript < SolhavenInnScript
   protected

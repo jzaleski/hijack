@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_simutronics_script'
+require 'scripts/base/base_simutronics_script'
 
 class BaseGemstoneScript < BaseSimutronicsScript
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
@@ -6,14 +6,19 @@ class BaseGemstoneScript < BaseSimutronicsScript
   COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
   FROM_THE_GROUP = 'from the group'
   GET_WHAT = 'Get what\?'
+  HANDS_IT_BACK_TO_YOU_ALONG_WITH = 'hands it back to you, along with'
+  HANDS_IT_BACK_TO_YOU_AND_SAYS = 'hands it back to you and says'
   ISNT_IN_YOUR_GROUP = "isn't in your group"
   IS_ALREADY_A_MEMBER_OF_YOUR_GROUP = 'is already a member of your group'
   I_COULD_NOT_FIND = 'I could not find'
+  PERHAPS_YOU_SHOULD_BE_HOLDING = 'Perhaps you should be holding'
   PREPARED_SPELL_TO_RELEASE = 'prepared spell to release'
+  REMOVE_WHAT = 'Remove what'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already open'
   THAT_IS_NOT_SOMETHING_YOU_CAN_PREPARE = 'That is not something you can prepare'
   THERE_DOESNT_SEEM_TO_BE = "There doesn't seem to be"
+  WEAR_WHAT = 'Wear what'
   WHAT_WERE_YOU = 'What were you'
   WHO_DO_YOU_WISH_TO_REMOVE = 'Who do you wish to remove'
   WONT_FIT_IN_THE = "won't fit in the"
@@ -21,9 +26,11 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOUR_SPELL_IS_READY = 'Your spell is ready'
   YOU_ALREADY_HAVE_A_SPELL_READIED = 'You already have a spell readied'
   YOU_ALREADY_HAVE_THAT = 'You already have that'
+  YOU_ARENT_WEARING_THAT = "You aren't wearing that"
   YOU_ARE_ALREADY_KNEELING = 'You are already kneeling'
   YOU_ARE_ALREADY_SITTING = 'You are already sitting'
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
+  YOU_ARE_ALREADY_WEARING = 'You are already wearing'
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
@@ -49,6 +56,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_SIT_UP = 'You sit up'
   YOU_STAND_BACK_UP = 'You stand back up'
   YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
+  YOU_TAKE = 'You take'
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
 
   CAST_PATTERN = [
@@ -207,6 +215,29 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_FEEL_THE_MAGIC_OF_YOUR_SPELL,
   ].join('|')
 
+  REMOVE_MY_PATTERN = [
+    REMOVE_WHAT,
+    YOU_TAKE,
+    YOU_ARENT_WEARING_THAT,
+  ].join('|')
+
+  REMOVE_MY_SUCCESS_PATTERN = [
+    YOU_TAKE,
+    YOU_ARENT_WEARING_THAT,
+  ].join('|')
+
+  SELL_MY_PATTERN = [
+    HANDS_IT_BACK_TO_YOU_ALONG_WITH,
+    HANDS_IT_BACK_TO_YOU_AND_SAYS,
+    PERHAPS_YOU_SHOULD_BE_HOLDING,
+    WHAT_WERE_YOU,
+  ].join('|')
+
+  SELL_MY_SUCCESS_PATTERN = [
+    HANDS_IT_BACK_TO_YOU_ALONG_WITH,
+    HANDS_IT_BACK_TO_YOU_AND_SAYS,
+  ].join('|')
+
   SIT_PATTERN = [
     YOU_ARE_ALREADY_SITTING,
     YOU_MOVE_TO_A_SITTING,
@@ -255,6 +286,17 @@ class BaseGemstoneScript < BaseSimutronicsScript
   ].join('|')
 
   STORE_MY_SUCCESS_PATTERN = [
+    YOU_PUT,
+  ].join('|')
+
+  WEAR_MY_PATTERN = [
+    WEAR_WHAT,
+    YOU_ARE_ALREADY_WEARING,
+    YOU_PUT,
+  ].join('|')
+
+  WEAR_MY_SUCCESS_PATTERN = [
+    YOU_ARE_ALREADY_WEARING,
     YOU_PUT,
   ].join('|')
 
@@ -349,6 +391,20 @@ class BaseGemstoneScript < BaseSimutronicsScript
     ).match(RELEASE_SUCCESS_PATTERN)
   end
 
+  def remove_my(item)
+    wait_for_match(
+      REMOVE_MY_PATTERN,
+      "remove my #{item}"
+    ).match(REMOVE_MY_SUCCESS_PATTERN)
+  end
+
+  def sell_my(item)
+    wait_for_match(
+      SELL_MY_PATTERN,
+      "sell my #{item}"
+    ).match(SELL_MY_SUCCESS_PATTERN)
+  end
+
   def sit
     wait_for_match(
       SIT_PATTERN,
@@ -382,5 +438,12 @@ class BaseGemstoneScript < BaseSimutronicsScript
       STORE_MY_PATTERN,
       "put my #{item} in my #{container}"
     ).match(STORE_MY_SUCCESS_PATTERN)
+  end
+
+  def wear_my(item)
+    wait_for_match(
+      WEAR_MY_PATTERN,
+      "wear my #{item}"
+    ).match(WEAR_MY_SUCCESS_PATTERN)
   end
 end

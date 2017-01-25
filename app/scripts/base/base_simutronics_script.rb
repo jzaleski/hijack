@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_script'
+require 'scripts/base/base_script'
 
 class BaseSimutronicsScript < BaseScript
   OBVIOUS_EXITS = 'Obvious exits:'

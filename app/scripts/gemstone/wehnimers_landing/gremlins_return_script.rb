@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/gremlins_script'
+require 'scripts/gemstone/wehnimers_landing/gremlins_script'
 
 class GremlinsReturnScript < GremlinsScript
   protected

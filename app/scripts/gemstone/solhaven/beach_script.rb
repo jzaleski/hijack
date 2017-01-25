@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/muddy_trail_script'
+require 'scripts/gemstone/solhaven/muddy_trail_script'
 
 class BeachScript < MuddyTrailScript
   protected

@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/zombies_script'
+require 'scripts/gemstone/icemule_trace/zombies_script'
 
 class ZombiesReturnScript < ZombiesScript
   protected

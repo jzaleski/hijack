@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/helgas_tavern_script'
+require 'scripts/gemstone/wehnimers_landing/helgas_tavern_script'
 
 class HelgasTavernReturnScript < HelgasTavernScript
   protected

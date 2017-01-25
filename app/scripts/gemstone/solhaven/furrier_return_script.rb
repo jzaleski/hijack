@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/furrier_script'
+require 'scripts/gemstone/solhaven/furrier_script'
 
 class FurrierReturnScript < FurrierScript
   protected

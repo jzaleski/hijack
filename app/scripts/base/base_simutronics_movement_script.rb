@@ -1,5 +1,5 @@
-require_reload 'mixins/base/nexus_movement_script_mixin'
-require_reload 'scripts/base/base_simutronics_script'
+require 'mixins/base/nexus_movement_script_mixin'
+require 'scripts/base/base_simutronics_script'
 
 class BaseSimutronicsMovementScript < BaseSimutronicsScript
   include NexusMovementScriptMixin

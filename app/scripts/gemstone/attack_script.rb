@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_gemstone_script'
+require 'scripts/base/base_gemstone_script'
 
 class AttackScript < BaseGemstoneScript
   ITS_A_LITTLE_BIT_LATE_FOR_THAT = 'A little bit late for that'

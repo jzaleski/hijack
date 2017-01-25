@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/rocky_stream_script'
+require 'scripts/gemstone/wehnimers_landing/rocky_stream_script'
 
 class RottingCorpsesScript < RockyStreamScript
   protected

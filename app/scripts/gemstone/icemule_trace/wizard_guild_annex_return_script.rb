@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/wizard_guild_annex_script'
+require 'scripts/gemstone/icemule_trace/wizard_guild_annex_script'
 
 class WizardGuildAnnexReturnScript < WizardGuildAnnexScript
   protected

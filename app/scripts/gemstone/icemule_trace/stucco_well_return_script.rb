@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/icemule_trace/stucco_well_script'
+require 'scripts/gemstone/icemule_trace/stucco_well_script'
 
 class StuccoWellReturnScript < StuccoWellScript
   protected

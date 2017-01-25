@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/cavern_script'
+require 'scripts/gemstone/solhaven/cavern_script'
 
 class ManticoresScript < CavernScript
   protected

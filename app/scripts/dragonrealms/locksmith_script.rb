@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class LocksmithScript < BaseDragonrealmsScript
   AFTER_WIGGLING_THE_MILKY_WHITE_TUBE = 'After wiggling the milky-white tube'

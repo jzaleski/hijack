@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class CompendiumScript < BaseDragonrealmsScript
   IN_A_SUDDEN_MOMENT_OF_CLARITY = 'In a sudden moment of clarity'

@@ -1,4 +1,4 @@
-require_reload 'scripts/dragonrealms/ratha/seerah_wreck_script'
+require 'scripts/dragonrealms/ratha/seerah_wreck_script'
 
 class SeerahWreckReturnScript < SeerahWreckScript
   protected

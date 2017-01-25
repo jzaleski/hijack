@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_gemstone_spellup_script'
+require 'scripts/base/base_gemstone_spellup_script'
 
 class RangerSpellupScript < BaseGemstoneSpellupScript
   protected

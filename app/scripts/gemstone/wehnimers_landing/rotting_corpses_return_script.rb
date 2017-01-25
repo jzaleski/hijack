@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/rotting_corpses_script'
+require 'scripts/gemstone/wehnimers_landing/rotting_corpses_script'
 
 class RottingCorpsesReturnScript < RottingCorpsesScript
   protected

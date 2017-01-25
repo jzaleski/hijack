@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/weaponsmith_script'
+require 'scripts/gemstone/wehnimers_landing/weaponsmith_script'
 
 class WeaponsmithReturnScript < WeaponsmithScript
   protected

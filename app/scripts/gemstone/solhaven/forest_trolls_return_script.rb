@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/forest_trolls_script'
+require 'scripts/gemstone/solhaven/forest_trolls_script'
 
 class ForestTrollsReturnScript < ForestTrollsScript
   protected

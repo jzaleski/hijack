@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/solhaven_script'
+require 'scripts/gemstone/wehnimers_landing/solhaven_script'
 
 class WehnimersLandingScript < SolhavenScript
   protected

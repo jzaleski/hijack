@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/deep_chasm_script'
+require 'scripts/gemstone/wehnimers_landing/deep_chasm_script'
 
 class StoneBridgeScript < DeepChasmScript
   protected

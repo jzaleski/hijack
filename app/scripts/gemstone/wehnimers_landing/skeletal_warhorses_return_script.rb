@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/skeletal_warhorses_script'
+require 'scripts/gemstone/wehnimers_landing/skeletal_warhorses_script'
 
 class SkeletalWarhorsesReturnScript < SkeletalWarhorsesScript
   protected

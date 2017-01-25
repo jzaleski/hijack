@@ -1,6 +1,6 @@
 module Kernel
   # a `Hash` to store the last-modified times for files we want to auto-reload
-  @@last_modified_times_by_file_path = {}
+  @@last_modified_times_by_name = {}
 
   # rename the original "load" method (it's still used below)
   alias_method :original_load, :load
@@ -17,13 +17,6 @@ module Kernel
       # now that the module is unloaded, its replacement should load w/o issue
       original_load(name)
     end
-  end
-
-  def load_reload(name)
-    # call the `load` method override with the `reload` flag set to `true` this
-    # will result in files being auto-reloaded if there have been changes to the
-    # file since it was originally loaded
-    load(name, true)
   end
 
   # rename the original "require" method (it's still used below)
@@ -43,13 +36,6 @@ module Kernel
     end
   end
 
-  def require_reload(name)
-    # call the `require` method override with the `reload` flag set to `true`
-    # this will result in files being auto-reloaded if there have been changes
-    # to the file since it was originally loaded
-    require(name, true)
-  end
-
   private
 
   def handled_exception?(name, exception)
@@ -66,20 +52,14 @@ module Kernel
   end
 
   def should_reload?(name)
-    # perform all operations on a copy of the original string
-    file_path = name.dup
-    # if the app-prefix is not included in the file-path, prepend it
-    file_path = file_path !~ /\Aapp\// ? "app/#{file_path}" : file_path
-    # if the file-path doesn't end w/ the expected extension, append it
-    file_path = file_path !~ /\.rb\Z/ ? "#{file_path}.rb" : file_path
-    # capture the modified timestamp of the file
-    last_modified_time = File.mtime(file_path)
+    # capture the modified timestamp of the module
+    last_modified_time = File.mtime(name)
     # attempt to fetch the previous modified timestamp from the `Hash` if one is
     # not found, return the current modified timestamp from above as the default
-    stored_last_modified_time = @@last_modified_times_by_file_path.
-      fetch(file_path, last_modified_time)
+    stored_last_modified_time = @@last_modified_times_by_name.
+      fetch(name, last_modified_time)
     # skip a key check and always write the current timestamp
-    @@last_modified_times_by_file_path[file_path] = last_modified_time
+    @@last_modified_times_by_name[name] = last_modified_time
     # return `true` if the stored timestamp is less than the current timestamp
     last_modified_time > stored_last_modified_time
   end

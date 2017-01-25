@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/wehnimers_landing/furrier_script'
+require 'scripts/gemstone/wehnimers_landing/furrier_script'
 
 class FurrierReturnScript < FurrierScript
   protected

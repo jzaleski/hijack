@@ -1,4 +1,4 @@
-require_reload 'scripts/gemstone/solhaven/manticores_script'
+require 'scripts/gemstone/solhaven/manticores_script'
 
 class ManticoresReturnScript < ManticoresScript
   protected

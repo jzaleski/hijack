@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class ScrapeScript < BaseDragonrealmsScript
   CLEAN_AS_YOU_CAN_MAKE_IT = 'clean as you can make it'

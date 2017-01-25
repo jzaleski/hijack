@@ -1,4 +1,4 @@
-require_reload 'scripts/base/base_dragonrealms_script'
+require 'scripts/base/base_dragonrealms_script'
 
 class ThrowScript < BaseDragonrealmsScript
   IS_ALREADY_QUITE_DEAD = 'is already quite dead'
