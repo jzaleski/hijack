@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
 
 class ChargeAndCastScript < BaseDragonrealmsScript
   def run

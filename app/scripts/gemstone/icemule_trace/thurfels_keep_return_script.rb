@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/thurfels_keep_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/thurfels_keep_script.rb", true
 
 class ThurfelsKeepReturnScript < ThurfelsKeepScript
   protected

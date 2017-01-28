@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/armory_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/armory_script.rb", true
 
 class ArmoryReturnScript < ArmoryScript
   protected

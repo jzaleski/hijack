@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/crossing/weaponsmith_script'
+load "#{APP_DIR}/scripts/dragonrealms/crossing/weaponsmith_script.rb", true
 
 class WeaponsmithReturnScript < WeaponsmithScript
   protected

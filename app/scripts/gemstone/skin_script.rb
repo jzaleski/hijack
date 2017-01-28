@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_script'
+load "#{APP_DIR}/scripts/base/base_gemstone_script.rb", true
 
 class SkinScript < BaseGemstoneScript
   HAS_ALREADY_BEEN_SKINNED = 'has already been skinned'

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/west_gate_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/west_gate_script.rb", true
 
 class WestGateReturnScript < WestGateScript
   protected

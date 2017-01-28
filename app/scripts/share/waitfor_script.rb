@@ -1,4 +1,4 @@
-require 'scripts/base/base_script'
+load "#{APP_DIR}/scripts/base/base_script.rb", true
 
 class WaitforScript < BaseScript
   def run

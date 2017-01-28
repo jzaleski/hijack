@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/furrier_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/furrier_script.rb", true
 
 class FurrierReturnScript < FurrierScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/deep_chasm_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/deep_chasm_script.rb", true
 
 class DeepChasmReturnScript < DeepChasmScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/icemule_trace_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/icemule_trace_script.rb", true
 
 class WehnimersLandingScript < IcemuleTraceScript
   protected

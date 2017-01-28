@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_spellup_script'
+load "#{APP_DIR}/scripts/base/base_gemstone_spellup_script.rb", true
 
 class RangerSpellupScript < BaseGemstoneSpellupScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
 
 class ReadScrollsScript < BaseDragonrealmsScript
   ALREADY_ROLLED_UP = 'already rolled up'

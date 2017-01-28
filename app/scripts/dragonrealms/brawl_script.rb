@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_combat_script'
+load "#{APP_DIR}/scripts/base/base_dragonrealms_combat_script.rb", true
 
 class BrawlScript < BaseDragonrealmsCombatScript
   protected

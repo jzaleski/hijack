@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/rocky_stream_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/rocky_stream_script.rb", true
 
 class RottingCorpsesScript < RockyStreamScript
   protected

@@ -13,7 +13,7 @@ module Kernel
       original_load(name)
     rescue TypeError => e
       # if the exception was not handled, re-raise the exception
-      raise unless handled_exception?(e)
+      raise unless handled_exception?(name, e)
       # now that the module is unloaded, its replacement should load w/o issue
       original_load(name)
     end
@@ -67,6 +67,8 @@ module Kernel
   def unload(name)
     # translate the [file-]name to the class-name (OS agnostic)
     class_name = name.split(/[\\\/]/)[-1].to_camel_case
+    # ensure that the ".rb" file-extension is also removed
+    class_name.gsub!(/\.rb\Z/, '')
     # forcibly unload the previously loaded module
     Object.send(:remove_const, class_name) rescue nil
   end

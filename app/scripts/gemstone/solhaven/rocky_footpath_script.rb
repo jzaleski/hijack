@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/breach_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/breach_script.rb", true
 
 class RockyFootpathScript < BreachScript
   protected

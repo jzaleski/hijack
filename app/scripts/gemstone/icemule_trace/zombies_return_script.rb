@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/zombies_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/zombies_script.rb", true
 
 class ZombiesReturnScript < ZombiesScript
   protected

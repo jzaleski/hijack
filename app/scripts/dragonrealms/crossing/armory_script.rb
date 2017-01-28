@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/crossing/bank_script'
+load "#{APP_DIR}/scripts/dragonrealms/crossing/bank_script.rb", true
 
 class ArmoryScript < BankScript
   protected

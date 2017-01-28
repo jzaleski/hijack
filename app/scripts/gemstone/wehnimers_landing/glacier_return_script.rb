@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/glacier_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/glacier_script.rb", true
 
 class GlacierReturnScript < GlacierScript
   protected

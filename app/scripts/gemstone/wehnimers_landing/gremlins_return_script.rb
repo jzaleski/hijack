@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/gremlins_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/gremlins_script.rb", true
 
 class GremlinsReturnScript < GremlinsScript
   protected

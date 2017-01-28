@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/crystal_golems_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/crystal_golems_script.rb", true
 
 class CrystalGolemsReturnScript < CrystalGolemsScript
   protected

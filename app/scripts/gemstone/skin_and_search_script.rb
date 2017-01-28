@@ -1,4 +1,4 @@
-require 'scripts/gemstone/skin_script'
+load "#{APP_DIR}/scripts/gemstone/skin_script.rb", true
 
 class SkinAndSearchScript < SkinScript
   GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/bank_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/bank_script.rb", true
 
 class BankReturnScript < BankScript
   protected

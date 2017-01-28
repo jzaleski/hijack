@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/temple_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/temple_script.rb", true
 
 class TempleReturnScript < TempleScript
   protected

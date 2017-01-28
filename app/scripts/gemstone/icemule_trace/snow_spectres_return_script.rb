@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/snow_spectres_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/snow_spectres_script.rb", true
 
 class SnowSpectresReturnScript < SnowSpectresScript
   protected

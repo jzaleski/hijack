@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/council_of_light_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/council_of_light_script.rb", true
 
 class CouncilOfLightNexusScript < CouncilOfLightScript
   GARGOYLE = 'gargoyle'

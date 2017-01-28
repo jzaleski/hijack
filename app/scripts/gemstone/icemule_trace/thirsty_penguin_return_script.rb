@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/thirsty_penguin_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/thirsty_penguin_script.rb", true
 
 class ThirstyPenguinReturnScript < ThirstyPenguinScript
   protected

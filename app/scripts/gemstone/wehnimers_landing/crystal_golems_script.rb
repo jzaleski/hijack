@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/manticores_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/manticores_script.rb", true
 
 class CrystalGolemsScript < ManticoresScript
   protected

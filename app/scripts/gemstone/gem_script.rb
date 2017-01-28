@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_get_script'
+load "#{APP_DIR}/scripts/base/base_gemstone_get_script.rb", true
 
 class GemScript < BaseGemstoneGetScript
   protected

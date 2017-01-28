@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/silverback_orcs_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/silverback_orcs_script.rb", true
 
 class SilverbackOrcsReturnScript < SilverbackOrcsScript
   protected

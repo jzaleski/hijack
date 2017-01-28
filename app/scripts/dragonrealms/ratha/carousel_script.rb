@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/first_tier_grating_script'
+load "#{APP_DIR}/scripts/dragonrealms/ratha/first_tier_grating_script.rb", true
 
 class CarouselScript < FirstTierGratingScript
   protected

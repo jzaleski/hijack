@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/manticores_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/manticores_script.rb", true
 
 class ManticoresReturnScript < ManticoresScript
   protected

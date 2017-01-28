@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/stone_bridge_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/stone_bridge_script.rb", true
 
 class StoneBridgeReturnScript < StoneBridgeScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/rogue_guild_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/rogue_guild_script.rb", true
 
 class RogueGuildCourtyardCenterReturnScript < RogueGuildScript
   protected

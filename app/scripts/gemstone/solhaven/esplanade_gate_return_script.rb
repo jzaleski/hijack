@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/esplanade_gate_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/esplanade_gate_script.rb", true
 
 class EsplanadeGateReturnScript < EsplanadeGateScript
   protected

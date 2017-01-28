@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/town_center_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/town_center_script.rb", true
 
 class SouthGateScript < TownCenterScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/dense_fog_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/dense_fog_script.rb", true
 
 class DenseFogReturnScript < DenseFogScript
   protected

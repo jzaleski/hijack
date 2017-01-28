@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/pawnshop_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/pawnshop_script.rb", true
 
 class PawnshopReturnScript < PawnshopScript
   protected

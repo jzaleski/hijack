@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_script'
+load "#{APP_DIR}/scripts/base/base_gemstone_script.rb", true
 
 class AttackScript < BaseGemstoneScript
   ITS_A_LITTLE_BIT_LATE_FOR_THAT = 'A little bit late for that'

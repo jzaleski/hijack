@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/daggerbeaks_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/daggerbeaks_script.rb", true
 
 class DaggerbeaksReturnScript < DaggerbeaksScript
   protected

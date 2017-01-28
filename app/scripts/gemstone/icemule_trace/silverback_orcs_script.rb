@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/east_gate_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/east_gate_script.rb", true
 
 class SilverbackOrcsScript < EastGateScript
   protected

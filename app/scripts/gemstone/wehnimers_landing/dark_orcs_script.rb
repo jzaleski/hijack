@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/abandoned_inn_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/abandoned_inn_script.rb", true
 
 class DarkOrcsScript < AbandonedInnScript
   protected

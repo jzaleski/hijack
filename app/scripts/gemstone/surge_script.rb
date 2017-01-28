@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_script'
+load "#{APP_DIR}/scripts/base/base_gemstone_script.rb", true
 
 class SurgeScript < BaseGemstoneScript
   YOUR_INTERNAL_STRENGTH_FULLY = 'Your internal strength fully recovers'

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/thyrils_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/thyrils_script.rb", true
 
 class ThyrilsReturnScript < ThyrilsScript
   protected

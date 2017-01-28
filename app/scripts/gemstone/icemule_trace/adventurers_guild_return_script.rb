@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/adventurers_guild_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/adventurers_guild_script.rb", true
 
 class AdventurersGuildReturnScript < AdventurersGuildScript
   protected

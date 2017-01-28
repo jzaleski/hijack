@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/hobgoblins_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/hobgoblins_script.rb", true
 
 class SlimyLittleGrubsScript < HobgoblinsScript
   protected

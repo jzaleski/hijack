@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
 
 class ThrowScript < BaseDragonrealmsScript
   IS_ALREADY_QUITE_DEAD = 'is already quite dead'

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/rotted_wooden_signpost_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/rotted_wooden_signpost_script.rb", true
 
 class CaveNippersScript < RottedWoodenSignpostScript
   protected

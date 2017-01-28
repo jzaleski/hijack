@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
 
 class ScrapeScript < BaseDragonrealmsScript
   CLEAN_AS_YOU_CAN_MAKE_IT = 'clean as you can make it'

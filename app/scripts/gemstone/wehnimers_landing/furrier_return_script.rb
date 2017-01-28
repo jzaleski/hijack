@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/furrier_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/furrier_script.rb", true
 
 class FurrierReturnScript < FurrierScript
   protected

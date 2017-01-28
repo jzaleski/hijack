@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/icy_trench_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/icy_trench_script.rb", true
 
 class IcyTrenchReturnScript < IcyTrenchScript
   protected

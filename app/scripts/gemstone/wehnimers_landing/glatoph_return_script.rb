@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/glatoph_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/glatoph_script.rb", true
 
 class GlatophReturnScript < GlatophScript
   protected

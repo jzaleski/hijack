@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/rocky_footpath_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/rocky_footpath_script.rb", true
 
 class WoodWightsScript < RockyFootpathScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/fire_salamanders_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/fire_salamanders_script.rb", true
 
 class FireSalamandersReturnScript < FireSalamandersScript
   protected

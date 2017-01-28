@@ -1,4 +1,4 @@
-require 'scripts/gemstone/solhaven/beach_script'
+load "#{APP_DIR}/scripts/gemstone/solhaven/beach_script.rb", true
 
 class CavernScript < BeachScript
   protected

@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/first_tier_bank_script'
+load "#{APP_DIR}/scripts/dragonrealms/ratha/first_tier_bank_script.rb", true
 
 class FirstTierBankReturnScript < FirstTierBankScript
   protected

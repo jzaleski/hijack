@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
 
 class JuggleScript < BaseDragonrealmsScript
   ITS_EASIER_TO_JUGGLE = "It's easier to juggle"

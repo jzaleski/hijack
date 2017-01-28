@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/gemshop_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/gemshop_script.rb", true
 
 class GemshopReturnScript < GemshopScript
   protected

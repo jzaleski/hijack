@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/second_tier_drain_script'
+load "#{APP_DIR}/scripts/dragonrealms/ratha/second_tier_drain_script.rb", true
 
 class SecondTierDrainReturnScript < SecondTierDrainScript
   protected

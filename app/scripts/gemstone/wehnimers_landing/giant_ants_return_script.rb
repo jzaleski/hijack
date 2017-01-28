@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/giant_ants_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/giant_ants_script.rb", true
 
 class GiantAntsReturnScript < GiantAntsScript
   protected

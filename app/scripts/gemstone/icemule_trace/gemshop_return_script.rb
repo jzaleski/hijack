@@ -1,4 +1,4 @@
-require 'scripts/gemstone/icemule_trace/gemshop_script'
+load "#{APP_DIR}/scripts/gemstone/icemule_trace/gemshop_script.rb", true
 
 class GemshopReturnScript < GemshopScript
   protected

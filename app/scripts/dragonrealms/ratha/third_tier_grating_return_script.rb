@@ -1,4 +1,4 @@
-require 'scripts/dragonrealms/ratha/third_tier_grating_script'
+load "#{APP_DIR}/scripts/dragonrealms/ratha/third_tier_grating_script.rb", true
 
 class ThirdTierGratingReturnScript < ThirdTierGratingScript
   protected

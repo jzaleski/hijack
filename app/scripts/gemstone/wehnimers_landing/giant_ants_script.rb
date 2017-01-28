@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/fire_salamanders_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/fire_salamanders_script.rb", true
 
 class GiantAntsScript < FireSalamandersScript
   protected

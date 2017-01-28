@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/merchant_road_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/merchant_road_script.rb", true
 
 class SeaNymphsScript < MerchantRoadScript
   protected

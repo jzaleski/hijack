@@ -1,4 +1,4 @@
-require 'scripts/gemstone/wehnimers_landing/voln_script'
+load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/voln_script.rb", true
 
 class VolnReturnScript < VolnScript
   protected
