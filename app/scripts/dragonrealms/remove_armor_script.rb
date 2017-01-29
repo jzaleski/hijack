@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
 class RemoveArmorScript < BaseDragonrealmsScript
   def run

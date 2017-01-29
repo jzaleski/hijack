@@ -1,4 +1,4 @@
-require 'scripts/base/base_simutronics_movement_script'
+load "#{SCRIPTS_DIR}/base/base_simutronics_movement_script.rb", true
 
 class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
   BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'

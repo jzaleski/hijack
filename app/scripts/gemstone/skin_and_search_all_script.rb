@@ -1,36 +1,18 @@
-load "#{APP_DIR}/scripts/gemstone/skin_script.rb", true
+load "#{MIXINS_DIR}/gemstone/skinning_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
-class SkinAndSearchAllScript < SkinScript
-  GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"
-  WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to'
-  YOU_SEARCH_THE = 'You search the'
-
-  SEARCH_PATTERN = [
-    GEEZ_ITS_STILL_ALIVE,
-    WHAT_WERE_YOU_REFERRING_TO,
-    YOU_SEARCH_THE,
-  ].join('|')
-
-  SEARCH_FAILURE_PATTERN = [
-    GEEZ_ITS_STILL_ALIVE,
-    WHAT_WERE_YOU_REFERRING_TO,
-  ].join('|')
+class SkinAndSearchAllScript < BaseGemstoneScript
+  include SkinningScriptMixin
 
   def run
-    creature = @args[0] || config_creature
-    loop do
-      super
-      result = wait_for_match(
-        SEARCH_PATTERN,
-        "search #{creature}"
-      )
-      break if result.match(SEARCH_FAILURE_PATTERN)
+    store_my(weapon, sheath) if weapon && sheath
+    if open_my(skinning_knife_container) && get_my(skinning_knife)
+      loop do
+        break unless skin(creature, skinning_knife) && search_creature(creature)
+      end
     end
-  end
-
-  private
-
-  def config_creature
-    @config[:creature]
+    store_my(skinning_knife, skinning_knife_container)
+    close_my(skinning_knife_container)
+    get_my(weapon, sheath) if weapon && sheath
   end
 end

@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/icemule_trace/furrier_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/icemule_trace/furrier_script.rb", true
 
 class FurrierReturnScript < FurrierScript
   protected

@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/icemule_trace/south_gate_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/icemule_trace/south_gate_script.rb", true
 
 class AbandonedFarmScript < SouthGateScript
   protected

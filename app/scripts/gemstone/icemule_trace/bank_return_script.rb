@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/icemule_trace/bank_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/icemule_trace/bank_script.rb", true
 
 class BankReturnScript < BankScript
   protected

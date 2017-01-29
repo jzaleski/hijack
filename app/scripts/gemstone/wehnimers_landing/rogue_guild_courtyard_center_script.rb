@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/rogue_guild_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/rogue_guild_script.rb", true
 
 class RogueGuildCourtyardCenterScript < RogueGuildScript
   THE_OAKEN_DOOR_GIVES_WAY = 'The oaken door gives way'

@@ -1,4 +1,4 @@
-require 'scripts/base/base_dragonrealms_script'
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
 class BaseDragonrealmsGetScript < BaseDragonrealmsScript
   def run

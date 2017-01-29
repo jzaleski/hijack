@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/shelfae_soldiers_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/shelfae_soldiers_script.rb", true
 
 class ShelfaeSoldiersReturnScript < ShelfaeSoldiersScript
   protected

@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/daggerbeaks_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/daggerbeaks_script.rb", true
 
 class DaggerbeaksReturnScript < DaggerbeaksScript
   protected

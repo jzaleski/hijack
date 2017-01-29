@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
 class HuntScript < BaseDragonrealmsScript
   YOU_TAKE_NOTE_OF_ALL_THE_TRACKS = 'You take note of all the tracks'

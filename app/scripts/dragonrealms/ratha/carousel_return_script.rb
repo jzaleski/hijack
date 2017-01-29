@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/dragonrealms/ratha/carousel_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/ratha/carousel_script.rb", true
 
 class CarouselReturnScript < CarouselScript
   protected

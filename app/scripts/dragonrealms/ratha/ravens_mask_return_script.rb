@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/dragonrealms/ratha/ravens_mask_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/ratha/ravens_mask_script.rb", true
 
 class RavensMaskReturnScript < RavensMaskScript
   protected

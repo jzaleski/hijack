@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_gemstone_spellup_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_gemstone_spellup_script.rb", true
 
 class WizardSpellupScript < BaseGemstoneSpellupScript
   protected

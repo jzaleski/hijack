@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/icemule_trace/wraiths_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/icemule_trace/wraiths_script.rb", true
 
 class WraithsReturnScript < WraithsScript
   protected

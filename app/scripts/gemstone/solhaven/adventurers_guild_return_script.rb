@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/adventurers_guild_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/adventurers_guild_script.rb", true
 
 class AdventurersGuildReturnScript < AdventurersGuildScript
   protected

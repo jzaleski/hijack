@@ -1,4 +1,4 @@
-require 'mixins/base/movement_script_mixin'
+load "#{MIXINS_DIR}/base/movement_script_mixin.rb", true
 
 module NexusMovementScriptMixin
   include MovementScriptMixin

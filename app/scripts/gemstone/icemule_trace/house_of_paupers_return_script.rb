@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/icemule_trace/house_of_paupers_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/icemule_trace/house_of_paupers_script.rb", true
 
 class HouseOfPaupersReturnScript < HouseOfPaupersScript
   protected

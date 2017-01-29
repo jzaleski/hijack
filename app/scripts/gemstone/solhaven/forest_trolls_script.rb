@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/beach_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/beach_script.rb", true
 
 class ForestTrollsScript < BeachScript
   protected

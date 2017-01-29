@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/muddy_path_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/muddy_path_script.rb", true
 
 class MuddyTrailScript < MuddyPathScript
   protected

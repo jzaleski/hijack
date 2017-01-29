@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/firephantoms_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/firephantoms_script.rb", true
 
 class FirephantomsReturnScript < FirephantomsScript
   protected

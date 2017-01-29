@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/dragonrealms/ratha/second_tier_drain_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/ratha/second_tier_drain_script.rb", true
 
 class KrriktksForgeScript < SecondTierDrainScript
   protected

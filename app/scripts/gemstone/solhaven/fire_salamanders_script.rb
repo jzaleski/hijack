@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/manticores_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/manticores_script.rb", true
 
 class FireSalamandersScript < ManticoresScript
   protected

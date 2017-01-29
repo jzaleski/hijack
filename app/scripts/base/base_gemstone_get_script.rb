@@ -1,4 +1,4 @@
-require 'scripts/base/base_gemstone_script'
+load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
 class BaseGemstoneGetScript < BaseGemstoneScript
   def run

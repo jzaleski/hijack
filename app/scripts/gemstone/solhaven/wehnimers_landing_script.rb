@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/solhaven_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/solhaven_script.rb", true
 
 class WehnimersLandingScript < SolhavenScript
   protected

@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/dragonrealms/crossing/armory_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/crossing/armory_script.rb", true
 
 class ArmoryReturnScript < ArmoryScript
   protected

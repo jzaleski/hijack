@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
 class CollectScript < BaseDragonrealmsScript
   THE_ROOM_IS_TOO_CLUTTERED = 'The room is too cluttered'

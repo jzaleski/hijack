@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/deep_chasm_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_chasm_script.rb", true
 
 class StoneBridgeScript < DeepChasmScript
   protected

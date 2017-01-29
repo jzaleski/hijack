@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/forest_trolls_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/forest_trolls_script.rb", true
 
 class ForestTrollsReturnScript < ForestTrollsScript
   protected

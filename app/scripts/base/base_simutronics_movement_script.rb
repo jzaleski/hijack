@@ -1,5 +1,5 @@
-require 'mixins/base/nexus_movement_script_mixin'
-require 'scripts/base/base_simutronics_script'
+load "#{MIXINS_DIR}/base/nexus_movement_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_simutronics_script.rb", true
 
 class BaseSimutronicsMovementScript < BaseSimutronicsScript
   include NexusMovementScriptMixin

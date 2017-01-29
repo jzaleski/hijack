@@ -1,4 +1,4 @@
-require 'scripts/base/base_script'
+load "#{SCRIPTS_DIR}/base/base_script.rb", true
 
 class BaseSimutronicsScript < BaseScript
   OBVIOUS_EXITS = 'Obvious exits:'

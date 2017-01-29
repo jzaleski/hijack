@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/rocky_footpath_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/rocky_footpath_script.rb", true
 
 class MuddyPathScript < RockyFootpathScript
   protected

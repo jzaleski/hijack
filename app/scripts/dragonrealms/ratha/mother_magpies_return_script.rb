@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/dragonrealms/ratha/mother_magpies_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/ratha/mother_magpies_script.rb", true
 
 class MotherMagpiesReturnScript < MotherMagpiesScript
   protected

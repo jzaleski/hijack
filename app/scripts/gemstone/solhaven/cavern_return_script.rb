@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/cavern_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/cavern_script.rb", true
 
 class CavernReturnScript < CavernScript
   protected

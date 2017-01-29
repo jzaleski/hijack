@@ -1,4 +1,4 @@
-require 'scripts/base/base_simutronics_script'
+load "#{SCRIPTS_DIR}/base/base_simutronics_script.rb", true
 
 class BaseDragonrealmsScript < BaseSimutronicsScript
   ATTEMPT_TO_CHANNEL = 'attempt to channel'

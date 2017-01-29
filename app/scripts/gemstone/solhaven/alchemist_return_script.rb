@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/alchemist_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/alchemist_script.rb", true
 
 class AlchemistReturnScript < AlchemistScript
   protected

@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_dragonrealms_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
 class CompendiumScript < BaseDragonrealmsScript
   IN_A_SUDDEN_MOMENT_OF_CLARITY = 'In a sudden moment of clarity'

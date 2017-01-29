@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/skeletal_lords_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/skeletal_lords_script.rb", true
 
 class SkeletalWarhorsesScript < SkeletalLordsScript
   protected

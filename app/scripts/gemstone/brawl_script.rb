@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_gemstone_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
 class BrawlScript < BaseGemstoneScript
   FOLLOWUP_GRAPPLE_ATTACK = 'followup grapple attack'

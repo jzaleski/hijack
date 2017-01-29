@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/icemule_trace/community_well_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/icemule_trace/community_well_script.rb", true
 
 class ThurfelsKeepScript < CommunityWellScript
   protected

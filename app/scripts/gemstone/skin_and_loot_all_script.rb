@@ -1,32 +1,18 @@
-load "#{APP_DIR}/scripts/gemstone/skin_script.rb", true
+load "#{MIXINS_DIR}/gemstone/skinning_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
-class SkinAndLootAllScript < SkinScript
-  GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"
-  NO_VALID_TARGETS = 'Could not find a valid target to loot.'
-  YOU_CAN_ONLY_LOOT_CREATURES = 'You can only loot creatures!'
-  YOU_SEARCH_THE = 'You search the'
-
-  LOOT_PATTERN = [
-    GEEZ_ITS_STILL_ALIVE,
-    NO_VALID_TARGETS,
-    YOU_CAN_ONLY_LOOT_CREATURES,
-    YOU_SEARCH_THE,
-  ].join('|')
-
-  LOOT_FAILURE_PATTERN = [
-    GEEZ_ITS_STILL_ALIVE,
-    NO_VALID_TARGETS,
-    YOU_CAN_ONLY_LOOT_CREATURES,
-  ].join('|')
+class SkinAndLootAllScript < BaseGemstoneScript
+  include SkinningScriptMixin
 
   def run
-    loop do
-      super
-      result = wait_for_match(
-        LOOT_PATTERN,
-        'loot',
-      )
-      break if result.match(LOOT_FAILURE_PATTERN)
+    store_my(weapon, sheath) if weapon && sheath
+    if open_my(skinning_knife_container) && get_my(skinning_knife)
+      loop do
+        break unless skin(creature, skinning_knife) && loot
+      end
     end
+    store_my(skinning_knife, skinning_knife_container)
+    close_my(skinning_knife_container)
+    get_my(weapon, sheath) if weapon && sheath
   end
 end

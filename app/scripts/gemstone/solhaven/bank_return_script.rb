@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/bank_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/bank_script.rb", true
 
 class BankReturnScript < BankScript
   protected

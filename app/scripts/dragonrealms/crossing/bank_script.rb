@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/base/base_dragonrealms_movement_script.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_movement_script.rb", true
 
 class BankScript < BaseDragonrealmsMovementScript
   def location

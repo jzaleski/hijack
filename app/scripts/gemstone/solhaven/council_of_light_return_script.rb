@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/solhaven/council_of_light_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/council_of_light_script.rb", true
 
 class CouncilOfLightReturnScript < CouncilOfLightScript
   protected

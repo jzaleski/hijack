@@ -1,4 +1,4 @@
-require 'scripts/base/base_simutronics_movement_script'
+load "#{SCRIPTS_DIR}/base/base_simutronics_movement_script.rb", true
 
 class BaseDragonrealmsMovementScript < BaseSimutronicsMovementScript
   ARE_UNABLE_TO_GET_AWAY = 'are unable to get away'

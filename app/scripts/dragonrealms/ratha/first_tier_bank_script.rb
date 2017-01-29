@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/dragonrealms/ratha/first_tier_grating_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/ratha/first_tier_grating_script.rb", true
 
 class FirstTierBankScript < FirstTierGratingScript
   protected

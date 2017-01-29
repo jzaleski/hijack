@@ -1,13 +1,15 @@
-require 'scripts/base/base_simutronics_script'
+load "#{SCRIPTS_DIR}/base/base_simutronics_script.rb", true
 
 class BaseGemstoneScript < BaseSimutronicsScript
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
   CAST_AT_WHAT = 'Cast at what\?'
   COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
   FROM_THE_GROUP = 'from the group'
+  GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"
   GET_WHAT = 'Get what\?'
   HANDS_IT_BACK_TO_YOU_ALONG_WITH = 'hands it back to you, along with'
   HANDS_IT_BACK_TO_YOU_AND_SAYS = 'hands it back to you and says'
+  HAS_ALREADY_BEEN_SKINNED = 'has already been skinned'
   ISNT_IN_YOUR_GROUP = "isn't in your group"
   IS_ALREADY_A_MEMBER_OF_YOUR_GROUP = 'is already a member of your group'
   I_COULD_NOT_FIND = 'I could not find'
@@ -34,6 +36,8 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
+  YOU_BOTCHED_THE_JOB = 'You botched the job'
+  YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
   YOU_CLOSE = 'You close'
   YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
@@ -43,6 +47,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
   YOU_KNEEL_DOWN = 'You kneel down'
+  YOU_MIGHT_WANT_TO_WAIT = 'You might want to wait'
   YOU_MOVE_TO_A_KNEELING = 'You move to a kneeling'
   YOU_MOVE_TO_A_SITTING = 'You move to a sitting'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
@@ -52,8 +57,10 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_REACH_OUT_AND_HOLD = 'You reach out and hold'
   YOU_REMOVE = 'You remove'
   YOU_SEARCH_THE = 'You search the'
+  YOU_SEARCH_THE = 'You search the'
   YOU_SIT_DOWN = 'You sit down'
   YOU_SIT_UP = 'You sit up'
+  YOU_SKINNED = 'You skinned'
   YOU_STAND_BACK_UP = 'You stand back up'
   YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
   YOU_TAKE = 'You take'
@@ -226,6 +233,16 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_ARENT_WEARING_THAT,
   ].join('|')
 
+  SEARCH_CREATURE_PATTERN = [
+    GEEZ_ITS_STILL_ALIVE,
+    WHAT_WERE_YOU,
+    YOU_SEARCH_THE,
+  ].join('|')
+
+  SEARCH_CREATURE_SUCCESS_PATTERN = [
+    YOU_SEARCH_THE,
+  ].join('|')
+
   SELL_MY_PATTERN = [
     HANDS_IT_BACK_TO_YOU_ALONG_WITH,
     HANDS_IT_BACK_TO_YOU_AND_SAYS,
@@ -250,6 +267,20 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_MOVE_TO_A_SITTING,
     YOU_SIT_DOWN,
     YOU_SIT_UP,
+  ].join('|')
+
+  SKIN_PATTERN = [
+    HAS_ALREADY_BEEN_SKINNED,
+    YOU_BOTCHED_THE_JOB,
+    YOU_CAN_ONLY_SKIN_CREATURES,
+    YOU_MIGHT_WANT_TO_WAIT,
+    YOU_SKINNED,
+  ].join('|')
+
+  SKIN_SUCCESS_PATTERN = [
+    HAS_ALREADY_BEEN_SKINNED,
+    YOU_BOTCHED_THE_JOB,
+    YOU_SKINNED,
   ].join('|')
 
   STANCE_DEFENSIVE_PATTERN = [
@@ -398,6 +429,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
     ).match(REMOVE_MY_SUCCESS_PATTERN)
   end
 
+  def search_creature(creature)
+    wait_for_match(
+      SEARCH_CREATURE_PATTERN,
+      "search #{creature}"
+    ).match(SEARCH_CREATURE_SUCCESS_PATTERN)
+  end
+
   def sell_my(item)
     wait_for_match(
       SELL_MY_PATTERN,
@@ -410,6 +448,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       SIT_PATTERN,
       'sit'
     ).match(SIT_SUCCESS_PATTERN)
+  end
+
+  def skin(creature, skinning_knife=nil)
+    wait_for_match(
+      SKIN_PATTERN,
+      skinning_knife ? "skin #{creature} with my #{skinning_knife}" : "skin #{creature}"
+    ).match(SKIN_SUCCESS_PATTERN)
   end
 
   def stance_defensive

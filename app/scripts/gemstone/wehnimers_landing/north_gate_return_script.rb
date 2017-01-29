@@ -1,4 +1,4 @@
-load "#{APP_DIR}/scripts/gemstone/wehnimers_landing/north_gate_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/north_gate_script.rb", true
 
 class NorthGateReturnScript < NorthGateScript
   protected
