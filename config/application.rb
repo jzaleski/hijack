@@ -2,7 +2,7 @@
 # variable to re-enable them if so desired
 $VERBOSE = nil unless ENV['VERBOSE']
 
-# Store the path to the "root" as a constant
+# Store the path to the "root" directory as a constant
 ROOT_DIR = File.expand_path(File.dirname(__FILE__) + '/..')
 
 # Store the path to the "app" directory as a constant
@@ -33,7 +33,7 @@ SCRIPTS_DIR = "#{APP_DIR}/scripts"
 $LOAD_PATH.unshift(APP_DIR) unless $LOAD_PATH.include?(APP_DIR)
 
 # General require(s)
-REQUIRED_MODULES = %w[json openssl rexml/document set sinatra/base socket thread]
+REQUIRED_MODULES = %w[erb json openssl rexml/document set sinatra/base socket thread]
 REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{HELPERS_DIR}/*.rb"]
 REQUIRED_MODULES.each { |required_module| require required_module }
