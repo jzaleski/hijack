@@ -1,6 +1,4 @@
 class ScriptHelper
-  attr_reader :last_script
-
   def initialize(config, bridge, input_buffer, output_buffer, callback_helper, logging_helper)
     @config = config
     @bridge = bridge
@@ -99,6 +97,8 @@ class ScriptHelper
   end
 
   private
+
+  attr_reader :last_script
 
   def construct_script_object(script_name, args=nil)
     # short-circuit if the script-name is invalid

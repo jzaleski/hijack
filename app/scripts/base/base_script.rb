@@ -26,8 +26,10 @@ class BaseScript
       rescue Exception => e
         @logging_helper.log_exception_with_backtrace(e)
       end
-      @running = false
-      @on_exit.call rescue nil
+      if running?
+        @running = false
+        @on_exit.call rescue nil
+      end
     end
   end
 
@@ -104,8 +106,11 @@ class BaseScript
   def sleep(duration)
     # set "sleeping"
     @sleeping = true
+    # calculate the sleep-until value (sleeping for a small interval below
+    # allows for the script to be more quickly killed and cleaned up)
+    @sleep_until = Time.now + duration
     # sleep for the specified "duration"
-    Kernel::sleep(duration)
+    Kernel::sleep(0.1) while running? && Time.now < @sleep_until
     # reset "sleeping"
     @sleeping = false
     # short-circuit, the script was aborted
@@ -128,7 +133,7 @@ class BaseScript
     # merge default options
     opts = {:store_command => false}.merge(opts)
     # send the command (and opts) to the bridge
-    @bridge.puts(str, opts)
+    @bridge.puts(str, opts) if running?
   end
 
   def wait_for_match(pattern, command=nil)

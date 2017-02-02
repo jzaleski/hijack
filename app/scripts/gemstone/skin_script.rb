@@ -5,7 +5,7 @@ class SkinScript < BaseGemstoneScript
   include SkinningScriptMixin
 
   def run
-    store_my(weapon, sheath) if weapon && sheath
+    store_my(weapon, sheath) if config_store_weapon && weapon && sheath
     if open_my(skinning_knife_container) && get_my(skinning_knife)
       sleep 0.1 until kneel
       skin(creature, skinning_knife)
@@ -13,6 +13,6 @@ class SkinScript < BaseGemstoneScript
     end
     store_my(skinning_knife, skinning_knife_container)
     close_my(skinning_knife_container)
-    get_my(weapon, sheath) if weapon && sheath
+    get_my(weapon, sheath) if config_store_weapon && weapon && sheath
   end
 end

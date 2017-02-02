@@ -6,11 +6,11 @@ class BaseGemstoneGetScript < BaseGemstoneScript
     container = @args[1] || config_container
     weapon = @args[2] || config_weapon
     sheath = @args[3] || config_sheath
-    store_my(weapon, sheath) if weapon && sheath
+    store_my(weapon, sheath) if config_store_weapon && weapon && sheath
     return unless open_my(container)
     store_my(item, container) if get(item)
     close_my(container)
-    get_my(weapon, sheath) if weapon && sheath
+    get_my(weapon, sheath) if config_store_weapon && weapon && sheath
   end
 
   def validate_args
@@ -28,6 +28,10 @@ class BaseGemstoneGetScript < BaseGemstoneScript
 
   def config_sheath
     @config[:sheath]
+  end
+
+  def config_store_weapon
+    @config[:store_weapon] == 'true'
   end
 
   def config_weapon
