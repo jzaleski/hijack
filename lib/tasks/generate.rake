@@ -17,6 +17,7 @@ namespace :generate do
       town_name
     )
     File.write(spec_path, spec)
+    puts "Generated script-spec: #{spec_path}"
   end
 
   private
