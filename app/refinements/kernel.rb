@@ -53,7 +53,7 @@ module Kernel
 
   def should_reload?(name)
     # capture the modified timestamp of the module
-    last_modified_time = File.mtime(name)
+    last_modified_time = File.mtime(name).to_i
     # attempt to fetch the previous modified timestamp from the `Hash` if one is
     # not found, return the current modified timestamp from above as the default
     stored_last_modified_time = @@last_modified_times_by_name.
@@ -61,7 +61,7 @@ module Kernel
     # skip a key check and always write the current timestamp
     @@last_modified_times_by_name[name] = last_modified_time
     # return `true` if the stored timestamp is less than the current timestamp
-    last_modified_time > stored_last_modified_time
+    last_modified_time != stored_last_modified_time
   end
 
   def unload(name)
