@@ -394,10 +394,10 @@ class BaseGemstoneScript < BaseSimutronicsScript
     ).match(KNEEL_SUCCESS_PATTERN)
   end
 
-  def loot
+  def loot(creature=nil)
     wait_for_match(
       LOOT_PATTERN,
-      'loot'
+      "loot #{creature}".rstrip
     ).match(LOOT_SUCCESS_PATTERN)
   end
 
