@@ -167,6 +167,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   LOOT_PATTERN = [
     COULD_NOT_FIND_A_VALID_TARGET,
+    GEEZ_ITS_STILL_ALIVE,
     YOU_SEARCH_THE,
   ].join('|')
 
@@ -270,6 +271,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   ].join('|')
 
   SKIN_PATTERN = [
+    GEEZ_ITS_STILL_ALIVE,
     HAS_ALREADY_BEEN_SKINNED,
     YOU_BOTCHED_THE_JOB,
     YOU_CAN_ONLY_SKIN_CREATURES,
