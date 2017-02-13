@@ -45,6 +45,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
     ITS_NOW_A_LOST_CAUSE,
     JUST_BARELY_PRY,
     NEARLY_RUINING_IT,
+    SKIN_WHAT,
     YOU_CLAW_WILDLY,
     YOU_MAKE_A_SERIES_OF_CUTS,
     YOU_MUST_HAVE_ONE_HAND_FREE,
