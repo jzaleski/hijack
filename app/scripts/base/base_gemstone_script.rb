@@ -1,31 +1,44 @@
 load "#{SCRIPTS_DIR}/base/base_simutronics_script.rb", true
 
 class BaseGemstoneScript < BaseSimutronicsScript
+  BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'
+  BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING = 'before you truly lose your footing'
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
   CAST_AT_WHAT = 'Cast at what\?'
   COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
+  FIVE_SILVERS_ENTRANCE_FEE = 'five silvers entrance fee'
+  FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR = 'flail uselessly as you land on your rear'
+  FOLLOWING_YOU = ', following you\.'
   FROM_THE_GROUP = 'from the group'
   GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"
   GET_WHAT = 'Get what\?'
   HANDS_IT_BACK_TO_YOU_ALONG_WITH = 'hands it back to you, along with'
   HANDS_IT_BACK_TO_YOU_AND_SAYS = 'hands it back to you and says'
   HAS_ALREADY_BEEN_SKINNED = 'has already been skinned'
+  ICEMULE_TRACE = 'icemule_trace'
   ISNT_IN_YOUR_GROUP = "isn't in your group"
   IS_ALREADY_A_MEMBER_OF_YOUR_GROUP = 'is already a member of your group'
   I_COULD_NOT_FIND = 'I could not find'
+  OBVIOUS_EXITS = 'Obvious exits:'
+  OBVIOUS_PATHS = 'Obvious paths:'
   PERHAPS_YOU_SHOULD_BE_HOLDING = 'Perhaps you should be holding'
   PREPARED_SPELL_TO_RELEASE = 'prepared spell to release'
   REMOVE_WHAT = 'Remove what'
+  SOLHAVEN = 'solhaven'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already open'
   THAT_IS_NOT_SOMETHING_YOU_CAN_PREPARE = 'That is not something you can prepare'
   THERE_DOESNT_SEEM_TO_BE = "There doesn't seem to be"
+  WAVES_YOU_TOWARD_THE_GATE = 'waves you toward the gate'
   WEAR_WHAT = 'Wear what'
+  WEHNIMERS_LANDING = 'wehnimers_landing'
   WHAT_WERE_YOU = 'What were you'
+  WHERE_ARE_YOU_TRYING_TO_GO = 'Where are you trying to go'
   WHO_DO_YOU_WISH_TO_REMOVE = 'Who do you wish to remove'
   WONT_FIT_IN_THE = "won't fit in the"
   WRING_YOUR_HANDS = 'Wring your hands'
   YOUR_SPELL_IS_READY = 'Your spell is ready'
+  YOUVE_ALREADY_PAID = "you've already paid"
   YOU_ALREADY_HAVE_A_SPELL_READIED = 'You already have a spell readied'
   YOU_ALREADY_HAVE_THAT = 'You already have that'
   YOU_ARENT_WEARING_THAT = "You aren't wearing that"
@@ -37,10 +50,12 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
+  YOU_CANT_GO_THERE = "You can't go there"
   YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
   YOU_CLOSE = 'You close'
   YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
+  YOU_DO_NOT_HAVE_THAT_MUCH_SILVER = 'You do not have that much silver'
   YOU_DO_NOT_KNOW_THAT_SPELL = 'You do not know that spell'
   YOU_DROP = 'You drop'
   YOU_FEEL_THE_MAGIC_OF_YOUR_SPELL = 'You feel the magic of your spell'
@@ -57,13 +72,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_REACH_OUT_AND_HOLD = 'You reach out and hold'
   YOU_REMOVE = 'You remove'
   YOU_SEARCH_THE = 'You search the'
-  YOU_SEARCH_THE = 'You search the'
   YOU_SIT_DOWN = 'You sit down'
   YOU_SIT_UP = 'You sit up'
   YOU_SKINNED = 'You skinned'
   YOU_STAND_BACK_UP = 'You stand back up'
   YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
   YOU_TAKE = 'You take'
+  YOU_WILL_HAVE_TO_STAND_UP_FIRST = 'You will have to stand up first'
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
 
   CAST_PATTERN = [
@@ -97,6 +112,16 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   DROP_MY_SUCCESS_PATTERN = [
     YOU_DROP,
+  ].join('|')
+
+  ESCORT_MOVE_PATTERN = [
+    FOLLOWING_YOU,
+    WHERE_ARE_YOU_TRYING_TO_GO,
+    YOU_CANT_GO_THERE,
+  ].join('|')
+
+  ESCORT_MOVE_SUCCESS_PATTERN = [
+    FOLLOWING_YOU,
   ].join('|')
 
   GET_PATTERN = [
@@ -165,16 +190,6 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_GESTURE,
   ].join('|')
 
-  LOOT_PATTERN = [
-    COULD_NOT_FIND_A_VALID_TARGET,
-    GEEZ_ITS_STILL_ALIVE,
-    YOU_SEARCH_THE,
-  ].join('|')
-
-  LOOT_SUCCESS_PATTERN = [
-    YOU_SEARCH_THE,
-  ].join('|')
-
   KNEEL_PATTERN = [
     YOU_ARE_ALREADY_KNEELING,
     YOU_KNEEL_DOWN,
@@ -185,6 +200,28 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_ARE_ALREADY_KNEELING,
     YOU_KNEEL_DOWN,
     YOU_MOVE_TO_A_KNEELING,
+  ].join('|')
+
+  LOOT_PATTERN = [
+    COULD_NOT_FIND_A_VALID_TARGET,
+    GEEZ_ITS_STILL_ALIVE,
+    YOU_SEARCH_THE,
+  ].join('|')
+
+  LOOT_SUCCESS_PATTERN = [
+    YOU_SEARCH_THE,
+  ].join('|')
+
+  MOVE_PATTERN = [
+    BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY,
+    BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING,
+    FIVE_SILVERS_ENTRANCE_FEE,
+    FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR,
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+    WHERE_ARE_YOU_TRYING_TO_GO,
+    YOU_CANT_GO_THERE,
+    YOU_WILL_HAVE_TO_STAND_UP_FIRST,
   ].join('|')
 
   OPEN_MY_PATTERN = [
@@ -198,6 +235,17 @@ class BaseGemstoneScript < BaseSimutronicsScript
     THAT_IS_ALREADY_OPEN,
     THERE_DOESNT_SEEM_TO_BE,
     YOU_OPEN,
+  ].join('|')
+
+  PAY_GUARD_PATTERN = [
+    WAVES_YOU_TOWARD_THE_GATE,
+    YOUVE_ALREADY_PAID,
+    YOU_DO_NOT_HAVE_THAT_MUCH_SILVER,
+  ].join('|')
+
+  PAY_GUARD_SUCCESS_PATTERN = [
+    WAVES_YOU_TOWARD_THE_GATE,
+    YOUVE_ALREADY_PAID,
   ].join('|')
 
   PREP_PATTERN = [
@@ -354,6 +402,10 @@ class BaseGemstoneScript < BaseSimutronicsScript
     ).match(DROP_MY_SUCCESS_PATTERN)
   end
 
+  def escorting?
+    @config[:escorting].to_s == 'true'
+  end
+
   def get(item, container=nil)
     wait_for_match(
       GET_PATTERN,
@@ -401,6 +453,43 @@ class BaseGemstoneScript < BaseSimutronicsScript
       LOOT_PATTERN,
       "loot #{creature}".rstrip
     ).match(LOOT_SUCCESS_PATTERN)
+  end
+
+  def move(direction)
+    if escorting?
+      wait_for_match(
+        ESCORT_MOVE_PATTERN,
+        direction
+      ).match(ESCORT_MOVE_SUCCESS_PATTERN)
+    else
+      loop do
+        result = wait_for_match(
+          MOVE_PATTERN,
+          direction
+        )
+        case result
+          when \
+            BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING,
+            OBVIOUS_EXITS,
+            OBVIOUS_PATHS
+            return true
+          when \
+            BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY,
+            FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR,
+            YOU_WILL_HAVE_TO_STAND_UP_FIRST
+            sleep 0.1 until stand
+          when \
+            FIVE_SILVERS_ENTRANCE_FEE
+            result = wait_for_match(
+              PAY_GUARD_PATTERN,
+              'give guard 5 silver'
+            )
+            return false unless result.match(PAY_GUARD_SUCCESS_PATTERN)
+          else
+            return false
+        end
+      end
+    end
   end
 
   def open_my(item)

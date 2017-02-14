@@ -1,19 +1,39 @@
 module MovementScriptMixin
-  def directions
-    raise %{All #{MovementScriptMixin}(s) must override the "directions" method}
-  end
+  DOWN = 'down'
+  EAST = 'east'
+  NORTH = 'north'
+  NORTHEAST = 'northeast'
+  NORTHWEST = 'northwest'
+  OUT = 'out'
+  SOUTH = 'south'
+  SOUTHEAST = 'southeast'
+  SOUTHWEST = 'southwest'
+  UP = 'up'
+  WEST = 'west'
 
-  def location
-    raise %{All #{MovementScriptMixin}(s) must override the "location" method}
-  end
+  MOVE_OPPOSITES = {
+    DOWN => UP,
+    EAST => WEST,
+    NORTH => SOUTH,
+    NORTHEAST => SOUTHWEST,
+    NORTHWEST => SOUTHEAST,
+    SOUTH => NORTH,
+    SOUTHEAST => NORTHWEST,
+    SOUTHWEST => NORTHEAST,
+    UP => DOWN,
+    WEST => EAST,
+  }
 
-  def move(direction)
-    raise %{All #{MovementScriptMixin}(s) must override the "move" method}
-  end
+  protected
 
   def reverse_direction(direction)
-    raise \
-      %{All #{MovementScriptMixin}(s) must override the "reverse_direction" method}
+    # a direction specify one or more possibilities (delimited by a "|")
+    possible_directions = direction.split('|')
+    # reverse "possible_directions" and then reverse each "possible_direction"
+    # then join the result with the delimiter
+    possible_directions.reverse.map do |possible_direction|
+      MOVE_OPPOSITES[possible_direction] || possible_direction
+    end.join('|')
   end
 
   def reverse_directions(directions)

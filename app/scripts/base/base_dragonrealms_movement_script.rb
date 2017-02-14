@@ -1,34 +1,39 @@
-load "#{SCRIPTS_DIR}/base/base_simutronics_movement_script.rb", true
+load "#{MIXINS_DIR}/base/nexus_movement_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
-class BaseDragonrealmsMovementScript < BaseSimutronicsMovementScript
-  ARE_UNABLE_TO_GET_AWAY = 'are unable to get away'
-  AS_FAR_AWAY_AS_YOU_CAN_GET = 'as far away as you can get'
-  CROSSING = 'crossing'
-  RATHA = 'ratha'
-  WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to\?'
-  YOU_RETREAT = 'You retreat'
-  YOU_TRY_TO_BACK_AWAY = 'You try to back away'
-  YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED = "You try to move, but you're engaged"
+class BaseDragonrealmsMovementScript < BaseDragonrealmsScript
+  include NexusMovementScriptMixin
 
-  MOVE_PATTERN = [
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
-    WHAT_WERE_YOU_REFERRING_TO,
-    YOU_CANT_GO_THERE,
-    YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED,
-  ].join('|')
-
-  RETREAT_PATTERN = [
-    ARE_UNABLE_TO_GET_AWAY,
-    AS_FAR_AWAY_AS_YOU_CAN_GET,
-    YOU_TRY_TO_BACK_AWAY,
-    YOU_RETREAT,
-  ].join('|')
-
-  RETREAT_SUCCESS_PATTERN = [
-    AS_FAR_AWAY_AS_YOU_CAN_GET,
-    YOU_RETREAT,
-  ].join('|')
+  # XXX: this exact same method exists both here and in
+  # `BaseGemstoneMovementScript` if this one changes it is very likely that the
+  # other should change as well (at some point it *may* make sense to try to DRY
+  # these)
+  def run
+    directions.each do |direction_or_method|
+      moved = false
+      # a method can be passed in for cases where something beyond basic
+      # movement is required (e.g. guild/society pass{code,word}s)
+      if direction_or_method.respond_to?(:call)
+        # all methods must return something falsy/truthy so we can determine if
+        # the action was successful
+        moved = direction_or_method.call
+      else
+        # if there are multiple options for moving to and from a particular
+        # location they are joined with a "|"
+        possible_directions = direction_or_method.split('|')
+        # try every "possible_direction" exiting the loop as soon as we have
+        # successfully moved or have exhausted all options
+        possible_directions.each do |possible_direction|
+          break if moved = move(possible_direction)
+        end
+      end
+      # exit the script if there were no valid movement directions or the method
+      # returned something falsy
+      return unless moved
+    end
+    # update location value (we've made it to our destination)
+    @config[:location] = location
+  end
 
   protected
 
@@ -36,31 +41,8 @@ class BaseDragonrealmsMovementScript < BaseSimutronicsMovementScript
     []
   end
 
-  def move(direction)
-    loop do
-      result = wait_for_match(
-        MOVE_PATTERN,
-        direction
-      )
-      case result
-        when \
-          OBVIOUS_EXITS,
-          OBVIOUS_PATHS
-          return true
-        when \
-          YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED
-          sleep 0.1 until retreat
-        else
-          return false
-      end
-    end
-  end
-
-  # TODO: re-work so that this method and its related constants can be composed
-  def retreat
-    wait_for_match(
-      RETREAT_PATTERN,
-      'retreat'
-    ).match(RETREAT_SUCCESS_PATTERN)
+  def location
+    raise \
+      %{All #{BaseDragonrealmsMovementScript}(s) must override the "location" method}
   end
 end

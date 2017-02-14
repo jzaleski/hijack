@@ -1,16 +1,25 @@
 load "#{SCRIPTS_DIR}/base/base_simutronics_script.rb", true
 
 class BaseDragonrealmsScript < BaseSimutronicsScript
+  ALREADY_HIDDEN = 'already hidden'
+  ARE_UNABLE_TO_GET_AWAY = 'are unable to get away'
+  AS_FAR_AWAY_AS_YOU_CAN_GET = 'as far away as you can get'
+  ATTEMPTING_TO_AVOID_THE_NOTICE = 'attempting to avoid the notice'
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
   BUT_YOU_ARENT_HOLDING_THAT = "But you aren't holding that"
+  CROSSING = 'crossing'
   DEAD = '\(dead\)'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
   FROM_YOUR_HANDS = 'from your hands'
   INVOKE_WHAT = 'Invoke what\?'
   IS_INTACT = 'is intact\.'
   I_COULD_NOT_FIND = 'I could not find'
+  MOVING_STEALTHY_YOU_MANAGE = 'Moving stealthily, you manage'
   NO_IDEA_HOW = 'no idea how'
+  OBVIOUS_EXITS = 'Obvious exits:'
+  OBVIOUS_PATHS = 'Obvious paths:'
   ONTO_YOUR_HANDS = 'onto your hands'
+  RATHA = 'ratha'
   REMOVE_WHAT = 'Remove what\?'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already'
@@ -20,6 +29,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   TRIES_TO_FIND = 'tries to find'
   WEAR_WHAT = 'Wear what\?'
   WHAT_WERE_YOU = 'What were you'
+  WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to\?'
   WHICH_APPEARS_DEAD = 'which appears dead'
   YOUR_LEFT_HAND_IS_ALREADY_EMPTY = 'Your left hand is already empty'
   YOUR_PATTERN_DISSIPATES = 'Your pattern dissipates'
@@ -34,14 +44,19 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   YOU_ARE_ALREADY_PREPARING = 'You are already preparing'
   YOU_ARE_ALREADY_SITTING = 'You are already sitting'
   YOU_ARE_ALREADY_STANDING = 'You are already standing'
+  YOU_ARE_NOT_HIDDEN = 'you are not hidden'
   YOU_ARE_UNABLE_TO_FOCUS_ENOUGH_LIGHT = 'You are unable to focus enough light'
   YOU_ATTACH_A = 'You attach a'
   YOU_ATTACH_SOME = 'You attach some'
   YOU_BEGIN_TO_WEAVE = 'You begin to weave'
+  YOU_BLEND_IN = 'You blend in'
   YOU_CANT_CLOSE = "You can't close"
   YOU_CANT_DO = "You can't do"
+  YOU_CANT_GO_THERE = "You can't go there"
   YOU_CANT_OPEN = "You can't open"
+  YOU_CANT_SNEAK = "You can't sneak"
   YOU_CLOSE = 'You close'
+  YOU_COME_OUT = 'You come out'
   YOU_DETACH_A = 'You detach a'
   YOU_DONT_HAVE_A_SPELL = "You don't have a spell"
   YOU_DROP = 'You drop'
@@ -52,7 +67,9 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   YOU_LET_YOUR_CONCENTRATION_LAPSE = 'You let your concentration lapse'
   YOU_LIE = 'You lie'
   YOU_LOOSEN_THE_STRAPS = 'You loosen the straps'
+  YOU_MELT_INTO = 'You melt into'
   YOU_MUST_BE_PREPARING_A_SPELL = 'You must be preparing a spell'
+  YOU_NEED_AT_LEAST_ONE_HAND_FREE = 'You need at least one hand free'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN_THE = 'You open the'
   YOU_OPEN_YOUR = 'You open your'
@@ -62,13 +79,17 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   YOU_RAISE_AN = 'You raise an'
   YOU_REMOVE_A = 'You remove a'
   YOU_REMOVE_SOME = 'You remove some'
+  YOU_RETREAT = 'You retreat'
   YOU_RISE_TO_A_KNEELING_POSITION = 'You rise to a kneeling position'
   YOU_SEARCH = 'You search'
   YOU_SIT = 'You sit'
-  YOU_SLIDE_YOUR = 'You slide you'
+  YOU_SLIDE_YOUR = 'You slide your'
   YOU_SLING_A = 'You sling a'
+  YOU_SNEAK = 'You sneak'
   YOU_STAND = 'You stand'
   YOU_TAKE_A = 'You take a'
+  YOU_TRY_TO_BACK_AWAY = 'You try to back away'
+  YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED = "You try to move, but you're engaged"
   YOU_WORK_YOUR_WAY = 'You work your way'
 
   BOXES = %w[
@@ -184,6 +205,17 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     YOU_GET,
   ].join('|')
 
+  HIDE_PATTERN = [
+    ALREADY_HIDDEN,
+    YOU_MELT_INTO,
+    YOU_BLEND_IN,
+  ].join('|')
+
+  HIDE_SUCCESS_PATTERN = [
+    YOU_MELT_INTO,
+    YOU_BLEND_IN,
+  ].join('|')
+
   INVOKE_MY_PATTERN = [
     FORGE_A_MAGICAL_LINK,
     INVOKE_WHAT,
@@ -224,6 +256,14 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
 
   LOOT_SUCCESS_PATTERN = [
     YOU_SEARCH,
+  ].join('|')
+
+  MOVE_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+    WHAT_WERE_YOU_REFERRING_TO,
+    YOU_CANT_GO_THERE,
+    YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED,
   ].join('|')
 
   OPEN_MY_PATTERN = [
@@ -288,6 +328,18 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     YOU_WORK_YOUR_WAY,
   ].join('|')
 
+  RETREAT_PATTERN = [
+    ARE_UNABLE_TO_GET_AWAY,
+    AS_FAR_AWAY_AS_YOU_CAN_GET,
+    YOU_TRY_TO_BACK_AWAY,
+    YOU_RETREAT,
+  ].join('|')
+
+  RETREAT_SUCCESS_PATTERN = [
+    AS_FAR_AWAY_AS_YOU_CAN_GET,
+    YOU_RETREAT,
+  ].join('|')
+
   SELL_MY_PATTERN = [
     I_COULD_NOT_FIND,
     THEN_HANDS_YOU,
@@ -309,6 +361,15 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     YOU_SIT,
   ].join('|')
 
+  SNEAK_PATTERN = [
+    YOU_CANT_SNEAK,
+    YOU_SNEAK,
+  ].join('|')
+
+  SNEAK_SUCCESS_PATTERN = [
+    YOU_SNEAK,
+  ].join('|')
+
   STAND_PATTERN = [
     YOU_ARE_ALREADY_STANDING,
     YOU_STAND,
@@ -317,6 +378,16 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   STAND_SUCCESS_PATTERN = [
     YOU_ARE_ALREADY_STANDING,
     YOU_STAND,
+  ].join('|')
+
+  STEAL_PATTERN = [
+    ATTEMPTING_TO_AVOID_THE_NOTICE,
+    MOVING_STEALTHY_YOU_MANAGE,
+    YOU_NEED_AT_LEAST_ONE_HAND_FREE,
+  ].join('|')
+
+  STEAL_SUCCESS_PATTERN = [
+    MOVING_STEALTHY_YOU_MANAGE,
   ].join('|')
 
   STORE_MY_PATTERN = [
@@ -341,6 +412,16 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   TARGET_SUCCESS_PATTERN = [
     YOUR_TARGET_PATTERN_IS,
     YOU_BEGIN_TO_WEAVE,
+  ].join('|')
+
+  UNHIDE_PATTERN = [
+    YOU_ARE_NOT_HIDDEN,
+    YOU_COME_OUT,
+  ].join('|')
+
+  UNHIDE_SUCCESS_PATTERN = [
+    YOU_ARE_NOT_HIDDEN,
+    YOU_COME_OUT,
   ].join('|')
 
   WEAR_MY_PATTERN = [
@@ -431,6 +512,13 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     ).match(GET_MY_SUCCESS_PATTERN)
   end
 
+  def hide
+    wait_for_match(
+      HIDE_PATTERN,
+      'hide',
+    ).match(HIDE_SUCCESS_PATTERN)
+  end
+
   def invoke_my(item)
     wait_for_match(
       INVOKE_MY_PATTERN,
@@ -457,6 +545,26 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
       LOOT_PATTERN,
       "loot #{loot_type}".rstrip
     ).match(LOOT_SUCCESS_PATTERN)
+  end
+
+  def move(direction)
+    loop do
+      result = wait_for_match(
+        MOVE_PATTERN,
+        direction
+      )
+      case result
+        when \
+          OBVIOUS_EXITS,
+          OBVIOUS_PATHS
+          return true
+        when \
+          YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED
+          sleep 0.1 until retreat
+        else
+          return false
+      end
+    end
   end
 
   def open_my(item)
@@ -487,6 +595,13 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     ).match(REMOVE_MY_SUCCESS_PATTERN)
   end
 
+  def retreat
+    wait_for_match(
+      RETREAT_PATTERN,
+      'retreat'
+    ).match(RETREAT_SUCCESS_PATTERN)
+  end
+
   def sell_my(item)
     wait_for_match(
       SELL_MY_PATTERN,
@@ -501,11 +616,26 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     ).match(SIT_SUCCESS_PATTERN)
   end
 
+  def sneak(direction)
+    wait_for_match(
+      SNEAK_PATTERN,
+      "sneak #{direction}"
+    ).match(SNEAK_SUCCESS_PATTERN)
+  end
+
   def stand
     wait_for_match(
       STAND_PATTERN,
       'stand'
     ).match(STAND_SUCCESS_PATTERN)
+  end
+
+  def steal(target, target_location=nil)
+    wait_for_match(
+      STEAL_PATTERN,
+      target_location.present? ? "steal #{target} from #{target_location}" : \
+        "steal #{target}"
+    ).match(STEAL_SUCCESS_PATTERN)
   end
 
   def store_my(item, container)
@@ -520,6 +650,13 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
       TARGET_PATTERN,
       'target'
     ).match(TARGET_SUCCESS_PATTERN)
+  end
+
+  def unhide
+    wait_for_match(
+      UNHIDE_PATTERN,
+      'unhide',
+    ).match(UNHIDE_SUCCESS_PATTERN)
   end
 
   def wear_my(item)

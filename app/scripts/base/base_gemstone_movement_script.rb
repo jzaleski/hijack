@@ -1,65 +1,39 @@
-load "#{SCRIPTS_DIR}/base/base_simutronics_movement_script.rb", true
+load "#{MIXINS_DIR}/base/nexus_movement_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
-class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
-  BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'
-  BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING = 'before you truly lose your footing'
-  FIVE_SILVERS_ENTRANCE_FEE = 'five silvers entrance fee'
-  FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR = 'flail uselessly as you land on your rear'
-  FOLLOWING_YOU = ', following you\.'
-  ICEMULE_TRACE = 'icemule_trace'
-  SOLHAVEN = 'solhaven'
-  WAVES_YOU_TOWARD_THE_GATE = 'waves you toward the gate'
-  WEHNIMERS_LANDING = 'wehnimers_landing'
-  YOUVE_ALREADY_PAID = "you've already paid"
-  YOU_ARE_ALREADY_STANDING = 'You are already standing'
-  YOU_DO_NOT_HAVE_THAT_MUCH_SILVER = 'You do not have that much silver'
-  YOU_STAND_BACK_UP = 'You stand back up'
-  YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
-  YOU_WILL_HAVE_TO_STAND_UP_FIRST = 'You will have to stand up first'
+class BaseGemstoneMovementScript < BaseGemstoneScript
+  include NexusMovementScriptMixin
 
-  ESCORT_MOVE_PATTERN = [
-    FOLLOWING_YOU,
-    WHERE_ARE_YOU_TRYING_TO_GO,
-    YOU_CANT_GO_THERE,
-  ].join('|')
-
-  ESCORT_MOVE_SUCCESS_PATTERN = [
-    FOLLOWING_YOU,
-  ].join('|')
-
-  MOVE_PATTERN = [
-    BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY,
-    BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING,
-    FIVE_SILVERS_ENTRANCE_FEE,
-    FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR,
-    OBVIOUS_EXITS,
-    OBVIOUS_PATHS,
-    WHERE_ARE_YOU_TRYING_TO_GO,
-    YOU_CANT_GO_THERE,
-    YOU_WILL_HAVE_TO_STAND_UP_FIRST,
-  ].join('|')
-
-  PAY_GUARD_PATTERN = [
-    WAVES_YOU_TOWARD_THE_GATE,
-    YOUVE_ALREADY_PAID,
-    YOU_DO_NOT_HAVE_THAT_MUCH_SILVER,
-  ].join('|')
-
-  PAY_GUARD_SUCCESS_PATTERN = [
-    WAVES_YOU_TOWARD_THE_GATE,
-    YOUVE_ALREADY_PAID,
-  ].join('|')
-
-  STAND_PATTERN = [
-    YOU_ARE_ALREADY_STANDING,
-    YOU_STAND_BACK_UP,
-    YOU_STRUGGLE_BUT_FAIL_TO_STAND,
-  ].join('|')
-
-  STAND_SUCCESS_PATTERN = [
-    YOU_ARE_ALREADY_STANDING,
-    YOU_STAND_BACK_UP,
-  ].join('|')
+  # XXX: this exact same method exists both here and in
+  # `BaseDragonrealmsMovementScript` if this one changes it is very likely that
+  # the other should change as well (at some point it *may* make sense to try to
+  # DRY these)
+  def run
+    directions.each do |direction_or_method|
+      moved = false
+      # a method can be passed in for cases where something beyond basic
+      # movement is required (e.g. guild/society pass{code,word}s)
+      if direction_or_method.respond_to?(:call)
+        # all methods must return something falsy/truthy so we can determine if
+        # the action was successful
+        moved = direction_or_method.call
+      else
+        # if there are multiple options for moving to and from a particular
+        # location they are joined with a "|"
+        possible_directions = direction_or_method.split('|')
+        # try every "possible_direction" exiting the loop as soon as we have
+        # successfully moved or have exhausted all options
+        possible_directions.each do |possible_direction|
+          break if moved = move(possible_direction)
+        end
+      end
+      # exit the script if there were no valid movement directions or the method
+      # returned something falsy
+      return unless moved
+    end
+    # update location value (we've made it to our destination)
+    @config[:location] = location
+  end
 
   protected
 
@@ -67,54 +41,8 @@ class BaseGemstoneMovementScript < BaseSimutronicsMovementScript
     []
   end
 
-  def escorting?
-    @config[:escorting].to_s == 'true'
-  end
-
-  # TODO: re-work for escort missions that span regions where slippage can occur
-  # (e.g. Icemule, Pinefar, etc.)
-  def move(direction)
-    if escorting?
-      wait_for_match(
-        ESCORT_MOVE_PATTERN,
-        direction
-      ).match(ESCORT_MOVE_SUCCESS_PATTERN)
-    else
-      loop do
-        result = wait_for_match(
-          MOVE_PATTERN,
-          direction
-        )
-        case result
-          when \
-            BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING,
-            OBVIOUS_EXITS,
-            OBVIOUS_PATHS
-            return true
-          when \
-            BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY,
-            FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR,
-            YOU_WILL_HAVE_TO_STAND_UP_FIRST
-            sleep 0.1 until stand
-          when \
-            FIVE_SILVERS_ENTRANCE_FEE
-            result = wait_for_match(
-              PAY_GUARD_PATTERN,
-              'give guard 5 silver'
-            )
-            return false unless result.match(PAY_GUARD_SUCCESS_PATTERN)
-          else
-            return false
-        end
-      end
-    end
-  end
-
-  # TODO: re-work so that this method and its related constants can be composed
-  def stand
-    wait_for_match(
-      STAND_PATTERN,
-      'stand'
-    ).match(STAND_SUCCESS_PATTERN)
+  def location
+    raise \
+      %{All #{BaseGemstoneMovementScript}(s) must override the "location" method}
   end
 end
