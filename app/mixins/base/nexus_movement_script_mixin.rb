@@ -1,7 +1,7 @@
-load "#{MIXINS_DIR}/base/movement_script_mixin.rb", true
+load "#{MIXINS_DIR}/base/runnable_movement_script_mixin.rb", true
 
 module NexusMovementScriptMixin
-  include MovementScriptMixin
+  include RunnableMovementScriptMixin
 
   def nexus?
     location == nexus_location
