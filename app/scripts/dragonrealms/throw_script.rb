@@ -13,7 +13,7 @@ class ThrowScript < BaseDragonrealmsScript
 
   def run
     weapon = @args[0] || config_weapon
-    targets = @args.length >= 2 ? @args[1..-1] : config_targets
+    targets = (@args[1] || config_targets).split('|')
     loop do
       targets.each do |target|
         result = wait_for_match(
@@ -53,11 +53,11 @@ class ThrowScript < BaseDragonrealmsScript
 
   private
 
-  def config_weapon
-    @config[:throw_weapon]
-  end
-
   def config_targets
     @config[:throw_targets]
+  end
+
+  def config_weapon
+    @config[:throw_weapon]
   end
 end
