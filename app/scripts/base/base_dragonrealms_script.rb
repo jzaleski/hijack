@@ -55,6 +55,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   YOU_CANT_GO_THERE = "You can't go there"
   YOU_CANT_OPEN = "You can't open"
   YOU_CANT_SNEAK = "You can't sneak"
+  YOU_CANT_STEAL_THAT = "You can't steal that"
   YOU_CLOSE = 'You close'
   YOU_COME_OUT = 'You come out'
   YOU_DETACH_A = 'You detach a'
@@ -383,6 +384,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   STEAL_PATTERN = [
     ATTEMPTING_TO_AVOID_THE_NOTICE,
     MOVING_STEALTHY_YOU_MANAGE,
+    YOU_CANT_STEAL_THAT,
     YOU_NEED_AT_LEAST_ONE_HAND_FREE,
   ].join('|')
 
