@@ -3,7 +3,7 @@ load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 class RemoveArmorScript < BaseDragonrealmsScript
   def run
     container = @args[0] || config_container
-    armor_items = @args.length >= 1 ? @args[1..-1] : config_armor_items
+    armor_items = (@args[1] || config_armor_items).split('|')
     if open_my(container)
       armor_items.each do |armor_item|
         remove_my(armor_item)
