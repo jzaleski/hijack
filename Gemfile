@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 if ENV['HEROKU']
-  ruby '2.3.1', :engine => 'jruby', :engine_version => '9.1.7.0'
+  ruby '2.4.0'
 end
 
 gem 'pry'
-gem 'puma'
+gem 'thin'
 gem 'rake'
 gem 'sinatra'
 
