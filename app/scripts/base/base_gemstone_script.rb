@@ -50,6 +50,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
+  YOU_CANNOT_SKIN = 'You cannot skin'
   YOU_CANT_GO_THERE = "You can't go there"
   YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
   YOU_CLOSE = 'You close'
@@ -322,6 +323,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
     GEEZ_ITS_STILL_ALIVE,
     HAS_ALREADY_BEEN_SKINNED,
     YOU_BOTCHED_THE_JOB,
+    YOU_CANNOT_SKIN,
     YOU_CAN_ONLY_SKIN_CREATURES,
     YOU_MIGHT_WANT_TO_WAIT,
     YOU_SKINNED,
