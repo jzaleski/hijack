@@ -4,6 +4,7 @@ var Hijack = (function($) {
       $character,
       $connect,
       $connectContainer,
+      $error,
       $game,
       $gameContainer,
       $input,
@@ -14,68 +15,108 @@ var Hijack = (function($) {
       config,
       defaultOptions = {
         enableLichNet: true,
-        enableSessionReconnect: true,
         maxScrollbackLines: 500,
         stripPlayerStatusPrompt: false,
         stripRetryableOutput: false
       },
-      scrollbackLines;
+      scrollbackLines,
+      websocket;
 
   var connect = function() {
+    if (WebSocket !== undefined) {
+      connectWebSocket();
+    } else {
+      connectAjax();
+    }
+  };
+
+  var connectAjax = function() {
     $.ajax({
       type: 'POST',
       url: '/connect',
-      data: requestData({
-        game: $game.val(),
-        bridge: $bridge.val(),
-        account: $account.val(),
-        password: $password.val(),
-        character: $character.val(),
-        numCols: config.numCols,
-        numRows: config.numRows,
-        enableLichNet: config.enableLichNet,
-        enableSessionReconnect: config.enableSessionReconnect,
-        stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
-        stripRetryableOutput: config.stripRetryableOutput
-      }),
-      success: onConnectSuccess,
-      error: onConnectError
-    });
-  };
-
-  var disableElement = function($element) {
-    $element.attr('disabled', 'disabled');
-  }
-
-  var disconnect = function(str) {
-    $.ajax({
-      type: 'POST',
-      url: '/disconnect',
-      data: requestData(str),
+      data: requestData(connectData()),
       success: function() {
-        $.ajaxBuffer.abortAll();
-        $gameContainer.css('visibility', 'hidden');
-        resetElement($output);
-        resetElement($input);
-        $connectContainer.css('visibility', 'visible');
-        $game.focus();
+        gets();
+        onConnectSuccess();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        onDisconnect(jqXHR.jqXHR.responseText);
       }
     });
   };
 
+  var connectData = function() {
+    return {
+      game: $game.val(),
+      bridge: $bridge.val(),
+      account: $account.val(),
+      password: $password.val(),
+      character: $character.val(),
+      numCols: config.numCols,
+      numRows: config.numRows,
+      enableLichNet: config.enableLichNet,
+      stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
+      stripRetryableOutput: config.stripRetryableOutput
+    };
+  };
+
+  var connectWebSocket = function() {
+    websocket = new WebSocket('ws://' + window.location.host + '/connect');
+    websocket.onclose = function(closeEvent) {
+      onDisconnect($output.children().length == 0 ? $output.html() : null);
+    };
+    websocket.onmessage = function(messageEvent) {
+      onMessage(JSON.parse(messageEvent.data));
+    };
+    websocket.onopen = function(openEvent) {
+      websocket.send(JSON.stringify(requestData(connectData())));
+      onConnectSuccess();
+    };
+  };
+
+  var disableElement = function($element) {
+    $element.attr('disabled', 'disabled');
+  };
+
+  var disconnect = function(str) {
+    if (websocket !== undefined) {
+      disconnectWebSocket(str);
+    } else {
+      disconnectAjax(str);
+    }
+  };
+
+  var disconnectAjax = function(str) {
+    $.ajax({
+      type: 'POST',
+      url: '/disconnect',
+      data: requestData(str),
+      complete: function() {
+        $.ajaxBuffer.abortAll();
+        onDisconnect();
+      }
+    });
+  };
+
+  var disconnectWebSocket = function(str) {
+    putsWebSocket(str);
+    websocket.close();
+    onDisconnect();
+  };
+
   var enableElement = function($element) {
     $element.removeAttr('disabled');
-  }
+  };
 
   var gets = function() {
     $.ajax({
       url: '/gets',
       success: function(result) {
-        var str = responseData(result);
-        if (str.length > 0) {
-          updateOutput(str);
-        }
+        onMessage(result);
         gets();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        onDisconnect(jqXHR.jqXHR.responseText);
       }
     });
   };
@@ -91,6 +132,11 @@ var Hijack = (function($) {
     $connectContainer = $(config.connectContainerSelector);
     if ($connectContainer.length != 1) {
       throw 'Must specify a valid "connectContainerSelector"';
+    }
+    // ensure "error" exists within "connectContainer"
+    $error = $('#error', $connectContainer);
+    if ($error.length != 1) {
+      throw 'Must define an element with id "error" inside "connectContainer"';
     }
     // ensure "game" exists within "connectContainer"
     $game = $('#game', $connectContainer);
@@ -164,7 +210,7 @@ var Hijack = (function($) {
           break;
         // up arrow
         case 38:
-          if (commandHistoryIndex < (commandHistory.length -1)) {
+          if (commandHistoryIndex < (commandHistory.length - 1)) {
             setInput(commandHistory[++commandHistoryIndex]);
           }
           break;
@@ -205,8 +251,6 @@ var Hijack = (function($) {
     });
     // set focus to the "game" field initially
     $game.focus();
-    // attempt to reconnect (if session reconnect is enabled)
-    if (config.enableSessionReconnect) reconnect();
   };
 
   var loadAvailableBridges = function(game) {
@@ -249,11 +293,6 @@ var Hijack = (function($) {
     });
   };
 
-  var onConnectError = function(jqXHR, textStatus, errorThrown) {
-    if (jqXHR && jqXHR.responseText !== undefined) alert(jqXHR.responseText);
-    $connect.focus();
-  }
-
   var onConnectSuccess = function() {
     $game.val('');
     resetElement($bridge);
@@ -261,44 +300,68 @@ var Hijack = (function($) {
     resetElement($account);
     resetElement($password);
     resetElement($character);
+    resetElement($error);
     commandHistory = [];
     commandHistoryIndex = -1;
     resetElement($input);
     scrollbackLines = -1;
     $output.html('');
+    $error.hide();
     $connectContainer.css('visibility', 'hidden');
     $gameContainer.css('visibility', 'visible');
     $input.focus();
-    gets();
-  }
+  };
 
-  var puts = function(str) {
-    if (str.length > 0) {
-      if (str.match(/^(exit|quit)$/)) {
-        disconnect(str);
-      } else {
-        commandHistory.unshift(str);
-        commandHistoryIndex = -1;
-        $.ajax({
-          type: 'POST',
-          url: '/puts',
-          data: requestData(str),
-        });
-      }
+  var onDisconnect = function(str) {
+    $gameContainer.css('visibility', 'hidden');
+    resetElement($output);
+    resetElement($input);
+    if (str && str.length > 0) {
+      showError(str);
+    }
+    $connectContainer.css('visibility', 'visible');
+    $game.focus();
+  };
+
+  var onMessage = function(message) {
+    var str = responseData(message);
+    if (str && str.length > 0) {
+      updateOutput(str);
     }
   };
 
-  var reconnect = function() {
+  var puts = function(str) {
+    if (!str || str.length === 0) {
+      return;
+    }
+    if (str.match(/^(exit|quit)$/)) {
+      disconnect(str);
+      return;
+    }
+    commandHistory.unshift(str);
+    commandHistoryIndex = -1;
+    if (websocket !== undefined) {
+      putsWebSocket(str);
+    } else {
+      putsAjax(str);
+    }
+  };
+
+  var putsAjax = function(str) {
     $.ajax({
       type: 'POST',
-      url: '/reconnect',
-      success: onConnectSuccess
+      url: '/puts',
+      data: requestData(str)
     });
-  }
+  };
+
+  var putsWebSocket = function(str) {
+    websocket.send(JSON.stringify(requestData(str)));
+  };
 
   var requestData = function(value) {
     return value ? {data: value} : null;
-  }
+  };
 
   var resetElement = function($element) {
     if ($element.is('select')) {
@@ -306,15 +369,26 @@ var Hijack = (function($) {
     } else {
       $element.val('');
     }
-  }
+  };
 
   var responseData = function(value) {
     return value && value.data ? value.data : null;
-  }
+  };
+
+  var sendWebSocket = function(value) {
+  };
 
   var setInput = function(str) {
-    if (str !== undefined) {
+    if (str && str.length > 0) {
       $input.val(str);
+    }
+  };
+
+  var showError = function(str) {
+    if (str && str.length > 0) {
+      $error.show(function() {
+        $(this).html(str);
+      });
     }
   };
 
@@ -329,7 +403,5 @@ var Hijack = (function($) {
     $output.scrollTop($output[0].scrollHeight);
   };
 
-  return {
-    init: init
-  };
+  return {init: init};
 })(jQuery);

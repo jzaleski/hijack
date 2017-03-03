@@ -8,6 +8,7 @@
     <script type="text/javascript" src="hijack.js"></script>
     <script type="text/javascript">
       $(function() {
+        jQuery.fx.off = true;
         Hijack.init({
           connectContainerSelector: '#connect-container',
           gameContainerSelector: '#game-container'
@@ -23,6 +24,7 @@
       <input type="password" id="password" placeholder="Password"/>
       <input type="text" id="character" placeholder="Character"/>
       <a id="connect" href="javascript:void(0);">Connect</a>
+      <div id="error" style="display: none;"></div>
     </div>
     <div id="game-container" style="visibility: hidden;">
       <div id="output"></div>

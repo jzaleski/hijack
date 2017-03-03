@@ -8,6 +8,7 @@ gem 'pry'
 gem 'thin'
 gem 'rake'
 gem 'sinatra'
+gem 'sinatra-websocket'
 
 group :test do
   gem 'rspec'

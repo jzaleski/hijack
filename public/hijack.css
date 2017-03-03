@@ -20,7 +20,7 @@ pre {
   top: 50%;
 }
 
-#game, #bridge, #account, #password, #character, #connect, #output, #input {
+#error, #game, #bridge, #account, #password, #character, #connect, #output, #input {
   font-family: "Courier New", Courier, monospace;
   font-size: 13px;
 }
@@ -75,6 +75,14 @@ pre {
   color: #CCC;
   left: 0;
   right: 0;
+}
+
+#error {
+  color: #F00;
+  font-weight: bold;
+  position: relative;
+  text-align: center;
+  top: 25px;
 }
 
 #output {
