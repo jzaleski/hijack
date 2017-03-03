@@ -45,12 +45,16 @@ class WebInterface < Sinatra::Base
       nil
     end
 
+    def disconnect?(str)
+      str =~ /\A(exit|quit)\Z/
+    end
+
     def game_helper
       @game_helper ||= GameHelper.new
     end
 
     def gets
-      htmlify(current_bridge.gets)
+      current_bridge.gets
     end
 
     def htmlify(value)
@@ -114,7 +118,11 @@ class WebInterface < Sinatra::Base
   end
 
   get '/' do
-    send_file File.join(settings.public_folder, 'index.html')
+    begin
+      send_file File.join(settings.public_folder, 'index.html')
+    rescue Exception => e
+      halt 500, e.message
+    end
   end
 
   get '/bridges' do
@@ -131,12 +139,12 @@ class WebInterface < Sinatra::Base
       set_websocket(websocket)
       websocket.onclose { disconnect }
       websocket.onmessage do |message|
-        request = JSON::parse(message, :symbolize_names => true) rescue {}
+        request_data = (JSON::parse(message) rescue {})['data']
         if current_config.nil?
           connected = false
           config_processed = false
           begin
-            config = config_helper.process_hash(request[:data])
+            config = config_helper.process_hash(request_data)
             set_config(config)
             config_processed = true
           rescue Exception => e
@@ -156,16 +164,12 @@ class WebInterface < Sinatra::Base
           if connected
             Thread.new do
               loop do
-                data = gets
-                if data.present?
-                  websocket.send(response_data(data))
-                end
+                websocket.send(response_data(htmlify(gets)))
               end
             end
           end
         else
-          request_data = request[:data]
-          if request_data =~ /\A(exit|quit)\Z/
+          if disconnect?(request_data)
             disconnect(request_data)
           elsif request_data.present?
             puts(request_data)
@@ -185,7 +189,7 @@ class WebInterface < Sinatra::Base
 
   get '/gets' do
     begin
-      response_data(gets)
+      response_data(htmlify(gets))
     rescue Exception => e
       halt 500, e.message
     end
@@ -208,10 +212,8 @@ class WebInterface < Sinatra::Base
   end
 
   post '/disconnect' do
-    request_data = request[:data]
-    halt 400, 'Invalid input to `disconnect`' if request_data.blank?
     begin
-      disconnect(request_data)
+      disconnect(request[:data])
     rescue Exception => e
       halt 500, e.message
     end
@@ -219,10 +221,8 @@ class WebInterface < Sinatra::Base
   end
 
   post '/puts' do
-    request_data = request[:data]
-    halt 400, 'Invalid input to `puts`' if request_data.blank?
     begin
-      puts(request_data)
+      puts(request[:data])
     rescue Exception => e
       halt 500, e.message
     end

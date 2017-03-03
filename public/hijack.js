@@ -40,7 +40,7 @@ var Hijack = (function($) {
         onConnectSuccess();
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        onDisconnect(jqXHR.jqXHR.responseText);
+        onDisconnect(jqXHR.responseText);
       }
     });
   };
@@ -116,7 +116,7 @@ var Hijack = (function($) {
         gets();
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        onDisconnect(jqXHR.jqXHR.responseText);
+        onDisconnect(jqXHR.responseText);
       }
     });
   };
