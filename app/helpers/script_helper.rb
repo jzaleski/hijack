@@ -193,16 +193,31 @@ class ScriptHelper
   end
 
   def list_available
-    scripts = script_directories.map do |script_directory|
-      Dir["#{script_directory}/*_script.rb"].map do |script_path|
-        "- #{/\A.+\/([\w]+)_script\.rb\Z/.match(script_path).captures.first}"
+    script_paths_by_script_name = {}
+    script_directories.each do |script_directory|
+      Dir["#{script_directory}/*_script.rb"].each do |script_path|
+        script_name = \
+          /\A.+\/([\w]+)_script\.rb\Z/.match(script_path).captures.first
+        script_paths_by_script_name[script_name] = script_path \
+          unless script_paths_by_script_name.include?(script_name)
       end
-    end.flatten.sort.uniq
+    end
     @output_buffer.puts "\nAvailable scripts:\n==================\n\n"
-    if scripts.empty?
+    if script_paths_by_script_name.empty?
       @output_buffer.puts '(none)'
     else
-      scripts.each { |script| @output_buffer.puts(script) }
+      script_paths_by_script_name.sort_by { |script_name, _| script_name }.each \
+        do |script_name, script_path|
+        load_script(script_path)
+        script_class = Object::const_get(script_class_name(script_name)) \
+          rescue nil
+        script_metadata = script_name
+        script_metadata += ": #{script_class.description}" \
+          if script_class.respond_to?(:description)
+        script_metadata += " (arguments: #{script_class.arguments.join(', ')})" \
+          if script_class.respond_to?(:arguments)
+        @output_buffer.puts "- #{script_metadata}"
+      end
     end
   end
 
@@ -274,11 +289,14 @@ class ScriptHelper
     [].tap do |script_directories|
       # [configured] game-specific directory
       if script_dir = @config[:script_dir]
-        # location-specific scripts take precedence over game-specific scripts
-        (@config[:location].split('|') rescue []).each do |location|
-          script_directories << "#{SCRIPTS_DIR}/#{script_dir}/#{location}"
-        end
-        # game-specific scripts take precedence over shared scripts
+        # extract the `location_parts`
+        location_parts = (@config[:location].split('|') rescue []).reverse
+        # starting at most-specific to least specific append the full-location
+        script_directories << \
+          "#{SCRIPTS_DIR}/#{script_dir}/#{location_parts.join('/')}" && \
+            location_parts.pop \
+              until location_parts.empty?
+        # add the `game` specific directory
         script_directories << "#{SCRIPTS_DIR}/#{script_dir}"
       end
       # lastly, include the shared directory
