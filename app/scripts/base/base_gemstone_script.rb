@@ -24,6 +24,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   PERHAPS_YOU_SHOULD_BE_HOLDING = 'Perhaps you should be holding'
   PREPARED_SPELL_TO_RELEASE = 'prepared spell to release'
   REMOVE_WHAT = 'Remove what'
+  SILVER_FOR_IT = 'silver for it\.'
   SOLHAVEN = 'solhaven'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
   THAT_IS_ALREADY_OPEN = 'That is already open'
@@ -297,12 +298,14 @@ class BaseGemstoneScript < BaseSimutronicsScript
     HANDS_IT_BACK_TO_YOU_ALONG_WITH,
     HANDS_IT_BACK_TO_YOU_AND_SAYS,
     PERHAPS_YOU_SHOULD_BE_HOLDING,
+    SILVER_FOR_IT,
     WHAT_WERE_YOU,
   ].join('|')
 
   SELL_MY_SUCCESS_PATTERN = [
     HANDS_IT_BACK_TO_YOU_ALONG_WITH,
     HANDS_IT_BACK_TO_YOU_AND_SAYS,
+    SILVER_FOR_IT,
   ].join('|')
 
   SIT_PATTERN = [
