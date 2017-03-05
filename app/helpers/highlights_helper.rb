@@ -29,7 +29,7 @@ class HighlightsHelper
   private
 
   def background(opts)
-    palette[(opts[:background] || defaults(:background)).to_sym]
+    palette[(opts[:background] || defaults(:background)).to_sym] rescue nil
   end
 
   def defaults(key)
@@ -37,11 +37,11 @@ class HighlightsHelper
   end
 
   def font(opts)
-    palette[(opts[:font] || defaults(:font)).to_sym]
+    palette[(opts[:font] || defaults(:font)).to_sym] rescue nil
   end
 
   def foreground(opts)
-    palette[(opts[:foreground] || defaults(:foreground)).to_sym]
+    palette[(opts[:foreground] || defaults(:foreground)).to_sym] rescue nil
   end
 
   def highlights
