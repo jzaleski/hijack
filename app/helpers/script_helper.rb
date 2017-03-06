@@ -214,8 +214,8 @@ class ScriptHelper
         script_metadata = script_name
         script_metadata += ": #{script_class.description}" \
           if script_class.respond_to?(:description)
-        script_metadata += " (arguments: #{script_class.arguments.join(', ')})" \
-          if script_class.respond_to?(:arguments)
+        script_metadata += " (args: #{script_class.args.join(', ')})" \
+          if script_class.respond_to?(:args)
         @output_buffer.puts "- #{script_metadata}"
       end
     end
