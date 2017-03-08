@@ -5,7 +5,7 @@ class HashProxy
 
   def ==(other)
     other.is_a?(HashProxy) &&
-    @hash == other.instance_variable_get(:@hash)
+      @hash == other.instance_variable_get(:@hash)
   end
 
   def [](key)

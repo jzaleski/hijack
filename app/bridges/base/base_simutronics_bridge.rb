@@ -95,6 +95,10 @@ class BaseSimutronicsBridge < BaseBridge
     @config[:character_key] = /KEY=(\w+)$/.match(character_key_response).captures.first
   end
 
+  def moving?
+    @script_helper.moving?
+  end
+
   def multi_line_output(str)
     buffer, temp = ["", ""]
     for word in str.split(/ /)
@@ -113,11 +117,17 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def scripts_running?
-    @script_helper.num_running_non_paused > 0
+    @script_helper.scripts_running?
   end
 
   def should_output?(str)
-    !(retryable?(str) && scripts_running? && strip_retryable_output?)
+    return true \
+      unless scripts_running?
+    return false \
+      if retryable?(str) && strip_retryable_output?
+    return false \
+      if moving? && strip_output_while_moving?
+    true
   end
 
   def strip_player_status_prompt?
@@ -126,5 +136,9 @@ class BaseSimutronicsBridge < BaseBridge
 
   def strip_retryable_output?
     @config[:strip_retryable_output].to_s == 'true'
+  end
+
+  def strip_output_while_moving?
+    @config[:strip_output_while_moving].to_s == 'true'
   end
 end

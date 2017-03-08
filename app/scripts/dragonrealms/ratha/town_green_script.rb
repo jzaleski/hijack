@@ -1,6 +1,8 @@
 load "#{SCRIPTS_DIR}/base/base_dragonrealms_movement_script.rb", true
 
 class TownGreenScript < BaseDragonrealmsMovementScript
+  protected
+
   def location
     nexus_location
   end

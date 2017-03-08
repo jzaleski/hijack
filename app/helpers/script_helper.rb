@@ -11,6 +11,12 @@ class ScriptHelper
     @last_scripts_by_type_name = {}
   end
 
+  def moving?
+    @scripts.values.any? do |script_object|
+      script_object.running? && script_object.respond_to?(:location, true)
+    end
+  end
+
   def execute(command)
     if command.present?
       command_parts = command.split
@@ -83,15 +89,15 @@ class ScriptHelper
             # start execution then block until the script exits or is killed
             script_object.start_run
             # if the "script" was killed, we are done
-            return if script_object.killed?
+            break if script_object.killed?
           end
         end
       end
     end
   end
 
-  def num_running_non_paused
-    @scripts.values.count do |script_object|
+  def scripts_running?
+    @scripts.values.any? do |script_object|
       script_object.running? && !script_object.paused?
     end
   end
@@ -321,10 +327,10 @@ class ScriptHelper
     # necessary to travel back to the nexus before branching out to the desired
     # location
     script_object.present? &&
-      script_object.respond_to?(:nexus_location) &&
+      script_object.respond_to?(:nexus_location, true) &&
       !script_object.class.name.end_with?('ReturnScript') &&
       @config[:location].present? &&
-      script_object.nexus_location != @config[:location] &&
+      script_object.send(:nexus_location) != @config[:location] &&
       last_script !~ /_return\Z/
   end
 
