@@ -96,7 +96,7 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def moving?
-    @script_helper.moving?
+    @config.moving?
   end
 
   def multi_line_output(str)
@@ -131,14 +131,14 @@ class BaseSimutronicsBridge < BaseBridge
   end
 
   def strip_player_status_prompt?
-    @config[:strip_player_status_prompt].to_s == 'true'
+    @config.strip_player_status_prompt?
   end
 
   def strip_retryable_output?
-    @config[:strip_retryable_output].to_s == 'true'
+    @config.strip_retryable_output?
   end
 
   def strip_output_while_moving?
-    @config[:strip_output_while_moving].to_s == 'true'
+    @config.strip_output_while_moving?
   end
 end

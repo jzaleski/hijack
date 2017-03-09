@@ -44,7 +44,7 @@ class LichNetHelper
     @output_format = opts[:output_format] || DEFAULT_OUTPUT_FORMAT
     @certificate_file_path = opts[:certificate_file_path] || \
       DEFAULT_CERTIFICATE_FILE_PATH
-    @debug = opts[:debug].to_s == 'true'
+    @debug = opts.debug?
     @logging_helper = opts[:logging_helper] || \
       LoggingHelper.new(:exception_log => @stderr)
   end

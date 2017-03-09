@@ -12,6 +12,10 @@ class String
     self[0].upcase + self[1..-1]
   end
 
+  def false?
+    self.to_s == 'false'
+  end
+
   def gchomp(separator=$/)
     dup.gchomp!(separator) || self
   end
@@ -40,6 +44,10 @@ class String
     gsub(/([a-z\d])([A-Z])/, '\1_\2').
     tr('-', '_').
     downcase
+  end
+
+  def true?
+    self.to_s == 'true'
   end
 
   def uncapitalize

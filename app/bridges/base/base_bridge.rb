@@ -94,8 +94,13 @@ class BaseBridge
     if str.start_with?('!')
       begin
         method, *args = @arguments_helper.parse(str[1..-1])
-        result = @config.public_send(method, *args)
-        result = result.present? && args.length == 1 ? "[config] #{args[0]}: #{result}" : 'Ok.'
+        method_result = @config.public_send(method, *args)
+        method_result = 'nil' if method_result.nil?
+        result = 'Ok.'
+        result = "[config] #{method} #{method_result}" \
+          if args.empty? && method.end_with?('?')
+        result = "[config] #{args[0]} #{method_result}" \
+          if args.length == 1
         @output_buffer.puts("\n#{result}")
       rescue Exception => e
         @logging_helper.log_exception_with_backtrace(e)

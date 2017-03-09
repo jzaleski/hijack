@@ -79,6 +79,8 @@ class ScriptHelper
           until script_names_and_objects.empty?
             # unpack the script-name and script-object
             script_name, script_object = script_names_and_objects.pop
+            # set the `moving` config-var if we're executing a travel script
+            @config[:moving] = true if script_object.respond_to?(:location, true)
             # memoize the script-object so that it can be managed externally
             store(script_name, script_object)
             # update the "last_script" information
@@ -88,6 +90,8 @@ class ScriptHelper
             end
             # start execution then block until the script exits or is killed
             script_object.start_run
+            # reset the `moving` config-var if it is currently set
+            @config.reset(:moving) if @config.include?(:moving)
             # if the "script" was killed, we are done
             break if script_object.killed?
           end
@@ -103,8 +107,6 @@ class ScriptHelper
   end
 
   private
-
-  attr_reader :last_script
 
   def construct_script_object(script_name, args=nil)
     # short-circuit if the script-name is invalid
@@ -331,7 +333,7 @@ class ScriptHelper
       !script_object.class.name.end_with?('ReturnScript') &&
       @config[:location].present? &&
       script_object.send(:nexus_location) != @config[:location] &&
-      last_script !~ /_return\Z/
+      @last_script !~ /_return\Z/
   end
 
   def store(script_name, script_object)

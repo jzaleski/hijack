@@ -142,7 +142,7 @@ class BaseScript
     # set the hook
     @callback_helper.add_match(
       pattern,
-      lambda { |r| result = r }
+      lambda { |match| result = match }
     )
     # set "waiting_for_match"
     @waiting_for_match = true

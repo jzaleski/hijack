@@ -5,11 +5,11 @@ class SellContainerScript < BaseGemstoneGetScript
     container = @args[0]
     weapon = @args[1] || config_weapon
     sheath = @args[2] || config_sheath
-    store_my(weapon, sheath) if config_store_weapon && weapon && sheath
+    store_my(weapon, sheath) if config_store_weapon? && weapon && sheath
     remove_my(container)
     sell_my(container)
     wear_my(container)
-    get_my(weapon, sheath) if config_store_weapon && weapon && sheath
+    get_my(weapon, sheath) if config_store_weapon? && weapon && sheath
   end
 
   def validate_args
@@ -22,8 +22,8 @@ class SellContainerScript < BaseGemstoneGetScript
     @config[:sheath]
   end
 
-  def config_store_weapon
-    @config[:store_weapon] == 'true'
+  def config_store_weapon?
+    @config.store_weapon?
   end
 
   def config_weapon

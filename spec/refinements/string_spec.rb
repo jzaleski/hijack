@@ -3,7 +3,6 @@ require 'refinements/string'
 
 describe String do
   describe '#blank?' do
-
     it 'is blank if a string is comprised of only whitespace characters' do
       ['', ' ', "\n", "\r", "\t"].each do |value|
         expect(value.blank?).to eq(true)
@@ -26,6 +25,18 @@ describe String do
     it 'should produce the same value for a "String" that is already capitalized' do
       subject = 'HelloWorld'
       expect(subject.capitalize).to eq('HelloWorld')
+    end
+  end
+
+  describe 'false?' do
+    it 'should return `true` if the "String" value is "false"' do
+      subject = 'false'
+      expect(subject.false?).to eq(true)
+    end
+
+    it 'should return `false` for everything else' do
+      subject = 'true'
+      expect(subject.false?).to eq(false)
     end
   end
 
@@ -82,6 +93,18 @@ describe String do
     it 'should produce the same value for a "String" that is already snake_case' do
       subject = 'hello_world'
       expect(subject.to_snake_case).to eq('hello_world')
+    end
+  end
+
+  describe 'true?' do
+    it 'should return `true` if the "String" value is "true"' do
+      subject = 'true'
+      expect(subject.true?).to eq(true)
+    end
+
+    it 'should return `false` for everything else' do
+      subject = 'false'
+      expect(subject.true?).to eq(false)
     end
   end
 

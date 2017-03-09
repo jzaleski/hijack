@@ -408,7 +408,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   end
 
   def escorting?
-    @config[:escorting].to_s == 'true'
+    @config.escorting?
   end
 
   def get(item, container=nil)

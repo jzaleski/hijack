@@ -32,8 +32,8 @@ module SkinningScriptMixin
     @config[:skinning_knife_container]
   end
 
-  def config_store_weapon
-    @config[:store_weapon] == 'true'
+  def config_store_weapon?
+    @config.store_weapon?
   end
 
   def config_weapon

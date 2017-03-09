@@ -35,7 +35,7 @@ class BaseLichNetBridge < BaseSimutronicsBridge
   private
 
   def enable_lich_net?
-    @config[:enable_lich_net].to_s == 'true'
+    @config.enable_lich_net?
   end
 
   def initialize_lich_net_buffers

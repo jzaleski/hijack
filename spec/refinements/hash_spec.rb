@@ -169,6 +169,57 @@ describe Hash do
     end
   end
 
+  describe '#stringify_keys' do
+    it 'should stringify "String" keys regardless of case or `class`' do
+      subject = {
+        'string' => nil,
+        0 => nil,
+        0.1 => nil,
+        :UpperCamelCase => nil,
+        :lowerCamelCase => nil,
+        :snake_case => nil,
+        false => nil,
+        true => nil,
+      }
+      expect(subject.stringify_keys).to eq({
+        'string' => nil,
+        '0' => nil,
+        '0.1' => nil,
+        'UpperCamelCase' => nil,
+        'lowerCamelCase' => nil,
+        'snake_case' => nil,
+        'false' => nil,
+        'true' => nil,
+      })
+    end
+  end
+
+  describe '#stringify_keys!' do
+    it 'should stringify "String" keys regardless of case or `class`' do
+      subject = {
+        'string' => nil,
+        0 => nil,
+        0.1 => nil,
+        :UpperCamelCase => nil,
+        :lowerCamelCase => nil,
+        :snake_case => nil,
+        false => nil,
+        true => nil,
+      }
+      subject.stringify_keys!
+      expect(subject).to eq({
+        'string' => nil,
+        '0' => nil,
+        '0.1' => nil,
+        'UpperCamelCase' => nil,
+        'lowerCamelCase' => nil,
+        'snake_case' => nil,
+        'false' => nil,
+        'true' => nil,
+      })
+    end
+  end
+
   describe '#symbolize_keys' do
     it 'should symbolize "String" keys regardless of case (and skip keys that are already symbols)' do
       subject = {

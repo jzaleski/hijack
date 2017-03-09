@@ -16,6 +16,18 @@ describe Object do
     end
   end
 
+  describe 'false?' do
+    it 'should return `true` if the value is[-a] `FalseClass`' do
+      subject = false
+      expect(subject.false?).to eq(true)
+    end
+
+    it 'should return `false` for everything else' do
+      subject = true
+      expect(subject.false?).to eq(false)
+    end
+  end
+
   describe '#presence' do
     it 'will return self if present' do
       [['foo'], {:foo => 'bar'}, 'foo', true].each do |value|
@@ -41,6 +53,18 @@ describe Object do
       [nil, [], {}, '', false].each do |value|
         expect(value.present?).to eq(false)
       end
+    end
+  end
+
+  describe 'true?' do
+    it 'should return `true` if the value is[-a] `TrueClass`' do
+      subject = true
+      expect(subject.true?).to eq(true)
+    end
+
+    it 'should return `false` for everything else' do
+      subject = false
+      expect(subject.true?).to eq(false)
     end
   end
 

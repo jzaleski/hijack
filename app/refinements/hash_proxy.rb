@@ -23,7 +23,7 @@ class HashProxy
   alias_method :reset, :delete
 
   def fetch(key)
-    @hash.fetch(key.to_sym)
+    @hash[key.to_sym]
   end
 
   alias_method :get, :fetch
@@ -38,6 +38,10 @@ class HashProxy
     else
       @hash.merge!(hash_or_hash_proxy)
     end
+  end
+
+  def method_missing(method, *args)
+    @hash.public_send(method, *args)
   end
 
   def store(key, value)

@@ -7,7 +7,7 @@ class GetAllScript < BaseGemstoneScript
     weapon = @args[2] || config_weapon
     sheath = @args[3] || config_sheath
     return unless open_my(container)
-    store_my(weapon, sheath) if config_store_weapon && weapon && sheath
+    store_my(weapon, sheath) if config_store_weapon? && weapon && sheath
     loop do
       result = wait_for_match(
         GET_PATTERN,
@@ -28,7 +28,7 @@ class GetAllScript < BaseGemstoneScript
       end
     end
     close_my(container)
-    get_my(weapon, sheath) if config_store_weapon && weapon && sheath
+    get_my(weapon, sheath) if config_store_weapon? && weapon && sheath
   end
 
   def validate_args
@@ -48,8 +48,8 @@ class GetAllScript < BaseGemstoneScript
     @config[:sheath]
   end
 
-  def config_store_weapon
-    @config[:store_weapon] == 'true'
+  def config_store_weapon?
+    @config.store_weapon?
   end
 
   def config_weapon

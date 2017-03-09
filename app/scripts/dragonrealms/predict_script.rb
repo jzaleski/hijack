@@ -116,10 +116,8 @@ class PredictScript < BaseDragonrealmsScript
 
   def run
     num_observes = [1, (@args[0] || config_num_observes).to_i].max
-    shuffle_objects_after_successful_observation = (
-      @args[1] ||
-      config_shuffle_objects_after_successful_obseravation
-    ).to_s == 'true'
+    shuffle_objects_after_successful_observation = \
+      (@args[1].true? || config_shuffle_objects_after_successful_observation?)
     successful_observes = 0
     objects = OBJECTS.shuffle
     loop do
@@ -132,7 +130,7 @@ class PredictScript < BaseDragonrealmsScript
       # observing multiple times, it is unclear whether to use the same object,
       # so that the same pools are built up, or shuffle the list so that we can
       # potentially have successful predictions across a variety of pools. If
-      # the "config_shuffle_objects_after_successful_observation" flag is set
+      # the "config_shuffle_objects_after_successful_observation?" flag is set
       # the objects will be shuffled after each successful observation
       objects.each do |object|
         result = wait_for_match(
@@ -215,7 +213,7 @@ class PredictScript < BaseDragonrealmsScript
     @config[:predict_num_observes]
   end
 
-  def config_shuffle_objects_after_successful_observation
-    @config[:predict_shuffle_objects_after_successful_observation]
+  def config_shuffle_objects_after_successful_observation?
+    @config.predict_shuffle_objects_after_successful_observation?
   end
 end
