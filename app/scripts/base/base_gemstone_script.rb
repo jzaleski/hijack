@@ -1,6 +1,7 @@
 load "#{SCRIPTS_DIR}/base/base_simutronics_script.rb", true
 
 class BaseGemstoneScript < BaseSimutronicsScript
+  A_TAD_PARANOID_ARENT_WE = "A tad paranoid, aren't we\?"
   BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'
   BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING = 'before you truly lose your footing'
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
@@ -18,12 +19,15 @@ class BaseGemstoneScript < BaseSimutronicsScript
   ICEMULE_TRACE = 'icemule_trace'
   ISNT_IN_YOUR_GROUP = "isn't in your group"
   IS_ALREADY_A_MEMBER_OF_YOUR_GROUP = 'is already a member of your group'
+  ITS_A_LITTLE_BIT_LATE_FOR_THAT = 'A little bit late for that'
   I_COULD_NOT_FIND = 'I could not find'
+  NOTICES_YOUR_ATTEMPT_TO_HIDE = 'notices your attempt to hide'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'
   PERHAPS_YOU_SHOULD_BE_HOLDING = 'Perhaps you should be holding'
   PREPARED_SPELL_TO_RELEASE = 'prepared spell to release'
   REMOVE_WHAT = 'Remove what'
+  ROUNDTIME = 'Roundtime: '
   SILVER_FOR_IT = 'silver for it\.'
   SOLHAVEN = 'solhaven'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
@@ -34,6 +38,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   WEAR_WHAT = 'Wear what'
   WEHNIMERS_LANDING = 'wehnimers_landing'
   WHAT_WERE_YOU = 'What were you'
+  WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to'
   WHERE_ARE_YOU_TRYING_TO_GO = 'Where are you trying to go'
   WHO_DO_YOU_WISH_TO_REMOVE = 'Who do you wish to remove'
   WONT_FIT_IN_THE = "won't fit in the"
@@ -50,11 +55,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
+  YOU_ATTEMPT_TO_BLEND_WITH = 'You attempt to blend with'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
   YOU_CANNOT_SKIN = 'You cannot skin'
   YOU_CANT_GO_THERE = "You can't go there"
   YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
   YOU_CLOSE = 'You close'
+  YOU_CURRENTLY_HAVE_NO_VALID_TARGET = 'You currently have no valid target'
   YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
   YOU_DO_NOT_HAVE_THAT_MUCH_SILVER = 'You do not have that much silver'
@@ -64,12 +71,14 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
   YOU_KNEEL_DOWN = 'You kneel down'
+  YOU_LEAP_FROM_HIDING_TO_ATTACK = 'You leap from hiding to attack'
   YOU_MIGHT_WANT_TO_WAIT = 'You might want to wait'
   YOU_MOVE_TO_A_KNEELING = 'You move to a kneeling'
   YOU_MOVE_TO_A_SITTING = 'You move to a sitting'
   YOU_NEED_A_FREE_HAND = 'You need a free hand'
   YOU_OPEN = 'You open'
   YOU_PICK_UP = 'You pick up'
+  YOU_PUNCH = 'You punch'
   YOU_PUT = 'You put'
   YOU_REACH_OUT_AND_HOLD = 'You reach out and hold'
   YOU_REMOVE = 'You remove'
@@ -79,9 +88,35 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_SKINNED = 'You skinned'
   YOU_STAND_BACK_UP = 'You stand back up'
   YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
+  YOU_SWING = 'You swing'
   YOU_TAKE = 'You take'
   YOU_WILL_HAVE_TO_STAND_UP_FIRST = 'You will have to stand up first'
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
+
+  AMBUSH_PATTERN = [
+    ROUNDTIME,
+    YOU_LEAP_FROM_HIDING_TO_ATTACK,
+  ].join('|')
+
+  AMBUSH_SUCCESS_PATTERN = [
+    ROUNDTIME,
+    YOU_LEAP_FROM_HIDING_TO_ATTACK,
+  ].join('|')
+
+  ATTACK_PATTERN = [
+    ITS_A_LITTLE_BIT_LATE_FOR_THAT,
+    ROUNDTIME,
+    WHAT_WERE_YOU_REFERRING_TO,
+    YOU_CURRENTLY_HAVE_NO_VALID_TARGET,
+    YOU_PUNCH,
+    YOU_SWING,
+  ].join('|')
+
+  ATTACK_SUCCESS_PATTERN = [
+    ROUNDTIME,
+    YOU_PUNCH,
+    YOU_SWING,
+  ].join('|')
 
   CAST_PATTERN = [
     CAST_AT_WHAT,
@@ -167,6 +202,17 @@ class BaseGemstoneScript < BaseSimutronicsScript
     BEING_FOLLOWED_BY_A_BUNCH,
     FROM_THE_GROUP,
     ISNT_IN_YOUR_GROUP,
+  ].join('|')
+
+  HIDE_PATTERN = [
+    A_TAD_PARANOID_ARENT_WE,
+    NOTICES_YOUR_ATTEMPT_TO_HIDE,
+    YOU_ATTEMPT_TO_BLEND_WITH,
+  ].join('|')
+
+  HIDE_SUCCESS_PATTERN = [
+    A_TAD_PARANOID_ARENT_WE,
+    YOU_ATTEMPT_TO_BLEND_WITH,
   ].join('|')
 
   HOLD_PATTERN = [
@@ -386,6 +432,20 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_PUT,
   ].join('|')
 
+  def ambush(creature, aim_at=nil)
+    wait_for_match(
+      AMBUSH_PATTERN,
+      "ambush #{creature} #{aim_at}".rstrip
+    ).match(AMBUSH_SUCCESS_PATTERN)
+  end
+
+  def attack(target=nil)
+    wait_for_match(
+      ATTACK_PATTERN,
+      "attack #{target}".rstrip
+    ).match(ATTACK_SUCCESS_PATTERN)
+  end
+
   def cast(target=nil)
     wait_for_match(
       CAST_PATTERN,
@@ -430,6 +490,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       GROUP_REMOVE_PATTERN,
       "group remove #{target}".rstrip
     ).match(GROUP_REMOVE_SUCCESS_PATTERN)
+  end
+
+  def hide
+    wait_for_match(
+      HIDE_PATTERN,
+      'hide'
+    ).match(HIDE_SUCCESS_PATTERN)
   end
 
   def hold(target)

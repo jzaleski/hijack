@@ -5,7 +5,6 @@ class BrawlScript < BaseGemstoneScript
   FOLLOWUP_JAB_ATTACK = 'followup jab attack'
   FOLLOWUP_KICK_ATTACK = 'followup kick attack'
   FOLLOWUP_PUNCH_ATTACK = 'followup punch attack'
-  ROUNDTIME = 'Roundtime: '
   YOU_CURRENTLY_HAVE_NO_VALID_TARGET = 'You currently have no valid target'
 
   BRAWL_PATTERN = [
