@@ -1,7 +1,7 @@
 class HighlightsHelper
   DEFAULT_DEFAULTS = {}
-  DEFAULT_HIGHLIGHTS = []
   DEFAULT_PALETTE = {}
+  DEFAULT_PATTERNS_AND_OPTS = []
   DEFAULT_TEMPLATE = '%{value}'
 
   def initialize(config)
@@ -10,15 +10,15 @@ class HighlightsHelper
 
   def process(line)
     line.dup.tap do |str|
-      highlights.each do |patterns, opts|
-        patterns.each do |pattern_and_value|
+      patterns_and_opts.each do |patterns, opts|
+        patterns.each do |pattern|
           str.gsub!(
-            pattern_and_value,
+            pattern,
             template % {
               :background => background(opts),
               :font => font(opts),
               :foreground => foreground(opts),
-              :value => pattern_and_value,
+              :value => pattern,
             }
           )
         end
@@ -33,7 +33,7 @@ class HighlightsHelper
   end
 
   def defaults(key)
-    (@config[:highlights_defaults] || DEFAULT_DEFAULTS)[key]
+    (highlights[:defaults] || DEFAULT_DEFAULTS)[key]
   end
 
   def font(opts)
@@ -45,14 +45,18 @@ class HighlightsHelper
   end
 
   def highlights
-    @config[:highlights] || DEFAULT_HIGHLIGHTS
+    @config[:highlights] || {}
   end
 
   def palette
-    @config[:highlights_palette] || DEFAULT_PALETTE
+    highlights[:palette] || DEFAULT_PALETTE
+  end
+
+  def patterns_and_opts
+    highlights[:patterns_and_opts] || DEFAULT_PATTERNS_AND_OPTS
   end
 
   def template
-    @config[:highlights_template] || DEFAULT_TEMPLATE
+    highlights[:template] || DEFAULT_TEMPLATE
   end
 end
