@@ -58,6 +58,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
+  YOU_ATTACH = 'You attach'
   YOU_ATTEMPT_TO_BLEND_WITH = 'You attempt to blend with'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
   YOU_CANNOT_SKIN = 'You cannot skin'
@@ -327,13 +328,15 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   REMOVE_MY_PATTERN = [
     REMOVE_WHAT,
-    YOU_TAKE,
     YOU_ARENT_WEARING_THAT,
+    YOU_REMOVE,
+    YOU_TAKE,
   ].join('|')
 
   REMOVE_MY_SUCCESS_PATTERN = [
-    YOU_TAKE,
     YOU_ARENT_WEARING_THAT,
+    YOU_REMOVE,
+    YOU_TAKE,
   ].join('|')
 
   SEARCH_CREATURE_PATTERN = [
@@ -440,11 +443,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
   WEAR_MY_PATTERN = [
     WEAR_WHAT,
     YOU_ARE_ALREADY_WEARING,
+    YOU_ATTACH,
     YOU_PUT,
   ].join('|')
 
   WEAR_MY_SUCCESS_PATTERN = [
     YOU_ARE_ALREADY_WEARING,
+    YOU_ATTACH,
     YOU_PUT,
   ].join('|')
 
