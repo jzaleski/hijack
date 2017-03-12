@@ -5,6 +5,8 @@ class BaseGemstoneScript < BaseSimutronicsScript
   BEFORE_YOU_START_FLAILING_AROUND_HELPLESSLY = 'before you start flailing around helplessly'
   BEFORE_YOU_TRULY_LOSE_YOUR_FOOTING = 'before you truly lose your footing'
   BEING_FOLLOWED_BY_A_BUNCH = 'Being followed by a bunch'
+  BUT_YOU_ARE_NOT_HIDDEN = 'But you are not hidden!'
+  CANT_SEE_ANYWHERE_TO_HIDE = "can't see anywhere to hide\."
   CAST_AT_WHAT = 'Cast at what\?'
   COULD_NOT_FIND_A_VALID_TARGET = 'Could not find a valid target'
   FIVE_SILVERS_ENTRANCE_FEE = 'five silvers entrance fee'
@@ -19,6 +21,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   ICEMULE_TRACE = 'icemule_trace'
   ISNT_IN_YOUR_GROUP = "isn't in your group"
   IS_ALREADY_A_MEMBER_OF_YOUR_GROUP = 'is already a member of your group'
+  IS_ALREADY_MISSING_THAT = 'is already missing that!'
   ITS_A_LITTLE_BIT_LATE_FOR_THAT = 'A little bit late for that'
   I_COULD_NOT_FIND = 'I could not find'
   NOTICES_YOUR_ATTEMPT_TO_HIDE = 'notices your attempt to hide'
@@ -86,6 +89,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_SIT_DOWN = 'You sit down'
   YOU_SIT_UP = 'You sit up'
   YOU_SKINNED = 'You skinned'
+  YOU_SLIP_OUT_OF_HIDING = 'you slip out of hiding'
   YOU_STAND_BACK_UP = 'You stand back up'
   YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
   YOU_SWING = 'You swing'
@@ -94,6 +98,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
 
   AMBUSH_PATTERN = [
+    IS_ALREADY_MISSING_THAT,
     ROUNDTIME,
     YOU_LEAP_FROM_HIDING_TO_ATTACK,
   ].join('|')
@@ -206,6 +211,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   HIDE_PATTERN = [
     A_TAD_PARANOID_ARENT_WE,
+    CANT_SEE_ANYWHERE_TO_HIDE,
     NOTICES_YOUR_ATTEMPT_TO_HIDE,
     YOU_ATTEMPT_TO_BLEND_WITH,
   ].join('|')
@@ -419,6 +425,16 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   STORE_MY_SUCCESS_PATTERN = [
     YOU_PUT,
+  ].join('|')
+
+  UNHIDE_PATTERN = [
+    BUT_YOU_ARE_NOT_HIDDEN,
+    YOU_SLIP_OUT_OF_HIDING,
+  ].join('|')
+
+  UNHIDE_SUCCESS_PATTERN = [
+    BUT_YOU_ARE_NOT_HIDDEN,
+    YOU_SLIP_OUT_OF_HIDING,
   ].join('|')
 
   WEAR_MY_PATTERN = [
@@ -646,6 +662,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       STORE_MY_PATTERN,
       "put my #{item} in my #{container}"
     ).match(STORE_MY_SUCCESS_PATTERN)
+  end
+
+  def unhide
+    wait_for_match(
+      UNHIDE_PATTERN,
+      'unhide'
+    ).match(UNHIDE_SUCCESS_PATTERN)
   end
 
   def wear_my(item)
