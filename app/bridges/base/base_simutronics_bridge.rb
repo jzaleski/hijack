@@ -124,7 +124,7 @@ class BaseSimutronicsBridge < BaseBridge
     return true \
       unless scripts_running?
     return false \
-      if retryable?(str) && strip_retryable_output?
+      if retryable?(str) && strip_retryable_output_while_scripting?
     return false \
       if moving? && strip_output_while_moving?
     true
@@ -134,8 +134,8 @@ class BaseSimutronicsBridge < BaseBridge
     @config.strip_player_status_prompt?
   end
 
-  def strip_retryable_output?
-    @config.strip_retryable_output?
+  def strip_retryable_output_while_scripting?
+    @config.strip_retryable_output_while_scripting?
   end
 
   def strip_output_while_moving?
