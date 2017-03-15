@@ -40,7 +40,6 @@ class BaseGemstoneScript < BaseSimutronicsScript
   WAVES_YOU_TOWARD_THE_GATE = 'waves you toward the gate'
   WEAR_WHAT = 'Wear what'
   WEHNIMERS_LANDING = 'wehnimers_landing'
-  WHAT_WERE_YOU = 'What were you'
   WHAT_WERE_YOU_REFERRING_TO = 'What were you referring to'
   WHERE_ARE_YOU_TRYING_TO_GO = 'Where are you trying to go'
   WHO_DO_YOU_WISH_TO_REMOVE = 'Who do you wish to remove'
@@ -101,6 +100,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   AMBUSH_PATTERN = [
     IS_ALREADY_MISSING_THAT,
     ROUNDTIME,
+    WHAT_WERE_YOU_REFERRING_TO,
     YOU_LEAP_FROM_HIDING_TO_ATTACK,
   ].join('|')
 
@@ -137,7 +137,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   CLOSE_MY_PATTERN = [
     THAT_IS_ALREADY_CLOSED,
     THERE_DOESNT_SEEM_TO_BE,
-    WHAT_WERE_YOU,
+    WHAT_WERE_YOU_REFERRING_TO,
     YOU_CLOSE,
   ].join('|')
 
@@ -224,7 +224,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   HOLD_PATTERN = [
     IS_ALREADY_A_MEMBER_OF_YOUR_GROUP,
-    WHAT_WERE_YOU,
+    WHAT_WERE_YOU_REFERRING_TO,
     WRING_YOUR_HANDS,
     YOU_REACH_OUT_AND_HOLD,
     YOU_WRING_YOUR_HANDS,
@@ -282,7 +282,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   OPEN_MY_PATTERN = [
     THAT_IS_ALREADY_OPEN,
     THERE_DOESNT_SEEM_TO_BE,
-    WHAT_WERE_YOU,
+    WHAT_WERE_YOU_REFERRING_TO,
     YOU_OPEN,
   ].join('|')
 
@@ -341,7 +341,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   SEARCH_CREATURE_PATTERN = [
     GEEZ_ITS_STILL_ALIVE,
-    WHAT_WERE_YOU,
+    WHAT_WERE_YOU_REFERRING_TO,
     YOU_SEARCH_THE,
   ].join('|')
 
@@ -354,7 +354,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
     HANDS_IT_BACK_TO_YOU_AND_SAYS,
     PERHAPS_YOU_SHOULD_BE_HOLDING,
     SILVER_FOR_IT,
-    WHAT_WERE_YOU,
+    WHAT_WERE_YOU_REFERRING_TO,
   ].join('|')
 
   SELL_MY_SUCCESS_PATTERN = [
