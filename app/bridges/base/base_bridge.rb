@@ -97,9 +97,9 @@ class BaseBridge
         method_result = @config.public_send(method, *args)
         method_result = 'nil' if method_result.nil?
         result = 'Ok.'
-        result = "[config] #{method} #{method_result}" \
+        result = "[config] #{method}: #{method_result}" \
           if args.empty? && method.end_with?('?')
-        result = "[config] #{args[0]} #{method_result}" \
+        result = "[config] #{args[0]}: #{method_result}" \
           if args.length == 1
         @output_buffer.puts("\n#{result}")
       rescue Exception => e
