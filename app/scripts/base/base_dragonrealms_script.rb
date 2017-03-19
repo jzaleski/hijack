@@ -250,6 +250,16 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     YOU_LIE,
   ].join('|')
 
+  LOOK_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+  ].join('|')
+
+  LOOK_SUCCESS_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+  ].join('|')
+
   LOOT_PATTERN = [
     I_COULD_NOT_FIND,
     YOU_SEARCH,
@@ -540,6 +550,13 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
       LIE_PATTERN,
       'lie'
     ).match(LIE_SUCCESS_PATTERN)
+  end
+
+  def look
+    wait_for_match(
+      LOOK_PATTERN,
+      'look',
+    ).match(LOOK_SUCCESS_PATTERN)
   end
 
   def loot(loot_type)
