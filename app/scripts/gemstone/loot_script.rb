@@ -6,10 +6,6 @@ class LootScript < BaseGemstoneScript
     loot(creature)
   end
 
-  def validate_args
-    @args.length == 1 || config_creature.present?
-  end
-
   private
 
   def config_creature
