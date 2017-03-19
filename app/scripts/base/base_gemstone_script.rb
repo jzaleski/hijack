@@ -257,6 +257,16 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_MOVE_TO_A_KNEELING,
   ].join('|')
 
+  LOOK_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+  ].join('|')
+
+  LOOK_SUCCESS_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+  ].join('|')
+
   LOOT_PATTERN = [
     COULD_NOT_FIND_A_VALID_TARGET,
     GEEZ_ITS_STILL_ALIVE,
@@ -539,6 +549,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       KNEEL_PATTERN,
       'kneel'
     ).match(KNEEL_SUCCESS_PATTERN)
+  end
+
+  def look
+    wait_for_match(
+      LOOK_PATTERN,
+      'look',
+    ).match(LOOK_SUCCESS_PATTERN)
   end
 
   def loot(creature=nil)
