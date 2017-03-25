@@ -22,6 +22,17 @@ var Hijack = (function($) {
       scrollbackLines,
       websocket;
 
+  var aliasData = function(game) {
+    if (!game || game.length == 0) {
+      return {};
+    }
+    var gameModule = snakeCaseToCamelCase(game);
+    if (!Hijack.hasOwnProperty(gameModule)) {
+      return {};
+    }
+    return Hijack[gameModule].aliasData();
+  };
+
   var connect = function() {
     if (WebSocket !== undefined) {
       connectWebSocket();
@@ -46,8 +57,9 @@ var Hijack = (function($) {
   };
 
   var connectData = function() {
+    var game = $game.val();
     return {
-      game: $game.val(),
+      game: game,
       bridge: $bridge.val(),
       account: $account.val(),
       password: $password.val(),
@@ -56,7 +68,9 @@ var Hijack = (function($) {
       numRows: config.numRows,
       enableLichNet: config.enableLichNet,
       stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
-      stripRetryableOutput: config.stripRetryableOutput
+      stripRetryableOutput: config.stripRetryableOutput,
+      aliases: aliasData(game),
+      highlights: highlightData(game)
     };
   };
 
@@ -119,6 +133,17 @@ var Hijack = (function($) {
         onDisconnect(jqXHR.responseText);
       }
     });
+  };
+
+  var highlightData = function(game) {
+    if (!game || game.length == 0) {
+      return {};
+    }
+    var gameModule = snakeCaseToCamelCase(game);
+    if (!Hijack.hasOwnProperty(gameModule)) {
+      return {};
+    }
+    return Hijack[gameModule].highlightData();
   };
 
   var init = function(options) {
@@ -247,7 +272,9 @@ var Hijack = (function($) {
     $game.change(function() {
       resetElement($bridge);
       disableElement($bridge);
-      loadAvailableBridges($game.val());
+      var game = $game.val();
+      loadAvailableBridges(game);
+      loadGameSpecificModule(game);
     });
     // set focus to the "game" field initially
     $game.focus();
@@ -263,7 +290,7 @@ var Hijack = (function($) {
           var bridges = responseData(result);
           resetElement($bridge);
           $.each(bridges, function(index, bridge) {
-            $bridge.append(new Option(formatString(bridge), bridge));
+            $bridge.append(new Option(snakeCaseToPhrase(bridge), bridge));
           });
           enableElement($bridge);
         }
@@ -271,11 +298,16 @@ var Hijack = (function($) {
     }
   };
 
-  var formatString = function(str) {
-    return $.map(str.split('_'), function(strPart) {
-      return strPart.substr(0,1).toUpperCase() + strPart.substr(1);
-    }).join(' ');
-  }
+  var loadGameSpecificModule = function(game) {
+    if (game && game.length > 0) {
+      $.ajax({
+        async: false,
+        cache: true,
+        dataType: 'script',
+        url: 'js/hijack-' + game + '.js'
+      });
+    }
+  };
 
   var loadAvailableGames = function() {
     $.ajax({
@@ -287,7 +319,7 @@ var Hijack = (function($) {
         resetElement($bridge);
         disableElement($bridge);
         $.each(games, function(index, game) {
-          $game.append(new Option(formatString(game), game));
+          $game.append(new Option(snakeCaseToPhrase(game), game));
         });
       }
     });
@@ -375,9 +407,6 @@ var Hijack = (function($) {
     return value && value.data ? value.data : null;
   };
 
-  var sendWebSocket = function(value) {
-  };
-
   var setInput = function(str) {
     if (str && str.length > 0) {
       $input.val(str);
@@ -391,6 +420,18 @@ var Hijack = (function($) {
       });
     }
   };
+
+  var snakeCaseToCamelCase = function(str) {
+    return $.map(str.split('_'), function(strPart) {
+      return strPart.substr(0, 1).toUpperCase() + strPart.substr(1);
+    }).join('');
+  }
+
+  var snakeCaseToPhrase = function(str) {
+    return $.map(str.split('_'), function(strPart) {
+      return strPart.substr(0, 1).toUpperCase() + strPart.substr(1);
+    }).join(' ');
+  }
 
   var updateOutput = function(str) {
     // update the UI
