@@ -85,6 +85,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_PUT = 'You put'
   YOU_REACH_OUT_AND_HOLD = 'You reach out and hold'
   YOU_REMOVE = 'You remove'
+  YOU_REMOVE_FROM_ON = 'You remove [\w\s-]+ from on'
   YOU_SEARCH_THE = 'You search the'
   YOU_SIT_DOWN = 'You sit down'
   YOU_SIT_UP = 'You sit up'

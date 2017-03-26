@@ -17,10 +17,13 @@ class GetAllScript < BaseGemstoneScript
         when YOU_ALREADY_HAVE_THAT
           store_my(item, container)
           next
+        when YOU_PICK_UP
+          store_my(item, container)
+          next
         when YOU_REMOVE
           store_my(item, container)
           break
-        when YOU_PICK_UP
+        when YOU_REMOVE_FROM_ON.to_regexp
           store_my(item, container)
           next
         else
