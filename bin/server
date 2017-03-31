@@ -4,14 +4,12 @@
 TEMP_DIR='./tmp';
 [[ ! -d $TEMP_DIR ]] && mkdir -p $TEMP_DIR;
 
-PID_FILE=${PID_FILE:-./tmp/puma.pid};
+PID_FILE=${PID_FILE:-./tmp/thin.pid};
 PORT=${PORT:-5000};
-RACKUP_CONFIG=${RACKUP_CONFIG:-./config.ru};
 RACK_ENV=${RACK_ENV:-development};
 
-if [ -n "$DAEMONIZE" ];
-then
-  puma --port $PORT --environment $RACK_ENV --daemon --pidfile $PID_FILE $RACKUP_CONFIG;
+if [ -n "$DAEMONIZE" ]; then
+  thin --port $PORT --environment $RACK_ENV --daemon --pid $PID_FILE start;
 else
-  puma --port $PORT --environment $RACK_ENV $RACKUP_CONFIG;
+  thin --port $PORT --environment $RACK_ENV start;
 fi
