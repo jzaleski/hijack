@@ -27,14 +27,14 @@ var Hijack = (function($) {
       return {};
     }
     var gameModule = snakeCaseToCamelCase(game);
-    if (!Hijack.hasOwnProperty(gameModule)) {
+    if (Hijack[gameModule] === undefined) {
       return {};
     }
     return Hijack[gameModule].aliasData();
   };
 
   var connect = function() {
-    if (WebSocket !== undefined) {
+    if (false && WebSocket !== undefined) {
       connectWebSocket();
     } else {
       connectAjax();
@@ -140,7 +140,7 @@ var Hijack = (function($) {
       return {};
     }
     var gameModule = snakeCaseToCamelCase(game);
-    if (!Hijack.hasOwnProperty(gameModule)) {
+    if (Hijack[gameModule] === undefined) {
       return {};
     }
     return Hijack[gameModule].highlightData();

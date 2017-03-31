@@ -1,13 +1,38 @@
-if (Hijack !== undefined) {
+if (Hijack !== undefined && Hijack.Gemstone === undefined) {
   Hijack.Gemstone = (function() {
     var aliasData = function() {
-      return {};
-    }
+      return {"^def$": "stance defensive", "^off$": "stance offensive"};
+    };
 
     var highlightData = function() {
-      return {};
-    }
+      return {
+        defaults: highlightDefaults(),
+        palette: highlightPalette(),
+        patternsAndOpts: highlightPatternsAndOpts(),
+        template: highlightTemplate()
+      };
+    };
 
-    return {aliasData: aliasData, highlightData: highlightData}
+    var highlightDefaults = function() {
+      return {
+        background: "background-color: transparent;",
+        font: "font-family: inherit; font-size: inherit;",
+        foreground: "color: inherit;"
+      };
+    };
+
+    var highlightPalette = function() {
+      return {};
+    };
+
+    var highlightPatternsAndOpts = function() {
+      return [];
+    };
+
+    var highlightTemplate = function() {
+      return "<span style=\"%{background}%{font}%{foreground}\">{value}</span>";
+    };
+
+    return {aliasData: aliasData, highlightData: highlightData};
   })();
 }
