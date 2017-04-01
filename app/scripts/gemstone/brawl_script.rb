@@ -21,7 +21,7 @@ class BrawlScript < BaseGemstoneScript
   ].join('|')
 
   def run
-    next_manuever = 'jab'
+    next_manuever = @args[0] || config_starting_manuever || 'jab'
     stance_offensive
     loop do
       result = wait_for_match(
@@ -41,5 +41,11 @@ class BrawlScript < BaseGemstoneScript
       end
     end
     stance_defensive
+  end
+
+  private
+
+  def config_starting_manuever
+    @config[:brawl_starting_manuever]
   end
 end

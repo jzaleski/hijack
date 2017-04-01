@@ -21,7 +21,7 @@ class HideAndBrawlScript < BaseGemstoneScript
   ].join('|')
 
   def run
-    next_manuever = 'jab'
+    next_manuever = @args[0] || config_starting_manuever || 'jab'
     loop do
       sleep 0.1 until hide
       stance_offensive
@@ -45,5 +45,11 @@ class HideAndBrawlScript < BaseGemstoneScript
           next_manuever = 'punch'
       end
     end
+  end
+
+  private
+
+  def config_starting_manuever
+    @config[:brawl_starting_manuever]
   end
 end
