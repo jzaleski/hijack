@@ -34,7 +34,7 @@ var Hijack = (function($) {
   };
 
   var connect = function() {
-    if (false && WebSocket !== undefined) {
+    if (WebSocket !== undefined) {
       connectWebSocket();
     } else {
       connectAjax();
