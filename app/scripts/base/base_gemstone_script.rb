@@ -70,6 +70,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_DO_NOT_HAVE_THAT_MUCH_SILVER = 'You do not have that much silver'
   YOU_DO_NOT_KNOW_THAT_SPELL = 'You do not know that spell'
   YOU_DROP = 'You drop'
+  YOU_FAIL_TO_SLIP_INTO_HIDING = 'You fail to slip into hiding'
   YOU_FEEL_THE_MAGIC_OF_YOUR_SPELL = 'You feel the magic of your spell'
   YOU_GESTURE = 'You gesture'
   YOU_GET = 'You get'
@@ -216,6 +217,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
     CANT_SEE_ANYWHERE_TO_HIDE,
     NOTICES_YOUR_ATTEMPT_TO_HIDE,
     YOU_ATTEMPT_TO_BLEND_WITH,
+    YOU_FAIL_TO_SLIP_INTO_HIDING,
   ].join('|')
 
   HIDE_SUCCESS_PATTERN = [
