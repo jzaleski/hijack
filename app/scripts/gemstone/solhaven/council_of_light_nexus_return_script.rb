@@ -1,15 +1,6 @@
-load "#{SCRIPTS_DIR}/gemstone/solhaven/council_of_light_script.rb", true
+load "#{MIXINS_DIR}/base/return_movement_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/gemstone/solhaven/council_of_light_nexus_script.rb", true
 
-class CouncilOfLightNexusReturnScript < CouncilOfLightScript
-  protected
-
-  def directions
-    [
-      SOUTH,
-      EAST,
-      SOUTH,
-      EAST,
-      OUT,
-    ] + reverse_directions(super)
-  end
+class CouncilOfLightNexusReturnScript < CouncilOfLightNexusScript
+  include ReturnMovementScriptMixin
 end

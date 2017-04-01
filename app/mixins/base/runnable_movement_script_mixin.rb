@@ -12,17 +12,17 @@ module RunnableMovementScriptMixin
     moved = true
     # `move` all of the `directions` until either the script finishes, is killed
     # or exits unexpectedly
-    directions.each do |direction_or_method|
+    directions.each do |direction|
       # a method can be passed in for cases where something beyond basic
       # movement is required (e.g. guild/society pass{code,word}s)
-      if direction_or_method.respond_to?(:call)
+      if direction.respond_to?(:call)
         # all methods must return something falsy/truthy so we can determine if
         # the action was successful
-        moved = direction_or_method.call
+        moved = direction.call
       else
         # if there are multiple options for moving to and from a particular
         # location they are joined with a "|"
-        possible_directions = direction_or_method.split('|')
+        possible_directions = direction.split('|')
         # try every "possible_direction" exiting the loop as soon as we have
         # successfully moved or have exhausted all options
         possible_directions.each do |possible_direction|
