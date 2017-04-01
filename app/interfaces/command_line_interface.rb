@@ -46,6 +46,7 @@ class CommandLineInterface
   private
 
   def start_read(bridge)
+    STDOUT.sync = true
     @read_thread ||= Thread.new do
       while bridge.connected?
         output = bridge.gets
@@ -57,6 +58,7 @@ class CommandLineInterface
   end
 
   def start_write(bridge)
+    STDIN.sync = true
     @write_thread ||= Thread.new do
       while bridge.connected?
         input = STDIN.gets.chomp
