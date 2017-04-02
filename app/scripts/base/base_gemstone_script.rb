@@ -12,6 +12,10 @@ class BaseGemstoneScript < BaseSimutronicsScript
   FIVE_SILVERS_ENTRANCE_FEE = 'five silvers entrance fee'
   FLAIL_USELESSLY_AS_YOU_LAND_ON_YOUR_REAR = 'flail uselessly as you land on your rear'
   FOLLOWING_YOU = ', following you\.'
+  FOLLOWUP_GRAPPLE_ATTACK = 'followup grapple attack'
+  FOLLOWUP_JAB_ATTACK = 'followup jab attack'
+  FOLLOWUP_KICK_ATTACK = 'followup kick attack'
+  FOLLOWUP_PUNCH_ATTACK = 'followup punch attack'
   FROM_THE_GROUP = 'from the group'
   GEEZ_ITS_STILL_ALIVE = "Geez!  It's still alive!"
   GET_WHAT = 'Get what\?'
@@ -124,6 +128,23 @@ class BaseGemstoneScript < BaseSimutronicsScript
     ROUNDTIME,
     YOU_PUNCH,
     YOU_SWING,
+  ].join('|')
+
+  BRAWL_PATTERN = [
+    FOLLOWUP_GRAPPLE_ATTACK,
+    FOLLOWUP_JAB_ATTACK,
+    FOLLOWUP_KICK_ATTACK,
+    FOLLOWUP_PUNCH_ATTACK,
+    ROUNDTIME,
+    YOU_CURRENTLY_HAVE_NO_VALID_TARGET,
+  ].join('|')
+
+  BRAWL_SUCCESS_PATTERN = [
+    FOLLOWUP_GRAPPLE_ATTACK,
+    FOLLOWUP_JAB_ATTACK,
+    FOLLOWUP_KICK_ATTACK,
+    FOLLOWUP_PUNCH_ATTACK,
+    ROUNDTIME,
   ].join('|')
 
   CAST_PATTERN = [
@@ -480,6 +501,26 @@ class BaseGemstoneScript < BaseSimutronicsScript
       ATTACK_PATTERN,
       "attack #{target}".rstrip
     ).match(ATTACK_SUCCESS_PATTERN)
+  end
+
+  def brawl(maneuver)
+    result = wait_for_match(
+      BRAWL_PATTERN,
+      maneuver,
+    ).match(BRAWL_SUCCESS_PATTERN)
+    return false if result.nil?
+    case result.to_s
+      when FOLLOWUP_GRAPPLE_ATTACK
+        return 'grapple'
+      when FOLLOWUP_JAB_ATTACK
+        return 'jab'
+      when FOLLOWUP_KICK_ATTACK
+        return 'kick'
+      when FOLLOWUP_PUNCH_ATTACK
+        return 'punch'
+      when ROUNDTIME
+        return maneuver
+    end
   end
 
   def cast(target=nil)
