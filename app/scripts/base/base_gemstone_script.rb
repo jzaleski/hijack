@@ -175,6 +175,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_GET,
     YOU_NEED_A_FREE_HAND,
     YOU_PICK_UP,
+    YOU_REMOVE_FROM_ON,
     YOU_REMOVE,
   ].join('|')
 
@@ -182,6 +183,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_ALREADY_HAVE_THAT,
     YOU_GET,
     YOU_PICK_UP,
+    YOU_REMOVE_FROM_ON,
     YOU_REMOVE,
   ].join('|')
 
