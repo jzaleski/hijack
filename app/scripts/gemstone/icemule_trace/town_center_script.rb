@@ -1,7 +1,14 @@
-load "#{SCRIPTS_DIR}/base/base_gemstone_movement_script.rb", true
+load "#{MIXINS_DIR}/base/movement_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
-class TownCenterScript < BaseGemstoneMovementScript
+class TownCenterScript < BaseGemstoneScript
+  include MovementScriptMixin
+
   protected
+
+  def directions
+    []
+  end
 
   def location
     nexus_location

@@ -1,7 +1,14 @@
-load "#{SCRIPTS_DIR}/base/base_dragonrealms_movement_script.rb", true
+load "#{MIXINS_DIR}/base/movement_script_mixin.rb", true
+load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 
-class BankScript < BaseDragonrealmsMovementScript
+class BankScript < BaseDragonrealmsScript
+  include MovementScriptMixin
+
   protected
+
+  def directions
+    []
+  end
 
   def location
     nexus_location
