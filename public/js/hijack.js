@@ -15,6 +15,7 @@ var Hijack = (function($) {
       config,
       defaultOptions = {
         enableLichNet: true,
+        enableSessionReconnect: WebSocket === undefined,
         maxScrollbackLines: 500,
         stripPlayerStatusPrompt: false,
         stripRetryableOutput: false
@@ -67,6 +68,7 @@ var Hijack = (function($) {
       numCols: config.numCols,
       numRows: config.numRows,
       enableLichNet: config.enableLichNet,
+      enableSessionReconnect: config.enableSessionReconnect,
       stripPlayerStatusPrompt: config.stripPlayerStatusPrompt,
       stripRetryableOutput: config.stripRetryableOutput,
       aliases: aliasData(game),
@@ -278,6 +280,10 @@ var Hijack = (function($) {
     });
     // set focus to the "game" field initially
     $game.focus();
+    // attempt to "reconnect" if configured to do so
+    if (config.enableSessionReconnect) {
+      reconnect();
+    }
   };
 
   var loadAvailableBridges = function(game) {
@@ -362,6 +368,10 @@ var Hijack = (function($) {
     }
   };
 
+  var onReconnectSuccess = function() {
+    onConnectSuccess();
+  };
+
   var puts = function(str) {
     if (!str || str.length === 0) {
       return;
@@ -389,6 +399,34 @@ var Hijack = (function($) {
 
   var putsWebSocket = function(str) {
     websocket.send(JSON.stringify(requestData(str)));
+  };
+
+  var reconnect = function() {
+    if (WebSocket !== undefined) {
+      reconnectWebSocket();
+    } else {
+      reconnectAjax();
+    }
+  };
+
+  var reconnectAjax = function() {
+    $.ajax({
+      type: 'POST',
+      url: '/reconnect',
+      data: requestData(reconnectData()),
+      success: function() {
+        gets();
+        onReconnectSuccess();
+      }
+    });
+  };
+
+  var reconnectData = function() {
+    return {};
+  };
+
+  var reconnectWebSocket = function() {
+    console.log("Session `reconnect` is not currently supported for `WebSocket(s)`");
   };
 
   var requestData = function(value) {

@@ -12,6 +12,12 @@ class WebInterface < Sinatra::Base
       @bridge_helper ||= BridgeHelper.new
     end
 
+    def can_reconnect?
+      current_config.try(:[], :enable_session_reconnect).to_s == 'true' &&
+        current_websocket.nil? &&
+        current_bridge.try(:connected?)
+    end
+
     def config_helper
       @config_helper ||= ConfigHelper.new
     end
@@ -226,6 +232,11 @@ class WebInterface < Sinatra::Base
     rescue Exception => e
       halt 500, e.message
     end
+    response_success
+  end
+
+  post '/reconnect' do
+    halt 400, "Can't reconnect" unless can_reconnect?
     response_success
   end
 
