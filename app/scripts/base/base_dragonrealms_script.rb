@@ -7,6 +7,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   ATTEMPTING_TO_AVOID_THE_NOTICE = 'attempting to avoid the notice'
   ATTEMPT_TO_CHANNEL = 'attempt to channel'
   BUT_YOU_ARENT_HOLDING_THAT = "But you aren't holding that"
+  CANNOT_MANAGE_TO_STAND = 'cannot manage to stand'
   CROSSING = 'crossing'
   DEAD = '\(dead\)'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
@@ -382,6 +383,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   ].join('|')
 
   STAND_PATTERN = [
+    CANNOT_MANAGE_TO_STAND,
     YOU_ARE_ALREADY_STANDING,
     YOU_STAND,
   ].join('|')
