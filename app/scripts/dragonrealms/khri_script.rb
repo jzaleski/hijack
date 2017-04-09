@@ -13,34 +13,36 @@ class KhriScript < BaseDragonrealmsScript
   ].join('|')
 
   def run
-    khri = @args[0] || config_khri
+    khris = (@args[0] || config_khris).split('|')
     loop do
-      result = wait_for_match(
-        KHRI_PATTERN,
-        "khri #{khri}"
-      )
-      case result
-        when SITTING_KNEELING_OR_LYING_DOWN
-          sleep 0.1 until kneel
-          next
-        when YOU_ARE_ALREADY_USING_THE_FOCUS
-          sleep 60
-          next
-        when WITH_DEEP_BREATHS_YOU_RECALL_YOUR_TRAINING_AND_FOCUS
-          sleep 0.1 until stand
-          sleep 120
-          next
+      khris.each do |khri|
+        result = wait_for_match(
+          KHRI_PATTERN,
+          "khri #{khri}"
+        )
+        case result
+          when SITTING_KNEELING_OR_LYING_DOWN
+            sleep 0.1 until kneel
+            next
+          when YOU_ARE_ALREADY_USING_THE_FOCUS
+            sleep 45
+            next
+          when WITH_DEEP_BREATHS_YOU_RECALL_YOUR_TRAINING_AND_FOCUS
+            sleep 0.1 until stand
+            next
+        end
       end
     end
   end
 
   def validate_args
-    @args.length >= 1 || config_khri
+    @args.length >= 1 ||
+      config_khris.present?
   end
 
   private
 
-  def config_khri
-    @config[:khri]
+  def config_khris
+    ([] << @config[:khris]).flatten.join('|')
   end
 end
