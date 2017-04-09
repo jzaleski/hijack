@@ -10,6 +10,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   CANNOT_MANAGE_TO_STAND = 'cannot manage to stand'
   CROSSING = 'crossing'
   DEAD = '\(dead\)'
+  DISCOVERS_YOU_RUINING_YOUR_HIDING_PLACE = 'discovers you, ruining your hiding place'
   FORGE_A_MAGICAL_LINK = 'forge a magical link'
   FROM_YOUR_HANDS = 'from your hands'
   INVOKE_WHAT = 'Invoke what\?'
@@ -209,11 +210,13 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
 
   HIDE_PATTERN = [
     ALREADY_HIDDEN,
+    DISCOVERS_YOU_RUINING_YOUR_HIDING_PLACE,
     YOU_MELT_INTO,
     YOU_BLEND_IN,
   ].join('|')
 
   HIDE_SUCCESS_PATTERN = [
+    ALREADY_HIDDEN,
     YOU_MELT_INTO,
     YOU_BLEND_IN,
   ].join('|')
