@@ -16,7 +16,8 @@ class StealScript < BaseDragonrealmsScript
       sleep 0.1 until unhide
       drop_my(item) if first_attempt_succeeded
       drop_my(item) if second_attempt_succeeded
-      sleep first_attempt_succeeded ? 90 : 180
+      break unless first_attempt_succeeded && second_attempt_succeeded
+      sleep 90
     end
   end
 
