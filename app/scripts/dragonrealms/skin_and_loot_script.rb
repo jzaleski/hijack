@@ -10,6 +10,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   NEARLY_RUINING_IT = 'nearly ruining it'
   SKIN_WHAT = 'Skin what\?'
   THAT_HAS_ALREADY_BEEN_ARRANGED = 'That has already been arranged'
+  YOULL_NEED_A_MORE_APPROPRIATE_WEAPON = "You'll need a more appropriate weapon"
   YOU_BEGIN_TO_ARRANGE = 'You begin to arrange'
   YOU_CLAW_WILDLY = 'You claw wildly'
   YOU_COMPLETE_ARRANGING = 'You complete arranging'
@@ -46,6 +47,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
     JUST_BARELY_PRY,
     NEARLY_RUINING_IT,
     SKIN_WHAT,
+    YOULL_NEED_A_MORE_APPROPRIATE_WEAPON,
     YOU_CLAW_WILDLY,
     YOU_MAKE_A_SERIES_OF_CUTS,
     YOU_MUST_HAVE_ONE_HAND_FREE,
