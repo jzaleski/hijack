@@ -1,6 +1,6 @@
-load "#{SCRIPTS_DIR}/dragonrealms/crossing/town_hall_script.rb", true
+load "#{SCRIPTS_DIR}/dragonrealms/crossing/town_hall_lobby_script.rb", true
 
-class TownHallDebtorsOfficeScript < TownHallScript
+class TownHallDebtorsOfficeScript < TownHallLobbyScript
   protected
 
   def directions
