@@ -16,6 +16,7 @@ class ScrapeScript < BaseDragonrealmsScript
     skin_container = @args[1] || config_skin_container
     scraper = 'scraper'
     scraper_container = @args[2] || config_scraper_container
+    interloop_sleep_time = (config_interloop_sleep_time || 15.0).to_f
     if \
       open_my(skin_container) &&
       open_my(scraper_container) &&
@@ -42,7 +43,7 @@ class ScrapeScript < BaseDragonrealmsScript
               return
             end
           else
-            sleep 15.0
+            sleep interloop_sleep_time
         end
       end
     end
@@ -66,6 +67,10 @@ class ScrapeScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_interloop_sleep_time
+    @config[:scrape_interloop_sleep_time]
+  end
 
   def config_scraper_container
     @config[:scrape_scraper_container]

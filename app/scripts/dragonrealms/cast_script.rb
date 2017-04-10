@@ -5,7 +5,7 @@ class CastScript < BaseDragonrealmsScript
     spells = (@args[0] || config_spells).split('|')
     streams = (@args[1] || config_streams).split('|')
     targets = (@args[2] || config_targets).split('|')
-    interloop_sleep_time = 20.0
+    interloop_sleep_time = (config_interloop_sleep_time || 20.0).to_f
     loop do
       spells.each_with_index do |spell, spell_index|
         prep_success = false
@@ -27,15 +27,19 @@ class CastScript < BaseDragonrealmsScript
 
   private
 
+  def config_interloop_sleep_time
+    @config[:cast_interloop_sleep_time]
+  end
+
   def config_spells
-    ([] << @config[:cast_spells]).flatten.join('|')
+    Array(@config[:cast_spells]).join('|')
   end
 
   def config_streams
-    ([] << @config[:cast_streams]).flatten.join('|')
+    Array(@config[:cast_streams]).join('|')
   end
 
   def config_targets
-    ([] << @config[:cast_targets]).flatten.join('|')
+    Array(@config[:cast_targets]).join('|')
   end
 end

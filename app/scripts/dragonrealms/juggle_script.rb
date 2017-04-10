@@ -19,6 +19,7 @@ class JuggleScript < BaseDragonrealmsScript
   def run
     jugglies = @args[0] || config_jugglies
     container = @args[1] || config_container
+    interloop_sleep_time = (config_interloop_sleep_time || 15.0).to_f
     if open_my(container) && get_my(jugglies, container)
       loop do
         result = wait_for_match(
@@ -26,7 +27,7 @@ class JuggleScript < BaseDragonrealmsScript
           "juggle my #{jugglies}"
         )
         break if result.match(JUGGLE_FAILURE_PATTERN)
-        sleep 15.0
+        sleep interloop_sleep_time
       end
     end
     store_my(jugglies, container)
@@ -36,14 +37,18 @@ class JuggleScript < BaseDragonrealmsScript
   def validate_args
     @args.length == 2 || (
       config_jugglies.present? &&
-      config_jugglies_container.present?
+      config_container.present?
     )
   end
 
   private
 
   def config_container
-    @config[:config_jugglies_container]
+    @config[:juggle_container]
+  end
+
+  def config_interloop_sleep_time
+    @config[:juggle_interloop_sleep_time]
   end
 
   def config_jugglies

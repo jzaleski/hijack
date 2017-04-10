@@ -28,7 +28,7 @@ class AppraiseScript < BaseDragonrealmsScript
 
   def run
     args = @args.presence || config_args
-    interloop_sleep_time = 60.0
+    interloop_sleep_time = (config_interloop_sleep_time || 60.0).to_f
     loop do
       args.each do |arg|
         # strip off any additional qualifiers, indices and/or descriptors
@@ -58,5 +58,9 @@ class AppraiseScript < BaseDragonrealmsScript
 
   def config_args
     @config[:appraise_args]
+  end
+
+  def config_interloop_sleep_time
+    @config[:appraise_interloop_sleep_time]
   end
 end

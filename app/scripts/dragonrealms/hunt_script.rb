@@ -8,13 +8,19 @@ class HuntScript < BaseDragonrealmsScript
   ].join('|')
 
   def run
+    interloop_sleep_time = (config_interloop_sleep_time || 80.0).to_f
     loop do
       wait_for_match(
         HUNT_PATTERN,
         'hunt'
       )
-      # the learning timeout is ~75s, wait a few extra seconds for good measure
-      sleep 80.0
+      sleep interloop_sleep_time
     end
+  end
+
+  private
+
+  def config_interloop_sleep_time
+    @config[:hunt_interloop_sleep_time]
   end
 end

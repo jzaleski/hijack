@@ -29,7 +29,7 @@ class ClimbScript < BaseDragonrealmsScript
 
   def run
     obstacle = @args[0] || config_obstacle
-    interloop_sleep_time = 30.0
+    interloop_sleep_time = (config_interloop_sleep_time || 30.0).to_f
     loop do
       result = wait_for_match(
         CLIMB_START_PATTERN,
@@ -60,6 +60,10 @@ class ClimbScript < BaseDragonrealmsScript
   end
 
   protected
+
+  def config_interloop_sleep_time
+    @config[:climb_interloop_sleep_time]
+  end
 
   def config_obstacle
     @config[:climb_obstacle]

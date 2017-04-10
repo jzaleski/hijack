@@ -41,6 +41,7 @@ class CollectScript < BaseDragonrealmsScript
 
   def run
     item = @args[0] || config_item
+    interloop_sleep_time = (config_interloop_sleep_time || 30.0).to_f
     loop do
       result = wait_for_match(
         COLLECT_PATTERN,
@@ -65,7 +66,7 @@ class CollectScript < BaseDragonrealmsScript
           break
         end
       end
-      sleep 30.0
+      sleep interloop_sleep_time
     end
   end
 
@@ -75,6 +76,10 @@ class CollectScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_interloop_sleep_time
+    @config[:collect_interloop_sleep_time]
+  end
 
   def config_item
     @config[:collect_item]

@@ -7,7 +7,7 @@ class ChargeAndCastScript < BaseDragonrealmsScript
     charge_items = (@args[2] || config_charge_items).split('|')
     charge_streams = (@args[3] || config_charge_streams).split('|')
     targets = (@args[4] || config_targets).split('|')
-    interloop_sleep_time = 20.0
+    interloop_sleep_time = (config_interloop_sleep_time || 20.0).to_f
     loop do
       spells.each_with_index do |spell, spell_index|
         prep_success = false
@@ -51,12 +51,16 @@ class ChargeAndCastScript < BaseDragonrealmsScript
     Array(@config[:charge_and_cast_charge_streams]).join('|')
   end
 
+  def config_interloop_sleep_time
+    @config[:charge_and_cast_interloop_sleep_time]
+  end
+
   def config_spells
     Array(@config[:charge_and_cast_spells]).join('|')
   end
 
   def config_streams
-    Array(@config[:charge_and_cast_magic_streams]).join('|')
+    Array(@config[:charge_and_cast_streams]).join('|')
   end
 
   def config_targets

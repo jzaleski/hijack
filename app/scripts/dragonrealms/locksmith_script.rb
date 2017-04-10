@@ -177,17 +177,17 @@ class LocksmithScript < BaseDragonrealmsScript
   ].join('|')
 
   def run
-    box_container = @args[0] || config_box_container
+    container = @args[0] || config_container
     lockpick = @args[1] || config_lockpick
     lockpick_container = @args[2] || config_lockpick_container
     disarm_option = @args[3] || config_disarm_option || 'careful'
     pick_option = @args[4] || config_pick_option || 'careful'
     # ensure that all of the necessary items are accessible
-    if open_my(box_container) && open_my(lockpick_container)
+    if open_my(container) && open_my(lockpick_container)
       # try every box type
       BOXES.each do |box|
         # ensure that we have a box to work with
-        while get_box(box, box_container)
+        while get_box(box, container)
           # ensure we have a lockpick to work with, if not, we're done
           return unless get_lockpick(lockpick, lockpick_container)
           # this won't return until it has identified and disarmed the box
@@ -206,7 +206,7 @@ class LocksmithScript < BaseDragonrealmsScript
     end
     # clean-up
     close_my(lockpick_container)
-    close_my(box_container)
+    close_my(container)
   end
 
   def validate_args
@@ -218,7 +218,7 @@ class LocksmithScript < BaseDragonrealmsScript
       config_lockpick.present? &&
       config_lockpick_container.present?
     ) || (
-      config_box_container.present? &&
+      config_container.present? &&
       config_lockpick.present? &&
       config_lockpick_container.present?
     )
@@ -226,7 +226,7 @@ class LocksmithScript < BaseDragonrealmsScript
 
   private
 
-  def config_box_container
+  def config_container
     @config[:get_container]
   end
 
@@ -283,8 +283,8 @@ class LocksmithScript < BaseDragonrealmsScript
     end
   end
 
-  def get_box(box, box_container)
-    get_my(box, box_container) || get_my(box)
+  def get_box(box, container)
+    get_my(box, container) || get_my(box)
   end
 
   def get_lockpick(lockpick, lockpick_container)

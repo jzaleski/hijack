@@ -43,6 +43,6 @@ class KhriScript < BaseDragonrealmsScript
   private
 
   def config_khris
-    ([] << @config[:khris]).flatten.join('|')
+    Array(@config[:khri_khris]).join('|')
   end
 end

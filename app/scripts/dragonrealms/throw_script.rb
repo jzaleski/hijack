@@ -54,7 +54,7 @@ class ThrowScript < BaseDragonrealmsScript
   private
 
   def config_targets
-    @config[:throw_targets]
+    Array(@config[:throw_targets]).join('|')
   end
 
   def config_weapon

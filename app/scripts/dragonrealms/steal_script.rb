@@ -6,6 +6,7 @@ class StealScript < BaseDragonrealmsScript
     shop_exit = @args[1] || config_shop_exit
     item = @args[2] || config_item
     item_location = @args[3] || config_item_location
+    interloop_sleep_time = (config_interloop_sleep_time || 90.0).to_f
     loop do
       sleep 0.1 until hide
       sneak(shop_entrance)
@@ -17,7 +18,7 @@ class StealScript < BaseDragonrealmsScript
       drop_my(item) if first_attempt_succeeded
       drop_my(item) if second_attempt_succeeded
       break unless first_attempt_succeeded && second_attempt_succeeded
-      sleep 90
+      sleep interloop_sleep_time
     end
   end
 
@@ -30,6 +31,10 @@ class StealScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_interloop_sleep_time
+    @config[:steal_interloop_sleep_time]
+  end
 
   def config_item
     @config[:steal_item]

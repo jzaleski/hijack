@@ -62,6 +62,7 @@ class SkinAndLootScript < BaseDragonrealmsScript
   def run
     num_arranges = [0, (@args[0] || config_num_arranges).to_i].max
     loot_type = @args[1] || config_loot_type || 'goods'
+    interloop_sleep_time = (config_interloop_sleep_time || 5.0).to_f
     loop do
       # any dead creatures?
       unless dead_creature?
@@ -82,24 +83,27 @@ class SkinAndLootScript < BaseDragonrealmsScript
         SKIN_PATTERN,
         'skin'
       )
-      sleep 2.0
       # drop the skin
       empty_left
       # loot the creature
       loot(loot_type)
-      # wait a few additional seconds on loot-success before returning to the
-      # main loop (give the creature some time to decay)
-      sleep 5.0
+      # wait on loot-success before returning to the main loop (to give the
+      # creature some time to decay)
+      sleep interloop_sleep_time
     end
   end
 
   private
+
+  def config_interloop_sleep_time
+    @config[:loot_interloop_sleep_time]
+  end
 
   def config_loot_type
     @config[:loot_type]
   end
 
   def config_num_arranges
-    @config[:skin_num_arranges]
+    @config[:skin_and_loot_num_arranges]
   end
 end

@@ -21,7 +21,7 @@ class CompendiumScript < BaseDragonrealmsScript
   def run
     container = @args[0] || config_container
     num_pages = (@args[1] || config_num_pages || 10).to_i
-    compendium = 'compendium'
+    compendium = @args[2] || config_compendium || 'compendium'
     # only proceed if some pre-conditions are satisfied
     if open_my(container) && get_my(compendium, container) && open_my(compendium)
       num_pages.times do |i|
@@ -53,6 +53,10 @@ class CompendiumScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_compendium
+    @config[:compendium_compendium]
+  end
 
   def config_container
     @config[:compendium_container]

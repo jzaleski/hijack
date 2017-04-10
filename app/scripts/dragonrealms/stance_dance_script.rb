@@ -21,7 +21,7 @@ class StanceDanceScript < BaseDragonrealmsScript
   ]
 
   def run
-    interloop_sleep_time = (@args[0] || 30.0).to_f
+    interloop_sleep_time = (config_interloop_sleep_time || 30.0).to_f
     loop do
       STANCES_AND_MANEUVERS.each do |stance, maneuver|
        wait_for_match(
@@ -35,5 +35,11 @@ class StanceDanceScript < BaseDragonrealmsScript
         sleep interloop_sleep_time
       end
     end
+  end
+
+  private
+
+  def config_interloop_sleep_time
+    @config[:stance_dance_interloop_sleep_time]
   end
 end

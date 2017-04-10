@@ -4,7 +4,7 @@ class TmScript < BaseDragonrealmsScript
   def run
     spells = (@args[0] || config_spell).split('|')
     streams = (@args[1] || config_streams).split('|')
-    interloop_sleep_time = 5.0
+    interloop_sleep_time = (config_interloop_sleep_time || 5.0).to_f
     loop do
       spells.each_with_index do |spell, spell_index|
         prep_success = false
@@ -31,6 +31,10 @@ class TmScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_interloop_sleep_time
+    @config[:tm_interloop_sleep_time]
+  end
 
   def config_spells
     Array(@config[:tm_spells]).join('|')

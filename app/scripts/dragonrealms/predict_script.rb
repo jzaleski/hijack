@@ -118,6 +118,7 @@ class PredictScript < BaseDragonrealmsScript
     num_observes = [1, (@args[0] || config_num_observes).to_i].max
     shuffle_objects_after_successful_observation = \
       (@args[1].true? || config_shuffle_objects_after_successful_observation?)
+    interloop_sleep_time = (config_interloop_sleep_time || 120.0).to_f
     successful_observes = 0
     objects = OBJECTS.shuffle
     loop do
@@ -200,7 +201,7 @@ class PredictScript < BaseDragonrealmsScript
             # where 'N' is the number of alignments, '2' is the standard align
             # roundtime and '7.5' is the average roundtime for the failure and
             # success cases when predicting the future
-            sleep 120.0 - (ALIGNMENTS.length * (2 + 7.5))
+            sleep interloop_sleep_time - (ALIGNMENTS.length * (2 + 7.5))
             break
         end
       end
@@ -208,6 +209,10 @@ class PredictScript < BaseDragonrealmsScript
   end
 
   private
+
+  def config_interloop_sleep_time
+    @config[:predict_interloop_sleep_time]
+  end
 
   def config_num_observes
     @config[:predict_num_observes]
