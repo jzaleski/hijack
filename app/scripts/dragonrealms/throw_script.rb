@@ -3,11 +3,13 @@ load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 class ThrowScript < BaseDragonrealmsScript
   IS_ALREADY_QUITE_DEAD = 'is already quite dead'
   ITS_BEST_YOU_NOT_DO_THAT = "It's best you not do that"
+  YOU_MUST_HOLD = 'You must hold'
   YOU_THROW_A = '[Yy]ou throw a'
 
   THROW_PATTERN = [
     IS_ALREADY_QUITE_DEAD,
     ITS_BEST_YOU_NOT_DO_THAT,
+    YOU_MUST_HOLD,
     YOU_THROW_A,
   ].join('|')
 
@@ -21,6 +23,12 @@ class ThrowScript < BaseDragonrealmsScript
           "throw my #{weapon} at #{target}"
         )
         case result
+          when YOU_MUST_HOLD
+            # pick up the throwing weapon
+            sleep 0.1 until get(weapon)
+            # wait another few seconds to give other scripts a chance to execute
+            sleep 3.0
+            break
           when IS_ALREADY_QUITE_DEAD
             # if the current target is dead, wait a bit before trying again or
             # moving on to the next target

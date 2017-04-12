@@ -3,14 +3,18 @@ load "#{SCRIPTS_DIR}/base/base_dragonrealms_script.rb", true
 class BraidScript < BaseDragonrealmsScript
   AT_LEAST_ONE_HAND_FREE = 'at least one hand free'
   BRAID_YOUR = 'braid your'
+  BRAIDING_YOUR = 'braiding your'
   MORE_MATERIAL = 'to have more material'
   UNABLE_TO_FIND_ANYTHING = 'unable to find anything'
   WHAT_YOU_MIGHT_FIND = 'what you might find'
+  YOU_CAREFULLY_SPLICE = 'You carefully splice'
   YOU_MANAGE_TO_FIND = 'You manage to find'
 
   BRAID_PATTERN = [
     BRAID_YOUR,
+    BRAIDING_YOUR,
     MORE_MATERIAL,
+    YOU_CAREFULLY_SPLICE,
   ].join('|')
 
   FORAGE_FAILURE_PATTERN = [
