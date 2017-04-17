@@ -1,19 +1,17 @@
 load "#{SCRIPTS_DIR}/dragonrealms/crossing/outside_apostle_headquarters_script.rb", true
 
-class OutsideFurrierScript < OutsideApostleHeadquartersScript
+class OutsideAsemathAcademyScript < OutsideApostleHeadquartersScript
   protected
 
   def directions
     super + [
       WEST,
-      WEST,
-      NORTH,
-      NORTH,
-      WEST,
+      SOUTH,
+      SOUTH,
     ]
   end
 
   def location
-    "outside_furrier|#{CROSSING}"
+    "outside_asemath_academy|#{CROSSING}"
   end
 end

@@ -1,15 +1,15 @@
 load "#{SCRIPTS_DIR}/dragonrealms/crossing/outside_barbarians_guild_script.rb", true
 
-class OutsideEmpathsGuildScript < OutsideBarbariansGuildScript
+class StaminaScript < OutsideBarbariansGuildScript
   protected
 
   def directions
     super + [
-      NORTH,
+      "go structure|#{OUT}",
     ]
   end
 
   def location
-    "outside_empaths_guild|#{CROSSING}"
+    "stamina|#{CROSSING}"
   end
 end
