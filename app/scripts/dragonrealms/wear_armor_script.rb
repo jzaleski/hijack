@@ -25,7 +25,7 @@ class WearArmorScript < BaseDragonrealmsScript
   private
 
   def config_container
-    @config[:get_container]
+    @config[:armor_container]
   end
 
   def config_items
