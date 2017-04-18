@@ -119,11 +119,10 @@ class BaseBridge
       @script_helper.execute(str[1..-1])
     # regular command(s)
     else
-      # parse the command, this method will parse sub-commands, repeats and
-      # replace aliases
-      commands = parse_command(str)
-      # enqueue all of the commands for dispatch
-      commands.each { |command| @input_buffer.puts(command) }
+      # replace any aliases
+      processed_str = @alias_helper.process(str)
+      # enqueue the processed command for dispatch
+      @input_buffer.puts(processed_str)
     end
   end
 
@@ -132,28 +131,6 @@ class BaseBridge
   end
 
   private
-
-  def parse_command(str)
-    # define an array to hold the aggregated result
-    [].tap do |commands|
-      # sub-commands are pipe-delimited (e.g. command1|command2)
-      str.split('|').each do |sub_str|
-        # repeated commands include a multiplier (e.g. command * 2)
-        command, num_repeats = sub_str.strip.split('*').map(&:strip)
-        # check if the sub-command is an alias and replace it here
-        command = @alias_helper.process(command)
-        # ensure that "num_repeats" is at least 1
-        num_repeats = [1, num_repeats.to_i].max
-        # recurse, there was a scriptlet nested in an alias
-        if num_repeats == 1 && command =~ /\*|\|/
-          parse_command(command).each { |sub_command| commands << [sub_command] }
-        # apply the command multiplier (in most cases, 1)
-        else
-          num_repeats.times { commands << [command] }
-        end
-      end
-    end
-  end
 
   def throttle_write
     return if @last_write_time.nil?

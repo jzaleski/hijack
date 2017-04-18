@@ -1,4 +1,13 @@
-class Buffer < Queue
-  alias_method :gets, :deq
-  alias_method :puts, :enq
+class Buffer
+  def initialize
+    @queue = Queue.new
+  end
+
+  def gets
+    @queue.deq
+  end
+
+  def puts(value)
+    @queue.enq(value)
+  end
 end
