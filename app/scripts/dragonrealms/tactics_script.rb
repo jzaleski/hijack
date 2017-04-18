@@ -1,6 +1,6 @@
 load "#{SCRIPTS_DIR}/base/base_dragonrealms_combat_script.rb", true
 
-class BrawlScript < BaseDragonrealmsCombatScript
+class TacticsScript < BaseDragonrealmsCombatScript
   protected
 
   def combat_sequence
