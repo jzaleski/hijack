@@ -1,3 +1,5 @@
+require 'classes/buffer'
+
 class InputBuffer < Buffer
   protected
 
