@@ -1,5 +1,6 @@
 class CallbackHelper
-  def initialize
+  def initialize(config)
+    @config = config
     @callbacks = {}
   end
 

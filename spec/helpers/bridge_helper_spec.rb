@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'helpers/bridge_helper'
 
 describe BridgeHelper do
-  subject {BridgeHelper.new}
+  subject { BridgeHelper.new }
 
   class DummyBridge
     def initialize(config)

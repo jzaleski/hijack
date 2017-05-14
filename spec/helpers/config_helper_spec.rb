@@ -1,10 +1,12 @@
 require 'spec_helper'
 require 'helpers/config_helper'
 
-describe ConfigProxy do; end
+describe ConfigProxy do
+  subject { ConfigProxy.new }
+end
 
 describe ConfigHelper do
-  subject {ConfigHelper.new}
+  subject { ConfigHelper.new }
 
   describe '#process_args' do
     it 'will update config with parsed values' do

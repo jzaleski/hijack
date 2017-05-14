@@ -24,7 +24,7 @@ class BaseScript
       rescue AbortedException
         # NOOP
       rescue Exception => e
-        @logging_helper.log_exception_with_backtrace(e)
+        @logging_helper.exception(e)
       end
       if running?
         @running = false

@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'refinements/buffer'
+require 'classes/buffer'
 
 describe Buffer do
-  subject {Buffer.new}
+  subject { Buffer.new({}) }
 
   describe '#gets' do
     it 'should always return the first item in the buffer' do

@@ -1,13 +1,13 @@
 class BaseBridge
   def initialize(config)
     @config = config
-    @input_buffer = Buffer.new
-    @output_buffer = Buffer.new
+    @input_buffer = InputBuffer.new(@config)
+    @output_buffer = OutputBuffer.new(@config)
     @alias_helper = AliasHelper.new(@config)
-    @arguments_helper = ArgumentsHelper.new
-    @callback_helper = CallbackHelper.new
+    @arguments_helper = ArgumentsHelper.new(@config)
+    @callback_helper = CallbackHelper.new(@config)
     @layout_helper = LayoutHelper.new(@config)
-    @logging_helper = LoggingHelper.new
+    @logging_helper = LoggingHelper.new(@config)
     @highlights_helper = HighlightsHelper.new(@config)
     @script_helper = ScriptHelper.new(
       @config,
@@ -103,7 +103,7 @@ class BaseBridge
           if args.length == 1
         @output_buffer.puts("\n#{result}")
       rescue Exception => e
-        @logging_helper.log_exception_with_backtrace(e)
+        @logging_helper.exception(e)
       end
     # layout handling
     elsif str.start_with?('~')
@@ -112,7 +112,7 @@ class BaseBridge
         @layout_helper.public_send(method, *args)
         @output_buffer.puts("\nOk.")
       rescue Exception => e
-        @logging_helper.log_exception_with_backtrace(e)
+        @logging_helper.exception(e)
       end
     # script handling
     elsif str.start_with?(';')

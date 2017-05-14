@@ -6,7 +6,7 @@ class ScriptHelper
     @output_buffer = output_buffer
     @callback_helper = callback_helper
     @logging_helper = logging_helper
-    @arguments_helper = ArgumentsHelper.new
+    @arguments_helper = ArgumentsHelper.new(@config)
     @scripts = {}
     @last_scripts_by_type_name = {}
   end
@@ -191,7 +191,7 @@ class ScriptHelper
       load script_path, true
       true
     rescue Exception => e
-      @logging_helper.log_exception_with_backtrace(e)
+      @logging_helper.exception(e)
       false
     end
   end

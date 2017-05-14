@@ -1,4 +1,8 @@
 class ArgumentsHelper
+  def initialize(config)
+    @config = config
+  end
+
   def parse(str)
     [].tap do |args|
       in_double_quotes = false

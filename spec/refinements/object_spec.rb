@@ -70,7 +70,7 @@ describe Object do
 
   describe '#try' do
     context 'object nil' do
-      subject {nil}
+      subject { nil }
 
       it 'returns nil when called with a block' do
         expect(subject.try { |x| 'foo' }).to be_nil
@@ -82,7 +82,7 @@ describe Object do
     end
 
     context 'object not nil' do
-      subject {Hash[:foo, :bar]}
+      subject { Hash[:foo, :bar] }
 
       it 'yields the object to a block' do
         expect(subject.try { |x| x[:foo] }).to eq(:bar)

@@ -30,23 +30,21 @@ class LichNetHelper
   DEFAULT_OUTPUT_FORMAT = '%s'
   DEFAULT_PORT = 7155
 
-  def initialize(opts={})
-    @game = opts[:game]
-    @name = opts[:name]
-    @channel = opts[:channel] || DEFAULT_CHANNEL
-    @host = opts[:host] || DEFAULT_HOST
-    @port = opts[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : DEFAULT_PORT
-    @client_version = opts[:client_version] || DEFAULT_CLIENT_VERSION
-    @lich_version = opts[:lich_version] || DEFAULT_LICH_VERSION
-    @stdin = opts[:stdin] || STDIN
-    @stdout = opts[:stdout] || STDOUT
-    @stderr = opts[:stderr] || STDERR
-    @output_format = opts[:output_format] || DEFAULT_OUTPUT_FORMAT
-    @certificate_file_path = opts[:certificate_file_path] || \
+  def initialize(config)
+    @game = config[:game]
+    @name = config[:name]
+    @channel = config[:channel] || DEFAULT_CHANNEL
+    @host = config[:host] || DEFAULT_HOST
+    @port = config[:port].to_s =~ /\A(\d+)\Z/ ? $1.to_i : DEFAULT_PORT
+    @client_version = config[:client_version] || DEFAULT_CLIENT_VERSION
+    @lich_version = config[:lich_version] || DEFAULT_LICH_VERSION
+    @stdin = config[:stdin] || STDIN
+    @stdout = config[:stdout] || STDOUT
+    @stderr = config[:stderr] || STDERR
+    @output_format = config[:output_format] || DEFAULT_OUTPUT_FORMAT
+    @certificate_file_path = config[:certificate_file_path] || \
       DEFAULT_CERTIFICATE_FILE_PATH
-    @debug = opts.debug?
-    @logging_helper = opts[:logging_helper] || \
-      LoggingHelper.new(:exception_log => @stderr)
+    @debug = config.debug?
   end
 
   def connect
@@ -249,7 +247,10 @@ class LichNetHelper
       document = REXML::Document.new(value)
       map_and_filter_messages(document)
     rescue REXML::ParseException => e
-      @logging_helper.log_exception_with_backtrace(e) if debug?
+      @stderr.puts(@output_format % [
+        "#{e.class}: #{e.message}",
+        e.backtrace.map { |line| "\tfrom #{line}" }.join("\n")
+      ].join("\n")) if debug?
     end
   end
 

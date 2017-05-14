@@ -3,7 +3,7 @@ require 'helpers/alias_helper'
 
 describe AliasHelper do
   describe '#process' do
-    subject {AliasHelper.new({})}
+    subject { AliasHelper.new({}) }
 
     it 'will do nothing if there are no aliases configured' do
       expect(subject).to \

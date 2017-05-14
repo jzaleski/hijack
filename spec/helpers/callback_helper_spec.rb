@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'helpers/callback_helper'
 
 describe CallbackHelper do
-  subject {CallbackHelper.new}
+  subject { CallbackHelper.new({}) }
 
   # this isn't great, but it gives us everything needed to adequately test the
   # helper, futhermore, it doesn't make sense to expose the "callbacks" Hash

@@ -14,6 +14,9 @@ BRIDGES_DIR = "#{APP_DIR}/bridges"
 # Store the path to the "config" directory as a constant
 CONFIG_DIR = "#{ROOT_DIR}/config"
 
+# Store the path to the "classes" directory as a constant
+CLASSES_DIR = "#{APP_DIR}/classes"
+
 # Store the path to the "helpers" directory as a constant
 HELPERS_DIR = "#{APP_DIR}/helpers"
 
@@ -45,6 +48,7 @@ REQUIRED_MODULES = %w[
   socket
   thread
 ]
+REQUIRED_MODULES += Dir["#{CLASSES_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{HELPERS_DIR}/*.rb"]
 REQUIRED_MODULES.each { |required_module| require required_module }

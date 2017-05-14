@@ -3,7 +3,7 @@ require 'refinements/regexp'
 
 describe Regexp do
   describe '#union' do
-    subject {Regexp.new('hello')}
+    subject { Regexp.new('hello') }
 
     it 'should be able to union a "String" object' do
       expect(subject.union('world')).to \

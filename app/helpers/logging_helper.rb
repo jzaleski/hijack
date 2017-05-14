@@ -1,13 +1,31 @@
 class LoggingHelper
-  def initialize(opts={})
-    @exception_log = opts[:exception_log] || STDERR
+  def initialize(config)
+    @config = config
+    @stderr = config[:stderr] || STDERR
+    @stdout = config[:stdout] || STDOUT
   end
 
-  def log_exception_with_backtrace(exception)
-    @exception_log.puts "%s\n%s" % [
-      message(exception),
+  def debug(message)
+    @stdout.puts(message)
+  end
+
+  def error(message)
+    @stderr.puts(message)
+  end
+
+  def exception(exception)
+    @stderr.puts "%s\n%s" % [
+      exception_message(exception),
       backtrace(exception),
     ]
+  end
+
+  def info(message)
+    @stdout.puts(message)
+  end
+
+  def warning(message)
+    @stdout.puts(message)
   end
 
   private
@@ -16,7 +34,7 @@ class LoggingHelper
     exception.backtrace.map { |line| "\tfrom #{line}" }.join("\n")
   end
 
-  def message(exception)
+  def exception_message(exception)
     "\n#{exception.class}: #{exception.message}"
   end
 end
