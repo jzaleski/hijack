@@ -7,7 +7,7 @@ class ThievesGuildFoyerScript < SandSpitTavernBarroomScript
     super + [
       'go area|go bar',
       'climb ladder',
-      'go other barrel|go hole',
+      'go other barrel|go barrel|go hole',
       EAST,
       'go space|go niche',
       SOUTH,

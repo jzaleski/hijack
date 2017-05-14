@@ -53,7 +53,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   YOU_BEGIN_TO_WEAVE = 'You begin to weave'
   YOU_BLEND_IN = 'You blend in'
   YOU_CANT_CLOSE = "You can't close"
-  YOU_CANT_DO = "You can't do"
+  YOU_CANT_DO_THAT = "You can't do that"
   YOU_CANT_GO_THERE = "You can't go there"
   YOU_CANT_OPEN = "You can't open"
   YOU_CANT_SNEAK = "You can't sneak"
@@ -184,7 +184,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
   GET_PATTERN = [
     WHAT_WERE_YOU,
     YOU_ARE_ALREADY,
-    YOU_CANT_DO,
+    YOU_CANT_DO_THAT,
     YOU_GET,
     YOU_NEED_A_FREE_HAND,
     YOU_PICK_UP,
@@ -277,6 +277,7 @@ class BaseDragonrealmsScript < BaseSimutronicsScript
     OBVIOUS_EXITS,
     OBVIOUS_PATHS,
     WHAT_WERE_YOU_REFERRING_TO,
+    YOU_CANT_DO_THAT,
     YOU_CANT_GO_THERE,
     YOU_TRY_TO_MOVE_BUT_YOURE_ENGAGED,
   ].join('|')
