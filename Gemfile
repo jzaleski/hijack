@@ -7,6 +7,7 @@ end
 gem 'pry'
 gem 'thin'
 gem 'rake'
+gem 'rb-readline'
 gem 'sinatra'
 gem 'sinatra-websocket'
 
