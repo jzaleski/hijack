@@ -5,11 +5,14 @@ if ENV['HEROKU']
 end
 
 gem 'pry'
-gem 'thin'
 gem 'rake'
 gem 'rb-readline'
-gem 'sinatra'
-gem 'sinatra-websocket'
+
+if RUBY_PLATFORM !~ /java|jruby/
+  gem 'sinatra'
+  gem 'sinatra-websocket'
+  gem 'thin'
+end
 
 group :test do
   gem 'rspec'

@@ -38,20 +38,17 @@ $LOAD_PATH.unshift(APP_DIR) unless $LOAD_PATH.include?(APP_DIR)
 # General require(s)
 REQUIRED_MODULES = %w[
   erb
-  eventmachine
   json
   openssl
+  readline
   rexml/document
   set
-  sinatra/base
-  sinatra-websocket
   socket
   thread
 ]
+REQUIRED_MODULES +=  %w[sinatra/base sinatra-websocket] \
+  unless RUBY_PLATFORM =~ /java|jruby/
 REQUIRED_MODULES += Dir["#{CLASSES_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{HELPERS_DIR}/*.rb"]
 REQUIRED_MODULES.each { |required_module| require required_module }
-
-# JRuby specific require(s)
-require 'readline' if RUBY_PLATFORM =~ /java|jruby/
