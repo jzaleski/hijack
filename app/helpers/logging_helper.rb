@@ -5,36 +5,60 @@ class LoggingHelper
     @stdout = config[:stdout] || STDOUT
   end
 
-  def debug(message)
-    @stdout.puts(message)
+  def debug(message, exception=nil)
+    @stdout.puts(
+      format_message(
+        'DEBUG',
+        message,
+        exception
+      )
+    )
   end
 
-  def error(message)
-    @stderr.puts(message)
+  def error(message, exception=nil)
+    @stderr.puts(
+      format_message(
+        'ERROR',
+        message,
+        exception
+      )
+    )
   end
 
   def exception(exception)
-    @stderr.puts "%s\n%s" % [
-      exception_message(exception),
-      backtrace(exception),
-    ]
+    error("#{exception.class}: #{exception.message}", exception)
   end
 
-  def info(message)
-    @stdout.puts(message)
+  def info(message, exception=nil)
+    @stdout.puts(
+      format_message(
+        'INFO',
+        message,
+        exception
+      )
+    )
   end
 
-  def warning(message)
-    @stdout.puts(message)
+  def warn(message, exception=nil)
+    @stdout.puts(
+      format_message(
+        'WARN',
+        message,
+        exception
+      )
+    )
   end
 
   private
 
-  def backtrace(exception)
-    exception.backtrace.map { |line| "\tfrom #{line}" }.join("\n")
-  end
-
-  def exception_message(exception)
-    "\n#{exception.class}: #{exception.message}"
+  def format_message(level, message, exception)
+    message = "\n%s [%s]: %s" % [
+      Time.now.strftime('%Y-%m-%d %H:%M:%S'),
+      level,
+      message,
+    ]
+    message += "\n#{(exception.backtrace || []).map { |line| "\tfrom #{line}" }.join("\n")}" \
+      if exception.present?
+    message
   end
 end
