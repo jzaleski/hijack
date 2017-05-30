@@ -7,8 +7,6 @@ class LayoutHelper
     @num_cols ||= begin
       if @config.include?(:num_cols)
         @config[:num_cols].to_i
-      elsif RUBY_PLATFORM =~ /java|jruby/
-        Readline.get_screen_size.last
       elsif RUBY_PLATFORM =~ /mingw32/
         mode_parts = `mode con`.split
         mode_parts[mode_parts.index('Columns:') + 1].to_i
@@ -22,8 +20,6 @@ class LayoutHelper
     @num_rows ||= begin
       if @config.include?(:num_rows)
         @config[:num_rows].to_i
-      elsif RUBY_PLATFORM =~ /java|jruby/
-        Readline.get_screen_size.first
       elsif RUBY_PLATFORM =~ /mingw32/
         mode_parts = `mode con`.split
         mode_parts[mode_parts.index('Lines:') + 1].to_i
