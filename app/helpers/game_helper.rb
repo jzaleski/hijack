@@ -9,5 +9,6 @@ class GameHelper
     .
     ..
     base
+    pymud
   ]
 end
