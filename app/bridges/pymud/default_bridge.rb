@@ -11,13 +11,6 @@ class DefaultBridge < BaseBridge
     @socket.sync = true
   end
 
-  def gets
-    # perform all operations on a copy of the original string
-    str = super.dup.rstrip
-    # apply output formatting (assumes all values are complete messages)
-    str.present? ? "#{str}\n\n" : ''
-  end
-
   protected
 
   attr_reader :socket
