@@ -1,29 +1,10 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/rotted_wooden_signpost_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_stream_script.rb", true
 
-class RockyStreamScript < RottedWoodenSignpostScript
+class RockyStreamScript < DeepStreamScript
   protected
 
   def directions
     super + [
-      SOUTHWEST,
-      SOUTH,
-      SOUTHEAST,
-      SOUTH,
-      SOUTHEAST,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTHWEST,
-      "#{SOUTH}|go path",
-      SOUTH,
-      SOUTHEAST,
-      SOUTHEAST,
-      SOUTHWEST,
-      WEST,
-      SOUTH,
-      SOUTH,
-      SOUTH,
-      SOUTH,
       SOUTHEAST,
       SOUTHEAST,
       NORTHEAST,
