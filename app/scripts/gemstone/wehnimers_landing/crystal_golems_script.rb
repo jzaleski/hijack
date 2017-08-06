@@ -1,31 +1,12 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/manticores_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/greater_spiders_script.rb", true
 
-class CrystalGolemsScript < ManticoresScript
+class CrystalGolemsScript < GreaterSpidersScript
   protected
 
   def directions
     super + [
-      EAST,
-      SOUTHWEST,
-      SOUTHEAST,
-      SOUTH,
+      NORTHWEST,
       WEST,
-      WEST,
-      'go door',
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTH,
-      EAST,
-      EAST,
-      EAST,
-      'go step',
-      EAST,
-      NORTH,
       'go fissure',
     ]
   end
