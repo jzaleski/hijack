@@ -4,7 +4,7 @@ class WeaponsmithScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       NORTHEAST,
       "go door|#{OUT}",
     ]

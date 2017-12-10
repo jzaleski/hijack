@@ -4,7 +4,7 @@ class FurrierScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       "go shop|#{OUT}",
     ]

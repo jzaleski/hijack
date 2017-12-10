@@ -4,7 +4,7 @@ class HerbalistsTentScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHEAST,
       NORTH,
       "go tent|#{OUT}",

@@ -4,7 +4,7 @@ class EastTowerScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       NORTHWEST,
       NORTH,
       NORTH,

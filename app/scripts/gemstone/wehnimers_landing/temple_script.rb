@@ -4,7 +4,7 @@ class TempleScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       EAST,
       EAST,

@@ -4,7 +4,7 @@ class TavernScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTH,
       "go stairs|#{OUT}",
     ]

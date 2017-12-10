@@ -4,7 +4,7 @@ class WizardGuildScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       NORTH,
       WEST,
       NORTHWEST,

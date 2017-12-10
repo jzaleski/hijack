@@ -4,7 +4,7 @@ class BankScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       NORTHEAST,
       'go steps',
     ]

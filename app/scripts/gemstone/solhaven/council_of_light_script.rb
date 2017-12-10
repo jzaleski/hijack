@@ -4,7 +4,7 @@ class CouncilOfLightScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHEAST,
       SOUTHEAST,
       SOUTH,

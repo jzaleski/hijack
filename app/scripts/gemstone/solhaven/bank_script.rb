@@ -4,7 +4,7 @@ class BankScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHEAST,
       EAST,
       "go bank|#{OUT}",

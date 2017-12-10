@@ -4,7 +4,7 @@ class FurrierScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       "go steps|#{OUT}",
     ]

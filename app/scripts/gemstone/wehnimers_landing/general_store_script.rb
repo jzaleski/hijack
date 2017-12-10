@@ -4,7 +4,7 @@ class GeneralStoreScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHEAST,
       "go store|#{OUT}",
     ]

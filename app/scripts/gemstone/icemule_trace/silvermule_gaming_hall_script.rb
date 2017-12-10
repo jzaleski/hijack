@@ -4,7 +4,7 @@ class SilvermuleGamingHallScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       SOUTH,
       WEST,
       SOUTH,

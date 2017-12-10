@@ -4,7 +4,7 @@ class DenseFogScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       NORTH,
       WEST,
       NORTHWEST,

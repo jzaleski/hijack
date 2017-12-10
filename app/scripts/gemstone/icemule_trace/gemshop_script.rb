@@ -4,7 +4,7 @@ class GemshopScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       SOUTH,
       SOUTH,

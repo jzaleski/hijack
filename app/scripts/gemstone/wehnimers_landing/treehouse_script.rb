@@ -4,7 +4,7 @@ class TreehouseScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       "climb tree|#{UP}",
     ]
   end

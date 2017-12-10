@@ -4,7 +4,7 @@ class WeaponsmithScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHEAST,
       "go wooden steps|#{OUT}",
     ]

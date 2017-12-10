@@ -4,7 +4,7 @@ class ThirstyPenguinScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       WEST,
       WEST,
       SOUTH,

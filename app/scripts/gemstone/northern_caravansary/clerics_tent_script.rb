@@ -4,7 +4,7 @@ class ClericsTentScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       NORTH,
       "go tent|#{OUT}",

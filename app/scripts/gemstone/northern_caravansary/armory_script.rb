@@ -4,7 +4,7 @@ class ArmoryScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTH,
       EAST,
       "go steps|#{OUT}",

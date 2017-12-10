@@ -4,7 +4,7 @@ class PawnshopScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       SOUTH,
       "go shop|#{OUT}",

@@ -4,7 +4,7 @@ class AdventurersGuildScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       NORTHEAST,
       EAST,
       EAST,

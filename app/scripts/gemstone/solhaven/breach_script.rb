@@ -4,7 +4,7 @@ class BreachScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       NORTH,
       NORTHWEST,
       UP,

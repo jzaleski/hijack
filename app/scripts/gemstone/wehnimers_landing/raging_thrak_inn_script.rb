@@ -4,7 +4,7 @@ class RagingThrakInnScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       NORTHWEST,
       "go inn|#{OUT}",
     ]

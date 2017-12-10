@@ -4,7 +4,7 @@ class StockadeGateScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       NORTH,
       'go gate',
     ]

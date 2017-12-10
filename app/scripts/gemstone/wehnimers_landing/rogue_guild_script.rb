@@ -4,7 +4,7 @@ class RogueGuildScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       EAST,
       EAST,

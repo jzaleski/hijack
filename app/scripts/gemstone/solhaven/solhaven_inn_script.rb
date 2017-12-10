@@ -4,7 +4,7 @@ class SolhavenInnScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       EAST,
       EAST,

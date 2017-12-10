@@ -4,7 +4,7 @@ class ArmoryScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       WEST,
       "go door|#{OUT}",

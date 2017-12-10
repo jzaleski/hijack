@@ -4,7 +4,7 @@ class AlchemistScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       NORTH,
       NORTHEAST,
       NORTHEAST,

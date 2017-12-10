@@ -4,7 +4,7 @@ class MagicTentScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       NORTHEAST,
       SOUTH,
       "go tent|#{OUT}",

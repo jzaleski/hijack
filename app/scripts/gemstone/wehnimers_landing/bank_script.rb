@@ -4,7 +4,7 @@ class BankScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       WEST,
       "go bank|#{OUT}",
       'go arch',

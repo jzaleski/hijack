@@ -4,7 +4,7 @@ class GemshopScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       NORTHWEST,
       'go steps',
     ]

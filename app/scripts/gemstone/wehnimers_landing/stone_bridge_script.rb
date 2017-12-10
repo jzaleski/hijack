@@ -1,29 +1,17 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_chasm_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_stream_script.rb", true
 
-class StoneBridgeScript < DeepChasmScript
+class StoneBridgeScript < DeepStreamScript
   protected
 
   def directions
     super + [
-      "go chasm|#{DOWN}",
-      DOWN,
+      SOUTHEAST,
+      SOUTHEAST,
+      NORTHEAST,
+      NORTHEAST,
       EAST,
-      DOWN,
-      NORTH,
-      NORTH,
-      NORTHEAST,
-      NORTH,
-      NORTH,
-      NORTH,
-      NORTHEAST,
-      NORTHEAST,
-      NORTHEAST,
-      NORTH,
-      NORTH,
-      NORTHEAST,
-      NORTH,
-      NORTHEAST,
-      NORTH,
+      EAST,
+      'go bridge',
     ]
   end
 

@@ -4,7 +4,7 @@ class ClovertoothHallScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       EAST,
       SOUTH,

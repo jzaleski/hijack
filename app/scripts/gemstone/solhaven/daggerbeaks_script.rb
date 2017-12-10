@@ -4,7 +4,7 @@ class DaggerbeaksScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       NORTH,
       NORTHWEST,
       UP,

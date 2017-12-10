@@ -4,7 +4,7 @@ class CommunityWellScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       WEST,
       WEST,
       SOUTH,

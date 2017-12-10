@@ -4,7 +4,7 @@ class AlchemistScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       EAST,
       EAST,

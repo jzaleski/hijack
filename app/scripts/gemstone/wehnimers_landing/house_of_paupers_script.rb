@@ -4,7 +4,7 @@ class HouseOfPaupersScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       'go walk',
     ]

@@ -4,7 +4,7 @@ class PawnshopScript < GreenScript
   protected
 
   def directions
-    [
+    super + [
       SOUTH,
       WEST,
       "go stairs|#{OUT}",

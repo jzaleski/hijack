@@ -4,7 +4,7 @@ class ThyrilsScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       "go well|#{NORTH}",
       'climb rope',
       'go crevice',

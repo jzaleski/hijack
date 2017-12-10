@@ -4,7 +4,7 @@ class EastGateScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       EAST,
       EAST,
       EAST,

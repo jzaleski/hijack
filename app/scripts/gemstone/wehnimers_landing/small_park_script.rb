@@ -4,7 +4,7 @@ class SmallParkScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       SOUTHWEST,
       SOUTH,
     ]

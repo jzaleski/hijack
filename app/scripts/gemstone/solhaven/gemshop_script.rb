@@ -4,7 +4,7 @@ class GemshopScript < NorthMarketScript
   protected
 
   def directions
-    [
+    super + [
       NORTHEAST,
       "go door|#{OUT}",
     ]

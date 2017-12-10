@@ -4,7 +4,7 @@ class SouthGateScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       SOUTH,
       SOUTH,
       SOUTH,

@@ -4,7 +4,7 @@ class StuccoWellScript < TownCenterScript
   protected
 
   def directions
-    [
+    super + [
       WEST,
       WEST,
       SOUTH,

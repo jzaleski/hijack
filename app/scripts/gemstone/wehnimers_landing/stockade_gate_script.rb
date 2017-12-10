@@ -1,22 +1,10 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_stream_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/gnoll_workers_script.rb", true
 
-class StockadeGateScript < DeepStreamScript
+class StockadeGateScript < GnollWorkersScript
   protected
 
   def directions
     super + [
-      SOUTHEAST,
-      SOUTHEAST,
-      NORTHEAST,
-      NORTHEAST,
-      EAST,
-      EAST,
-      'go bridge',
-      SOUTHEAST,
-      SOUTH,
-      SOUTHEAST,
-      SOUTH,
-      EAST,
       SOUTH,
       SOUTH,
     ]

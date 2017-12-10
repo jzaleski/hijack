@@ -4,7 +4,7 @@ class HelgasTavernScript < TownSquareCentralScript
   protected
 
   def directions
-    [
+    super + [
       NORTHEAST,
       EAST,
       EAST,
