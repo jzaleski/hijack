@@ -28,6 +28,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   IS_ALREADY_MISSING_THAT = 'is already missing that!'
   ITS_A_LITTLE_BIT_LATE_FOR_THAT = 'A little bit late for that'
   I_COULD_NOT_FIND = 'I could not find'
+  NORTHERN_CARAVANSARY = 'northern_caravansary'
   NOTICES_YOUR_ATTEMPT_TO_HIDE = 'notices your attempt to hide'
   OBVIOUS_EXITS = 'Obvious exits:'
   OBVIOUS_PATHS = 'Obvious paths:'

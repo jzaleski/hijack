@@ -1,24 +1,10 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_stream_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/stockade_gate_script.rb", true
 
-class RockyStreamScript < DeepStreamScript
+class RockyStreamScript < StockadeGateScript
   protected
 
   def directions
     super + [
-      SOUTHEAST,
-      SOUTHEAST,
-      NORTHEAST,
-      NORTHEAST,
-      EAST,
-      EAST,
-      'go bridge',
-      SOUTHEAST,
-      SOUTH,
-      SOUTHEAST,
-      SOUTH,
-      EAST,
-      SOUTH,
-      SOUTH,
       SOUTHWEST,
       SOUTH,
       SOUTH,
