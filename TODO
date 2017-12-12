@@ -1,0 +1,5 @@
+8407a2d7-df85-11e7-9279-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115019	1513115019	a	Add sub-directories for regional scripts (for now duplicates are prefixed)
+5fde800f-df86-11e7-a94b-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115388	1513115388	a	Smarter path-finding (don't go all the way back to the nexus when travelling)
+73a16842-df86-11e7-920d-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115421	1513115421	a	Add more generators/helpers for boiler-plate/standard tasks
+8bd3fad7-df86-11e7-a297-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115462	1513115462	a	If a "return" script doesn't exist, just reverse the directions in the orignal script (this would DRY things up a good deal)
+9870f41c-df86-11e7-b538-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115483	1513115483	a	Add `sneaking` support (to GS -- while scripting)
