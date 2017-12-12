@@ -618,6 +618,11 @@ class BaseGemstoneScript < BaseSimutronicsScript
         ESCORT_MOVE_PATTERN,
         direction
       ).match(ESCORT_MOVE_SUCCESS_PATTERN)
+    elsif sneaking?
+      wait_for_match(
+        SNEAKING_MOVE_PATTERN,
+        direction
+      ).match(SNEAKING_MOVE_SUCCESS_PATTERN)
     else
       loop do
         result = wait_for_match(
@@ -703,6 +708,10 @@ class BaseGemstoneScript < BaseSimutronicsScript
       SKIN_PATTERN,
       skinning_knife ? "skin #{creature} with my #{skinning_knife}" : "skin #{creature}"
     ).match(SKIN_SUCCESS_PATTERN)
+  end
+
+  def sneaking?
+    @config.sneaking?
   end
 
   def stance_defensive

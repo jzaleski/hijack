@@ -3,3 +3,15 @@
 73a16842-df86-11e7-920d-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115421	1513115421	a	Add more generators/helpers for boiler-plate/standard tasks
 8bd3fad7-df86-11e7-a297-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115462	1513115462	a	If a "return" script doesn't exist, just reverse the directions in the orignal script (this would DRY things up a good deal)
 9870f41c-df86-11e7-b538-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513115483	1513115483	a	Add `sneaking` support (to GS -- while scripting)
+064101b0-df93-11e7-8ded-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513120821	1513120821	a	Refactor `ScriptHelper#execute` (it is doing too much)
+4044243d-df93-11e7-9588-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513120918	1513120918	a	Refactor `Base{Dragonrealms,Gemstone}Script(s)` create mixins and constants files
+78067f47-df96-11e7-aae1-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122301	1513122301	a	Fix `bundler` warning during deploy [HEROKU]
+c117502e-df96-11e7-ae61-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122423	1513122423	a	Deploy to the latest available MRI ruby version [HEROKU]
+e95672c0-df96-11e7-9954-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122491	1513122491	a	Show script-names in tabular form, based on resolution, for list-available (;la)
+6db31dfa-df97-11e7-b370-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122713	1513122713	a	Treat CONFIG_FILE (env-var) and --config-file (flag) as one in the same (and refactor to use CONFIG_FILE) [CLI]
+cd6ea414-df97-11e7-b5ef-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122873	1513122873	a	Add command history (up/down arrow to scroll through history is OK, but we can do better) [WEB]
+02d3f2f8-df98-11e7-8afc-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122963	1513122963	a	Add compass or swipe, to simplify movement (currently it takes at minimum 2 key-presses) [WEB]
+54de5ee3-df98-11e7-8022-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513123101	1513123101	a	Figure out how to more closely emulate `;go2` functionality (but shoot for better -- `;go2` has its limitations)
+655840d1-df98-11e7-95e4-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513123128	1513123128	a	Update README.md (include links to procuring a F2P account (or using an existing paid account), available environment variables, etc.)
+6cd6d921-df98-11e7-baf3-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513123141	1513123141	a	Add DEVELOPMENT.md
+33e2d4fd-e053-11e7-bea0-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513203361	1513203361	a	Create a script for getting bounties (configure which ones to take and drop and navigate to/from start location)
