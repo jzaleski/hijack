@@ -1,6 +1,6 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/stone_bridge_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/upper_trollfang_stone_bridge_script.rb", true
 
-class GnollWorkersScript < StoneBridgeScript
+class GnollWorkersScript < UpperTrollfangStoneBridgeScript
   protected
 
   def directions

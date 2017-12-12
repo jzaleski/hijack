@@ -1,6 +1,6 @@
 load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/deep_stream_script.rb", true
 
-class StoneBridgeScript < DeepStreamScript
+class UpperTrollfangStoneBridgeScript < DeepStreamScript
   protected
 
   def directions
@@ -16,6 +16,6 @@ class StoneBridgeScript < DeepStreamScript
   end
 
   def location
-    "stone_bridge|#{WEHNIMERS_LANDING}"
+    "upper_trollfang_stone_bridge|#{WEHNIMERS_LANDING}"
   end
 end

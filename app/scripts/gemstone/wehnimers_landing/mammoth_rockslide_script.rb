@@ -1,6 +1,6 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/stone_bridge_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/snowy_plains_stone_bridge_script.rb", true
 
-class MammothRockslideScript < StoneBridgeScript
+class MammothRockslideScript < SnowyPlainsStoneBridgeScript
   protected
 
   def directions
