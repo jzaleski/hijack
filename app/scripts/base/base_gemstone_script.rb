@@ -101,6 +101,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_STRUGGLE_BUT_FAIL_TO_STAND = 'You struggle, but fail to stand'
   YOU_SWING = 'You swing'
   YOU_TAKE = 'You take'
+  YOU_TIPTOE = 'You tiptoe'
   YOU_WILL_HAVE_TO_STAND_UP_FIRST = 'You will have to stand up first'
   YOU_WRING_YOUR_HANDS = 'You wring your hands'
 
@@ -430,6 +431,20 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_SKINNED,
   ].join('|')
 
+  SNEAK_MOVE_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+    WHERE_ARE_YOU_TRYING_TO_GO,
+    YOU_CANT_GO_THERE,
+    YOU_TIPTOE,
+    YOU_WILL_HAVE_TO_STAND_UP_FIRST,
+  ].join('|')
+
+  SNEAK_MOVE_SUCCESS_PATTERN = [
+    OBVIOUS_EXITS,
+    OBVIOUS_PATHS,
+  ].join('|')
+
   STANCE_DEFENSIVE_PATTERN = [
     YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE,
   ].join('|')
@@ -613,16 +628,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
   end
 
   def move(direction)
+    return sneak(direction) if sneaking?
+
     if escorting?
       wait_for_match(
         ESCORT_MOVE_PATTERN,
         direction
       ).match(ESCORT_MOVE_SUCCESS_PATTERN)
-    elsif sneaking?
-      wait_for_match(
-        SNEAKING_MOVE_PATTERN,
-        direction
-      ).match(SNEAKING_MOVE_SUCCESS_PATTERN)
     else
       loop do
         result = wait_for_match(
@@ -642,10 +654,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
             sleep 0.1 until stand
           when \
             FIVE_SILVERS_ENTRANCE_FEE
-            result = wait_for_match(
-              PAY_GUARD_PATTERN,
-              'give guard 5 silver'
-            )
+            result = wait_for_match(PAY_GUARD_PATTERN, 'give guard 5 silver')
             return false unless result.match(PAY_GUARD_SUCCESS_PATTERN)
           else
             return false
@@ -708,6 +717,15 @@ class BaseGemstoneScript < BaseSimutronicsScript
       SKIN_PATTERN,
       skinning_knife ? "skin #{creature} with my #{skinning_knife}" : "skin #{creature}"
     ).match(SKIN_SUCCESS_PATTERN)
+  end
+
+  def sneak(direction)
+    # TODO: In the future we may want to make this a case-statement that will
+    # auto-hide, stand-up, etc. (based on configuration?)
+    wait_for_match(
+      SNEAK_MOVE_PATTERN,
+      "sneak #{direction.gsub(/^go /, '')}",
+    ).match(SNEAK_MOVE_SUCCESS_PATTERN)
   end
 
   def sneaking?
