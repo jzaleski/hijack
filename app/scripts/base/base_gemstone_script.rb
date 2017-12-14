@@ -68,6 +68,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_CANNOT_SKIN = 'You cannot skin'
   YOU_CANT_GO_THERE = "You can't go there"
   YOU_CAN_ONLY_SKIN_CREATURES = 'You can only skin creatures'
+  YOU_CAREFULLY_SEARCH_THE_AREA_AND_FIND = 'You carefully search the area and find'
   YOU_CLOSE = 'You close'
   YOU_CURRENTLY_HAVE_NO_VALID_TARGET = 'You currently have no valid target'
   YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
@@ -387,6 +388,15 @@ class BaseGemstoneScript < BaseSimutronicsScript
     YOU_SEARCH_THE,
   ].join('|')
 
+  SEARCH_PATTERN = [
+    YOU_CAREFULLY_SEARCH_THE_AREA_AND_FIND,
+    ROUNDTIME,
+  ].join('|')
+
+  SEARCH_SUCCESS_PATTERN = [
+    YOU_CAREFULLY_SEARCH_THE_AREA_AND_FIND,
+  ].join('|')
+
   SELL_MY_PATTERN = [
     HANDS_IT_BACK_TO_YOU_ALONG_WITH,
     HANDS_IT_BACK_TO_YOU_AND_SAYS,
@@ -689,6 +699,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       REMOVE_MY_PATTERN,
       "remove my #{item}"
     ).match(REMOVE_MY_SUCCESS_PATTERN)
+  end
+
+  def search
+    wait_for_match(
+      SEARCH_PATTERN,
+      "search",
+    ).match(SEARCH_SUCCESS_PATTERN)
   end
 
   def search_creature(creature)
