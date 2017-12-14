@@ -6,7 +6,7 @@
 064101b0-df93-11e7-8ded-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513120821	1513120821	a	Refactor `ScriptHelper#execute` (it is doing too much) [REF]
 4044243d-df93-11e7-9588-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513120918	1513120918	a	Refactor `Base{Dragonrealms,Gemstone}Script(s)` create mixins and constants files [REF]
 78067f47-df96-11e7-aae1-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122301	1513122301	a	Fix `bundler` warning during deploy [HEROKU|QOL]
-c117502e-df96-11e7-ae61-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122423	1513122423	a	Deploy to the latest available MRI ruby version [HEROKU|QOL]
+c117502e-df96-11e7-ae61-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122423	1513221616	d	Deploy to the latest available MRI ruby version [HEROKU|QOL]
 e95672c0-df96-11e7-9954-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122491	1513122491	a	Show script-names in tabular form, based on resolution, for list-available (;la) [QOL]
 6db31dfa-df97-11e7-b370-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122713	1513122713	a	Treat CONFIG_FILE (env-var) and --config-file (flag) as one in the same (and refactor to use CONFIG_FILE) [CLI|QOL]
 cd6ea414-df97-11e7-b5ef-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513122873	1513122873	a	Add command history (up/down arrow to scroll through history is OK, but we can do better) [WEB|QOL]

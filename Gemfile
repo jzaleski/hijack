@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 if ENV['HEROKU']
-  ruby '2.4.0'
+  ruby '2.4.2'
 end
 
-gem 'pry', '~> 0.10'
-gem 'rake', '~> 12.0'
+gem 'pry', '~> 0.11'
+gem 'rake', '~> 12.3'
 gem 'rb-readline', '~> 0.5'
 
 if RUBY_PLATFORM !~ /java|jruby/
@@ -15,5 +15,5 @@ if RUBY_PLATFORM !~ /java|jruby/
 end
 
 group :test do
-  gem 'rspec', '~> 3.6'
+  gem 'rspec', '~> 3.7'
 end
