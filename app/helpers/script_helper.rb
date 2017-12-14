@@ -1,5 +1,12 @@
 class ScriptHelper
-  def initialize(config, bridge, input_buffer, output_buffer, callback_helper, logging_helper)
+  def initialize(
+    config,
+    bridge,
+    input_buffer,
+    output_buffer,
+    callback_helper,
+    logging_helper
+  )
     @config = config
     @bridge = bridge
     @input_buffer = input_buffer
@@ -37,8 +44,8 @@ class ScriptHelper
       elsif command_parts[0] == 'r' && script_name = command_parts[1]
         resume(script_name)
       elsif top_level_script_name = command_parts[0]
-        # instantiate an "Array" (used like a "Stack") to store the script-names
-        # and script-objects in their desired execution order
+        # instantiate an `Array`, used like a `Stack`, to store the
+        # script-names and script-objects in their desired execution order
         script_names_and_objects = []
         # [try to] construct the top-level script-object. First, extract the
         # script-args (stripping out the "script_name" and any leading/trailing
@@ -51,27 +58,23 @@ class ScriptHelper
         # constructed
         return unless top_level_script_object.present?
         # push the top-level script-name and script-object onto the stack
-        script_names_and_objects.push([
-          top_level_script_name,
-          top_level_script_object,
-        ])
+        script_names_and_objects.push([top_level_script_name,
+          top_level_script_object])
         # determine if it is necessary to return to the nexus before executing
         # the top-level script-object
         if \
           should_return_to_nexus?(top_level_script_object) &&
           return_script_name = return_script_name(@config[:location])
           # [try to] construct the return script-object. For the time being the
-          # script-args are only passed to the top-level script-object (there is
-          # no specific reason for this)
+          # script-args are only passed to the top-level script-object (there
+          # is no specific reason for this)
           return_script_object = construct_script_object(return_script_name)
           # short circuit if the return script-object was not successfully
           # constructed
           return unless return_script_object.present?
           # push the return script-object onto the stack
-          script_names_and_objects.push([
-            return_script_name,
-            return_script_object,
-          ])
+          script_names_and_objects.push([return_script_name,
+            return_script_object])
         end
         # don't block the main-thread waiting for scripts to finish execution
         Thread.new do
@@ -127,7 +130,8 @@ class ScriptHelper
     end
     # short-circuit if the script-class could not be loaded
     if (script_class = Object::const_get(script_class_name(script_name))).nil?
-      @output_buffer.puts "\nScript: '#{script_name}' class could to be loaded.."
+      @output_buffer.puts \
+        "\nScript: '#{script_name}' class could to be loaded.."
       return
     end
     # construct the script-object
@@ -181,19 +185,7 @@ class ScriptHelper
   end
 
   def kill_all
-    @scripts.keys.each do |script_name|
-      kill(script_name)
-    end
-  end
-
-  def load_script(script_path)
-    begin
-      load script_path, true
-      true
-    rescue Exception => e
-      @logging_helper.exception(e)
-      false
-    end
+    @scripts.keys.each { |script_name| kill(script_name) }
   end
 
   def list_available
@@ -234,6 +226,16 @@ class ScriptHelper
       @output_buffer.puts '(none)'
     else
       scripts.each { |script| @output_buffer.puts(script) }
+    end
+  end
+
+  def load_script(script_path)
+    begin
+      load script_path, true
+      true
+    rescue Exception => e
+      @logging_helper.exception(e)
+      false
     end
   end
 
