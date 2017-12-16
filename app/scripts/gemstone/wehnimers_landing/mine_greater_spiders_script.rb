@@ -1,6 +1,6 @@
 load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/manticores_script.rb", true
 
-class GreaterSpidersScript < ManticoresScript
+class MineGreaterSpidersScript < ManticoresScript
   protected
 
   def directions
@@ -19,6 +19,6 @@ class GreaterSpidersScript < ManticoresScript
   end
 
   def location
-    "greater_spiders|#{WEHNIMERS_LANDING}"
+    "mine_greater_spiders|#{WEHNIMERS_LANDING}"
   end
 end

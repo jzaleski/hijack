@@ -16,3 +16,6 @@ cd6ea414-df97-11e7-b5ef-1040f3853dae	00000000-0000-0000-0000-000000000000	jzales
 6cd6d921-df98-11e7-baf3-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513123141	1513123141	a	Add DEVELOPMENT.md [DEV|QOL]
 33e2d4fd-e053-11e7-bea0-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513203361	1513203361	a	Create a script for getting bounties (configure which ones to take and drop and navigate to/from start location) [NEW]
 4fcea4dc-e075-11e7-b454-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513218011	1513218399	a	Add `description(s)` to script(s) -- this feature is already supported by `ScriptHelper` [QOL]
+9a44f7d1-e1e7-11e7-b82e-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513377050	1513436889	d	Finish creating Sea-Caverns hunting scripts
+ce390085-e1e7-11e7-854b-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513377137	1513436884	d	Build a common script to T `LargeRockslideScript` and `SeaCavernsScript`
+0cab235e-e273-11e7-a381-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513436941	1513436941	a	Prefix all hunting scripts w/ their "region" name (e.g. Glatoph, MineRoad, etc.)

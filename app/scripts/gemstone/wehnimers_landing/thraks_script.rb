@@ -1,6 +1,6 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/manticores_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/large_rockslide_script.rb", true
 
-class ThraksScript < ManticoresScript
+class ThraksScript < LargeRockslideScript
   protected
 
   def location
