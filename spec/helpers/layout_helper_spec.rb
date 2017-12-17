@@ -26,18 +26,6 @@ describe LayoutHelper do
     end
   end
 
-  describe '#reset_layout' do
-    it 'will reset num_cols and num_rows' do
-      subject = LayoutHelper.new({:num_cols => 100, :num_rows => 50})
-
-      subject.reset_layout
-
-      [:@num_cols, :@num_rows].each do |instance_variable|
-        expect(subject.instance_variable_get(instance_variable)).to be_nil
-      end
-    end
-  end
-
   describe '#strip_ansi_escape_sequences?' do
     it 'will read strip_ansi_escape_sequences from config if specified' do
       subject = LayoutHelper.new({:strip_ansi_escape_sequences => true})

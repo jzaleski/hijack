@@ -10,17 +10,9 @@ class HighlightsHelper
 
   def process(line)
     line.dup.tap do |str|
-      patterns_and_opts.each do |patterns, opts|
-        patterns.each do |pattern|
-          str.gsub!(
-            pattern,
-            template % {
-              :background => background(opts),
-              :font => font(opts),
-              :foreground => foreground(opts),
-              :value => pattern,
-            }
-          )
+      patterns_and_opts.each do |pattern, opts|
+        str.gsub!(pattern) do |value|
+          template % opts.merge(:value => value)
         end
       end
     end
@@ -53,7 +45,16 @@ class HighlightsHelper
   end
 
   def patterns_and_opts
-    highlights[:patterns_and_opts] || DEFAULT_PATTERNS_AND_OPTS
+    @config[:compiled_patterns_and_opts] ||= begin
+      (highlights[:patterns_and_opts] || DEFAULT_PATTERNS_AND_OPTS).reduce({}) do |memo, (patterns, opts)|
+        memo[patterns.to_regexp(:escape => true)] = {
+          :background => background(opts),
+          :font => font(opts),
+          :foreground => foreground(opts),
+        }
+        memo
+      end
+    end
   end
 
   def template

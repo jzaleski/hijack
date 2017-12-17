@@ -105,15 +105,6 @@ class BaseBridge
       rescue Exception => e
         @logging_helper.exception(e)
       end
-    # layout handling
-    elsif str.start_with?('~')
-      begin
-        method, *args = @arguments_helper.parse(str[1..-1])
-        @layout_helper.public_send(method, *args)
-        @output_buffer.puts("\nOk.")
-      rescue Exception => e
-        @logging_helper.exception(e)
-      end
     # script handling
     elsif str.start_with?(';')
       @script_helper.execute(str[1..-1])

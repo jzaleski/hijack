@@ -5,7 +5,10 @@ class ConfigProxy < HashProxy
   end
 
   def reload(config_file=nil)
-    merge!(@config_helper.process_config_file(config_file || self[:config_file]))
+    config_file ||= self[:config_file]
+    clear
+    merge!(@config_helper.process_config_file(config_file))
+    self[:config_file] = config_file
   end
 end
 

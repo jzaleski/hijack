@@ -4,7 +4,7 @@ class LayoutHelper
   end
 
   def num_cols
-    @num_cols ||= begin
+    @config[:num_cols] ||= begin
       if @config.include?(:num_cols)
         @config[:num_cols].to_i
       elsif RUBY_PLATFORM =~ /mingw32/
@@ -17,7 +17,7 @@ class LayoutHelper
   end
 
   def num_rows
-    @num_rows ||= begin
+    @config[:num_rows] ||= begin
       if @config.include?(:num_rows)
         @config[:num_rows].to_i
       elsif RUBY_PLATFORM =~ /mingw32/
@@ -27,11 +27,6 @@ class LayoutHelper
         (STDIN.tty? ? `stty size`.split.first : `tput rows`).to_i
       end
     end
-  end
-
-  def reset_layout
-    @num_cols = nil
-    @num_rows = nil
   end
 
   def strip_ansi_escape_sequences?

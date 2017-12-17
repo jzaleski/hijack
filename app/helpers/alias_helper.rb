@@ -13,7 +13,7 @@ class AliasHelper
   private
 
   def aliases
-    @aliases ||= begin
+    @config[:compiled_aliases] ||= begin
       (@config[:aliases] || {}).reduce({}) do |memo, (pattern, replacement)|
         memo[pattern.to_regexp] = replacement
         memo
