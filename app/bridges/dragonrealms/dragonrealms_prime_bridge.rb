@@ -7,7 +7,6 @@ class DragonrealmsPrimeBridge < BaseDragonrealmsBridge
       :game_host => 'dr.simutronics.net',
       :game_port => 4901,
       :game_code => 'DR',
-      :script_dir => 'dragonrealms',
       :lich_net_channel => 'DRPrime',
     })
   end

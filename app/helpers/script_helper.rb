@@ -294,7 +294,7 @@ class ScriptHelper
   def script_directories
     [].tap do |script_directories|
       # [configured] game-specific directory
-      if script_dir = @config[:script_dir]
+      if script_dir = @config[:game]
         # extract the `location_parts`
         location_parts = (@config[:location].split('|') rescue []).reverse
         # starting at most-specific to least specific append the full-location

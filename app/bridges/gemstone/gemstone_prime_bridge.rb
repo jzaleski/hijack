@@ -7,7 +7,7 @@ class GemstonePrimeBridge < BaseGemstoneBridge
       :game_host => 'gs3.simutronics.net',
       :game_port => 4900,
       :game_code => 'GS3',
-      :script_dir => 'gemstone',
+      :lich_net_channel => 'LNet',
     })
   end
 end
