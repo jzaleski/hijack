@@ -21,3 +21,4 @@ ce390085-e1e7-11e7-854b-1040f3853dae	00000000-0000-0000-0000-000000000000	jzales
 0cab235e-e273-11e7-a381-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513436941	1513436941	a	Prefix all hunting scripts w/ their "region" name (e.g. Glatoph, MineRoad, etc.) [QOL]
 e19191cf-e2cc-11e7-9a99-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513475524	1513485085	d	Enhance the performance of `HighlightsHelper#process` currently it needs to process every `pattern` individually (which is very wasteful) [PER]
 887aa1d1-e2e4-11e7-9b80-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513485682	1513485682	a	Tease apart the caching handled by `ConfigProxy` into its own class/object (singleton?) [REF]
+5dd202f0-e32c-11e7-a00c-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513516535	1513516535	a	Add the ability to search available scripts (pass in a second argument to `;la` or a new prefix?) [QOL]
