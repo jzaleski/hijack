@@ -1,19 +1,10 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/sea_nymphs_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/underground_ruin_stone_steps_script.rb", true
 
-class DarkVysansScript < SeaNymphsScript
+class DarkVysansScript < UndergroundRuinStoneStepsScript
   protected
 
   def directions
     super + [
-      SOUTH,
-      SOUTHWEST,
-      SOUTH,
-      EAST,
-      SOUTHEAST,
-      SOUTHWEST,
-      SOUTH,
-      SOUTHEAST,
-      'go steps',
       SOUTH,
       SOUTHEAST,
       EAST,
