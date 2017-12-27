@@ -24,7 +24,9 @@ class ConfigHelper
   end
 
   def process_config_file(config_file)
-    process_hash(JSON.parse(File.read(config_file)))
+    if File.exist?(config_file)
+      process_hash(JSON.parse(File.read(config_file)))
+    end
   end
 
   def process_hash(hash)

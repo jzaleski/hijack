@@ -21,7 +21,8 @@ class HighlightsHelper
   private
 
   def background(opts)
-    palette[(opts[:background] || defaults(:background)).to_sym] rescue nil
+    palette[(opts[:background] || defaults(:background)).to_snake_case.to_sym] \
+      rescue nil
   end
 
   def defaults(key)
@@ -29,11 +30,12 @@ class HighlightsHelper
   end
 
   def font(opts)
-    palette[(opts[:font] || defaults(:font)).to_sym] rescue nil
+    palette[(opts[:font] || defaults(:font)).to_snake_case.to_sym] rescue nil
   end
 
   def foreground(opts)
-    palette[(opts[:foreground] || defaults(:foreground)).to_sym] rescue nil
+    palette[(opts[:foreground] || defaults(:foreground)).to_snake_case.to_sym] \
+      rescue nil
   end
 
   def highlights
@@ -46,7 +48,8 @@ class HighlightsHelper
 
   def patterns_and_opts
     @config[:compiled_patterns_and_opts] ||= begin
-      (highlights[:patterns_and_opts] || DEFAULT_PATTERNS_AND_OPTS).reduce({}) do |memo, (patterns, opts)|
+      (highlights[:patterns_and_opts] || DEFAULT_PATTERNS_AND_OPTS).reduce({}) do |memo, patterns_and_opts|
+        patterns, opts = patterns_and_opts.fetch_values(:patterns, :opts)
         memo[patterns.to_regexp(:escape => true)] = {
           :background => background(opts),
           :font => font(opts),

@@ -20,7 +20,7 @@ class BaseSimutronicsBridge < BaseBridge
   def initialize(config)
     super
     @config.merge!({
-      :allowed_command_frequency_ms => 75,
+      :allowed_command_frequency_ms => 50,
       :login_host => 'eaccess.play.net',
       :login_port => 7900,
     })
