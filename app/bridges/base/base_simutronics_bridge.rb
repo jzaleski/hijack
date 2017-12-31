@@ -2,11 +2,13 @@ require 'bridges/base/base_bridge'
 
 class BaseSimutronicsBridge < BaseBridge
   SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
-  WAIT = '\.\.\.wait'
+  WAIT = '\.\.\.wait '
+  WAIT_N_SEC = 'Wait \d+ sec'
 
   RETRY_PATTERN = [
     SORRY_YOU_MAY_ONLY_TYPE_AHEAD,
     WAIT,
+    WAIT_N_SEC,
   ].join('|')
 
   def self.required_args
