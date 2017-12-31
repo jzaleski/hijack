@@ -1,6 +1,6 @@
-load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/house_of_paupers_script.rb", true
+load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/house_of_paupers_outer_grounds_script.rb", true
 
-class HouseOfPaupersCommonsScript < HouseOfPaupersScript
+class HouseOfPaupersCommonsScript < HouseOfPaupersOuterGroundsScript
   protected
 
   def directions

@@ -1,16 +1,16 @@
 load "#{SCRIPTS_DIR}/gemstone/wehnimers_landing/town_square_central_script.rb", true
 
-class HouseOfPaupersScript < TownSquareCentralScript
+class HouseOfPaupersOuterGroundsScript < TownSquareCentralScript
   protected
 
   def directions
     super + [
       SOUTHWEST,
-      'go walk',
+      'go walkway',
     ]
   end
 
   def location
-    "house_of_paupers|#{WEHNIMERS_LANDING}"
+    "house_of_paupers_outer_grounds|#{WEHNIMERS_LANDING}"
   end
 end
