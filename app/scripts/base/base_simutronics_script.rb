@@ -2,7 +2,7 @@ load "#{SCRIPTS_DIR}/base/base_script.rb", true
 
 class BaseSimutronicsScript < BaseScript
   SORRY_YOU_MAY_ONLY_TYPE_AHEAD = 'Sorry, you may only type ahead'
-  WAIT = '\.\.\.wait'
+  WAIT = '\.\.\.wait '
   WAIT_N_SECONDS = 'Wait \d+ second[s]?'
 
   RETRY_PATTERN = [
