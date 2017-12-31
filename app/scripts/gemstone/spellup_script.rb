@@ -1,10 +1,9 @@
 load "#{SCRIPTS_DIR}/base/base_gemstone_script.rb", true
 
-class BaseGemstoneSpellupScript < BaseGemstoneScript
+class SpellupScript < BaseGemstoneScript
   def run
     # parse the arguments or set the default(s)
     target = @args[0]
-    num_casts = [1, @args[1].to_i].max
     # if a target was specified, ensure that they are present
     if target
       return unless hold(target)
@@ -13,15 +12,12 @@ class BaseGemstoneSpellupScript < BaseGemstoneScript
     spells.each do |spell, self_only|
       # skip this spell if a target was specified and the spell is self-cast
       next if target && self_only
-      # handle repeats
-      num_casts.times do |i|
-        # ensure that the spell is prepared
-        break unless prep(spell)
-        # cast the spell (if target is nil it will be self-cast)
-        cast(target)
-        # sleep before proceeding on to the next spell (or exiting)
-        sleep 3.0
-      end
+      # ensure that the spell is prepared
+      next unless prep(spell)
+      # cast the spell (if target is nil it will be self-cast)
+      cast(target)
+      # sleep before proceeding on to the next spell (or exiting)
+      sleep 3.0
     end
     # remove the target from the group (if applicable)
     group_remove(target) if target
@@ -29,8 +25,11 @@ class BaseGemstoneSpellupScript < BaseGemstoneScript
 
   protected
 
+  def config_spells
+    @config[:spellup_spells]
+  end
+
   def spells
-    raise \
-      %{All "#{BaseGemstoneSpellupScript}(s)" must override the "spells" method}
+    config_spells || {}
   end
 end
