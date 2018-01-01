@@ -128,7 +128,8 @@ class BaseBridge
     allowed_command_frequency_ms = @config[:allowed_command_frequency_ms].to_f
     last_write_time_delta_ms = (Time.now - @last_write_time).to_f * 1000.0
     return if last_write_time_delta_ms >= allowed_command_frequency_ms
-    sleep_time = (allowed_command_frequency_ms - last_write_time_delta_ms) / 1000.0
+    sleep_time = \
+      (allowed_command_frequency_ms - last_write_time_delta_ms) / 1000.0
     Kernel::sleep(sleep_time)
   end
 end

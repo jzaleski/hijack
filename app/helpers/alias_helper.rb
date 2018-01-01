@@ -13,9 +13,8 @@ class AliasHelper
   private
 
   def aliases
-    (JSON.parse(File.read(config_aliases_file)) rescue config_aliases).
-      snake_case_keys.
-      symbolize_keys
+    (JSON.parse(File.read(config_aliases_file)) rescue config_aliases || {}).
+      snake_case_keys.symbolize_keys
   end
 
   def compiled_aliases
@@ -28,7 +27,7 @@ class AliasHelper
   end
 
   def config_aliases
-    @config[:aliases] || {}
+    @config[:aliases]
   end
 
   def config_aliases_file

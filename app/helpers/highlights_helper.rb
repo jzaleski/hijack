@@ -31,7 +31,7 @@ class HighlightsHelper
         :palette => {},
         :patterns_and_opts => [],
         :template => '%{value}',
-      }.merge(highlights || {})
+      }.merge(highlights)
     end
   end
 
@@ -78,8 +78,8 @@ class HighlightsHelper
   end
 
   def highlights
-    (JSON.parse(File.read(config_highlights_file)) rescue config_highlights).
-      snake_case_keys.symbolize_keys
+    (JSON.parse(File.read(config_highlights_file)) \
+      rescue config_highlights || {}).snake_case_keys.symbolize_keys
   end
 
   def palette
