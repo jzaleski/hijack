@@ -24,3 +24,4 @@ e19191cf-e2cc-11e7-9a99-1040f3853dae	00000000-0000-0000-0000-000000000000	jzales
 5dd202f0-e32c-11e7-a00c-1040f3853dae	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1513516535	1513516535	a	Add the ability to search available scripts (pass in a second argument to `;la` or a new prefix?) [QOL]
 a59707cc-e9cb-11e7-bb5e-8c859072bd0e	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1514244652	1514250169	d	Use JSON for the command-line configuration
 2aca589c-ee3e-11e7-b3be-acde48001122	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1514733643	1514733643	a	Figure out a way to anchor highlights matches, currently things like "a skeletal warhorse[ ,.]" will also match "a skeletal warhorse jaw" [BUG]
+797d86e1-ee74-11e7-9bc4-8c859072bd0e	00000000-0000-0000-0000-000000000000	jzaleski	jzaleski	1514756968	1514827547	d	Build out all of the `Hash` refinements and leverage them to build the compiled values in `HighlightsHelper`

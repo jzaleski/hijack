@@ -1,16 +1,11 @@
 class HighlightsHelper
-  DEFAULT_DEFAULTS = {}
-  DEFAULT_PALETTE = {}
-  DEFAULT_PATTERNS_AND_OPTS = []
-  DEFAULT_TEMPLATE = '%{value}'
-
   def initialize(config)
     @config = config
   end
 
   def process(line)
     line.dup.tap do |str|
-      patterns_and_opts.each do |pattern, opts|
+      compiled_patterns_and_opts.each do |pattern, opts|
         str.gsub!(pattern) do |value|
           template % opts.merge(:value => value)
         end
@@ -21,36 +16,38 @@ class HighlightsHelper
   private
 
   def background(opts)
-    palette[(opts[:background] || defaults(:background)).to_snake_case.to_sym] \
-      rescue nil
+    palette[opts[:background]]
   end
 
-  def defaults(key)
-    (highlights[:defaults] || DEFAULT_DEFAULTS)[key]
+  def compiled_defaults
+    @config[:compiled_defaults] ||= \
+      compiled_highlights[:defaults].snake_case_values.symbolize_values
   end
 
-  def font(opts)
-    palette[(opts[:font] || defaults(:font)).to_snake_case.to_sym] rescue nil
+  def compiled_highlights
+    @config[:compiled_highlights] ||= begin
+      {
+        :defaults => {},
+        :palette => {},
+        :patterns_and_opts => [],
+        :template => '%{value}',
+      }.merge(highlights || {})
+    end
   end
 
-  def foreground(opts)
-    palette[(opts[:foreground] || defaults(:foreground)).to_snake_case.to_sym] \
-      rescue nil
+  def compiled_highlights_patterns_and_opts
+    compiled_highlights[:patterns_and_opts].map do |patterns_and_opts|
+      patterns, opts = patterns_and_opts.fetch_values(:patterns, :opts)
+      patterns = patterns.to_regexp(:escape => true)
+      opts = compiled_defaults.merge(opts.snake_case_values.symbolize_values)
+      [patterns, opts]
+    end
   end
 
-  def highlights
-    @config[:highlights] || {}
-  end
-
-  def palette
-    highlights[:palette] || DEFAULT_PALETTE
-  end
-
-  def patterns_and_opts
+  def compiled_patterns_and_opts
     @config[:compiled_patterns_and_opts] ||= begin
-      (highlights[:patterns_and_opts] || DEFAULT_PATTERNS_AND_OPTS).reduce({}) do |memo, patterns_and_opts|
-        patterns, opts = patterns_and_opts.fetch_values(:patterns, :opts)
-        memo[patterns.to_regexp(:escape => true)] = {
+      compiled_highlights_patterns_and_opts.reduce({}) do |memo, (patterns, opts)|
+        memo[patterns] = {
           :background => background(opts),
           :font => font(opts),
           :foreground => foreground(opts),
@@ -60,7 +57,36 @@ class HighlightsHelper
     end
   end
 
+  def config_highlights
+    @config[:highlights]
+  end
+
+  def config_highlights_file
+    @config[:highlights_file]
+  end
+
+  def defaults
+    compiled_highlights[:defaults]
+  end
+
+  def font(opts)
+    palette[opts[:font]]
+  end
+
+  def foreground(opts)
+    palette[opts[:foreground]]
+  end
+
+  def highlights
+    (JSON.parse(File.read(config_highlights_file)) rescue config_highlights).
+      snake_case_keys.symbolize_keys
+  end
+
+  def palette
+    compiled_highlights[:palette]
+  end
+
   def template
-    highlights[:template] || DEFAULT_TEMPLATE
+    compiled_highlights[:template]
   end
 end
