@@ -1,3 +1,11 @@
+before_install:
+  # Addresses known issue on Travis CI w/ `ruby-2.5.0`
+  #
+  # Further details at the link below:
+  #
+  # https://github.com/travis-ci/travis-ci/issues/8978
+  - gem update --system
+
 language: ruby
 
 rvm:
