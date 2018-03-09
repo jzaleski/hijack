@@ -14,6 +14,8 @@ module ReturnMovementScriptMixin
     SOUTHWEST => NORTHEAST,
     UP => DOWN,
     WEST => EAST,
+    OUT => IN,
+    IN => OUT,
   }
 
   def self.included(receiver)
