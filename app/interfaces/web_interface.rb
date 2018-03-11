@@ -13,8 +13,7 @@ class WebInterface < Sinatra::Base
     end
 
     def can_reconnect?
-      current_config.try(:[], :enable_session_reconnect).to_s == 'true' &&
-        current_websocket.nil? &&
+      current_config.try(:[], :enable_session_reconnect).to_s == 'true' && \
         current_bridge.try(:connected?)
     end
 
@@ -39,10 +38,6 @@ class WebInterface < Sinatra::Base
 
     def current_connection
       @current_connection ||= settings.connections[session_id]
-    end
-
-    def current_websocket
-      @current_websocket ||= current_connection[:websocket] rescue nil
     end
 
     def disconnect(str=nil)
@@ -103,15 +98,8 @@ class WebInterface < Sinatra::Base
     end
 
     def set_connection(connection)
-      settings.connections[session_id] = {
-        :config => nil,
-        :bridge => nil,
-        :websocket => nil,
-      }.merge(connection)
-    end
-
-    def set_websocket(websocket)
-      settings.connections[session_id][:websocket] = websocket
+      settings.connections[session_id] = \
+        { :config => nil, :bridge => nil }.merge(connection)
     end
   end
 
@@ -136,52 +124,6 @@ class WebInterface < Sinatra::Base
       response_data(bridge_helper.available_bridges(request[:data]))
     rescue Exception => e
       halt 500, e.message
-    end
-  end
-
-  get '/connect' do
-    halt 403, 'Unsupported scheme' unless request.websocket?
-    request.websocket do |websocket|
-      set_websocket(websocket)
-      websocket.onclose { disconnect }
-      websocket.onmessage do |message|
-        request_data = (JSON::parse(message) rescue {})['data']
-        if current_config.nil?
-          connected = false
-          config_processed = false
-          begin
-            config = config_helper.process_hash(request_data)
-            set_config(config)
-            config_processed = true
-          rescue Exception => e
-            websocket.send(response_data(e.message))
-            websocket.close_websocket
-          end
-          if config_processed
-            begin
-              bridge = connect(config)
-              set_bridge(bridge)
-              connected = true
-            rescue Exception => e
-              websocket.send(response_data(e.message))
-              websocket.close_websocket
-            end
-          end
-          if connected
-            Thread.new do
-              loop do
-                websocket.send(response_data(htmlify(gets)))
-              end
-            end
-          end
-        else
-          if disconnect?(request_data)
-            disconnect(request_data)
-          elsif request_data.present?
-            puts(request_data)
-          end
-        end
-      end
     end
   end
 

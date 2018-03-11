@@ -43,11 +43,10 @@ REQUIRED_MODULES = %w[
   readline
   rexml/document
   set
+  sinatra/base
   socket
   thread
 ]
-REQUIRED_MODULES +=  %w[sinatra/base sinatra-websocket] \
-  unless RUBY_PLATFORM =~ /java|jruby/
 REQUIRED_MODULES += Dir["#{CLASSES_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{REFINEMENTS_DIR}/*.rb"]
 REQUIRED_MODULES += Dir["#{HELPERS_DIR}/*.rb"]

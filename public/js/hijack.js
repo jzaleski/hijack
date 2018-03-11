@@ -15,13 +15,12 @@ var Hijack = (function($) {
       config,
       defaultOptions = {
         enableLichNet: true,
-        enableSessionReconnect: WebSocket === undefined,
+        enableSessionReconnect: true,
         maxScrollbackLines: 500,
         stripPlayerStatusPrompt: false,
         stripRetryableOutput: false
       },
-      scrollbackLines,
-      websocket;
+      scrollbackLines;
 
   var aliasData = function(game) {
     if (!game || game.length == 0) {
@@ -35,14 +34,6 @@ var Hijack = (function($) {
   };
 
   var connect = function() {
-    if (WebSocket !== undefined) {
-      connectWebSocket();
-    } else {
-      connectAjax();
-    }
-  };
-
-  var connectAjax = function() {
     $.ajax({
       type: 'POST',
       url: '/connect',
@@ -76,33 +67,11 @@ var Hijack = (function($) {
     };
   };
 
-  var connectWebSocket = function() {
-    websocket = new WebSocket('ws://' + window.location.host + '/connect');
-    websocket.onclose = function(closeEvent) {
-      onDisconnect($output.children().length == 0 ? $output.html() : null);
-    };
-    websocket.onmessage = function(messageEvent) {
-      onMessage(JSON.parse(messageEvent.data));
-    };
-    websocket.onopen = function(openEvent) {
-      websocket.send(JSON.stringify(requestData(connectData())));
-      onConnectSuccess();
-    };
-  };
-
   var disableElement = function($element) {
     $element.attr('disabled', 'disabled');
   };
 
   var disconnect = function(str) {
-    if (websocket !== undefined) {
-      disconnectWebSocket(str);
-    } else {
-      disconnectAjax(str);
-    }
-  };
-
-  var disconnectAjax = function(str) {
     $.ajax({
       type: 'POST',
       url: '/disconnect',
@@ -112,12 +81,6 @@ var Hijack = (function($) {
         onDisconnect();
       }
     });
-  };
-
-  var disconnectWebSocket = function(str) {
-    putsWebSocket(str);
-    websocket.close();
-    onDisconnect();
   };
 
   var enableElement = function($element) {
@@ -382,14 +345,6 @@ var Hijack = (function($) {
     }
     commandHistory.unshift(str);
     commandHistoryIndex = -1;
-    if (websocket !== undefined) {
-      putsWebSocket(str);
-    } else {
-      putsAjax(str);
-    }
-  };
-
-  var putsAjax = function(str) {
     $.ajax({
       type: 'POST',
       url: '/puts',
@@ -397,19 +352,7 @@ var Hijack = (function($) {
     });
   };
 
-  var putsWebSocket = function(str) {
-    websocket.send(JSON.stringify(requestData(str)));
-  };
-
   var reconnect = function() {
-    if (WebSocket !== undefined) {
-      reconnectWebSocket();
-    } else {
-      reconnectAjax();
-    }
-  };
-
-  var reconnectAjax = function() {
     $.ajax({
       type: 'POST',
       url: '/reconnect',
@@ -423,10 +366,6 @@ var Hijack = (function($) {
 
   var reconnectData = function() {
     return {};
-  };
-
-  var reconnectWebSocket = function() {
-    console.log("Session `reconnect` is not currently supported for `WebSocket(s)`");
   };
 
   var requestData = function(value) {

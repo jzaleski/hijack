@@ -1,13 +1,21 @@
 class LayoutHelper
   def initialize(config)
     @config = config
+    if @config.include?(:num_cols)
+      @config[:num_cols] = @config[:num_cols].to_i
+    end
+    if @config.include?(:num_rows)
+      @config[:num_rows] = @config[:num_rows].to_i
+    end
+    if @config.include?(:strip_ansi_escape_sequences)
+      @config[:strip_ansi_escape_sequences] = \
+        @config[:strip_ansi_escape_sequences].to_s == 'true'
+    end
   end
 
   def num_cols
     @config[:num_cols] ||= begin
-      if @config.include?(:num_cols)
-        @config[:num_cols].to_i
-      elsif RUBY_PLATFORM =~ /mingw32/
+      if RUBY_PLATFORM =~ /mingw32/
         mode_parts = `mode con`.split
         mode_parts[mode_parts.index('Columns:') + 1].to_i
       else
@@ -18,9 +26,7 @@ class LayoutHelper
 
   def num_rows
     @config[:num_rows] ||= begin
-      if @config.include?(:num_rows)
-        @config[:num_rows].to_i
-      elsif RUBY_PLATFORM =~ /mingw32/
+      if RUBY_PLATFORM =~ /mingw32/
         mode_parts = `mode con`.split
         mode_parts[mode_parts.index('Lines:') + 1].to_i
       else
@@ -30,10 +36,8 @@ class LayoutHelper
   end
 
   def strip_ansi_escape_sequences?
-    @strip_ansi_escape_sequences ||= begin
-      if @config.include?(:strip_ansi_escape_sequences)
-        @config.strip_ansi_escape_sequences?
-      elsif RUBY_PLATFORM =~ /mingw32/
+    @config[:strip_ansi_escape_sequences] ||= begin
+      if RUBY_PLATFORM =~ /mingw32/
         true
       else
         false
