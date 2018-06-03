@@ -1,5 +1,5 @@
 before_install:
-  # Addresses known issue on Travis CI w/ `ruby-2.5.0`
+  # Addresses known issue on Travis CI w/ `ruby-2.5.x`
   #
   # Further details at the link below:
   #
@@ -9,7 +9,6 @@ before_install:
 language: ruby
 
 rvm:
-  - 2.2.9
   - 2.3.6
   - 2.4.3
-  - 2.5.0
+  - 2.5.1

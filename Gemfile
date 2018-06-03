@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 if ENV['HEROKU']
-  ruby '2.5.0'
+  ruby '2.5.1'
 end
 
 gem 'pry', '~> 0.11'
