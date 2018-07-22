@@ -1,28 +1,23 @@
 #!/usr/bin/env bash
 
 # if a "CLIENT_FILE" was not specified use "stdout"
-if [ -z "$CLIENT_FILE" ];
-then
+if [ -z "$CLIENT_FILE" ]; then
   CLIENT_FILE=/dev/stdout;
 fi
 
 # read loop
-while [ 1 ];
-do
+while [ 1 ]; do
   read -e -p '> ' RAW_INPUT;
-  if [ -n "$RAW_INPUT" ];
-  then
+  if [ -n "$RAW_INPUT" ]; then
     echo $RAW_INPUT >> $CLIENT_FILE;
     history -s $RAW_INPUT;
   fi
-  if [[ $RAW_INPUT =~ ^(\|*exit|\|*quit)$ ]];
-  then
+  if [[ $RAW_INPUT =~ ^(\|*exit|\|*quit)$ ]]; then
     break;
   fi
 done
 
 # ensure that the client (screen) is torn down on exit
-if [ -n "$STY" ];
-then
+if [ -n "$STY" ]; then
   screen -X quit > /dev/null 2>&1;
 fi

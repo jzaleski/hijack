@@ -123,7 +123,7 @@ class LichNetHelper
   def initialize_read_thread
     @read_thread ||= Thread.new do
       while connected?
-        (read || []).each do |value|
+        ((read rescue nil) || []).each do |value|
           @stdout.puts(@output_format % value)
         end
       end

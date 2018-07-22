@@ -36,8 +36,12 @@ class BaseBridge
   end
 
   def gets
+    # read a line from the output-buffer
+    str = @output_buffer.gets
+    # short-circuit, and return `''`, if `str` is `nil`
+    return '' if str.nil?
     # convert CRLF to LF, then any left-over CR to LF, then remove the last LF
-    str = @output_buffer.gets.gsub(/\r\n/, "\n").gsub(/\r/, "\n").chomp
+    str = str.gsub(/\r\n/, "\n").gsub(/\r/, "\n").chomp
     # process any callbacks (returns nil)
     @callback_helper.process(str)
     # apply any highlights, escape escaped escapes and return the result
@@ -63,15 +67,16 @@ class BaseBridge
   def start_buffering
     @read_thread ||= Thread.new do
       while connected?
-        @output_buffer.puts(socket.gets)
+        @output_buffer.puts((socket.gets rescue nil))
       end
     end
     @write_thread ||= Thread.new do
       while connected?
-        # some games have a limit on how frequently commands can be executed and
-        # this loop will execute commands in near real time. To ensure that we
-        # do not get rate-limited, we will throttle writes (the delay value is
-        # configurable via the `allowed_command_frequency_ms` config-parameter)
+        # some games have a limit on how frequently commands can be executed
+        # and this loop will execute commands in near real time. To ensure that
+        # we do not get rate-limited, we will throttle writes (the delay value
+        # is configurable via the `allowed_command_frequency_ms`
+        # config-parameter)
         throttle_write
         # extract the command and opts (opts *should* never be nil, but we are
         # safe either way)
