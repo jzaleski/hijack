@@ -5,7 +5,7 @@ if ENV['HEROKU']
 end
 
 gem 'pry', '~> 0.11'
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 gem 'rake', '~> 12.3'
 gem 'rb-readline', '~> 0.5'
 gem 'rexml', '~> 3.2'
