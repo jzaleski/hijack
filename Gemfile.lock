@@ -15,6 +15,7 @@ GEM
       rack
     rake (12.3.3)
     rb-readline (0.5.5)
+    rexml (3.2.5)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -44,6 +45,7 @@ DEPENDENCIES
   puma (~> 3.12)
   rake (~> 12.3)
   rb-readline (~> 0.5)
+  rexml (~> 3.2)
   rspec (~> 3.7)
   sinatra (~> 2.0)
 
