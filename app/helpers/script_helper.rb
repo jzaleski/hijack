@@ -27,7 +27,9 @@ class ScriptHelper
   def execute(command)
     if command.present?
       command_parts = command.split
-      if command_parts[0] == 'ka'
+      if command_parts[0] == 'return'
+        execute(return_script_name(@config[:location]))
+      elsif command_parts[0] == 'ka'
         kill_all
       elsif command_parts[0] == 'pa'
         pause_all
