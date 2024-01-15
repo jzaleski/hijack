@@ -78,7 +78,7 @@ class HighlightsHelper
   end
 
   def highlights
-    (JSON.parse(File.read(config_highlights_file)) \
+    (JSON.parse(File.read(File.expand_path(config_highlights_file))) \
       rescue config_highlights || {}).snake_case_keys.symbolize_keys
   end
 
