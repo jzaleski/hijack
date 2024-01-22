@@ -36,6 +36,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   PREPARED_SPELL_TO_RELEASE = 'prepared spell to release'
   REMOVE_WHAT = 'Remove what'
   ROUNDTIME = 'Roundtime: '
+  SETTING_STANCE_TO_GUARDED = 'Setting stance to guarded'
   SILVER_FOR_IT = 'silver for it\.'
   SOLHAVEN = 'solhaven'
   THAT_IS_ALREADY_CLOSED = 'That is already closed'
@@ -62,6 +63,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_ARE_NOT_HOLDING_THAT = 'You are not holding that'
   YOU_ARE_NOW_IN_AN_OFFENSIVE_STANCE = 'You are now in an offensive stance'
   YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE = 'You are now in a defensive stance'
+  YOU_ARE_NOW_IN_A_GUARDED_STANCE = 'You are now in a guarded stance'
   YOU_ATTACH = 'You attach'
   YOU_ATTEMPT_TO_BLEND_WITH = 'You attempt to blend with'
   YOU_BOTCHED_THE_JOB = 'You botched the job'
@@ -73,6 +75,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
   YOU_CURRENTLY_HAVE_NO_VALID_TARGET = 'You currently have no valid target'
   YOU_DONT_HAVE_ANY_MANA = "you don't have any mana"
   YOU_DONT_HAVE_A_SPELL_PREPARED = "You don't have a spell prepared"
+  YOU_DO_NOT_CURRENTLY_HAVE_A_TARGET = 'You do not currently have a target'
   YOU_DO_NOT_HAVE_THAT_MUCH_SILVER = 'You do not have that much silver'
   YOU_DO_NOT_KNOW_THAT_SPELL = 'You do not know that spell'
   YOU_DROP = 'You drop'
@@ -267,6 +270,7 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   INCANT_PATTERN = [
     THAT_IS_NOT_SOMETHING_YOU_CAN_PREPARE,
+    YOU_DO_NOT_CURRENTLY_HAVE_A_TARGET,
     YOU_GESTURE,
   ].join('|')
 
@@ -461,6 +465,16 @@ class BaseGemstoneScript < BaseSimutronicsScript
 
   STANCE_DEFENSIVE_SUCCESS_PATTERN = [
     YOU_ARE_NOW_IN_A_DEFENSIVE_STANCE,
+  ].join('|')
+
+  STANCE_GUARDED_PATTERN = [
+    SETTING_STANCE_TO_GUARDED,
+    YOU_ARE_NOW_IN_A_GUARDED_STANCE,
+  ].join('|')
+
+  STANCE_GUARDED_SUCCESS_PATTERN = [
+    SETTING_STANCE_TO_GUARDED,
+    YOU_ARE_NOW_IN_A_GUARDED_STANCE,
   ].join('|')
 
   STANCE_OFFENSIVE_PATTERN = [
@@ -754,6 +768,13 @@ class BaseGemstoneScript < BaseSimutronicsScript
       STANCE_DEFENSIVE_PATTERN,
       'stance defensive',
     ).match(STANCE_DEFENSIVE_SUCCESS_PATTERN)
+  end
+
+  def stance_guarded
+    wait_for_match(
+      STANCE_GUARDED_PATTERN,
+      'stance guarded',
+    ).match(STANCE_GUARDED_SUCCESS_PATTERN)
   end
 
   def stance_offensive
