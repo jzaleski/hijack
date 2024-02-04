@@ -23,6 +23,10 @@ module ReturnMovementScriptMixin
       def directions
         reverse_directions(super)
       end
+
+      def location
+        nexus_location
+      end
     end
   end
 
