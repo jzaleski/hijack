@@ -15,7 +15,7 @@ class ScriptHelper
     @logging_helper = logging_helper
     @arguments_helper = ArgumentsHelper.new(@config)
     @scripts = {}
-    @last_scripts_by_type_name = {}
+    @last_script_names_by_type_name = {}
   end
 
   def moving?
@@ -87,9 +87,9 @@ class ScriptHelper
             # memoize the script-object so that it can be managed externally
             store(script_name, script_object)
             # update the "last_script" information
-            @last_script = script_name
+            @last_script_name = script_name
             script_object.class.ancestors[1..-1].each do |ancestor|
-              @last_scripts_by_type_name[ancestor.name] = script_name
+              @last_script_names_by_type_name[ancestor.name] = script_name
             end
             # start execution then block until the script exits or is killed
             script_object.start_run
@@ -333,7 +333,7 @@ class ScriptHelper
       !script_object.class.name.end_with?('ReturnScript') &&
       @config[:location].present? &&
       script_object.send(:nexus_location) != @config[:location] &&
-      @last_script !~ /_return\Z/
+      @last_script_name !~ /_return\Z/
   end
 
   def store(script_name, script_object)
