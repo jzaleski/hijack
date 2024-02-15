@@ -5,6 +5,7 @@ module MovementScriptMixin
   NORTHEAST = 'northeast'
   NORTHWEST = 'northwest'
   OUT = 'out'
+  IN = 'in'
   SOUTH = 'south'
   SOUTHEAST = 'southeast'
   SOUTHWEST = 'southwest'
