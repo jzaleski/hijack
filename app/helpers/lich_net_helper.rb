@@ -135,7 +135,7 @@ class LichNetHelper
       ssl_context = OpenSSL::SSL::SSLContext.new
       ssl_context.cert_store = @certificate_store
       ssl_context.options = (OpenSSL::SSL::OP_NO_SSLv2 + OpenSSL::SSL::OP_NO_SSLv3)
-      ssl_context.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
       ssl_context
     end
   end
